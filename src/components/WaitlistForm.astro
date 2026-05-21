@@ -14,11 +14,10 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 
 <section id="waitlist" class="panel rounded-[1.75rem] p-6 md:p-8">
   <div class="flex flex-col gap-3">
-    <p class="eyebrow">Join the waitlist</p>
-    <h2 class="text-4xl text-stone-900 md:text-5xl">Get a front row seat as GalexC becomes a real product surface.</h2>
+    <p class="eyebrow">Request early access</p>
+    <h2 class="text-4xl text-stone-900 md:text-5xl">Tell me the first repeated workflow you would trust GalexC with.</h2>
     <p class="max-w-2xl text-lg leading-8 text-stone-700">
-      I am starting with a simple waitlist. Tell me who you are, what kind of work you want help with,
-      and I will use that signal to shape the first public release.
+      Tell me what you want to use it for. I will use that signal to decide who gets invited first and what the product sharpens around next.
     </p>
   </div>
 
@@ -43,8 +42,8 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
     </div>
 
     <label class="grid gap-2 text-sm font-medium text-stone-700">
-      What are you hoping GalexC can help with?
-      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="A few sentences is plenty."></textarea>
+      What repeated workflow would you put through GalexC first?
+      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="What is the workflow, and why does it matter?"></textarea>
     </label>
 
     <div class="sr-only" aria-hidden="true">
@@ -66,9 +65,9 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 
     <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <p class="max-w-xl text-sm leading-6 text-stone-600">
-        Submissions are protected with Cloudflare Turnstile, rate limiting, and duplicate suppression. I will only use this information to follow up about GalexC.
+        Submissions are protected with Cloudflare Turnstile, rate limiting, and duplicate suppression. I will only use this information to follow up about GalexC and to steer early product decisions.
       </p>
-      <button class="primary-button" type="submit" disabled={!siteKey}>Join the waitlist</button>
+      <button class="primary-button" type="submit" disabled={!siteKey}>Request early access</button>
     </div>
   </form>
 
