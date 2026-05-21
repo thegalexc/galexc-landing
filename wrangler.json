@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "galexc-landing",
+  "compatibility_date": "2026-05-21",
+  "pages_build_output_dir": "dist",
+  "d1_databases": [],
+  "kv_namespaces": [
+    {
+      "binding": "RATE_LIMIT",
+      "id": "e67de64f28d34814bb8f28d0f6107615"
+    }
+  ],
+  "vars": {
+    "GALEXC_ADMIN_EMAILS": "gilman@galexc.me"
+  }
+}

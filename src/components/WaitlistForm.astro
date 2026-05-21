@@ -1,0 +1,76 @@
+---
+interface Props {
+  issuedAt: string;
+  formToken: string;
+  siteKey?: string;
+  status?: {
+    tone: 'success' | 'error' | 'info';
+    message: string;
+  } | null;
+}
+
+const { issuedAt, formToken, siteKey, status = null } = Astro.props;
+---
+
+<section id="waitlist" class="panel rounded-[1.75rem] p-6 md:p-8">
+  <div class="flex flex-col gap-3">
+    <p class="eyebrow">Join the waitlist</p>
+    <h2 class="text-4xl text-stone-900 md:text-5xl">Get a front row seat as GalexC becomes a real product surface.</h2>
+    <p class="max-w-2xl text-lg leading-8 text-stone-700">
+      I am starting with a simple waitlist. Tell me who you are, what kind of work you want help with,
+      and I will use that signal to shape the first public release.
+    </p>
+  </div>
+
+  <div class="mt-6">
+    {status && <div class:list={['status-banner', status.tone]}>{status.message}</div>}
+  </div>
+
+  <form method="POST" action="/api/waitlist" class="mt-6 grid gap-4">
+    <input type="hidden" name="issued_at" value={issuedAt} />
+    <input type="hidden" name="form_token" value={formToken} />
+    <input type="hidden" name="source" value="landing" />
+
+    <div class="grid gap-4 md:grid-cols-2">
+      <label class="grid gap-2 text-sm font-medium text-stone-700">
+        Name
+        <input class="waitlist-input" type="text" name="name" maxlength="120" autocomplete="name" placeholder="Gilman Callsen" />
+      </label>
+      <label class="grid gap-2 text-sm font-medium text-stone-700">
+        Email
+        <input class="waitlist-input" type="email" name="email" required maxlength="320" autocomplete="email" placeholder="you@example.com" />
+      </label>
+    </div>
+
+    <label class="grid gap-2 text-sm font-medium text-stone-700">
+      What are you hoping GalexC can help with?
+      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="A few sentences is plenty."></textarea>
+    </label>
+
+    <div class="sr-only" aria-hidden="true">
+      <label>
+        Company
+        <input type="text" name="company" tabindex="-1" autocomplete="organization" />
+      </label>
+    </div>
+
+    {siteKey ? (
+      <div class="overflow-x-auto">
+        <div class="cf-turnstile" data-sitekey={siteKey}></div>
+      </div>
+    ) : (
+      <div class="status-banner info">
+        Turnstile is not configured yet. The form will stay disabled until the site key and secret are set.
+      </div>
+    )}
+
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <p class="max-w-xl text-sm leading-6 text-stone-600">
+        Submissions are protected with Cloudflare Turnstile, rate limiting, and duplicate suppression.
+      </p>
+      <button class="primary-button" type="submit" disabled={!siteKey}>Join the waitlist</button>
+    </div>
+  </form>
+
+  {siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+</section>

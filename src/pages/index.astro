@@ -1,0 +1,152 @@
+---
+import { env } from 'cloudflare:workers';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import Layout from '../layouts/Layout.astro';
+import { createFormToken } from '../lib/form-token';
+
+const issuedAt = Date.now().toString();
+const formToken = await createFormToken(issuedAt, 'waitlist');
+const siteKey = env.TURNSTILE_SITE_KEY;
+const waitlistState = Astro.url.searchParams.get('waitlist');
+
+const stateMap = {
+  success: {
+    tone: 'success',
+    message: 'You are on the list. Thanks for the signal.',
+  },
+  invalid: {
+    tone: 'error',
+    message: 'That submission could not be accepted. Please check the form and try again.',
+  },
+  rate_limited: {
+    tone: 'error',
+    message: 'That form has seen too many recent attempts. Please wait a bit and try again.',
+  },
+  unavailable: {
+    tone: 'error',
+    message: 'The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.',
+  },
+  blocked: {
+    tone: 'error',
+    message: 'That submission looked automated, so it was not accepted.',
+  },
+} as const;
+
+const waitlistStatus = waitlistState && waitlistState in stateMap ? stateMap[waitlistState as keyof typeof stateMap] : null;
+---
+
+<Layout
+  title="GalexC"
+  description="GalexC is a product surface for durable agentic workflows, family use, and operational automation."
+>
+  <div class="editorial-shell px-4 py-6 md:px-6 md:py-10">
+    <header class="flex flex-col gap-5 rounded-[1.75rem] border border-[rgba(120,113,108,0.16)] bg-[rgba(250,247,241,0.56)] px-6 py-5 md:flex-row md:items-center md:justify-between md:px-8">
+      <div class="flex flex-col gap-2">
+        <p class="eyebrow">GalexC / editorial systems / product</p>
+        <a href="/" class="kicker-link text-lg font-medium">galexc.net</a>
+      </div>
+      <nav class="flex flex-wrap gap-3 text-sm text-stone-600">
+        <a class="secondary-button" href="#story">Why this exists</a>
+        <a class="secondary-button" href="#surface">What is coming</a>
+        <a class="primary-button" href="#waitlist">Join the waitlist</a>
+      </nav>
+    </header>
+
+    <section class="hero-grid py-12 md:py-16">
+      <div class="flex flex-col gap-6">
+        <p class="eyebrow">A new home for the actual product surface</p>
+        <h1 class="max-w-4xl text-6xl leading-[0.94] text-stone-950 md:text-7xl lg:text-[5.4rem]">
+          Agentic infrastructure that feels editorial, calm, and operationally real.
+        </h1>
+        <p class="max-w-3xl text-xl leading-9 text-stone-700 md:text-2xl">
+          GalexC.me stays the blog. Galexc.net becomes the product surface.
+          The first release is intentionally small: a clear front door, a secure waitlist,
+          and the operational foundation for a real app behind it.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a class="primary-button" href="#waitlist">Join the waitlist</a>
+          <a class="secondary-button" href="https://galexc.me/dispatches">Read the dispatches</a>
+        </div>
+      </div>
+
+      <aside class="panel rounded-[1.75rem] p-6 md:p-8">
+        <p class="eyebrow">Day one shape</p>
+        <div class="mt-5 grid gap-6">
+          <div class="metric-card">
+            <div class="metric-value">1</div>
+            <div class="metric-label">Landing page</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">1</div>
+            <div class="metric-label">Public waitlist flow</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">1</div>
+            <div class="metric-label">Admin surface for intake review</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="story" class="grid gap-6 py-8 md:grid-cols-[1.05fr_0.95fr] md:py-12">
+      <article class="panel rounded-[1.75rem] p-6 md:p-8">
+        <p class="eyebrow">Why this exists</p>
+        <h2 class="mt-3 text-4xl text-stone-900 md:text-5xl">The blog explains the work. This site needs to become the work.</h2>
+        <div class="mt-5 grid gap-5 text-lg leading-8 text-stone-700">
+          <p>
+            GalexC started as a homelab for agentic workflows, family systems, and operational tooling.
+            The dispatches are where that work gets explained in public.
+          </p>
+          <p>
+            The product surface needs a different job. It should welcome people, collect signal cleanly,
+            and grow into a place where the software itself lives.
+          </p>
+          <p>
+            This first version sets the foundation without pretending the whole product already exists.
+          </p>
+        </div>
+      </article>
+
+      <article id="surface" class="panel rounded-[1.75rem] p-6 md:p-8">
+        <p class="eyebrow">What is coming</p>
+        <div class="mt-4 grid gap-5 text-stone-700">
+          <div>
+            <h3 class="text-3xl text-stone-900">Operational interfaces</h3>
+            <p class="mt-2 text-lg leading-8">Surfaces for real workflows, not AI theater.</p>
+          </div>
+          <div>
+            <h3 class="text-3xl text-stone-900">Personal and family use cases</h3>
+            <p class="mt-2 text-lg leading-8">A system that can cross from serious work into everyday life without collapsing.</p>
+          </div>
+          <div>
+            <h3 class="text-3xl text-stone-900">A credible path to product</h3>
+            <p class="mt-2 text-lg leading-8">This repo is built to expand into a real app behind the same domain when that moment arrives.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <WaitlistForm issuedAt={issuedAt} formToken={formToken} siteKey={siteKey} status={waitlistStatus} />
+
+    <section class="grid gap-6 py-10 md:grid-cols-3">
+      <article class="panel rounded-[1.5rem] p-6">
+        <p class="eyebrow">Secure by default</p>
+        <p class="mt-3 text-lg leading-8 text-stone-700">
+          Turnstile, honeypot fields, signed form tokens, duplicate suppression, and rate limiting are all part of the day one waitlist flow.
+        </p>
+      </article>
+      <article class="panel rounded-[1.5rem] p-6">
+        <p class="eyebrow">Cloudflare native</p>
+        <p class="mt-3 text-lg leading-8 text-stone-700">
+          Astro server rendering on Pages, D1 for durable data, KV for simple throttling, and Access for the private admin surface.
+        </p>
+      </article>
+      <article class="panel rounded-[1.5rem] p-6">
+        <p class="eyebrow">Ready to grow</p>
+        <p class="mt-3 text-lg leading-8 text-stone-700">
+          The route layout leaves clean space for a future app without needing a structural rewrite.
+        </p>
+      </article>
+    </section>
+  </div>
+</Layout>

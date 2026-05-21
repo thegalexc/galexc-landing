@@ -1,0 +1,49 @@
+name: Deploy to Cloudflare Pages
+on:
+  push:
+    branches: [main, 'feat/**', 'agent/**']
+
+jobs:
+  deploy:
+    runs-on: docker
+    defaults:
+      run:
+        shell: bash
+    container:
+      image: node:24-slim
+    steps:
+      - name: Install system dependencies
+        run: apt-get update && apt-get install -y git ca-certificates curl
+
+      - name: Checkout
+        run: git clone --branch "$GITHUB_REF_NAME" "https://x-access-token:${FORGE_TOKEN}@${GITHUB_SERVER_URL#https://}/${GITHUB_REPOSITORY}.git" .
+        env:
+          FORGE_TOKEN: ${{ github.token }}
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        run: |
+          set -o pipefail
+          pnpm exec wrangler pages deploy dist \
+            --project-name=galexc-landing \
+            --branch="$GITHUB_REF_NAME" \
+            2>&1 | tee /tmp/deploy-output.txt
+          DEPLOY_URL=$(grep -oE 'https://[^ ]+\.pages\.dev' /tmp/deploy-output.txt | tail -1)
+          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Notify preview URL
+        if: startsWith(github.ref_name, 'feat/') || startsWith(github.ref_name, 'agent/')
+        run: |
+          echo "Preview: ${{ steps.deploy.outputs.url }}"

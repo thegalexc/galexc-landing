@@ -1,0 +1,12 @@
+dist/
+node_modules/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+.wrangler/
+.wrangler-local/
+.galexc/
+.galexc-dev.log
+.galexc-dev.pid

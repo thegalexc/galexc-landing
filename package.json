@@ -1,0 +1,34 @@
+{
+  "name": "galexc-landing",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "bash ./bin/dev.sh",
+    "db:migrate:local": "bash ./bin/bootstrap-local-db.sh",
+    "build": "bash ./bin/run-with-local-wrangler.sh pnpm exec astro build",
+    "preview": "bash ./bin/run-with-local-wrangler.sh pnpm exec astro preview",
+    "check": "bash ./bin/run-with-local-wrangler.sh pnpm exec astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.1",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/cloudflare": "^13.3.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "@types/node": "^25.6.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.87.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "workerd"]
+  }
+}
