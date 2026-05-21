@@ -36,7 +36,11 @@ Set local environment values in `.env` or your shell as needed.
 
 ## SOPS
 
-This repo uses SOPS with age recipients defined in `.sops.yaml`.
+This repo follows the same repo-local key pattern as `galexc-net`.
+
+Local workstation setup:
+- place `.sops-age-key.txt` in the repo root
+- keep it untracked
 
 Encrypted dotenv files:
 - `secrets/github.env`
@@ -45,7 +49,13 @@ Encrypted dotenv files:
 To edit one locally:
 
 ```bash
-sops secrets/github.env
+just secrets-edit secrets/github.env
+```
+
+To verify local decryption works:
+
+```bash
+just secrets-check secrets/github.env
 ```
 
 CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY`.

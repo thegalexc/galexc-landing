@@ -4,6 +4,7 @@ node_modules/
 .env
 .env.*
 !.env.example
+.sops-age-key.txt
 .DS_Store
 .wrangler/
 .wrangler-local/
