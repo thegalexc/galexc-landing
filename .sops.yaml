@@ -1,0 +1,5 @@
+creation_rules:
+  - path_regex: ^secrets/(github|github-preview)\.env$
+    age: >-
+      age1tkdw5tnah7503rjvjph9j3at849rtetfpa68kz84wx3w45m5fuhs9a5kna,
+      age1fyg286f0ev4kw5u389mhxh24f2jtes0sax2pjvh646he5ld3w3yq22azjw

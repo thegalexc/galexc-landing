@@ -3,6 +3,9 @@ on:
   push:
     branches: [main, 'feat/**', 'agent/**']
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     runs-on: docker
@@ -26,14 +29,40 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install SOPS
+        run: |
+          SOPS_VERSION="v3.9.4"
+          curl -L -o /usr/local/bin/sops "https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64"
+          chmod +x /usr/local/bin/sops
+          sops --version
+
+      - name: Determine secrets file
+        id: secrets
+        run: |
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            echo "file=secrets/github.env" >> $GITHUB_OUTPUT
+          else
+            echo "file=secrets/github-preview.env" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build
-        run: pnpm build
+        run: |
+          sops exec-env "${{ steps.secrets.outputs.file }}" \
+            "pnpm build"
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+
+      - name: Apply D1 migrations
+        run: |
+          sops exec-env "${{ steps.secrets.outputs.file }}" \
+            "pnpm exec wrangler d1 migrations apply DB --remote"
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        continue-on-error: true
 
       - name: Deploy to Cloudflare Workers
         run: |
-          pnpm exec wrangler deploy dist/server/entry.mjs \
-            --config dist/server/wrangler.json \
-            --keep-vars
+          sops exec-env "${{ steps.secrets.outputs.file }}" \
+            "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars"
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}

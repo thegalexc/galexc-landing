@@ -31,16 +31,30 @@ Set local environment values in `.env` or your shell as needed.
 
 - D1 binding `DB`
 - KV binding `RATE_LIMIT`
-- `GALEXC_ADMIN_EMAILS`
-- `IP_HMAC_SECRET`
-- `TURNSTILE_SITE_KEY`
-- `TURNSTILE_SECRET`
+- encrypted secrets in `secrets/github.env` and `secrets/github-preview.env`
+- Forgejo secret `SOPS_AGE_KEY` for CI decryption
+
+## SOPS
+
+This repo uses SOPS with age recipients defined in `.sops.yaml`.
+
+Encrypted dotenv files:
+- `secrets/github.env`
+- `secrets/github-preview.env`
+
+To edit one locally:
+
+```bash
+sops secrets/github.env
+```
+
+CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY`.
 
 ## Database
 
 Initial schema lives at `migrations/0001_create_waitlist.sql`.
 
-Once the D1 database exists and `wrangler.json` has the real `database_id`, apply migrations with:
+Apply migrations with:
 
 ```bash
 pnpm db:migrate:local
