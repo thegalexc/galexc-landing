@@ -58,7 +58,7 @@ To verify local decryption works:
 just env-check secrets/github.env
 ```
 
-CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY`.
+CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY` and uploads worker runtime secrets from the decrypted values during deploy.
 
 ## Database
 
