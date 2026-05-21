@@ -15,10 +15,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 <section id="waitlist" class="panel rounded-[1.75rem] p-6 md:p-8">
   <div class="flex flex-col gap-3">
     <p class="eyebrow">Request early access</p>
-    <h2 class="text-4xl text-stone-900 md:text-5xl">Tell me the first repeated workflow you would trust GalexC with.</h2>
-    <p class="max-w-2xl text-lg leading-8 text-stone-700">
-      Tell me what you want to use it for. I will use that signal to decide who gets invited first and what the product sharpens around next.
-    </p>
+    <h2 class="text-4xl text-stone-900 md:text-5xl">Tell me the first workflow you would trust GalexC with.</h2>
   </div>
 
   <div class="mt-6">
@@ -43,7 +40,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 
     <label class="grid gap-2 text-sm font-medium text-stone-700">
       What repeated workflow would you put through GalexC first?
-      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="What is the workflow, and why does it matter?"></textarea>
+      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="What is the workflow?"></textarea>
     </label>
 
     <div class="sr-only" aria-hidden="true">
@@ -65,7 +62,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 
     <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <p class="max-w-xl text-sm leading-6 text-stone-600">
-        Submissions are protected with Cloudflare Turnstile, rate limiting, and duplicate suppression. I will only use this information to follow up about GalexC and to steer early product decisions.
+        Protected with Cloudflare Turnstile, rate limiting, and duplicate suppression.
       </p>
       <button class="primary-button" type="submit" disabled={!siteKey}>Request early access</button>
     </div>
