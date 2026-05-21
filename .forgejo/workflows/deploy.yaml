@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Workers
 on:
   push:
     branches: [main, 'feat/**', 'agent/**']
@@ -29,21 +29,11 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to Cloudflare Pages
-        id: deploy
+      - name: Deploy to Cloudflare Workers
         run: |
-          set -o pipefail
-          pnpm exec wrangler pages deploy dist \
-            --project-name=galexc-landing \
-            --branch="$GITHUB_REF_NAME" \
-            2>&1 | tee /tmp/deploy-output.txt
-          DEPLOY_URL=$(grep -oE 'https://[^ ]+\.pages\.dev' /tmp/deploy-output.txt | tail -1)
-          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          pnpm exec wrangler deploy dist/server/entry.mjs \
+            --config dist/server/wrangler.json \
+            --keep-vars
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Notify preview URL
-        if: startsWith(github.ref_name, 'feat/') || startsWith(github.ref_name, 'agent/')
-        run: |
-          echo "Preview: ${{ steps.deploy.outputs.url }}"

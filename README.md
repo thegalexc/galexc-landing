@@ -5,7 +5,7 @@ Astro landing surface for `galexc.net`.
 ## Stack
 
 - Astro server output
-- Cloudflare Pages
+- Cloudflare Workers with custom domains
 - D1 for waitlist storage
 - KV for rate limiting
 - Cloudflare Access for `/admin`
@@ -38,4 +38,4 @@ Set local environment values in `.env` or your shell as needed.
 
 ## Deploy
 
-Push to Forgejo. The deploy workflow publishes to the `galexc-landing` Cloudflare Pages project.
+Push to Forgejo. The deploy workflow builds Astro and deploys the generated worker with custom domains for `galexc.net` and `www.galexc.net`.

@@ -7,7 +7,11 @@ export default defineConfig({
   site: 'https://galexc.net',
   output: 'server',
   adapter: cloudflare(),
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.endsWith('/admin'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

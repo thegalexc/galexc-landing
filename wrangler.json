@@ -2,7 +2,16 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "galexc-landing",
   "compatibility_date": "2026-05-21",
-  "pages_build_output_dir": "dist",
+  "routes": [
+    {
+      "pattern": "galexc.net",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.galexc.net",
+      "custom_domain": true
+    }
+  ],
   "d1_databases": [],
   "kv_namespaces": [
     {
