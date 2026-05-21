@@ -49,13 +49,13 @@ Encrypted dotenv files:
 To edit one locally:
 
 ```bash
-just secrets-edit secrets/github.env
+just env-edit secrets/github.env
 ```
 
 To verify local decryption works:
 
 ```bash
-just secrets-check secrets/github.env
+just env-check secrets/github.env
 ```
 
 CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY`.
