@@ -1,0 +1,7 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "posthog-proxy",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-05-21",
+    "routes": [{ "pattern": "ph.galexc.net", "custom_domain": true }]
+}

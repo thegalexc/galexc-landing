@@ -1,0 +1,37 @@
+name: Deploy PostHog Proxy
+on:
+    push:
+        branches: [main]
+        paths:
+            - 'workers/posthog-proxy/**'
+
+jobs:
+    deploy:
+        runs-on: docker
+        defaults:
+            run:
+                shell: bash
+        container:
+            image: node:24-slim
+        steps:
+            - name: Install system dependencies
+              run: apt-get update && apt-get install -y --no-install-recommends git ca-certificates curl
+
+            - name: Checkout
+              run: git clone --branch "$GITHUB_REF_NAME" "https://x-access-token:${FORGE_TOKEN}@${GITHUB_SERVER_URL#https://}/${GITHUB_REPOSITORY}.git" .
+              env:
+                  FORGE_TOKEN: ${{ github.token }}
+
+            - name: Enable Corepack
+              run: corepack enable
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+              working-directory: workers/posthog-proxy
+
+            - name: Deploy Worker
+              run: pnpm deploy
+              working-directory: workers/posthog-proxy
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
