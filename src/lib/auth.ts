@@ -45,7 +45,11 @@ async function importSigningKey(secret: string): Promise<CryptoKey> {
 
 async function sign(value: string, secret: string): Promise<string> {
     const key = await importSigningKey(secret);
-    const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(value));
+    const signature = await crypto.subtle.sign(
+        'HMAC',
+        key,
+        encoder.encode(value),
+    );
     return Array.from(new Uint8Array(signature), (byte) =>
         byte.toString(16).padStart(2, '0'),
     ).join('');
@@ -59,12 +63,16 @@ function encodeBase64Url(value: string): string {
         binary += String.fromCharCode(byte);
     }
 
-    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+    return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/g, '');
 }
 
 function decodeBase64Url(value: string): string | null {
     const padding = (4 - (value.length % 4)) % 4;
-    const base64 = value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat(padding);
+    const base64 =
+        value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat(padding);
 
     try {
         const binary = atob(base64);

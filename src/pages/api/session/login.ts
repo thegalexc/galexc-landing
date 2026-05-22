@@ -28,7 +28,11 @@ export const POST: APIRoute = async ({ cookies, redirect, request }) => {
     }
 
     const ipAddress = request.headers.get('cf-connecting-ip') ?? 'unknown';
-    const ipLimit = await applyRateLimit(`admin-login:ip:${ipAddress}`, 10, 60 * 60);
+    const ipLimit = await applyRateLimit(
+        `admin-login:ip:${ipAddress}`,
+        10,
+        60 * 60,
+    );
     if (!ipLimit.allowed) {
         return redirect('/login?error=1');
     }
@@ -46,7 +50,9 @@ export const POST: APIRoute = async ({ cookies, redirect, request }) => {
         return redirect('/login?error=1');
     }
 
-    const user = await upsertUserByEmail(normalizedEmail, { touchLastLogin: true });
+    const user = await upsertUserByEmail(normalizedEmail, {
+        touchLastLogin: true,
+    });
 
     if (user.status === 'suspended') {
         cookies.delete(AUTH_COOKIE_NAME, { path: '/' });
@@ -54,13 +60,21 @@ export const POST: APIRoute = async ({ cookies, redirect, request }) => {
     }
 
     const bootstrapEmails = parseBootstrapAdminEmails();
-    if (bootstrapEmails.includes(user.email) && !(await hasActiveRole(user.id, 'admin'))) {
+    if (
+        bootstrapEmails.includes(user.email) &&
+        !(await hasActiveRole(user.id, 'admin'))
+    ) {
         const granted = await grantRole(user.id, 'admin', user.id);
         if (granted) {
-            await insertAuditEvent('role.granted.bootstrap_admin', user.id, user.id, {
-                role: 'admin',
-                source: 'bootstrap-login',
-            });
+            await insertAuditEvent(
+                'role.granted.bootstrap_admin',
+                user.id,
+                user.id,
+                {
+                    role: 'admin',
+                    source: 'bootstrap-login',
+                },
+            );
         }
     }
 
