@@ -75,7 +75,7 @@ jobs:
                   node - <<'NODE'
                   const fs = require('fs');
                   const path = 'dist/server/wrangler.json';
-                  const out = '/tmp/wrangler-preview.json';
+                  const out = 'dist/server/wrangler.preview.json';
                   const cfg = JSON.parse(fs.readFileSync(path, 'utf8'));
                   const branchSlug = process.env.BRANCH_SLUG;
                   cfg.name = `galexc-landing-preview-${branchSlug}`;
@@ -96,7 +96,7 @@ jobs:
                       2>&1 | tee /tmp/deploy-output.txt
                   else
                     sops exec-env "${{ steps.secrets.outputs.file }}" \
-                      "pnpm exec wrangler deploy dist/server/entry.mjs --config /tmp/wrangler-preview.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
+                      "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.preview.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
                       2>&1 | tee /tmp/deploy-output.txt
                   fi
                   DEPLOY_URL=$(grep -oE 'https://[^ ]+\.workers\.dev' /tmp/deploy-output.txt | tail -1)
