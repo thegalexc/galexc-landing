@@ -1,75 +1,75 @@
 name: Deploy to Cloudflare Workers
 on:
-  push:
-    branches: [main, 'feat/**', 'agent/**']
+    push:
+        branches: [main, 'feat/**', 'agent/**']
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  deploy:
-    runs-on: docker
-    defaults:
-      run:
-        shell: bash
-    container:
-      image: node:24-slim
-    steps:
-      - name: Install system dependencies
-        run: apt-get update && apt-get install -y git ca-certificates curl
+    deploy:
+        runs-on: docker
+        defaults:
+            run:
+                shell: bash
+        container:
+            image: node:24-slim
+        steps:
+            - name: Install system dependencies
+              run: apt-get update && apt-get install -y git ca-certificates curl
 
-      - name: Checkout
-        run: git clone --branch "$GITHUB_REF_NAME" "https://x-access-token:${FORGE_TOKEN}@${GITHUB_SERVER_URL#https://}/${GITHUB_REPOSITORY}.git" .
-        env:
-          FORGE_TOKEN: ${{ github.token }}
+            - name: Checkout
+              run: git clone --branch "$GITHUB_REF_NAME" "https://x-access-token:${FORGE_TOKEN}@${GITHUB_SERVER_URL#https://}/${GITHUB_REPOSITORY}.git" .
+              env:
+                  FORGE_TOKEN: ${{ github.token }}
 
-      - name: Enable Corepack
-        run: corepack enable
+            - name: Enable Corepack
+              run: corepack enable
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-      - name: Install SOPS
-        run: |
-          SOPS_VERSION="v3.9.4"
-          curl -L -o /usr/local/bin/sops "https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64"
-          chmod +x /usr/local/bin/sops
-          sops --version
+            - name: Install SOPS
+              run: |
+                  SOPS_VERSION="v3.9.4"
+                  curl -L -o /usr/local/bin/sops "https://github.com/getsops/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64"
+                  chmod +x /usr/local/bin/sops
+                  sops --version
 
-      - name: Determine secrets file
-        id: secrets
-        run: |
-          if [ "$GITHUB_REF_NAME" = "main" ]; then
-            echo "file=secrets/github.env" >> $GITHUB_OUTPUT
-          else
-            echo "file=secrets/github-preview.env" >> $GITHUB_OUTPUT
-          fi
+            - name: Determine secrets file
+              id: secrets
+              run: |
+                  if [ "$GITHUB_REF_NAME" = "main" ]; then
+                    echo "file=secrets/github.env" >> $GITHUB_OUTPUT
+                  else
+                    echo "file=secrets/github-preview.env" >> $GITHUB_OUTPUT
+                  fi
 
-      - name: Build
-        run: |
-          sops exec-env "${{ steps.secrets.outputs.file }}" \
-            "pnpm build"
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+            - name: Build
+              run: |
+                  sops exec-env "${{ steps.secrets.outputs.file }}" \
+                    "pnpm build"
+              env:
+                  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
-      - name: Apply D1 migrations
-        run: |
-          sops exec-env "${{ steps.secrets.outputs.file }}" \
-            "pnpm exec wrangler d1 migrations apply DB --remote"
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-        continue-on-error: true
+            - name: Apply D1 migrations
+              run: |
+                  sops exec-env "${{ steps.secrets.outputs.file }}" \
+                    "pnpm exec wrangler d1 migrations apply DB --remote"
+              env:
+                  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+              continue-on-error: true
 
-      - name: Prepare worker runtime secrets
-        run: |
-          sops exec-env "${{ steps.secrets.outputs.file }}" \
-            'printf "TURNSTILE_SITE_KEY=%s\nTURNSTILE_SECRET=%s\nIP_HMAC_SECRET=%s\n" "$TURNSTILE_SITE_KEY" "$TURNSTILE_SECRET" "$IP_HMAC_SECRET" > /tmp/worker-secrets.env'
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+            - name: Prepare worker runtime secrets
+              run: |
+                  sops exec-env "${{ steps.secrets.outputs.file }}" \
+                    'printf "TURNSTILE_SITE_KEY=%s\nTURNSTILE_SECRET=%s\nIP_HMAC_SECRET=%s\n" "$TURNSTILE_SITE_KEY" "$TURNSTILE_SECRET" "$IP_HMAC_SECRET" > /tmp/worker-secrets.env'
+              env:
+                  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
-      - name: Deploy to Cloudflare Workers
-        run: |
-          sops exec-env "${{ steps.secrets.outputs.file }}" \
-            "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars --secrets-file /tmp/worker-secrets.env"
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+            - name: Deploy to Cloudflare Workers
+              run: |
+                  sops exec-env "${{ steps.secrets.outputs.file }}" \
+                    "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars --secrets-file /tmp/worker-secrets.env"
+              env:
+                  SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}

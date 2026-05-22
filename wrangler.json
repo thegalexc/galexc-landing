@@ -1,32 +1,32 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "galexc-landing",
-  "compatibility_date": "2026-05-21",
-  "routes": [
-    {
-      "pattern": "galexc.net",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.galexc.net",
-      "custom_domain": true
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "galexc-landing",
+    "compatibility_date": "2026-05-21",
+    "routes": [
+        {
+            "pattern": "galexc.net",
+            "custom_domain": true
+        },
+        {
+            "pattern": "www.galexc.net",
+            "custom_domain": true
+        }
+    ],
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "galexc-landing",
+            "database_id": "00a7aa3c-17f9-4e6d-8d46-edcc88694211",
+            "migrations_dir": "migrations"
+        }
+    ],
+    "kv_namespaces": [
+        {
+            "binding": "RATE_LIMIT",
+            "id": "e67de64f28d34814bb8f28d0f6107615"
+        }
+    ],
+    "vars": {
+        "GALEXC_ADMIN_EMAILS": "gilman@galexc.me"
     }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "galexc-landing",
-      "database_id": "00a7aa3c-17f9-4e6d-8d46-edcc88694211",
-      "migrations_dir": "migrations"
-    }
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "RATE_LIMIT",
-      "id": "e67de64f28d34814bb8f28d0f6107615"
-    }
-  ],
-  "vars": {
-    "GALEXC_ADMIN_EMAILS": "gilman@galexc.me"
-  }
 }

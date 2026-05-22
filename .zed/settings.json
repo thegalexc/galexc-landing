@@ -1,0 +1,21 @@
+{
+    "format_on_save": "on",
+    "languages": {
+        "Astro": {
+            "formatter": "language_server",
+            "language_servers": [
+                "astro-language-server",
+                "!typescript-language-server"
+            ]
+        },
+        "TypeScript": {
+            "formatter": "language_server"
+        },
+        "JavaScript": {
+            "formatter": "language_server"
+        },
+        "JSON": {
+            "formatter": "language_server"
+        }
+    }
+}

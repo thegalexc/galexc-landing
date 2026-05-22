@@ -1,3 +1,3 @@
 export interface AdminUser {
-  email: string;
+    email: string;
 }

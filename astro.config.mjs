@@ -3,10 +3,10 @@ import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://galexc.net',
-  output: 'server',
-  adapter: cloudflare(),
-  vite: {
-    plugins: [tailwindcss()],
-  },
+    site: 'https://galexc.net',
+    output: 'server',
+    adapter: cloudflare(),
+    vite: {
+        plugins: [tailwindcss()],
+    },
 });

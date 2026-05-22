@@ -1,37 +1,37 @@
 ---
-import { env } from "cloudflare:workers";
-import WaitlistForm from "../components/WaitlistForm.astro";
-import Layout from "../layouts/Layout.astro";
-import { createFormToken } from "../lib/form-token";
+import { env } from 'cloudflare:workers';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import Layout from '../layouts/Layout.astro';
+import { createFormToken } from '../lib/form-token';
 
 const issuedAt = Date.now().toString();
-const formToken = await createFormToken(issuedAt, "waitlist");
+const formToken = await createFormToken(issuedAt, 'waitlist');
 const siteKey = env.TURNSTILE_SITE_KEY;
-const waitlistState = Astro.url.searchParams.get("waitlist");
+const waitlistState = Astro.url.searchParams.get('waitlist');
 
 const stateMap = {
     success: {
-        tone: "success",
-        message: "You are on the list. Thanks for the signal.",
+        tone: 'success',
+        message: 'You are on the list. Thanks for the signal.',
     },
     invalid: {
-        tone: "error",
+        tone: 'error',
         message:
-            "That submission could not be accepted. Please check the form and try again.",
+            'That submission could not be accepted. Please check the form and try again.',
     },
     rate_limited: {
-        tone: "error",
+        tone: 'error',
         message:
-            "That form has seen too many recent attempts. Please wait a bit and try again.",
+            'That form has seen too many recent attempts. Please wait a bit and try again.',
     },
     unavailable: {
-        tone: "error",
+        tone: 'error',
         message:
-            "The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.",
+            'The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.',
     },
     blocked: {
-        tone: "error",
-        message: "That submission looked automated, so it was not accepted.",
+        tone: 'error',
+        message: 'That submission looked automated, so it was not accepted.',
     },
 } as const;
 
@@ -56,11 +56,15 @@ const waitlistOpen = Boolean(waitlistStatus);
                 </h1>
             </div>
 
-            <div class="waitlist-reveal" data-reveal data-open={waitlistOpen ? "true" : "false"}>
+            <div
+                class="waitlist-reveal"
+                data-reveal
+                data-open={waitlistOpen ? 'true' : 'false'}
+            >
                 <button
                     class="waitlist-reveal__summary mx-auto"
                     type="button"
-                    aria-expanded={waitlistOpen ? "true" : "false"}
+                    aria-expanded={waitlistOpen ? 'true' : 'false'}
                     aria-controls="waitlist-panel"
                     data-reveal-trigger
                 >
@@ -86,44 +90,60 @@ const waitlistOpen = Boolean(waitlistStatus);
             <script is:inline>
                 (() => {
                     const reduceMotion = window.matchMedia(
-                        "(prefers-reduced-motion: reduce)",
+                        '(prefers-reduced-motion: reduce)',
                     ).matches;
 
-                    for (const root of document.querySelectorAll("[data-reveal]")) {
-                        const trigger = root.querySelector("[data-reveal-trigger]");
-                        const panel = root.querySelector("[data-reveal-panel]");
-                        if (!(trigger instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) {
+                    for (const root of document.querySelectorAll(
+                        '[data-reveal]',
+                    )) {
+                        const trigger = root.querySelector(
+                            '[data-reveal-trigger]',
+                        );
+                        const panel = root.querySelector('[data-reveal-panel]');
+                        if (
+                            !(trigger instanceof HTMLButtonElement) ||
+                            !(panel instanceof HTMLElement)
+                        ) {
                             continue;
                         }
 
-                        let isOpen = root.getAttribute("data-open") === "true";
+                        let isOpen = root.getAttribute('data-open') === 'true';
                         let isAnimating = false;
 
                         const setOpenState = (open) => {
                             isOpen = open;
-                            root.setAttribute("data-open", open ? "true" : "false");
-                            trigger.setAttribute("aria-expanded", open ? "true" : "false");
+                            root.setAttribute(
+                                'data-open',
+                                open ? 'true' : 'false',
+                            );
+                            trigger.setAttribute(
+                                'aria-expanded',
+                                open ? 'true' : 'false',
+                            );
                         };
 
                         const setAnimating = (animating) => {
                             isAnimating = animating;
-                            root.setAttribute("data-animating", animating ? "true" : "false");
+                            root.setAttribute(
+                                'data-animating',
+                                animating ? 'true' : 'false',
+                            );
                         };
 
                         const finishOpen = () => {
-                            panel.style.height = "auto";
-                            panel.style.opacity = "1";
-                            panel.style.transform = "translateY(0)";
-                            panel.style.overflow = "";
+                            panel.style.height = 'auto';
+                            panel.style.opacity = '1';
+                            panel.style.transform = 'translateY(0)';
+                            panel.style.overflow = '';
                             setAnimating(false);
                         };
 
                         const finishClose = () => {
                             panel.hidden = true;
-                            panel.style.height = "0px";
-                            panel.style.opacity = "0";
-                            panel.style.transform = "translateY(6px)";
-                            panel.style.overflow = "hidden";
+                            panel.style.height = '0px';
+                            panel.style.opacity = '0';
+                            panel.style.transform = 'translateY(6px)';
+                            panel.style.overflow = 'hidden';
                             setAnimating(false);
                         };
 
@@ -137,28 +157,34 @@ const waitlistOpen = Boolean(waitlistStatus);
                             }
 
                             setAnimating(true);
-                            panel.style.overflow = "hidden";
-                            panel.style.height = "0px";
-                            panel.style.opacity = "0";
-                            panel.style.transform = "translateY(-6px)";
+                            panel.style.overflow = 'hidden';
+                            panel.style.height = '0px';
+                            panel.style.opacity = '0';
+                            panel.style.transform = 'translateY(-6px)';
                             void panel.offsetHeight;
 
                             requestAnimationFrame(() => {
                                 const targetHeight = panel.scrollHeight;
                                 panel.style.height = `${targetHeight}px`;
-                                panel.style.opacity = "1";
-                                panel.style.transform = "translateY(0)";
+                                panel.style.opacity = '1';
+                                panel.style.transform = 'translateY(0)';
                             });
 
                             const onEnd = (event) => {
-                                if (event.target !== panel || event.propertyName !== "height") {
+                                if (
+                                    event.target !== panel ||
+                                    event.propertyName !== 'height'
+                                ) {
                                     return;
                                 }
-                                panel.removeEventListener("transitionend", onEnd);
+                                panel.removeEventListener(
+                                    'transitionend',
+                                    onEnd,
+                                );
                                 finishOpen();
                             };
 
-                            panel.addEventListener("transitionend", onEnd);
+                            panel.addEventListener('transitionend', onEnd);
                         };
 
                         const closePanel = () => {
@@ -170,39 +196,45 @@ const waitlistOpen = Boolean(waitlistStatus);
                             }
 
                             setAnimating(true);
-                            panel.style.overflow = "hidden";
+                            panel.style.overflow = 'hidden';
                             panel.style.height = `${panel.scrollHeight}px`;
-                            panel.style.opacity = "1";
-                            panel.style.transform = "translateY(0)";
+                            panel.style.opacity = '1';
+                            panel.style.transform = 'translateY(0)';
                             void panel.offsetHeight;
 
                             requestAnimationFrame(() => {
-                                panel.style.height = "0px";
-                                panel.style.opacity = "0";
-                                panel.style.transform = "translateY(6px)";
+                                panel.style.height = '0px';
+                                panel.style.opacity = '0';
+                                panel.style.transform = 'translateY(6px)';
                             });
 
                             const onEnd = (event) => {
-                                if (event.target !== panel || event.propertyName !== "height") {
+                                if (
+                                    event.target !== panel ||
+                                    event.propertyName !== 'height'
+                                ) {
                                     return;
                                 }
-                                panel.removeEventListener("transitionend", onEnd);
+                                panel.removeEventListener(
+                                    'transitionend',
+                                    onEnd,
+                                );
                                 finishClose();
                             };
 
-                            panel.addEventListener("transitionend", onEnd);
+                            panel.addEventListener('transitionend', onEnd);
                         };
 
                         if (isOpen) {
                             panel.hidden = false;
-                            panel.style.height = "auto";
-                            panel.style.opacity = "1";
-                            panel.style.transform = "translateY(0)";
+                            panel.style.height = 'auto';
+                            panel.style.opacity = '1';
+                            panel.style.transform = 'translateY(0)';
                         } else {
                             finishClose();
                         }
 
-                        trigger.addEventListener("click", () => {
+                        trigger.addEventListener('click', () => {
                             if (isAnimating) {
                                 return;
                             }

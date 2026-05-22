@@ -39,10 +39,12 @@ Set local environment values in `.env` or your shell as needed.
 This repo follows the same repo-local key pattern as `galexc-net`.
 
 Local workstation setup:
+
 - place `.sops-age-key.txt` in the repo root
 - keep it untracked
 
 Encrypted dotenv files:
+
 - `secrets/github.env`
 - `secrets/github-preview.env`
 
