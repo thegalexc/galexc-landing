@@ -4,15 +4,10 @@ import WaitlistForm from "../components/WaitlistForm.astro";
 import Layout from "../layouts/Layout.astro";
 import { createFormToken } from "../lib/form-token";
 
-const showWaitlist = false;
-const issuedAt = showWaitlist ? Date.now().toString() : "";
-const formToken = showWaitlist
-    ? await createFormToken(issuedAt, "waitlist")
-    : "";
-const siteKey = showWaitlist ? env.TURNSTILE_SITE_KEY : undefined;
-const waitlistState = showWaitlist
-    ? Astro.url.searchParams.get("waitlist")
-    : null;
+const issuedAt = Date.now().toString();
+const formToken = await createFormToken(issuedAt, "waitlist");
+const siteKey = env.TURNSTILE_SITE_KEY;
+const waitlistState = Astro.url.searchParams.get("waitlist");
 
 const stateMap = {
     success: {
@@ -41,9 +36,10 @@ const stateMap = {
 } as const;
 
 const waitlistStatus =
-    showWaitlist && waitlistState && waitlistState in stateMap
+    waitlistState && waitlistState in stateMap
         ? stateMap[waitlistState as keyof typeof stateMap]
         : null;
+const waitlistOpen = Boolean(waitlistStatus);
 ---
 
 <Layout title="GalexC" description="Private, for now." noindex>
@@ -53,21 +49,30 @@ const waitlistStatus =
         <section
             class="mx-auto w-full max-w-4xl panel rounded-[2rem] p-6 md:p-10"
         >
-            <div class="flex flex-col gap-4 text-center md:gap-5">
+            <div class="landing-hero flex flex-col text-center">
                 <p class="eyebrow">GalexC</p>
                 <h1 class="text-5xl leading-[0.96] text-stone-950 md:text-6xl">
-                    Professional-Grade Personal AI.
+                    Professional-grade personal AI.
                 </h1>
-                <p
-                    class="mx-auto max-w-xl text-base leading-7 text-stone-700 md:text-lg"
-                >
-                    Coming soon.
-                </p>
             </div>
 
-            {
-                showWaitlist && (
-                    <div class="mt-8">
+            <div class="waitlist-reveal" data-reveal data-open={waitlistOpen ? "true" : "false"}>
+                <button
+                    class="waitlist-reveal__summary mx-auto"
+                    type="button"
+                    aria-expanded={waitlistOpen ? "true" : "false"}
+                    aria-controls="waitlist-panel"
+                    data-reveal-trigger
+                >
+                    <span class="waitlist-reveal__title">Request access</span>
+                </button>
+                <div
+                    id="waitlist-panel"
+                    class="waitlist-reveal__panel"
+                    data-reveal-panel
+                    hidden={!waitlistOpen}
+                >
+                    <div class="waitlist-reveal__content">
                         <WaitlistForm
                             issuedAt={issuedAt}
                             formToken={formToken}
@@ -75,8 +80,141 @@ const waitlistStatus =
                             status={waitlistStatus}
                         />
                     </div>
-                )
-            }
+                </div>
+            </div>
+
+            <script is:inline>
+                (() => {
+                    const reduceMotion = window.matchMedia(
+                        "(prefers-reduced-motion: reduce)",
+                    ).matches;
+
+                    for (const root of document.querySelectorAll("[data-reveal]")) {
+                        const trigger = root.querySelector("[data-reveal-trigger]");
+                        const panel = root.querySelector("[data-reveal-panel]");
+                        if (!(trigger instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) {
+                            continue;
+                        }
+
+                        let isOpen = root.getAttribute("data-open") === "true";
+                        let isAnimating = false;
+
+                        const setOpenState = (open) => {
+                            isOpen = open;
+                            root.setAttribute("data-open", open ? "true" : "false");
+                            trigger.setAttribute("aria-expanded", open ? "true" : "false");
+                        };
+
+                        const setAnimating = (animating) => {
+                            isAnimating = animating;
+                            root.setAttribute("data-animating", animating ? "true" : "false");
+                        };
+
+                        const finishOpen = () => {
+                            panel.style.height = "auto";
+                            panel.style.opacity = "1";
+                            panel.style.transform = "translateY(0)";
+                            panel.style.overflow = "";
+                            setAnimating(false);
+                        };
+
+                        const finishClose = () => {
+                            panel.hidden = true;
+                            panel.style.height = "0px";
+                            panel.style.opacity = "0";
+                            panel.style.transform = "translateY(6px)";
+                            panel.style.overflow = "hidden";
+                            setAnimating(false);
+                        };
+
+                        const openPanel = () => {
+                            setOpenState(true);
+                            panel.hidden = false;
+
+                            if (reduceMotion) {
+                                finishOpen();
+                                return;
+                            }
+
+                            setAnimating(true);
+                            panel.style.overflow = "hidden";
+                            panel.style.height = "0px";
+                            panel.style.opacity = "0";
+                            panel.style.transform = "translateY(-6px)";
+                            void panel.offsetHeight;
+
+                            requestAnimationFrame(() => {
+                                const targetHeight = panel.scrollHeight;
+                                panel.style.height = `${targetHeight}px`;
+                                panel.style.opacity = "1";
+                                panel.style.transform = "translateY(0)";
+                            });
+
+                            const onEnd = (event) => {
+                                if (event.target !== panel || event.propertyName !== "height") {
+                                    return;
+                                }
+                                panel.removeEventListener("transitionend", onEnd);
+                                finishOpen();
+                            };
+
+                            panel.addEventListener("transitionend", onEnd);
+                        };
+
+                        const closePanel = () => {
+                            setOpenState(false);
+
+                            if (reduceMotion) {
+                                finishClose();
+                                return;
+                            }
+
+                            setAnimating(true);
+                            panel.style.overflow = "hidden";
+                            panel.style.height = `${panel.scrollHeight}px`;
+                            panel.style.opacity = "1";
+                            panel.style.transform = "translateY(0)";
+                            void panel.offsetHeight;
+
+                            requestAnimationFrame(() => {
+                                panel.style.height = "0px";
+                                panel.style.opacity = "0";
+                                panel.style.transform = "translateY(6px)";
+                            });
+
+                            const onEnd = (event) => {
+                                if (event.target !== panel || event.propertyName !== "height") {
+                                    return;
+                                }
+                                panel.removeEventListener("transitionend", onEnd);
+                                finishClose();
+                            };
+
+                            panel.addEventListener("transitionend", onEnd);
+                        };
+
+                        if (isOpen) {
+                            panel.hidden = false;
+                            panel.style.height = "auto";
+                            panel.style.opacity = "1";
+                            panel.style.transform = "translateY(0)";
+                        } else {
+                            finishClose();
+                        }
+
+                        trigger.addEventListener("click", () => {
+                            if (isAnimating) {
+                                return;
+                            }
+                            if (isOpen) {
+                                closePanel();
+                            } else {
+                                openPanel();
+                            }
+                        });
+                    }
+                })();
+            </script>
         </section>
     </div>
 </Layout>

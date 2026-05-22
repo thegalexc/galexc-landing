@@ -1,72 +1,102 @@
 ---
 interface Props {
-  issuedAt: string;
-  formToken: string;
-  siteKey?: string;
-  status?: {
-    tone: 'success' | 'error' | 'info';
-    message: string;
-  } | null;
+    issuedAt: string;
+    formToken: string;
+    siteKey?: string;
+    status?: {
+        tone: "success" | "error" | "info";
+        message: string;
+    } | null;
 }
 
 const { issuedAt, formToken, siteKey, status = null } = Astro.props;
 ---
 
-<section id="waitlist" class="panel rounded-[1.75rem] p-6 md:p-8">
-  <div class="flex flex-col gap-3">
-    <p class="eyebrow">Request early access</p>
-    <h2 class="text-4xl text-stone-900 md:text-5xl">Tell me the first workflow you would trust GalexC with.</h2>
-  </div>
-
-  <div class="mt-6">
-    {status && <div class:list={['status-banner', status.tone]}>{status.message}</div>}
-  </div>
-
-  <form method="POST" action="/api/waitlist" class="mt-6 grid gap-4">
-    <input type="hidden" name="issued_at" value={issuedAt} />
-    <input type="hidden" name="form_token" value={formToken} />
-    <input type="hidden" name="source" value="landing" />
-
-    <div class="grid gap-4 md:grid-cols-2">
-      <label class="grid gap-2 text-sm font-medium text-stone-700">
-        Name
-        <input class="waitlist-input" type="text" name="name" maxlength="120" autocomplete="name" placeholder="Gilman Callsen" />
-      </label>
-      <label class="grid gap-2 text-sm font-medium text-stone-700">
-        Email
-        <input class="waitlist-input" type="email" name="email" required maxlength="320" autocomplete="email" placeholder="you@example.com" />
-      </label>
+<section id="waitlist" class="waitlist-form-shell p-6 md:p-8">
+    <div class="flex flex-col gap-3">
+        <h2 class="text-3xl text-stone-900">
+            What are you most hoping to get out of a <em>personal</em> AI?
+        </h2>
     </div>
 
-    <label class="grid gap-2 text-sm font-medium text-stone-700">
-      What repeated workflow would you put through GalexC first?
-      <textarea class="waitlist-textarea" name="note" maxlength="1500" placeholder="What is the workflow?"></textarea>
-    </label>
-
-    <div class="sr-only" aria-hidden="true">
-      <label>
-        Company
-        <input type="text" name="company" tabindex="-1" autocomplete="organization" />
-      </label>
+    <div class="mt-5">
+        {
+            status && (
+                <div class:list={["status-banner", status.tone]}>
+                    {status.message}
+                </div>
+            )
+        }
     </div>
 
-    {siteKey ? (
-      <div class="overflow-x-auto">
-        <div class="cf-turnstile" data-sitekey={siteKey}></div>
-      </div>
-    ) : (
-      <div class="status-banner info">
-        Turnstile is not configured yet. The form will stay disabled until the site key and secret are set.
-      </div>
+    <form method="POST" action="/api/waitlist" class="waitlist-form">
+        <input type="hidden" name="issued_at" value={issuedAt} />
+        <input type="hidden" name="form_token" value={formToken} />
+        <input type="hidden" name="source" value="landing" />
+
+        <label class="sr-only" for="waitlist-email">Email</label>
+        <input
+            id="waitlist-email"
+            class="waitlist-input"
+            type="email"
+            name="email"
+            required
+            maxlength="320"
+            autocomplete="email"
+            placeholder="you@example.com"
+        />
+
+        <div class="waitlist-note-block">
+            <label class="waitlist-field-label" for="waitlist-note">
+                In a sentence or two
+            </label>
+            <textarea
+                id="waitlist-note"
+                class="waitlist-textarea"
+                name="note"
+                maxlength="800"
+                placeholder="A sentence or two."></textarea>
+        </div>
+
+        <div class="sr-only" aria-hidden="true">
+            <label>
+                Company
+                <input
+                    type="text"
+                    name="company"
+                    tabindex="-1"
+                    autocomplete="organization"
+                />
+            </label>
+        </div>
+
+        {siteKey && (
+            <div class="waitlist-turnstile overflow-x-auto">
+                <div class="cf-turnstile" data-sitekey={siteKey} />
+            </div>
+        )}
+
+        <div class="waitlist-actions">
+            <button class="waitlist-button" type="submit" disabled={!siteKey}
+                >Request access <span aria-hidden="true">→</span></button
+            >
+        </div>
+    </form>
+
+    {!siteKey && (
+        <div class="status-banner info waitlist-dev-note">
+            Turnstile is not configured yet. The form will stay disabled until the site key and secret are set.
+        </div>
     )}
 
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <p class="max-w-xl text-sm leading-6 text-stone-600">
-        Protected with Cloudflare Turnstile, rate limiting, and duplicate suppression.
-      </p>
-      <button class="primary-button" type="submit" disabled={!siteKey}>Request early access</button>
-    </div>
-  </form>
-
-  {siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+    {
+        siteKey && (
+            <script
+                is:inline
+                src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+                async
+                defer
+            />
+        )
+    }
 </section>
