@@ -47,13 +47,18 @@ export interface WaitlistEntryRecord {
     created_at: string;
 }
 
-function toPortalUser(row: D1ResultRow & { roles_csv?: string | null }): PortalUser {
+function toPortalUser(
+    row: D1ResultRow & { roles_csv?: string | null },
+): PortalUser {
     return {
         id: String(row.id),
         email: String(row.email),
         normalizedEmail: String(row.normalized_email),
         emailKey: String(row.email_key),
-        name: row.name === null || row.name === undefined ? null : String(row.name),
+        name:
+            row.name === null || row.name === undefined
+                ? null
+                : String(row.name),
         status: String(row.status) as PortalUser['status'],
         createdAt: String(row.created_at),
         updatedAt: String(row.updated_at),
@@ -62,7 +67,9 @@ function toPortalUser(row: D1ResultRow & { roles_csv?: string | null }): PortalU
                 ? null
                 : String(row.last_login_at),
         roles: row.roles_csv
-            ? (String(row.roles_csv).split(',').filter(Boolean) as PortalRoleKey[])
+            ? (String(row.roles_csv)
+                  .split(',')
+                  .filter(Boolean) as PortalRoleKey[])
             : [],
         submissionCount: Number(row.submission_count ?? 0),
     };
@@ -100,14 +107,22 @@ export async function createIpHmac(ipAddress: string | null): Promise<string> {
 export function parseBootstrapAdminEmails(
     value: string | undefined = env.GALEXC_BOOTSTRAP_ADMIN_EMAILS,
 ): string[] {
-    if (!value) {
+    const combined = [value, env.GALEXC_ADMIN_EMAILS]
+        .filter(Boolean)
+        .join(',');
+
+    if (!combined) {
         return [];
     }
 
-    return value
-        .split(',')
-        .map((email) => normalizeEmail(email))
-        .filter(Boolean);
+    return Array.from(
+        new Set(
+            combined
+                .split(',')
+                .map((email) => normalizeEmail(email))
+                .filter(Boolean),
+        ),
+    );
 }
 
 export async function getUserById(userId: string): Promise<PortalUser | null> {
@@ -144,7 +159,9 @@ export async function getUserById(userId: string): Promise<PortalUser | null> {
     return row ? toPortalUser(row) : null;
 }
 
-export async function getUserByEmail(email: string): Promise<PortalUser | null> {
+export async function getUserByEmail(
+    email: string,
+): Promise<PortalUser | null> {
     const row = await getDb()
         .prepare(
             `

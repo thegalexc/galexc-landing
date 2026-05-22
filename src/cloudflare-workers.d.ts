@@ -22,6 +22,7 @@ declare module 'cloudflare:workers' {
     interface Env {
         DB?: D1Database;
         RATE_LIMIT?: KVNamespace;
+        GALEXC_ADMIN_EMAILS?: string;
         GALEXC_BOOTSTRAP_ADMIN_EMAILS?: string;
         GALEXC_ADMIN_PASSWORD?: string;
         GALEXC_COOKIE_SECRET?: string;
