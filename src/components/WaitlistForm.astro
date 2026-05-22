@@ -70,16 +70,20 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
             </label>
         </div>
 
-        {siteKey && (
-            <div class="waitlist-turnstile overflow-x-auto">
-                <div class="cf-turnstile" data-sitekey={siteKey} />
+        <div class="waitlist-submit-row">
+            <div class="waitlist-actions">
+                <button class="waitlist-button" type="submit" disabled={!siteKey}
+                    >Request access <span aria-hidden="true">→</span></button
+                >
             </div>
-        )}
 
-        <div class="waitlist-actions">
-            <button class="waitlist-button" type="submit" disabled={!siteKey}
-                >Request access <span aria-hidden="true">→</span></button
-            >
+            {siteKey && (
+                <div class="waitlist-turnstile">
+                    <div class="waitlist-turnstile__inner overflow-x-auto">
+                        <div class="cf-turnstile" data-sitekey={siteKey} data-theme="light" />
+                    </div>
+                </div>
+            )}
         </div>
     </form>
 
