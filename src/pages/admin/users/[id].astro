@@ -1,0 +1,143 @@
+---
+import AdminShell from '../../../components/AdminShell.astro';
+import {
+    getUserById,
+    listWaitlistEntries,
+    type WaitlistEntryRecord,
+} from '../../../lib/db';
+
+const adminUser = Astro.locals.adminUser;
+const userId = Astro.params.id;
+const user = userId ? await getUserById(userId) : null;
+
+if (!user) {
+    return Astro.redirect('/admin/users');
+}
+
+const submissions: WaitlistEntryRecord[] = (await listWaitlistEntries()).filter(
+    (entry: WaitlistEntryRecord) => entry.userId === user.id,
+);
+const notice = Astro.url.searchParams.get('notice');
+const error = Astro.url.searchParams.get('error');
+
+const noticeMap = {
+    name_saved: 'Name updated.',
+    role_granted: 'Role granted.',
+    role_revoked: 'Role revoked.',
+    user_suspended: 'User suspended.',
+    user_unsuspended: 'User reactivated.',
+} as const;
+
+const message = notice && notice in noticeMap ? noticeMap[notice as keyof typeof noticeMap] : null;
+const isAdmin = user.roles.includes('admin');
+---
+
+<AdminShell
+    title={user.name ?? user.email}
+    description={`Manage ${user.email} in GalexC admin.`}
+    adminUser={adminUser!}
+>
+    {message && <div class="status-banner success mt-6">{message}</div>}
+    {error && <div class="status-banner error mt-6">{decodeURIComponent(error)}</div>}
+
+    <div class="mt-6 flex items-center justify-between gap-3">
+        <a href="/admin/users" class="secondary-button">Back to users</a>
+        <a href="/admin/submissions" class="secondary-button">Open submissions</a>
+    </div>
+
+    <section class="admin-grid mt-6 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <section class="admin-surface rounded-[1.75rem] p-6">
+            <p class="eyebrow">Profile</p>
+            <form action={`/api/admin/users/${user.id}/name`} method="POST" class="waitlist-form mt-4">
+                <label class="block">
+                    <span class="waitlist-field-label">Name</span>
+                    <input
+                        type="text"
+                        name="name"
+                        value={user.name ?? ''}
+                        class="waitlist-input"
+                        placeholder="Optional display name"
+                    />
+                </label>
+                <div class="waitlist-actions justify-start">
+                    <button type="submit" class="secondary-button cursor-pointer">Save name</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="admin-surface rounded-[1.75rem] p-6">
+            <p class="eyebrow">Access state</p>
+            <div class="admin-detail-grid mt-4">
+                <div class="admin-detail-card">
+                    <div class="metric-label">Status</div>
+                    <div class="mt-2"><span class:list={['admin-pill', user.status]}>{user.status}</span></div>
+                </div>
+                <div class="admin-detail-card">
+                    <div class="metric-label">Roles</div>
+                    <div class="mt-2 text-stone-800">{user.roles.length ? user.roles.join(', ') : 'baseline only'}</div>
+                </div>
+                <div class="admin-detail-card">
+                    <div class="metric-label">Submissions</div>
+                    <div class="mt-2 text-stone-800">{user.submissionCount}</div>
+                </div>
+                <div class="admin-detail-card">
+                    <div class="metric-label">Last login</div>
+                    <div class="mt-2 text-stone-800">{user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : 'Never'}</div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+                <form action={`/api/admin/users/${user.id}/status`} method="POST">
+                    <input type="hidden" name="status" value={user.status === 'suspended' ? 'active' : 'suspended'} />
+                    <button type="submit" class="secondary-button cursor-pointer">
+                        {user.status === 'suspended' ? 'Reactivate user' : 'Suspend user'}
+                    </button>
+                </form>
+
+                <form action={`/api/admin/users/${user.id}/roles`} method="POST">
+                    <input type="hidden" name="role" value="admin" />
+                    <input type="hidden" name="action" value={isAdmin ? 'revoke' : 'grant'} />
+                    <button type="submit" class="secondary-button cursor-pointer">
+                        {isAdmin ? 'Revoke admin' : 'Grant admin'}
+                    </button>
+                </form>
+            </div>
+        </section>
+    </section>
+
+    <section class="admin-surface mt-6 overflow-hidden rounded-[1.75rem] p-0">
+        <div class="admin-section-header">
+            <div>
+                <p class="eyebrow">Submissions</p>
+                <h2 class="mt-2 text-3xl text-stone-950">User history</h2>
+            </div>
+        </div>
+
+        {submissions.length === 0 ? (
+            <div class="p-6 text-sm text-stone-600">No submissions for this user yet.</div>
+        ) : (
+            <div class="overflow-x-auto">
+                <table class="admin-table min-w-full bg-transparent">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Source</th>
+                            <th>Status</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {submissions.map((entry: WaitlistEntryRecord) => (
+                            <tr>
+                                <td class="text-sm text-stone-600">{new Date(entry.createdAt).toLocaleString()}</td>
+                                <td>{entry.source}</td>
+                                <td><span class:list={['admin-pill', entry.status]}>{entry.status}</span></td>
+                                <td class="max-w-[30rem] whitespace-pre-wrap text-stone-700">{entry.note ?? 'None'}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+    </section>
+</AdminShell>

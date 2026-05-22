@@ -1,0 +1,104 @@
+---
+import AdminShell from '../../../components/AdminShell.astro';
+import { getWaitlistStats, listWaitlistEntries } from '../../../lib/db';
+
+const adminUser = Astro.locals.adminUser;
+const entries = await listWaitlistEntries();
+const stats = await getWaitlistStats();
+const notice = Astro.url.searchParams.get('notice');
+const error = Astro.url.searchParams.get('error');
+
+const noticeMap = {
+    submission_approved: 'Submission approved.',
+    submission_rejected: 'Submission rejected.',
+    submission_pending: 'Submission moved back to pending.',
+} as const;
+
+const message = notice && notice in noticeMap ? noticeMap[notice as keyof typeof noticeMap] : null;
+---
+
+<AdminShell
+    title="Submissions"
+    description="Manage GalexC waitlist submissions."
+    adminUser={adminUser!}
+>
+    {message && <div class="status-banner success mt-6">{message}</div>}
+    {error && <div class="status-banner error mt-6">{decodeURIComponent(error)}</div>}
+
+    <section class="admin-metric-grid mt-6">
+        <div class="admin-metric-card">
+            <div class="metric-value">{stats.pending}</div>
+            <div class="metric-label">Pending</div>
+        </div>
+        <div class="admin-metric-card">
+            <div class="metric-value">{stats.approved}</div>
+            <div class="metric-label">Approved</div>
+        </div>
+        <div class="admin-metric-card">
+            <div class="metric-value">{stats.rejected}</div>
+            <div class="metric-label">Rejected</div>
+        </div>
+        <div class="admin-metric-card">
+            <div class="metric-value">{stats.today}</div>
+            <div class="metric-label">Today</div>
+        </div>
+    </section>
+
+    <section class="admin-surface mt-6 overflow-hidden rounded-[1.75rem] p-0">
+        <div class="admin-section-header">
+            <div>
+                <p class="eyebrow">Inbox</p>
+                <h2 class="mt-2 text-3xl text-stone-950">All submissions</h2>
+            </div>
+            <div class="text-sm text-stone-600">{entries.length} total</div>
+        </div>
+
+        {entries.length === 0 ? (
+            <div class="p-6 text-sm text-stone-600">No submissions yet.</div>
+        ) : (
+            <div class="overflow-x-auto">
+                <table class="admin-table min-w-full bg-transparent">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>Source</th>
+                            <th>Status</th>
+                            <th>Note</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {entries.map((entry) => (
+                            <tr>
+                                <td class="text-sm text-stone-600">{new Date(entry.createdAt).toLocaleString()}</td>
+                                <td class="font-medium text-stone-900">{entry.email}</td>
+                                <td>{entry.name ?? 'None'}</td>
+                                <td>{entry.source}</td>
+                                <td><span class:list={['admin-pill', entry.status]}>{entry.status}</span></td>
+                                <td class="max-w-[26rem] whitespace-pre-wrap text-stone-700">{entry.note ?? 'None'}</td>
+                                <td>
+                                    <div class="flex flex-wrap gap-2">
+                                        <form action={`/api/admin/submissions/${entry.id}/status`} method="POST">
+                                            <input type="hidden" name="status" value="approved" />
+                                            <button type="submit" class="secondary-button cursor-pointer">Approve</button>
+                                        </form>
+                                        <form action={`/api/admin/submissions/${entry.id}/status`} method="POST">
+                                            <input type="hidden" name="status" value="rejected" />
+                                            <button type="submit" class="secondary-button cursor-pointer">Reject</button>
+                                        </form>
+                                        <form action={`/api/admin/submissions/${entry.id}/status`} method="POST">
+                                            <input type="hidden" name="status" value="pending" />
+                                            <button type="submit" class="secondary-button cursor-pointer">Reset</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+    </section>
+</AdminShell>

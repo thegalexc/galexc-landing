@@ -1,0 +1,78 @@
+---
+import AdminShell from '../../../components/AdminShell.astro';
+import { listUsers } from '../../../lib/db';
+
+const adminUser = Astro.locals.adminUser;
+const users = await listUsers();
+const notice = Astro.url.searchParams.get('notice');
+const error = Astro.url.searchParams.get('error');
+
+const noticeMap = {
+    user_updated: 'User updated.',
+    role_granted: 'Role granted.',
+    role_revoked: 'Role revoked.',
+    user_suspended: 'User suspended.',
+    user_unsuspended: 'User reactivated.',
+} as const;
+
+const message = notice && notice in noticeMap ? noticeMap[notice as keyof typeof noticeMap] : null;
+---
+
+<AdminShell
+    title="Users"
+    description="Manage GalexC users and roles."
+    adminUser={adminUser!}
+>
+    {message && <div class="status-banner success mt-6">{message}</div>}
+    {error && <div class="status-banner error mt-6">{decodeURIComponent(error)}</div>}
+
+    <section class="admin-surface mt-6 overflow-hidden rounded-[1.75rem] p-0">
+        <div class="admin-section-header">
+            <div>
+                <p class="eyebrow">Directory</p>
+                <h2 class="mt-2 text-3xl text-stone-950">All users</h2>
+            </div>
+            <div class="text-sm text-stone-600">{users.length} total</div>
+        </div>
+
+        {users.length === 0 ? (
+            <div class="p-6 text-sm text-stone-600">No users yet.</div>
+        ) : (
+            <div class="overflow-x-auto">
+                <table class="admin-table min-w-full bg-transparent">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Roles</th>
+                            <th>Submissions</th>
+                            <th>Last login</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user) => (
+                            <tr>
+                                <td>
+                                    <div class="font-medium text-stone-900">{user.name ?? 'Unnamed user'}</div>
+                                    <div class="mt-1 text-sm text-stone-600">{user.email}</div>
+                                </td>
+                                <td>
+                                    <span class:list={['admin-pill', user.status]}>{user.status}</span>
+                                </td>
+                                <td>{user.roles.length ? user.roles.join(', ') : 'baseline only'}</td>
+                                <td>{user.submissionCount}</td>
+                                <td class="text-sm text-stone-600">{user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : 'Never'}</td>
+                                <td class="text-sm text-stone-600">{new Date(user.createdAt).toLocaleString()}</td>
+                                <td class="text-right">
+                                    <a href={`/admin/users/${user.id}`} class="secondary-button">Open</a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+    </section>
+</AdminShell>

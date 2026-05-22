@@ -1,12 +1,40 @@
 import { env } from 'cloudflare:workers';
 import { createHmac } from './crypto';
-import type { PortalRoleKey, PortalUser } from '../types/portal';
+import type {
+    PortalRoleKey,
+    PortalUser,
+    PortalUserStatus,
+} from '../types/portal';
 import { normalizeEmail } from './auth';
 
 export { normalizeEmail } from './auth';
 
 interface D1ResultRow {
     [key: string]: unknown;
+}
+
+export type WaitlistEntryStatus = 'pending' | 'approved' | 'rejected';
+
+export interface WaitlistEntryInput {
+    userId: string;
+    email: string;
+    name: string | null;
+    note: string | null;
+    source: string;
+    ipAddress: string | null;
+    userAgent: string | null;
+}
+
+export interface WaitlistEntryRecord {
+    id: string;
+    userId: string | null;
+    email: string;
+    emailNormalized: string;
+    name: string | null;
+    note: string | null;
+    source: string;
+    status: WaitlistEntryStatus;
+    createdAt: string;
 }
 
 function getDb() {
@@ -25,28 +53,6 @@ function cleanName(name: string | null | undefined): string | null {
     return trimmed || null;
 }
 
-export interface WaitlistEntryInput {
-    userId: string;
-    email: string;
-    name: string | null;
-    note: string | null;
-    source: string;
-    ipAddress: string | null;
-    userAgent: string | null;
-}
-
-export interface WaitlistEntryRecord {
-    id: string;
-    userId: string | null;
-    email: string;
-    email_normalized: string;
-    name: string | null;
-    note: string | null;
-    source: string;
-    status: string;
-    created_at: string;
-}
-
 function toPortalUser(
     row: D1ResultRow & { roles_csv?: string | null },
 ): PortalUser {
@@ -59,7 +65,7 @@ function toPortalUser(
             row.name === null || row.name === undefined
                 ? null
                 : String(row.name),
-        status: String(row.status) as PortalUser['status'],
+        status: String(row.status) as PortalUserStatus,
         createdAt: String(row.created_at),
         updatedAt: String(row.updated_at),
         lastLoginAt:
@@ -75,6 +81,29 @@ function toPortalUser(
     };
 }
 
+function toWaitlistEntry(row: D1ResultRow): WaitlistEntryRecord {
+    return {
+        id: String(row.id),
+        userId:
+            row.user_id === null || row.user_id === undefined
+                ? null
+                : String(row.user_id),
+        email: String(row.email),
+        emailNormalized: String(row.email_normalized),
+        name:
+            row.name === null || row.name === undefined
+                ? null
+                : String(row.name),
+        note:
+            row.note === null || row.note === undefined
+                ? null
+                : String(row.note),
+        source: String(row.source),
+        status: String(row.status) as WaitlistEntryStatus,
+        createdAt: String(row.created_at),
+    };
+}
+
 async function getRoleId(roleKey: PortalRoleKey): Promise<number> {
     const row = await getDb()
         .prepare('SELECT id FROM roles WHERE key = ?')
@@ -84,6 +113,10 @@ async function getRoleId(roleKey: PortalRoleKey): Promise<number> {
         throw new Error(`Role not found: ${roleKey}`);
     }
     return row.id;
+}
+
+async function getActiveAdminRoleId(): Promise<number> {
+    return getRoleId('admin');
 }
 
 export function getEmailKey(email: string): string {
@@ -274,6 +307,58 @@ export async function upsertUserByEmail(
     return createdUser;
 }
 
+export async function listUsers(limit = 200): Promise<PortalUser[]> {
+    const result = await getDb()
+        .prepare(
+            `
+      SELECT
+        users.id,
+        users.email,
+        users.normalized_email,
+        users.email_key,
+        users.name,
+        users.status,
+        users.created_at,
+        users.updated_at,
+        users.last_login_at,
+        COALESCE(GROUP_CONCAT(roles.key), '') AS roles_csv,
+        COUNT(DISTINCT waitlist_entries.id) AS submission_count
+      FROM users
+      LEFT JOIN user_roles
+        ON user_roles.user_id = users.id
+        AND user_roles.revoked_at IS NULL
+      LEFT JOIN roles
+        ON roles.id = user_roles.role_id
+      LEFT JOIN waitlist_entries
+        ON waitlist_entries.user_id = users.id
+      GROUP BY users.id
+      ORDER BY COALESCE(users.last_login_at, users.created_at) DESC, users.email ASC
+      LIMIT ?
+    `,
+        )
+        .bind(limit)
+        .all<D1ResultRow & { roles_csv?: string | null }>();
+
+    return result.results.map((row) => toPortalUser(row));
+}
+
+export async function countActiveAdmins(): Promise<number> {
+    const roleId = await getActiveAdminRoleId();
+    const row = await getDb()
+        .prepare(
+            `
+      SELECT COUNT(DISTINCT user_id) AS total
+      FROM user_roles
+      WHERE role_id = ?
+        AND revoked_at IS NULL
+    `,
+        )
+        .bind(roleId)
+        .first<{ total: number | string }>();
+
+    return Number(row?.total ?? 0);
+}
+
 export async function hasActiveRole(
     userId: string,
     roleKey: PortalRoleKey,
@@ -313,6 +398,85 @@ export async function grantRole(
         .run()) as { meta?: { changes?: number } };
 
     return Number(result?.meta?.changes ?? 0) > 0;
+}
+
+export async function revokeRole(
+    userId: string,
+    roleKey: PortalRoleKey,
+    revokedByUserId: string,
+): Promise<boolean> {
+    if (userId === revokedByUserId) {
+        throw new Error('You cannot revoke your own admin role.');
+    }
+
+    if (roleKey === 'admin' && (await hasActiveRole(userId, 'admin'))) {
+        const activeAdmins = await countActiveAdmins();
+        if (activeAdmins <= 1) {
+            throw new Error('You cannot remove the last active admin.');
+        }
+    }
+
+    const roleId = await getRoleId(roleKey);
+    const result = (await getDb()
+        .prepare(
+            `
+      UPDATE user_roles
+      SET revoked_at = ?
+      WHERE user_id = ?
+        AND role_id = ?
+        AND revoked_at IS NULL
+    `,
+        )
+        .bind(nowIso(), userId, roleId)
+        .run()) as { meta?: { changes?: number } };
+
+    return Number(result?.meta?.changes ?? 0) > 0;
+}
+
+export async function updateUserName(
+    userId: string,
+    name: string | null,
+): Promise<void> {
+    await getDb()
+        .prepare(
+            `
+      UPDATE users
+      SET name = ?, updated_at = ?
+      WHERE id = ?
+    `,
+        )
+        .bind(cleanName(name), nowIso(), userId)
+        .run();
+}
+
+export async function updateUserStatus(
+    userId: string,
+    status: PortalUserStatus,
+    actorUserId: string,
+): Promise<void> {
+    if (status === 'suspended') {
+        if (userId === actorUserId) {
+            throw new Error('You cannot suspend your own account.');
+        }
+
+        if (await hasActiveRole(userId, 'admin')) {
+            const activeAdmins = await countActiveAdmins();
+            if (activeAdmins <= 1) {
+                throw new Error('You cannot suspend the last active admin.');
+            }
+        }
+    }
+
+    await getDb()
+        .prepare(
+            `
+      UPDATE users
+      SET status = ?, updated_at = ?
+      WHERE id = ?
+    `,
+        )
+        .bind(status, nowIso(), userId)
+        .run();
 }
 
 export async function insertAuditEvent(
@@ -394,61 +558,64 @@ export async function insertWaitlistEntry(
     return 'created';
 }
 
+export async function getWaitlistEntryById(
+    entryId: string,
+): Promise<WaitlistEntryRecord | null> {
+    const row = await getDb()
+        .prepare(
+            `
+      SELECT id, user_id, email, email_normalized, name, note, source, status, created_at
+      FROM waitlist_entries
+      WHERE id = ?
+      LIMIT 1
+    `,
+        )
+        .bind(entryId)
+        .first<D1ResultRow>();
+
+    return row ? toWaitlistEntry(row) : null;
+}
+
+export async function updateWaitlistEntryStatus(
+    entryId: string,
+    status: WaitlistEntryStatus,
+): Promise<void> {
+    await getDb()
+        .prepare(
+            `
+      UPDATE waitlist_entries
+      SET status = ?
+      WHERE id = ?
+    `,
+        )
+        .bind(status, entryId)
+        .run();
+}
+
 export async function listWaitlistEntries(
     limit = 200,
 ): Promise<WaitlistEntryRecord[]> {
     const result = await getDb()
         .prepare(
             `
-      SELECT id, user_id AS userId, email, email_normalized, name, note, source, status, created_at
+      SELECT id, user_id, email, email_normalized, name, note, source, status, created_at
       FROM waitlist_entries
       ORDER BY created_at DESC
       LIMIT ?
     `,
         )
         .bind(limit)
-        .all<WaitlistEntryRecord>();
-    return result.results;
-}
+        .all<D1ResultRow>();
 
-export async function listUsers(limit = 200): Promise<PortalUser[]> {
-    const result = await getDb()
-        .prepare(
-            `
-      SELECT
-        users.id,
-        users.email,
-        users.normalized_email,
-        users.email_key,
-        users.name,
-        users.status,
-        users.created_at,
-        users.updated_at,
-        users.last_login_at,
-        COALESCE(GROUP_CONCAT(roles.key), '') AS roles_csv,
-        COUNT(DISTINCT waitlist_entries.id) AS submission_count
-      FROM users
-      LEFT JOIN user_roles
-        ON user_roles.user_id = users.id
-        AND user_roles.revoked_at IS NULL
-      LEFT JOIN roles
-        ON roles.id = user_roles.role_id
-      LEFT JOIN waitlist_entries
-        ON waitlist_entries.user_id = users.id
-      GROUP BY users.id
-      ORDER BY COALESCE(users.last_login_at, users.created_at) DESC, users.email ASC
-      LIMIT ?
-    `,
-        )
-        .bind(limit)
-        .all<D1ResultRow & { roles_csv?: string | null }>();
-
-    return result.results.map((row) => toPortalUser(row));
+    return result.results.map((row) => toWaitlistEntry(row));
 }
 
 export async function getWaitlistStats(): Promise<{
     total: number;
     today: number;
+    pending: number;
+    approved: number;
+    rejected: number;
 }> {
     const db = getDb();
     const totalRow = await db
@@ -464,9 +631,25 @@ export async function getWaitlistStats(): Promise<{
         )
         .bind(nowIso())
         .first<{ total: number | string }>();
+    const grouped = await db
+        .prepare(
+            `
+      SELECT status, COUNT(*) AS total
+      FROM waitlist_entries
+      GROUP BY status
+    `,
+        )
+        .all<{ status: WaitlistEntryStatus; total: number | string }>();
+
+    const byStatus = new Map(
+        grouped.results.map((row) => [row.status, Number(row.total ?? 0)]),
+    );
 
     return {
         total: Number(totalRow?.total ?? 0),
         today: Number(todayRow?.total ?? 0),
+        pending: byStatus.get('pending') ?? 0,
+        approved: byStatus.get('approved') ?? 0,
+        rejected: byStatus.get('rejected') ?? 0,
     };
 }

@@ -579,3 +579,133 @@ a {
     letter-spacing: 0.14em;
     color: #6f6255;
 }
+
+.admin-header,
+.admin-surface,
+.admin-metric-card,
+.admin-detail-card {
+    background: rgba(250, 247, 241, 0.78);
+    border: 1px solid rgba(120, 113, 108, 0.18);
+    box-shadow: 0 22px 50px rgba(43, 36, 29, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.admin-grid {
+    display: grid;
+}
+
+.admin-metric-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .admin-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1100px) {
+    .admin-metric-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.admin-metric-card {
+    border-radius: 1.35rem;
+    padding: 1.2rem 1.25rem;
+}
+
+.admin-section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.16);
+}
+
+.admin-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background 140ms ease;
+}
+
+.admin-list-row:hover {
+    background: rgba(255, 255, 255, 0.42);
+}
+
+.admin-nav__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.72rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 113, 108, 0.2);
+    background: rgba(255, 255, 255, 0.54);
+    color: #4a4138;
+    text-decoration: none;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.92rem;
+    transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        color 140ms ease;
+}
+
+.admin-nav__link.active,
+.admin-nav__link:hover {
+    background: #154a7a;
+    border-color: #154a7a;
+    color: #f8f4ec;
+}
+
+.admin-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.admin-pill.active,
+.admin-pill.approved {
+    background: rgba(22, 163, 74, 0.12);
+    color: #166534;
+}
+
+.admin-pill.suspended,
+.admin-pill.rejected {
+    background: rgba(185, 28, 28, 0.1);
+    color: #991b1b;
+}
+
+.admin-pill.pending {
+    background: rgba(21, 74, 122, 0.1);
+    color: #123c62;
+}
+
+.admin-detail-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .admin-detail-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.admin-detail-card {
+    border-radius: 1rem;
+    padding: 1rem;
+}

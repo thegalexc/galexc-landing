@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import type { PortalUser } from '../types/portal';
+
+interface Props {
+    title: string;
+    description?: string;
+    adminUser: PortalUser;
+}
+
+const {
+    title,
+    description = 'Private admin dashboard for GalexC.',
+    adminUser,
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const navItems = [
+    { href: '/admin', label: 'Overview' },
+    { href: '/admin/users', label: 'Users' },
+    { href: '/admin/submissions', label: 'Submissions' },
+];
+---
+
+<Layout title={title} description={description} noindex>
+    <div class="editorial-shell px-4 py-8 md:px-6 md:py-10">
+        <header class="admin-header rounded-[1.75rem] p-6 md:p-8">
+            <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                    <p class="eyebrow">GalexC Admin</p>
+                    <h1 class="mt-3 text-5xl text-stone-950 md:text-6xl">
+                        {title}
+                    </h1>
+                </div>
+                <div class="flex flex-col items-start gap-3 lg:items-end">
+                    <p class="text-sm text-stone-700">
+                        Signed in as <span class="font-medium text-stone-900"
+                            >{adminUser.email}</span
+                        >
+                    </p>
+                    <form action="/api/session/logout" method="POST">
+                        <button
+                            type="submit"
+                            class="secondary-button cursor-pointer"
+                        >
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <nav class="admin-nav mt-6 flex flex-wrap gap-2">
+                {
+                    navItems.map((item) => {
+                        const isActive =
+                            pathname === item.href ||
+                            (item.href !== '/admin' &&
+                                pathname.startsWith(`${item.href}/`));
+                        return (
+                            <a
+                                href={item.href}
+                                class:list={['admin-nav__link', { active: isActive }]}
+                            >
+                                {item.label}
+                            </a>
+                        );
+                    })
+                }
+            </nav>
+        </header>
+
+        <slot />
+    </div>
+</Layout>
