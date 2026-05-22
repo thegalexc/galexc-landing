@@ -46,5 +46,12 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://galexc.net').href;
     <main>
       <slot />
     </main>
+    <footer class="site-footer">
+      <p>
+        &copy; {new Date().getFullYear()}
+        <a href="https://galexc.me" target="_blank" rel="noreferrer noopener">Gilman Callsen</a>.
+        All rights reserved.
+      </p>
+    </footer>
   </body>
 </html>

@@ -1,60 +1,82 @@
 ---
-import { env } from 'cloudflare:workers';
-import WaitlistForm from '../components/WaitlistForm.astro';
-import Layout from '../layouts/Layout.astro';
-import { createFormToken } from '../lib/form-token';
+import { env } from "cloudflare:workers";
+import WaitlistForm from "../components/WaitlistForm.astro";
+import Layout from "../layouts/Layout.astro";
+import { createFormToken } from "../lib/form-token";
 
-const issuedAt = Date.now().toString();
-const formToken = await createFormToken(issuedAt, 'waitlist');
-const siteKey = env.TURNSTILE_SITE_KEY;
-const waitlistState = Astro.url.searchParams.get('waitlist');
+const showWaitlist = false;
+const issuedAt = showWaitlist ? Date.now().toString() : "";
+const formToken = showWaitlist
+    ? await createFormToken(issuedAt, "waitlist")
+    : "";
+const siteKey = showWaitlist ? env.TURNSTILE_SITE_KEY : undefined;
+const waitlistState = showWaitlist
+    ? Astro.url.searchParams.get("waitlist")
+    : null;
 
 const stateMap = {
-  success: {
-    tone: 'success',
-    message: 'You are on the list. Thanks for the signal.',
-  },
-  invalid: {
-    tone: 'error',
-    message: 'That submission could not be accepted. Please check the form and try again.',
-  },
-  rate_limited: {
-    tone: 'error',
-    message: 'That form has seen too many recent attempts. Please wait a bit and try again.',
-  },
-  unavailable: {
-    tone: 'error',
-    message: 'The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.',
-  },
-  blocked: {
-    tone: 'error',
-    message: 'That submission looked automated, so it was not accepted.',
-  },
+    success: {
+        tone: "success",
+        message: "You are on the list. Thanks for the signal.",
+    },
+    invalid: {
+        tone: "error",
+        message:
+            "That submission could not be accepted. Please check the form and try again.",
+    },
+    rate_limited: {
+        tone: "error",
+        message:
+            "That form has seen too many recent attempts. Please wait a bit and try again.",
+    },
+    unavailable: {
+        tone: "error",
+        message:
+            "The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.",
+    },
+    blocked: {
+        tone: "error",
+        message: "That submission looked automated, so it was not accepted.",
+    },
 } as const;
 
-const waitlistStatus = waitlistState && waitlistState in stateMap ? stateMap[waitlistState as keyof typeof stateMap] : null;
+const waitlistStatus =
+    showWaitlist && waitlistState && waitlistState in stateMap
+        ? stateMap[waitlistState as keyof typeof stateMap]
+        : null;
 ---
 
-<Layout
-  title="GalexC"
-  description="GalexC is a private system for serious operator workflows."
-  noindex
->
-  <div class="editorial-shell px-4 py-8 md:px-6 md:py-12">
-    <section class="mx-auto max-w-4xl panel rounded-[2rem] p-6 md:p-10">
-      <div class="flex flex-col gap-5">
-        <p class="eyebrow">GalexC / selective early access</p>
-        <h1 class="max-w-3xl text-5xl leading-[0.96] text-stone-950 md:text-7xl">
-          Private agent workflows for serious operator work.
-        </h1>
-        <p class="max-w-2xl text-lg leading-8 text-stone-700 md:text-xl">
-          GalexC is a private system for research, dispatch, and decision support. Early access is paced while I shape it around a small set of real workflows.
-        </p>
-      </div>
+<Layout title="GalexC" description="Private, for now." noindex>
+    <div
+        class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12"
+    >
+        <section
+            class="mx-auto w-full max-w-4xl panel rounded-[2rem] p-6 md:p-10"
+        >
+            <div class="flex flex-col gap-4 text-center md:gap-5">
+                <p class="eyebrow">GalexC</p>
+                <h1 class="text-5xl leading-[0.96] text-stone-950 md:text-6xl">
+                    Professional-Grade Personal AI.
+                </h1>
+                <p
+                    class="mx-auto max-w-xl text-base leading-7 text-stone-700 md:text-lg"
+                >
+                    Coming soon.
+                </p>
+            </div>
 
-      <div class="mt-8">
-        <WaitlistForm issuedAt={issuedAt} formToken={formToken} siteKey={siteKey} status={waitlistStatus} />
-      </div>
-    </section>
-  </div>
+            {
+                showWaitlist && (
+                    <div class="mt-8">
+                        <WaitlistForm
+                            issuedAt={issuedAt}
+                            formToken={formToken}
+                            siteKey={siteKey}
+                            status={waitlistStatus}
+                        />
+                    </div>
+                )
+            }
+        </section>
+    </div>
 </Layout>

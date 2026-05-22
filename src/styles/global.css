@@ -33,6 +33,38 @@ main {
   z-index: 1;
 }
 
+.site-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-shell main {
+  flex: 1;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 1.25rem 1rem 2rem;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6f6255;
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.site-footer a:hover {
+  color: #123c62;
+}
+
 h1,
 h2,
 h3,
