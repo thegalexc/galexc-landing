@@ -4,7 +4,7 @@ interface Props {
     formToken: string;
     siteKey?: string;
     status?: {
-        tone: "success" | "error" | "info";
+        tone: 'success' | 'error' | 'info';
         message: string;
     } | null;
 }
@@ -22,7 +22,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
     <div class="mt-5">
         {
             status && (
-                <div class:list={["status-banner", status.tone]}>
+                <div class:list={['status-banner', status.tone]}>
                     {status.message}
                 </div>
             )
@@ -70,28 +70,34 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
             </label>
         </div>
 
-        <div class="waitlist-submit-row">
-            <div class="waitlist-actions">
-                <button class="waitlist-button" type="submit" disabled={!siteKey}
-                    >Request access <span aria-hidden="true">→</span></button
-                >
-            </div>
-
-            {siteKey && (
-                <div class="waitlist-turnstile">
-                    <div class="waitlist-turnstile__inner overflow-x-auto">
-                        <div class="cf-turnstile" data-sitekey={siteKey} data-theme="light" />
-                    </div>
+        {
+            siteKey && (
+                <div class="waitlist-turnstile" aria-hidden="true">
+                    <div
+                        class="cf-turnstile"
+                        data-sitekey={siteKey}
+                        data-theme="light"
+                        data-appearance="interaction-only"
+                    />
                 </div>
-            )}
+            )
+        }
+
+        <div class="waitlist-actions">
+            <button class="waitlist-button" type="submit" disabled={!siteKey}
+                >Request access <span aria-hidden="true">→</span></button
+            >
         </div>
     </form>
 
-    {!siteKey && (
-        <div class="status-banner info waitlist-dev-note">
-            Turnstile is not configured yet. The form will stay disabled until the site key and secret are set.
-        </div>
-    )}
+    {
+        !siteKey && (
+            <div class="status-banner info waitlist-dev-note">
+                Turnstile is not configured yet. The form will stay disabled
+                until the site key and secret are set.
+            </div>
+        )
+    }
 
     {
         siteKey && (
