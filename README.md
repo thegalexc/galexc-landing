@@ -28,6 +28,8 @@ pnpm dev
 pnpm check
 ```
 
+`pnpm dev` bootstraps local D1 migrations before starting Astro, so admin routes work against the local schema. Local dev also bypasses rate limiting and Turnstile checks.
+
 Set local environment values in `.env` or your shell as needed.
 
 ## Required Cloudflare bindings and secrets

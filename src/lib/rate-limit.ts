@@ -11,6 +11,10 @@ export async function applyRateLimit(
     limit: number,
     ttlSeconds: number,
 ): Promise<RateLimitResult> {
+    if (import.meta.env.DEV) {
+        return { allowed: true, count: 0, limit };
+    }
+
     const namespace = env.RATE_LIMIT;
     if (!namespace) {
         return { allowed: true, count: 0, limit };

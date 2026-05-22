@@ -1,3 +1,5 @@
+import { env } from 'cloudflare:workers';
+
 export const AUTH_COOKIE_NAME = 'galexc_session';
 export const SESSION_VERSION = 1;
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
@@ -17,6 +19,16 @@ export interface SessionTokenPayload {
 function getEnv(
     name: 'GALEXC_ADMIN_PASSWORD' | 'GALEXC_COOKIE_SECRET',
 ): string | undefined {
+    const runtimeValue = env[name];
+    if (runtimeValue) {
+        return runtimeValue;
+    }
+
+    const processValue = process.env[name];
+    if (processValue) {
+        return processValue;
+    }
+
     return import.meta.env[name] || undefined;
 }
 
