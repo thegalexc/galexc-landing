@@ -3,10 +3,12 @@ import { env } from 'cloudflare:workers';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import Layout from '../layouts/Layout.astro';
 import { createFormToken } from '../lib/form-token';
+import { isPreviewMode } from '../lib/preview-mode';
 
+const previewMode = isPreviewMode();
 const issuedAt = Date.now().toString();
 const formToken = await createFormToken(issuedAt, 'waitlist');
-const siteKey = env.TURNSTILE_SITE_KEY;
+const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
 const waitlistState = Astro.url.searchParams.get('waitlist');
 
 const stateMap = {
@@ -32,6 +34,10 @@ const stateMap = {
     blocked: {
         tone: 'error',
         message: 'That submission looked automated, so it was not accepted.',
+    },
+    preview_disabled: {
+        tone: 'info',
+        message: 'Preview build only - submissions are disabled here.',
     },
 } as const;
 
@@ -80,6 +86,7 @@ const waitlistOpen = Boolean(waitlistStatus);
                             formToken={formToken}
                             siteKey={siteKey}
                             status={waitlistStatus}
+                            previewMode={previewMode}
                         />
                     </div>
                 </div>

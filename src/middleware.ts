@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { getAuthenticatedUser } from './lib/request-auth';
 import { isAdminUser } from './lib/admin';
+import { isPreviewMode } from './lib/preview-mode';
 
 function isProtectedPath(pathname: string): boolean {
     return pathname === '/admin' || pathname.startsWith('/admin/');
@@ -15,6 +16,23 @@ function shouldNoindex(pathname: string): boolean {
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
+    const previewMode = isPreviewMode();
+
+    if (
+        previewMode &&
+        (context.url.pathname === '/login' ||
+            context.url.pathname.startsWith('/admin') ||
+            context.url.pathname.startsWith('/api/session/'))
+    ) {
+        return new Response('Not found', {
+            status: 404,
+            headers: {
+                'X-Robots-Tag': 'noindex, nofollow',
+                'Cache-Control': 'no-store',
+            },
+        });
+    }
+
     const authenticatedUser = await getAuthenticatedUser(context);
     context.locals.authenticatedUser = authenticatedUser;
     context.locals.adminUser = isAdminUser(authenticatedUser)

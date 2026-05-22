@@ -8,6 +8,7 @@ import {
     normalizeEmail,
     upsertUserByEmail,
 } from '../../lib/db';
+import { isPreviewMode } from '../../lib/preview-mode';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -56,6 +57,10 @@ async function verifyTurnstile(
 }
 
 export const POST: APIRoute = async ({ request }) => {
+    if (isPreviewMode()) {
+        return redirectTo('preview_disabled');
+    }
+
     if (!env.DB) {
         return redirectTo('unavailable');
     }

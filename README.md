@@ -90,4 +90,8 @@ pnpm exec wrangler d1 migrations apply DB --remote
 
 ## Deploy
 
-Push to Forgejo. The deploy workflow builds Astro and deploys the generated worker with custom domains for `galexc.net` and `www.galexc.net`.
+Push to Forgejo.
+
+- `main` deploys the production Worker with custom domains for `galexc.net` and `www.galexc.net`.
+- `feat/*` and `agent/*` branches deploy isolated preview Workers on `workers.dev`.
+- Preview deployments run with `PREVIEW_MODE=true`, disable public submissions and admin/auth routes, and are safe for design and content review without touching production flows.

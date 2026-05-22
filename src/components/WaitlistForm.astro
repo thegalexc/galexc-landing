@@ -3,13 +3,14 @@ interface Props {
     issuedAt: string;
     formToken: string;
     siteKey?: string;
+    previewMode?: boolean;
     status?: {
         tone: 'success' | 'error' | 'info';
         message: string;
     } | null;
 }
 
-const { issuedAt, formToken, siteKey, status = null } = Astro.props;
+const { issuedAt, formToken, siteKey, previewMode = false, status = null } = Astro.props;
 ---
 
 <section id="waitlist" class="waitlist-form-shell p-6 md:p-8">
@@ -77,6 +78,14 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
                 placeholder="A sentence or two."></textarea>
         </div>
 
+        {
+            previewMode && (
+                <div class="status-banner info waitlist-dev-note">
+                    Preview build only - submissions are disabled here.
+                </div>
+            )
+        }
+
         <div class="sr-only" aria-hidden="true">
             <label>
                 Company
@@ -89,7 +98,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
             </label>
         </div>
 
-        {siteKey && (
+        {!previewMode && siteKey && (
             <>
                 <div class="waitlist-turnstile" data-turnstile-host>
                     <div
@@ -114,7 +123,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
             <button
                 class="waitlist-button"
                 type="submit"
-                disabled={!siteKey}
+                disabled={previewMode || !siteKey}
                 data-waitlist-submit
                 >Request access <span aria-hidden="true">→</span></button
             >
@@ -122,7 +131,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
     </form>
 
     {
-        !siteKey && (
+        !previewMode && !siteKey && (
             <div class="status-banner info waitlist-dev-note">
                 Turnstile is not configured yet. The form will stay disabled
                 until the site key and secret are set.
@@ -130,7 +139,7 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
         )
     }
 
-    {siteKey && (
+    {!previewMode && siteKey && (
         <>
             <script is:inline>
                 (() => {

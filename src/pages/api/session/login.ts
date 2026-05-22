@@ -17,8 +17,13 @@ import {
     parseBootstrapAdminEmails,
     upsertUserByEmail,
 } from '../../../lib/db';
+import { isPreviewMode } from '../../../lib/preview-mode';
 
 export const POST: APIRoute = async ({ cookies, redirect, request }) => {
+    if (isPreviewMode()) {
+        return redirect('/?waitlist=preview_disabled');
+    }
+
     const formData = await request.formData();
     const normalizedEmail = normalizeEmail(String(formData.get('email') ?? ''));
     const password = String(formData.get('password') ?? '');

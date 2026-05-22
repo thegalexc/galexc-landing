@@ -53,6 +53,7 @@ jobs:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
             - name: Apply D1 migrations
+              if: github.ref_name == 'main'
               run: |
                   sops exec-env "${{ steps.secrets.outputs.file }}" \
                     "pnpm exec wrangler d1 migrations apply DB --remote"
@@ -66,9 +67,52 @@ jobs:
               env:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
-            - name: Deploy to Cloudflare Workers
+            - name: Prepare preview worker config
+              if: github.ref_name != 'main'
               run: |
-                  sops exec-env "${{ steps.secrets.outputs.file }}" \
-                    "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars --secrets-file /tmp/worker-secrets.env"
+                  BRANCH_SLUG=$(printf '%s' "$GITHUB_REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's#[^a-z0-9-]#-#g; s#--*#-#g; s#^-##; s#-$##' | cut -c1-32)
+                  export BRANCH_SLUG
+                  node - <<'NODE'
+                  const fs = require('fs');
+                  const path = 'dist/server/wrangler.json';
+                  const out = '/tmp/wrangler-preview.json';
+                  const cfg = JSON.parse(fs.readFileSync(path, 'utf8'));
+                  const branchSlug = process.env.BRANCH_SLUG;
+                  cfg.name = `galexc-landing-preview-${branchSlug}`;
+                  cfg.routes = [];
+                  cfg.vars = { ...(cfg.vars || {}), PREVIEW_MODE: 'true' };
+                  cfg.workers_dev = true;
+                  fs.writeFileSync(out, JSON.stringify(cfg));
+                  console.log(`wrote ${out} for ${cfg.name}`);
+                  NODE
+
+            - name: Deploy to Cloudflare Workers
+              id: deploy
+              run: |
+                  set -o pipefail
+                  if [ "$GITHUB_REF_NAME" = "main" ]; then
+                    sops exec-env "${{ steps.secrets.outputs.file }}" \
+                      "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
+                      2>&1 | tee /tmp/deploy-output.txt
+                  else
+                    sops exec-env "${{ steps.secrets.outputs.file }}" \
+                      "pnpm exec wrangler deploy dist/server/entry.mjs --config /tmp/wrangler-preview.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
+                      2>&1 | tee /tmp/deploy-output.txt
+                  fi
+                  DEPLOY_URL=$(grep -oE 'https://[^ ]+\.workers\.dev' /tmp/deploy-output.txt | tail -1)
+                  echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
               env:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+
+            - name: Notify preview URL
+              if: startsWith(github.ref_name, 'feat/') || startsWith(github.ref_name, 'agent/')
+              run: |
+                  DEPLOY_URL="${{ steps.deploy.outputs.url }}"
+                  curl -s \
+                    -H "Authorization: Bearer $NTFY_TOKEN" \
+                    -H "Title: galexc-landing preview ready" \
+                    -H "Tags: white_check_mark" \
+                    -d "$GITHUB_REF_NAME → ${DEPLOY_URL:-preview deploy finished}" \
+                    https://ntfy.crested-altair.ts.net/alerts
+              env:
+                  NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
