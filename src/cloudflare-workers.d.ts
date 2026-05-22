@@ -22,11 +22,12 @@ declare module 'cloudflare:workers' {
     interface Env {
         DB?: D1Database;
         RATE_LIMIT?: KVNamespace;
-        GALEXC_ADMIN_EMAILS?: string;
+        GALEXC_BOOTSTRAP_ADMIN_EMAILS?: string;
+        GALEXC_ADMIN_PASSWORD?: string;
+        GALEXC_COOKIE_SECRET?: string;
         TURNSTILE_SECRET?: string;
         TURNSTILE_SITE_KEY?: string;
         IP_HMAC_SECRET?: string;
-        CF_ACCESS_TEAM_DOMAIN?: string;
     }
 
     export const env: Env;

@@ -1,3 +1,1 @@
-export interface AdminUser {
-    email: string;
-}
+export type AdminUser = import('./portal').PortalUser;

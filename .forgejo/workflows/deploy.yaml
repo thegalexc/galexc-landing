@@ -58,12 +58,11 @@ jobs:
                     "pnpm exec wrangler d1 migrations apply DB --remote"
               env:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-              continue-on-error: true
 
             - name: Prepare worker runtime secrets
               run: |
                   sops exec-env "${{ steps.secrets.outputs.file }}" \
-                    'printf "TURNSTILE_SITE_KEY=%s\nTURNSTILE_SECRET=%s\nIP_HMAC_SECRET=%s\n" "$TURNSTILE_SITE_KEY" "$TURNSTILE_SECRET" "$IP_HMAC_SECRET" > /tmp/worker-secrets.env'
+                    'printf "GALEXC_BOOTSTRAP_ADMIN_EMAILS=%s\nGALEXC_ADMIN_PASSWORD=%s\nGALEXC_COOKIE_SECRET=%s\nTURNSTILE_SITE_KEY=%s\nTURNSTILE_SECRET=%s\nIP_HMAC_SECRET=%s\n" "$GALEXC_BOOTSTRAP_ADMIN_EMAILS" "$GALEXC_ADMIN_PASSWORD" "$GALEXC_COOKIE_SECRET" "$TURNSTILE_SITE_KEY" "$TURNSTILE_SECRET" "$IP_HMAC_SECRET" > /tmp/worker-secrets.env'
               env:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 

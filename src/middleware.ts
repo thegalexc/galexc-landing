@@ -1,29 +1,45 @@
 import { defineMiddleware } from 'astro:middleware';
-import { getAdminUser } from './lib/admin';
+import { getAuthenticatedUser } from './lib/request-auth';
+import { isAdminUser } from './lib/admin';
 
 function isProtectedPath(pathname: string): boolean {
     return pathname === '/admin' || pathname.startsWith('/admin/');
 }
 
-export const onRequest = defineMiddleware(async (context, next) => {
-    context.locals.adminUser = getAdminUser(context);
+function shouldNoindex(pathname: string): boolean {
+    return (
+        pathname === '/login' ||
+        pathname.startsWith('/admin') ||
+        pathname.startsWith('/api/')
+    );
+}
 
-    if (isProtectedPath(context.url.pathname) && !context.locals.adminUser) {
-        return new Response('Forbidden', {
-            status: 403,
-            headers: {
-                'X-Robots-Tag': 'noindex, nofollow',
-                'Cache-Control': 'no-store',
-            },
-        });
+export const onRequest = defineMiddleware(async (context, next) => {
+    const authenticatedUser = await getAuthenticatedUser(context);
+    context.locals.authenticatedUser = authenticatedUser;
+    context.locals.adminUser = isAdminUser(authenticatedUser)
+        ? authenticatedUser
+        : null;
+
+    if (isProtectedPath(context.url.pathname)) {
+        if (!authenticatedUser) {
+            return context.redirect('/login');
+        }
+
+        if (!context.locals.adminUser) {
+            return new Response('Forbidden', {
+                status: 403,
+                headers: {
+                    'X-Robots-Tag': 'noindex, nofollow',
+                    'Cache-Control': 'no-store',
+                },
+            });
+        }
     }
 
     const response = await next();
 
-    if (
-        context.url.pathname.startsWith('/admin') ||
-        context.url.pathname.startsWith('/api/')
-    ) {
+    if (shouldNoindex(context.url.pathname)) {
         response.headers.set('X-Robots-Tag', 'noindex, nofollow');
         response.headers.set('Cache-Control', 'no-store');
     }

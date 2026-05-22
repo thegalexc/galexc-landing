@@ -2,6 +2,7 @@
 
 declare namespace App {
     interface Locals {
-        adminUser: import('./types/admin').AdminUser | null;
+        authenticatedUser: import('./types/portal').PortalUser | null;
+        adminUser: import('./types/portal').PortalUser | null;
     }
 }

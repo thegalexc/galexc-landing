@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+if (Astro.locals.adminUser) {
+    return Astro.redirect('/admin');
+}
+
+const error = Astro.url.searchParams.get('error');
+const showPasswordError = error === '1';
+const showEmailError = error === 'email';
+const showAdminError = error === 'admin';
+const showPausedError = error === 'paused';
+---
+
+<Layout
+    title="GalexC Admin Login"
+    description="Private admin login for GalexC."
+    noindex
+>
+    <div
+        class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12"
+    >
+        <section class="mx-auto w-full max-w-xl rounded-[2rem] p-6 md:p-10">
+            <div class="flex flex-col gap-3 text-center">
+                <p class="eyebrow">Private admin surface</p>
+                <h1 class="text-5xl leading-[0.96] text-stone-950 md:text-6xl">
+                    Login
+                </h1>
+                <p class="mx-auto max-w-lg text-base leading-7 text-stone-700">
+                    Hidden route. No public link. Admin access only.
+                </p>
+            </div>
+
+            <form
+                method="POST"
+                action="/api/session/login"
+                class="waitlist-form mt-8"
+            >
+                <label class="block">
+                    <span class="waitlist-field-label">Email</span>
+                    <input
+                        type="email"
+                        name="email"
+                        autocomplete="email"
+                        autofocus
+                        required
+                        class="waitlist-input"
+                        placeholder="you@example.com"
+                    />
+                </label>
+
+                <label class="block">
+                    <span class="waitlist-field-label">Password</span>
+                    <input
+                        type="password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                        class="waitlist-input"
+                        placeholder="Enter password"
+                    />
+                </label>
+
+                {
+                    showEmailError && (
+                        <div class="status-banner error">
+                            Please enter a valid email address.
+                        </div>
+                    )
+                }
+
+                {
+                    showPasswordError && (
+                        <div class="status-banner error">
+                            That password did not match.
+                        </div>
+                    )
+                }
+
+                {
+                    showAdminError && (
+                        <div class="status-banner error">
+                            That account is not allowed into the admin panel.
+                        </div>
+                    )
+                }
+
+                {
+                    showPausedError && (
+                        <div class="status-banner error">
+                            That account is suspended.
+                        </div>
+                    )
+                }
+
+                <div class="waitlist-actions pt-2">
+                    <button class="waitlist-button" type="submit">
+                        Login <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+</Layout>

@@ -6,7 +6,8 @@ import {
     getEmailKey,
     insertWaitlistEntry,
     normalizeEmail,
-} from '../../lib/waitlist';
+    upsertUserByEmail,
+} from '../../lib/db';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -115,7 +116,12 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     try {
+        const user = await upsertUserByEmail(normalizedEmail, {
+            name: name || null,
+        });
+
         await insertWaitlistEntry({
+            userId: user.id,
             email: normalizedEmail,
             name: name || null,
             note: note || null,

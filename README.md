@@ -6,16 +6,19 @@ Astro landing surface for `galexc.net`.
 
 - Astro server output
 - Cloudflare Workers with custom domains
-- D1 for waitlist storage
+- D1 for users, waitlist storage, and admin audit events
 - KV for rate limiting
-- Cloudflare Access for `/admin`
+- password-based hidden admin login at `/login`
 - Turnstile for public waitlist submissions
 
 ## Routes
 
 - `/` landing page
 - `POST /api/waitlist` public waitlist intake
-- `/admin` private waitlist dashboard
+- `/login` hidden admin login
+- `POST /api/session/login` admin session login
+- `POST /api/session/logout` admin session logout
+- `/admin` private admin dashboard
 
 ## Local development
 
@@ -33,6 +36,15 @@ Set local environment values in `.env` or your shell as needed.
 - KV binding `RATE_LIMIT`
 - encrypted secrets in `secrets/github.env` and `secrets/github-preview.env`
 - Forgejo secret `SOPS_AGE_KEY` for CI decryption
+
+Runtime env expected by the app:
+
+- `GALEXC_BOOTSTRAP_ADMIN_EMAILS`
+- `GALEXC_ADMIN_PASSWORD`
+- `GALEXC_COOKIE_SECRET`
+- `IP_HMAC_SECRET`
+- `TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET`
 
 ## SOPS
 
@@ -65,6 +77,7 @@ CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY` and uploads worke
 ## Database
 
 Initial schema lives at `migrations/0001_create_waitlist.sql`.
+Auth and user expansion live at `migrations/0002_add_users_and_auth.sql`.
 
 Apply migrations with:
 

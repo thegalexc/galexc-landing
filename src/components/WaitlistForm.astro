@@ -34,17 +34,36 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
         <input type="hidden" name="form_token" value={formToken} />
         <input type="hidden" name="source" value="landing" />
 
-        <label class="sr-only" for="waitlist-email">Email</label>
-        <input
-            id="waitlist-email"
-            class="waitlist-input"
-            type="email"
-            name="email"
-            required
-            maxlength="320"
-            autocomplete="email"
-            placeholder="you@example.com"
-        />
+        <div>
+            <label class="waitlist-field-label" for="waitlist-name">
+                Name
+            </label>
+            <input
+                id="waitlist-name"
+                class="waitlist-input"
+                type="text"
+                name="name"
+                maxlength="160"
+                autocomplete="name"
+                placeholder="Your name"
+            />
+        </div>
+
+        <div>
+            <label class="waitlist-field-label" for="waitlist-email">
+                Email
+            </label>
+            <input
+                id="waitlist-email"
+                class="waitlist-input"
+                type="email"
+                name="email"
+                required
+                maxlength="320"
+                autocomplete="email"
+                placeholder="you@example.com"
+            />
+        </div>
 
         <div class="waitlist-note-block">
             <label class="waitlist-field-label" for="waitlist-note">
@@ -65,26 +84,38 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
                     type="text"
                     name="company"
                     tabindex="-1"
-                    autocomplete="organization"
+                    autocomplete="off"
                 />
             </label>
         </div>
 
-        {
-            siteKey && (
-                <div class="waitlist-turnstile" aria-hidden="true">
+        {siteKey && (
+            <>
+                <div class="waitlist-turnstile" data-turnstile-host>
                     <div
                         class="cf-turnstile"
                         data-sitekey={siteKey}
                         data-theme="light"
+                        data-size="flexible"
                         data-appearance="interaction-only"
+                        data-callback="galexcTurnstileSuccess"
+                        data-error-callback="galexcTurnstileError"
+                        data-expired-callback="galexcTurnstileExpired"
+                        data-timeout-callback="galexcTurnstileTimeout"
+                        data-before-interactive-callback="galexcTurnstileBeforeInteractive"
+                        data-after-interactive-callback="galexcTurnstileAfterInteractive"
                     />
                 </div>
-            )
-        }
+                <p class="waitlist-turnstile-status" data-turnstile-status hidden></p>
+            </>
+        )}
 
         <div class="waitlist-actions">
-            <button class="waitlist-button" type="submit" disabled={!siteKey}
+            <button
+                class="waitlist-button"
+                type="submit"
+                disabled={!siteKey}
+                data-waitlist-submit
                 >Request access <span aria-hidden="true">→</span></button
             >
         </div>
@@ -99,14 +130,79 @@ const { issuedAt, formToken, siteKey, status = null } = Astro.props;
         )
     }
 
-    {
-        siteKey && (
+    {siteKey && (
+        <>
+            <script is:inline>
+                (() => {
+                    const submitButton = document.querySelector('[data-waitlist-submit]');
+                    const turnstileHost = document.querySelector('[data-turnstile-host]');
+                    const statusNode = document.querySelector('[data-turnstile-status]');
+
+                    if (!(submitButton instanceof HTMLButtonElement)) {
+                        return;
+                    }
+
+                    const setStatus = (message = '') => {
+                        if (!(statusNode instanceof HTMLElement)) {
+                            return;
+                        }
+                        statusNode.textContent = message;
+                        statusNode.hidden = !message;
+                    };
+
+                    const setReady = (ready) => {
+                        submitButton.disabled = !ready;
+                    };
+
+                    const setInteractive = (interactive) => {
+                        if (!(turnstileHost instanceof HTMLElement)) {
+                            return;
+                        }
+                        turnstileHost.classList.toggle('is-visible', interactive);
+                    };
+
+                    setReady(false);
+                    setStatus('');
+                    setInteractive(false);
+
+                    window.galexcTurnstileSuccess = () => {
+                        setReady(true);
+                        setStatus('');
+                        setInteractive(false);
+                    };
+
+                    window.galexcTurnstileError = () => {
+                        setReady(false);
+                        setStatus('Verification could not load. Please try again.');
+                    };
+
+                    window.galexcTurnstileExpired = () => {
+                        setReady(false);
+                        setStatus('Verification expired. Please try again.');
+                    };
+
+                    window.galexcTurnstileTimeout = () => {
+                        setReady(false);
+                        setStatus('Verification timed out. Please try again.');
+                        setInteractive(true);
+                    };
+
+                    window.galexcTurnstileBeforeInteractive = () => {
+                        setInteractive(true);
+                        setStatus('');
+                    };
+
+                    window.galexcTurnstileAfterInteractive = () => {
+                        setInteractive(false);
+                    };
+                })();
+            </script>
             <script
                 is:inline
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
                 async
                 defer
             />
-        )
-    }
+        </>
+    )}
 </section>
