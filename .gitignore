@@ -11,3 +11,5 @@ node_modules/
 .galexc/
 .galexc-dev.log
 .galexc-dev.pid
+
+workers/posthog-proxy/.tmp-home/
