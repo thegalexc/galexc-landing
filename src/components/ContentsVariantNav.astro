@@ -1,0 +1,26 @@
+---
+import { contentsVariants } from '../lib/site-content';
+
+interface Props {
+    current: string;
+}
+
+const { current } = Astro.props;
+---
+
+<nav class="contents-variant-nav" aria-label="Contents studies">
+    {
+        contentsVariants.map((variant) => (
+            <a
+                class:list={[
+                    'contents-variant-nav__link',
+                    current === variant.slug && 'active',
+                ]}
+                href={variant.href}
+            >
+                <span class="contents-variant-nav__index">{variant.index}</span>
+                <span>{variant.name}</span>
+            </a>
+        ))
+    }
+</nav>

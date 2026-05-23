@@ -1,13 +1,9 @@
 ---
 import { env } from 'cloudflare:workers';
 import DisclosureScript from '../components/DisclosureScript.astro';
-import LandingHero from '../components/LandingHero.astro';
-import NavGroupsList from '../components/NavGroupsList.astro';
-import StudyLinks from '../components/StudyLinks.astro';
 import WaitlistReveal from '../components/WaitlistReveal.astro';
 import Layout from '../layouts/Layout.astro';
 import { createFormToken } from '../lib/form-token';
-import { navGroups, variantStudies } from '../lib/site-content';
 import { isPreviewMode } from '../lib/preview-mode';
 import { getWaitlistStatus } from '../lib/waitlist-state';
 
@@ -16,81 +12,36 @@ const issuedAt = Date.now().toString();
 const formToken = await createFormToken(issuedAt, 'waitlist');
 const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
 const waitlistStatus = getWaitlistStatus(Astro.url.searchParams.get('waitlist'));
+const waitlistOpen = Boolean(waitlistStatus);
 ---
 
-<Layout
-    title="GalexC"
-    description="Professional-grade personal AI with an editorial landing experience and room for deeper routes."
-    noindex
->
-    <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
-        <StudyLinks />
-
-        <section class="hero-stage panel page-stage page-stage--home">
-            <LandingHero
-                title="Professional-grade personal AI."
-                intro="A quiet landing surface with enough structure to point toward the larger system: what it is, how it is built, what principles it follows, and where it differs from other agentic environments."
-                note="This root page uses the recommended Archive Reveal pattern."
-            />
-
-            <div class="archive-contents">
-                <div class="archive-contents__intro">
-                    <p class="eyebrow">Contents</p>
-                    <p>
-                        The root page stays minimal but no longer stops at the waitlist.
-                        Grouped cards make room for a growing set of essays and technical
-                        routes without turning the page into standard chrome.
-                    </p>
-                </div>
-
-                <NavGroupsList groups={navGroups} mode="cards" />
+<Layout title="GalexC" description="Private, for now." noindex>
+    <div class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12">
+        <section class="mx-auto w-full max-w-4xl rounded-[2rem] p-6 md:p-10">
+            <div class="landing-hero flex flex-col text-center">
+                <p class="eyebrow">GalexC</p>
+                <h1 class="text-5xl leading-[0.96] text-stone-950 md:text-6xl">
+                    Professional-grade personal AI.
+                </h1>
             </div>
 
-            <WaitlistReveal
-                issuedAt={issuedAt}
-                formToken={formToken}
-                siteKey={siteKey}
-                status={waitlistStatus}
-                previewMode={previewMode}
-                title="Request access"
-                open={Boolean(waitlistStatus)}
-            />
-        </section>
+            <div class="landing-actions">
+                <a class="landing-actions__link" href="/contents">
+                    <span class="waitlist-reveal__title">Contents</span>
+                </a>
 
-        <section class="variant-overview">
-            <div class="section-intro">
-                <p class="eyebrow">Five studies</p>
-                <h2>Five different ways to let the landing page grow.</h2>
-                <p>
-                    Each route explores the same objective with a different navigation
-                    structure and interaction model.
-                </p>
+                <WaitlistReveal
+                    issuedAt={issuedAt}
+                    formToken={formToken}
+                    siteKey={siteKey}
+                    status={waitlistStatus}
+                    previewMode={previewMode}
+                    title="Request access"
+                    open={waitlistOpen}
+                />
             </div>
-            <div class="variant-grid">
-                {
-                    variantStudies.map((study) => (
-                        <a class="variant-card" href={`/${study.slug}`}>
-                            <span class="variant-card__index">Study {study.index}</span>
-                            <span class="variant-card__title">{study.name}</span>
-                            <span class="variant-card__thesis">{study.thesis}</span>
-                        </a>
-                    ))
-                }
-            </div>
-        </section>
 
-        <section class="mock-page-grid">
-            <div class="section-intro">
-                <p class="eyebrow">Mock routes</p>
-                <h2>Representative subpages already exist.</h2>
-                <p>
-                    The navigation patterns below point into real placeholder routes so the
-                    move from landing to deeper pages can be reviewed directly.
-                </p>
-            </div>
-            <NavGroupsList groups={navGroups} mode="cards" />
+            <DisclosureScript />
         </section>
     </div>
-
-    <DisclosureScript />
 </Layout>

@@ -24,6 +24,15 @@ export interface VariantStudy {
     thesis: string;
 }
 
+export interface ContentsVariant {
+    slug: string;
+    href: string;
+    index: string;
+    name: string;
+    title: string;
+    intro: string;
+}
+
 export const navGroups: NavGroup[] = [
     {
         id: 'foundations',
@@ -183,36 +192,38 @@ export const navGroups: NavGroup[] = [
 
 export const contentPages = navGroups.flatMap((group) => group.items);
 
-export const variantStudies: VariantStudy[] = [
+export const contentsVariants: ContentsVariant[] = [
     {
-        slug: 'index1',
+        slug: 'ledger',
+        href: '/contents',
         index: '01',
-        name: 'Folio spine',
-        thesis: 'A book-spine rail turns navigation into a left-margin artifact.',
+        name: 'Ledger',
+        title: 'Contents as a ledger.',
+        intro: 'The most restrained version. A flat reading surface with category labels, dot leaders, and just enough context to orient the eye.',
     },
     {
-        slug: 'index2',
+        slug: 'spread',
+        href: '/contents-spread',
         index: '02',
-        name: 'TOC drop',
-        thesis: 'A single contents trigger unfolds the whole information architecture.',
+        name: 'Section spread',
+        title: 'Contents as a spread.',
+        intro: 'This version opens the page laterally. Group intros hold the left edge while the links read like a clean editorial table across the right.',
     },
     {
-        slug: 'index3',
+        slug: 'spine',
+        href: '/contents-spine',
         index: '03',
-        name: 'Archive reveal',
-        thesis: 'Grouped disclosure keeps the hero quiet while navigation scales cleanly.',
+        name: 'Spine scroll',
+        title: 'Contents as a chapter scroll.',
+        intro: 'Large section titles and long vertical rhythm give the contents page a chapter-opening cadence. It is the most spacious and mobile-native study.',
     },
     {
-        slug: 'index4',
+        slug: 'map',
+        href: '/contents-map',
         index: '04',
-        name: 'Chapter bar',
-        thesis: 'A custom horizontal chapter strip shows the most conventional option.',
-    },
-    {
-        slug: 'index5',
-        index: '05',
-        name: 'Catalog grid',
-        thesis: 'Navigation becomes a field of browseable editorial destination cards.',
+        name: 'Disclosure map',
+        title: 'Contents as a disclosure map.',
+        intro: 'The only interactive variant. Categories stay compact until opened, borrowing the existing reveal language while keeping the surface spare.',
     },
 ];
 

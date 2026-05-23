@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import StudyLinks from '../components/StudyLinks.astro';
 import { contentPages, getAdjacentContent, navGroups, type NavItem } from '../lib/site-content';
+
+export const prerender = true;
 
 export function getStaticPaths() {
     return contentPages.map((page) => ({
@@ -16,8 +17,6 @@ const adjacent = getAdjacentContent(page.slug);
 
 <Layout title={`GalexC - ${page.label}`} description={page.blurb} noindex>
     <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
-        <StudyLinks />
-
         <article class="content-page panel">
             <header class="content-page__header">
                 <p class="eyebrow">{page.eyebrow}</p>
@@ -48,6 +47,7 @@ const adjacent = getAdjacentContent(page.slug);
                             </div>
                         ))
                     }
+                    <a class="content-page__home-link" href="/contents">Back to contents</a>
                     <a class="content-page__home-link" href="/">Return to landing</a>
                 </aside>
 

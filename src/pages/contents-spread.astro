@@ -1,0 +1,40 @@
+---
+import ContentsPageShell from '../components/ContentsPageShell.astro';
+import Layout from '../layouts/Layout.astro';
+import { navGroups, contentsVariants } from '../lib/site-content';
+
+const variant = contentsVariants[1];
+---
+
+<Layout title="GalexC - Contents Spread" description="GalexC contents section spread." noindex>
+    <div class="editorial-shell px-4 py-8 md:px-6 md:py-12">
+        <ContentsPageShell
+            current={variant.slug}
+            title={variant.title}
+            intro={variant.intro}
+        >
+            <div class="contents-spread">
+                {
+                    navGroups.map((group) => (
+                        <section class="contents-spread__group">
+                            <div class="contents-spread__intro">
+                                <p class="eyebrow">{group.title}</p>
+                                <p>{group.intro}</p>
+                            </div>
+                            <div class="contents-spread__links">
+                                {
+                                    group.items.map((item) => (
+                                        <a class="contents-spread__link" href={`/${item.slug}`}>
+                                            <span class="contents-spread__label">{item.label}</span>
+                                            <span class="contents-spread__blurb">{item.blurb}</span>
+                                        </a>
+                                    ))
+                                }
+                            </div>
+                        </section>
+                    ))
+                }
+            </div>
+        </ContentsPageShell>
+    </div>
+</Layout>
