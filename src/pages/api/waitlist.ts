@@ -92,7 +92,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const normalizedEmail = normalizeEmail(email);
-    if (!normalizedEmail || !EMAIL_PATTERN.test(normalizedEmail)) {
+    if (!name || !note || !normalizedEmail || !EMAIL_PATTERN.test(normalizedEmail)) {
         return redirectTo('invalid');
     }
 

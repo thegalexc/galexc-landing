@@ -117,9 +117,32 @@ a {
     gap: 1.4rem;
 }
 
+.landing-headline__line {
+    display: block;
+}
+
 @media (min-width: 768px) {
     .landing-hero {
         gap: 1.8rem;
+    }
+
+    .landing-headline__line {
+        display: inline;
+    }
+
+    .landing-headline__line + .landing-headline__line::before {
+        content: ' ';
+    }
+}
+
+@media (max-width: 767px) {
+    .landing-headline {
+        font-size: clamp(3.35rem, 10.9vw, 4.5rem);
+        line-height: 0.92;
+    }
+
+    .landing-headline__line {
+        white-space: nowrap;
     }
 }
 
@@ -205,6 +228,12 @@ a {
 
 .waitlist-note-block {
     margin-top: 0.85rem;
+}
+
+.waitlist-note-prompt {
+    margin: 0 0 0.7rem;
+    color: #5a4e43;
+    line-height: 1.7;
 }
 
 .waitlist-input,
@@ -447,19 +476,19 @@ a {
     content: '';
     position: absolute;
     top: 50%;
-    right: 1.2rem;
+    right: 1.55rem;
     width: 1.1rem;
     height: 1.1rem;
+    border-top: 1.5px solid #6f6255;
     border-right: 1.5px solid #6f6255;
-    border-bottom: 1.5px solid #6f6255;
-    transform: translateY(-62%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
     transition:
         transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
         border-color 320ms ease;
 }
 
 .waitlist-reveal[data-open='true'] .waitlist-reveal__summary::after {
-    transform: translateY(-38%) rotate(-135deg);
+    transform: translateY(-62%) rotate(135deg);
     border-color: #154a7a;
 }
 
@@ -1310,26 +1339,35 @@ a {
     border-top: 1px solid rgba(120, 113, 108, 0.14);
 }
 
+.landing-reveal {
+    width: min(100%, 54rem);
+    margin: 1.8rem auto 0;
+}
+
+@media (min-width: 768px) {
+    .landing-reveal {
+        margin-top: 2.1rem;
+    }
+}
+
 .landing-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    margin-top: 1.35rem;
 }
 
 @media (min-width: 768px) {
     .landing-actions {
         flex-direction: row;
         justify-content: center;
-        align-items: start;
     }
 }
 
 .landing-actions__link {
     display: grid;
     place-items: center;
-    width: min(100%, 30rem);
+    width: min(100%, 22rem);
     min-height: 4.75rem;
     padding: 1.15rem 1.6rem;
     border-radius: 1.5rem;
@@ -1353,9 +1391,45 @@ a {
     outline: none;
 }
 
-.landing-actions .waitlist-reveal {
-    margin-top: 0;
-    width: min(100%, 30rem);
+.landing-actions__link--explore {
+    position: relative;
+    padding-right: 4.25rem;
+}
+
+.landing-actions__link--explore::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1.55rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-top: 1.5px solid #6f6255;
+    border-right: 1.5px solid #6f6255;
+    transform: translateY(-50%) rotate(45deg);
+    transition: border-color 320ms ease;
+}
+
+.landing-actions__link--explore:hover::after,
+.landing-actions__link--explore:focus-visible::after {
+    border-color: #123c62;
+}
+
+.waitlist-reveal--duo {
+    justify-items: stretch;
+}
+
+.waitlist-reveal--duo .waitlist-reveal__summary,
+.waitlist-reveal--duo .landing-actions__link {
+    width: min(100%, 22rem);
+}
+
+.waitlist-reveal--duo .waitlist-reveal__summary {
+    margin-inline: 0;
+}
+
+.waitlist-reveal--duo .waitlist-reveal__panel {
+    width: 100%;
+    max-width: none;
 }
 
 .contents-shell {
@@ -1456,7 +1530,6 @@ a {
     gap: 0.9rem;
     align-items: center;
     padding: 1.05rem 0 0.9rem;
-    border-bottom: 1px solid rgba(120, 113, 108, 0.14);
 }
 
 .contents-ledger__label,
