@@ -23,13 +23,10 @@ const variant = contentsVariants[1];
                             </div>
                             <div class="contents-marginalia__links">
                                 {
-                                    group.items.map((item, index) => (
+                                    group.items.map((item) => (
                                         <a class="contents-marginalia__link" href={`/${item.slug}`}>
                                             <span class="contents-marginalia__label">{item.label}</span>
                                             <span class="contents-marginalia__blurb">{item.blurb}</span>
-                                            <span class="contents-marginalia__meta">
-                                                note {index + 1}
-                                            </span>
                                         </a>
                                     ))
                                 }
