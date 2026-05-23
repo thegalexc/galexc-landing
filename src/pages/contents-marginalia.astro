@@ -1,0 +1,43 @@
+---
+import ContentsPageShell from '../components/ContentsPageShell.astro';
+import Layout from '../layouts/Layout.astro';
+import { navGroups, contentsVariants } from '../lib/site-content';
+
+const variant = contentsVariants[1];
+---
+
+<Layout title="GalexC - Contents Marginalia" description="GalexC contents marginalia." noindex>
+    <div class="editorial-shell px-4 py-8 md:px-6 md:py-12">
+        <ContentsPageShell
+            current={variant.slug}
+            title={variant.title}
+            intro={variant.intro}
+        >
+            <div class="contents-marginalia">
+                {
+                    navGroups.map((group) => (
+                        <section class="contents-marginalia__group">
+                            <div class="contents-marginalia__side">
+                                <p class="eyebrow">{group.title}</p>
+                                <p class="contents-marginalia__note">{group.intro}</p>
+                            </div>
+                            <div class="contents-marginalia__links">
+                                {
+                                    group.items.map((item, index) => (
+                                        <a class="contents-marginalia__link" href={`/${item.slug}`}>
+                                            <span class="contents-marginalia__label">{item.label}</span>
+                                            <span class="contents-marginalia__blurb">{item.blurb}</span>
+                                            <span class="contents-marginalia__meta">
+                                                note {index + 1}
+                                            </span>
+                                        </a>
+                                    ))
+                                }
+                            </div>
+                        </section>
+                    ))
+                }
+            </div>
+        </ContentsPageShell>
+    </div>
+</Layout>
