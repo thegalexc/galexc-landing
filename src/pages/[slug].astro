@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { contentPages, getAdjacentContent, navGroups, type NavItem } from '../lib/site-content';
+import {
+    contentPages,
+    getAdjacentContent,
+    getNavCode,
+    navGroups,
+    type NavItem,
+} from '../lib/site-content';
 
 export const prerender = true;
 
@@ -17,39 +23,40 @@ const adjacent = getAdjacentContent(page.slug);
 
 <Layout title={`GalexC - ${page.label}`} description={page.blurb} noindex>
     <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
-        <article class="content-page panel">
-            <header class="content-page__header">
-                <p class="eyebrow">{page.eyebrow}</p>
-                <h1>{page.label}</h1>
-                <p class="content-page__summary">{page.summary}</p>
-            </header>
+        <div class="content-page">
+            <aside class="content-page__nav" aria-label="Contents ledger">
+                <a class="content-page__back eyebrow" href="/contents">Back to contents</a>
+                {
+                    navGroups.map((group) => (
+                        <div class="content-page__nav-group">
+                            <p>{group.title}</p>
+                            {
+                                group.items.map((item, index) => (
+                                    <a
+                                        class:list={[
+                                            'content-page__nav-link',
+                                            item.slug === page.slug && 'active',
+                                        ]}
+                                        href={`/${item.slug}`}
+                                    >
+                                        <span class="content-page__nav-code">
+                                            {getNavCode(group.title, index)}
+                                        </span>
+                                        <span class="content-page__nav-label">{item.label}</span>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    ))
+                }
+            </aside>
 
-            <div class="content-page__body">
-                <aside class="content-page__index">
-                    <p class="eyebrow">Index</p>
-                    {
-                        navGroups.map((group) => (
-                            <div class="content-page__index-group">
-                                <p>{group.title}</p>
-                                {
-                                    group.items.map((item) => (
-                                        <a
-                                            class:list={[
-                                                'content-page__index-link',
-                                                item.slug === page.slug && 'active',
-                                            ]}
-                                            href={`/${item.slug}`}
-                                        >
-                                            {item.label}
-                                        </a>
-                                    ))
-                                }
-                            </div>
-                        ))
-                    }
-                    <a class="content-page__home-link" href="/contents">Back to contents</a>
-                    <a class="content-page__home-link" href="/">Return to landing</a>
-                </aside>
+            <article class="content-page__main">
+                <header class="content-page__header">
+                    <p class="eyebrow">{page.eyebrow}</p>
+                    <h1>{page.label}</h1>
+                    <p class="content-page__summary">{page.summary}</p>
+                </header>
 
                 <div class="content-page__sections">
                     {
@@ -61,22 +68,22 @@ const adjacent = getAdjacentContent(page.slug);
                         ))
                     }
                 </div>
-            </div>
 
-            <footer class="content-page__footer">
-                {adjacent.previous && (
-                    <a class="content-page__pager" href={`/${adjacent.previous.slug}`}>
-                        <span class="eyebrow">Previous</span>
-                        <span>{adjacent.previous.label}</span>
-                    </a>
-                )}
-                {adjacent.next && (
-                    <a class="content-page__pager" href={`/${adjacent.next.slug}`}>
-                        <span class="eyebrow">Next</span>
-                        <span>{adjacent.next.label}</span>
-                    </a>
-                )}
-            </footer>
-        </article>
+                <footer class="content-page__footer">
+                    {adjacent.previous && (
+                        <a class="content-page__pager" href={`/${adjacent.previous.slug}`}>
+                            <span class="eyebrow">Previous</span>
+                            <span>{adjacent.previous.label}</span>
+                        </a>
+                    )}
+                    {adjacent.next && (
+                        <a class="content-page__pager" href={`/${adjacent.next.slug}`}>
+                            <span class="eyebrow">Next</span>
+                            <span>{adjacent.next.label}</span>
+                        </a>
+                    )}
+                </footer>
+            </article>
+        </div>
     </div>
 </Layout>

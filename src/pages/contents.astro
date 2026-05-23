@@ -1,18 +1,12 @@
 ---
 import ContentsPageShell from '../components/ContentsPageShell.astro';
 import Layout from '../layouts/Layout.astro';
-import { navGroups, contentsVariants } from '../lib/site-content';
-
-const variant = contentsVariants[0];
+import { getNavCode, navGroups } from '../lib/site-content';
 ---
 
 <Layout title="GalexC - Contents" description="GalexC contents ledger." noindex>
     <div class="editorial-shell px-4 py-8 md:px-6 md:py-12">
-        <ContentsPageShell
-            current={variant.slug}
-            title={variant.title}
-            intro={variant.intro}
-        >
+        <ContentsPageShell title="Contents">
             <div class="contents-ledger">
                 {
                     navGroups.map((group) => (
@@ -24,7 +18,7 @@ const variant = contentsVariants[0];
                                         <span class="contents-ledger__label">{item.label}</span>
                                         <span class="contents-ledger__leader" aria-hidden="true"></span>
                                         <span class="contents-ledger__meta">
-                                            {group.title.slice(0, 1)}0{index + 1}
+                                            {getNavCode(group.title, index)}
                                         </span>
                                     </a>
                                 ))

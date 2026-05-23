@@ -1,21 +1,18 @@
 ---
-import ContentsVariantNav from './ContentsVariantNav.astro';
-
 interface Props {
-    current: string;
+    current?: string;
     title: string;
-    intro: string;
+    intro?: string;
 }
 
-const { current, title, intro } = Astro.props;
+const { title, intro } = Astro.props;
 ---
 
 <section class="contents-shell">
     <div class="contents-shell__header">
         <a class="contents-shell__back eyebrow" href="/">GalexC</a>
         <h1 class="contents-shell__title">{title}</h1>
-        <p class="contents-shell__intro">{intro}</p>
-        <ContentsVariantNav current={current} />
+        {intro && <p class="contents-shell__intro">{intro}</p>}
     </div>
     <slot />
 </section>

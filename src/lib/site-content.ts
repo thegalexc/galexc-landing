@@ -17,20 +17,13 @@ export interface NavGroup {
     items: NavItem[];
 }
 
-export interface VariantStudy {
-    slug: string;
-    index: string;
-    name: string;
-    thesis: string;
-}
-
 export interface ContentsVariant {
     slug: string;
     href: string;
     index: string;
     name: string;
     title: string;
-    intro: string;
+    intro?: string;
 }
 
 export const navGroups: NavGroup[] = [
@@ -218,6 +211,10 @@ export const contentsVariants: ContentsVariant[] = [
         intro: 'The most archival variant. Stronger codes, firmer section rhythm, and serialized rows give the list a formal record-book cadence.',
     },
 ];
+
+export function getNavCode(groupTitle: string, itemIndex: number) {
+    return `${groupTitle.slice(0, 1).toUpperCase()}${String(itemIndex + 1).padStart(2, '0')}`;
+}
 
 export function getContentPage(slug: string) {
     return contentPages.find((page) => page.slug === slug);
