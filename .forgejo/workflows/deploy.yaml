@@ -70,18 +70,15 @@ jobs:
             - name: Prepare preview worker config
               if: github.ref_name != 'main'
               run: |
-                  BRANCH_SLUG=$(printf '%s' "$GITHUB_REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's#[^a-z0-9-]#-#g; s#--*#-#g; s#^-##; s#-$##' | cut -c1-32)
-                  export BRANCH_SLUG
                   node - <<'NODE'
                   const fs = require('fs');
                   const path = 'dist/server/wrangler.json';
                   const out = 'dist/server/wrangler.preview.json';
                   const cfg = JSON.parse(fs.readFileSync(path, 'utf8'));
-                  const branchSlug = process.env.BRANCH_SLUG;
-                  cfg.name = `galexc-landing-preview-${branchSlug}`;
                   cfg.routes = [];
                   cfg.vars = { ...(cfg.vars || {}), PREVIEW_MODE: 'true' };
-                  cfg.workers_dev = true;
+                  cfg.workers_dev = false;
+                  cfg.preview_urls = true;
                   fs.writeFileSync(out, JSON.stringify(cfg));
                   console.log(`wrote ${out} for ${cfg.name}`);
                   NODE
@@ -94,13 +91,19 @@ jobs:
                     sops exec-env "${{ steps.secrets.outputs.file }}" \
                       "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
                       2>&1 | tee /tmp/deploy-output.txt
+                    DEPLOY_URL=$(grep -oE 'https://[^ ]+\.workers\.dev' /tmp/deploy-output.txt | tail -1)
+                    echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
                   else
+                    BRANCH_SLUG=$(printf '%s' "$GITHUB_REF_NAME" | tr '[:upper:]' '[:lower:]' | sed 's#[^a-z0-9-]#-#g; s#--*#-#g; s#^-##; s#-$##' | cut -c1-32)
                     sops exec-env "${{ steps.secrets.outputs.file }}" \
-                      "pnpm exec wrangler deploy dist/server/entry.mjs --config dist/server/wrangler.preview.json --keep-vars --secrets-file /tmp/worker-secrets.env" \
+                      "pnpm exec wrangler versions upload dist/server/entry.mjs --config dist/server/wrangler.preview.json --keep-vars --secrets-file /tmp/worker-secrets.env --preview-alias ${BRANCH_SLUG}" \
                       2>&1 | tee /tmp/deploy-output.txt
+                    mapfile -t URLS < <(grep -oE 'https://[^ ]+\.workers\.dev' /tmp/deploy-output.txt | awk '!seen[$0]++')
+                    if [ ${#URLS[@]} -gt 0 ]; then
+                      echo "url=${URLS[0]}" >> $GITHUB_OUTPUT
+                      echo "branch_url=${URLS[${#URLS[@]}-1]}" >> $GITHUB_OUTPUT
+                    fi
                   fi
-                  DEPLOY_URL=$(grep -oE 'https://[^ ]+\.workers\.dev' /tmp/deploy-output.txt | tail -1)
-                  echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
               env:
                   SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
@@ -108,11 +111,14 @@ jobs:
               if: startsWith(github.ref_name, 'feat/') || startsWith(github.ref_name, 'agent/')
               run: |
                   DEPLOY_URL="${{ steps.deploy.outputs.url }}"
+                  BRANCH_URL="${{ steps.deploy.outputs.branch_url }}"
                   curl -s \
                     -H "Authorization: Bearer $NTFY_TOKEN" \
                     -H "Title: galexc-landing preview ready" \
                     -H "Tags: white_check_mark" \
-                    -d "$GITHUB_REF_NAME → ${DEPLOY_URL:-preview deploy finished}" \
+                    -d "$GITHUB_REF_NAME
+preview alias → ${BRANCH_URL:-unknown}
+exact deploy → ${DEPLOY_URL:-unknown}" \
                     https://ntfy.crested-altair.ts.net/alerts
               env:
                   NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}

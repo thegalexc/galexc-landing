@@ -5,7 +5,7 @@ Astro landing surface for `galexc.net`.
 ## Stack
 
 - Astro server output
-- Cloudflare Workers with custom domains
+- Cloudflare Workers with custom domains and preview URLs
 - D1 for users, waitlist storage, and admin audit events
 - KV for rate limiting
 - password-based hidden admin login at `/login`
@@ -92,6 +92,7 @@ pnpm exec wrangler d1 migrations apply DB --remote
 
 Push to Forgejo.
 
-- `main` deploys the production Worker with custom domains for `galexc.net` and `www.galexc.net`.
-- `feat/*` and `agent/*` branches deploy isolated preview Workers on `workers.dev`.
+- `main` deploys the single production Worker `galexc-landing` with custom domains for `galexc.net` and `www.galexc.net`.
+- `feat/*` and `agent/*` branches upload preview versions onto that same Worker instead of creating separate preview Workers.
+- Preview versions get preview URLs on `workers.dev`, including a stable branch alias when available.
 - Preview deployments run with `PREVIEW_MODE=true`, disable public submissions and admin/auth routes, and are safe for design and content review without touching production flows.

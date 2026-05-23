@@ -2,6 +2,8 @@
     "$schema": "node_modules/wrangler/config-schema.json",
     "name": "galexc-landing",
     "compatibility_date": "2026-05-21",
+    "workers_dev": false,
+    "preview_urls": true,
     "routes": [
         {
             "pattern": "galexc.net",
