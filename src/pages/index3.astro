@@ -1,0 +1,96 @@
+---
+import { env } from 'cloudflare:workers';
+import DisclosureScript from '../components/DisclosureScript.astro';
+import LandingHero from '../components/LandingHero.astro';
+import StudyLinks from '../components/StudyLinks.astro';
+import WaitlistReveal from '../components/WaitlistReveal.astro';
+import Layout from '../layouts/Layout.astro';
+import { createFormToken } from '../lib/form-token';
+import { navGroups } from '../lib/site-content';
+import { isPreviewMode } from '../lib/preview-mode';
+import { getWaitlistStatus } from '../lib/waitlist-state';
+
+const previewMode = isPreviewMode();
+const issuedAt = Date.now().toString();
+const formToken = await createFormToken(issuedAt, 'waitlist');
+const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
+const waitlistStatus = getWaitlistStatus(Astro.url.searchParams.get('waitlist'));
+---
+
+<Layout title="GalexC - Study 03" description="Archive Reveal navigation study for GalexC." noindex>
+    <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
+        <StudyLinks current="index3" />
+
+        <section class="page-stage panel page-stage--home">
+            <LandingHero
+                eyebrow="Study 03 · Archive reveal"
+                title="A grouped reveal for a growing archive."
+                intro="This is the strongest production candidate. It extends the existing disclosure language, scales to many destinations, and keeps the landing hero almost as quiet as the current page."
+            />
+
+            <div class="archive-contents">
+                <div class="archive-contents__intro">
+                    <p class="eyebrow">Contents</p>
+                    <p>
+                        Group by theme, not by a flat row of links. Each section can grow
+                        without the landing page collapsing into chrome.
+                    </p>
+                </div>
+
+                <div class="archive-accordion">
+                    {
+                        navGroups.map((group, index) => (
+                            <div
+                                class="archive-accordion__group"
+                                data-reveal
+                                data-open={index === 0 ? 'true' : 'false'}
+                            >
+                                <button
+                                    class="archive-accordion__trigger"
+                                    type="button"
+                                    aria-expanded={index === 0 ? 'true' : 'false'}
+                                    aria-controls={`study-3-panel-${group.id}`}
+                                    data-reveal-trigger
+                                >
+                                    <span>
+                                        <span class="archive-accordion__title">{group.title}</span>
+                                        <span class="archive-accordion__copy">{group.intro}</span>
+                                    </span>
+                                </button>
+                                <div
+                                    id={`study-3-panel-${group.id}`}
+                                    class="archive-accordion__panel"
+                                    data-reveal-panel
+                                    hidden={index !== 0}
+                                >
+                                    <div class="archive-accordion__links">
+                                        {
+                                            group.items.map((item) => (
+                                                <a class="archive-link" href={`/${item.slug}`}>
+                                                    <span class="archive-link__label">{item.label}</span>
+                                                    <span class="archive-link__blurb">{item.blurb}</span>
+                                                </a>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <WaitlistReveal
+                issuedAt={issuedAt}
+                formToken={formToken}
+                siteKey={siteKey}
+                status={waitlistStatus}
+                previewMode={previewMode}
+                title="Request access"
+                open={Boolean(waitlistStatus)}
+            />
+        </section>
+    </div>
+
+    <DisclosureScript />
+</Layout>

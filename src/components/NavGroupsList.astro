@@ -1,0 +1,33 @@
+---
+import type { NavGroup } from '../lib/site-content';
+
+interface Props {
+    groups: NavGroup[];
+    mode?: 'list' | 'cards' | 'compact';
+}
+
+const { groups, mode = 'list' } = Astro.props;
+---
+
+<div class:list={['nav-groups', `nav-groups--${mode}`]}>
+    {
+        groups.map((group) => (
+            <section class="nav-group">
+                <div class="nav-group__header">
+                    <p class="eyebrow">{group.title}</p>
+                    <p class="nav-group__intro">{group.intro}</p>
+                </div>
+                <div class="nav-group__items">
+                    {
+                        group.items.map((item) => (
+                            <a class="nav-item-link" href={`/${item.slug}`}>
+                                <span class="nav-item-link__title">{item.label}</span>
+                                <span class="nav-item-link__blurb">{item.blurb}</span>
+                            </a>
+                        ))
+                    }
+                </div>
+            </section>
+        ))
+    }
+</div>

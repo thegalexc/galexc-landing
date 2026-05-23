@@ -1,0 +1,47 @@
+---
+import { env } from 'cloudflare:workers';
+import DisclosureScript from '../components/DisclosureScript.astro';
+import LandingHero from '../components/LandingHero.astro';
+import NavGroupsList from '../components/NavGroupsList.astro';
+import StudyLinks from '../components/StudyLinks.astro';
+import WaitlistReveal from '../components/WaitlistReveal.astro';
+import Layout from '../layouts/Layout.astro';
+import { createFormToken } from '../lib/form-token';
+import { navGroups } from '../lib/site-content';
+import { isPreviewMode } from '../lib/preview-mode';
+import { getWaitlistStatus } from '../lib/waitlist-state';
+
+const previewMode = isPreviewMode();
+const issuedAt = Date.now().toString();
+const formToken = await createFormToken(issuedAt, 'waitlist');
+const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
+const waitlistStatus = getWaitlistStatus(Astro.url.searchParams.get('waitlist'));
+---
+
+<Layout title="GalexC - Study 05" description="Catalog Grid navigation study for GalexC." noindex>
+    <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
+        <StudyLinks current="index5" />
+
+        <section class="page-stage panel catalog-shell">
+            <LandingHero
+                eyebrow="Study 05 · Catalog grid"
+                title="Navigation as a field of destinations."
+                intro="Instead of a persistent menu, this version turns the landing surface into a curated spread of destination cards. It is browse-first, tactile, and easy to extend."
+            />
+
+            <NavGroupsList groups={navGroups} mode="cards" />
+
+            <WaitlistReveal
+                issuedAt={issuedAt}
+                formToken={formToken}
+                siteKey={siteKey}
+                status={waitlistStatus}
+                previewMode={previewMode}
+                title="Request access"
+                open={Boolean(waitlistStatus)}
+            />
+        </section>
+    </div>
+
+    <DisclosureScript />
+</Layout>

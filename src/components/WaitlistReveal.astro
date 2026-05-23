@@ -1,0 +1,54 @@
+---
+import WaitlistForm from './WaitlistForm.astro';
+
+interface Props {
+    title?: string;
+    issuedAt: string;
+    formToken: string;
+    siteKey?: string;
+    previewMode?: boolean;
+    status?: {
+        tone: 'success' | 'error' | 'info';
+        message: string;
+    } | null;
+    open?: boolean;
+}
+
+const {
+    title = 'Request access',
+    issuedAt,
+    formToken,
+    siteKey,
+    previewMode = false,
+    status = null,
+    open = false,
+} = Astro.props;
+---
+
+<div class="waitlist-reveal waitlist-reveal--landing" data-reveal data-open={open ? 'true' : 'false'}>
+    <button
+        class="waitlist-reveal__summary mx-auto"
+        type="button"
+        aria-expanded={open ? 'true' : 'false'}
+        aria-controls="waitlist-panel"
+        data-reveal-trigger
+    >
+        <span class="waitlist-reveal__title">{title}</span>
+    </button>
+    <div
+        id="waitlist-panel"
+        class="waitlist-reveal__panel"
+        data-reveal-panel
+        hidden={!open}
+    >
+        <div class="waitlist-reveal__content">
+            <WaitlistForm
+                issuedAt={issuedAt}
+                formToken={formToken}
+                siteKey={siteKey}
+                status={status}
+                previewMode={previewMode}
+            />
+        </div>
+    </div>
+</div>

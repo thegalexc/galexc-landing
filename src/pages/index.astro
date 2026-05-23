@@ -1,257 +1,96 @@
 ---
 import { env } from 'cloudflare:workers';
-import WaitlistForm from '../components/WaitlistForm.astro';
+import DisclosureScript from '../components/DisclosureScript.astro';
+import LandingHero from '../components/LandingHero.astro';
+import NavGroupsList from '../components/NavGroupsList.astro';
+import StudyLinks from '../components/StudyLinks.astro';
+import WaitlistReveal from '../components/WaitlistReveal.astro';
 import Layout from '../layouts/Layout.astro';
 import { createFormToken } from '../lib/form-token';
+import { navGroups, variantStudies } from '../lib/site-content';
 import { isPreviewMode } from '../lib/preview-mode';
+import { getWaitlistStatus } from '../lib/waitlist-state';
 
 const previewMode = isPreviewMode();
 const issuedAt = Date.now().toString();
 const formToken = await createFormToken(issuedAt, 'waitlist');
 const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
-const waitlistState = Astro.url.searchParams.get('waitlist');
-
-const stateMap = {
-    success: {
-        tone: 'success',
-        message: 'You are on the list. Thanks for the signal.',
-    },
-    invalid: {
-        tone: 'error',
-        message:
-            'That submission could not be accepted. Please check the form and try again.',
-    },
-    rate_limited: {
-        tone: 'error',
-        message:
-            'That form has seen too many recent attempts. Please wait a bit and try again.',
-    },
-    unavailable: {
-        tone: 'error',
-        message:
-            'The waitlist is not ready yet. I still need a few deployment settings to finish the live flow.',
-    },
-    blocked: {
-        tone: 'error',
-        message: 'That submission looked automated, so it was not accepted.',
-    },
-    preview_disabled: {
-        tone: 'info',
-        message: 'Preview build only - submissions are disabled here.',
-    },
-} as const;
-
-const waitlistStatus =
-    waitlistState && waitlistState in stateMap
-        ? stateMap[waitlistState as keyof typeof stateMap]
-        : null;
-const waitlistOpen = Boolean(waitlistStatus);
+const waitlistStatus = getWaitlistStatus(Astro.url.searchParams.get('waitlist'));
 ---
 
-<Layout title="GalexC" description="Private, for now." noindex>
-    <div
-        class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12"
-    >
-        <section class="mx-auto w-full max-w-4xl rounded-[2rem] p-6 md:p-10">
-            <div class="landing-hero flex flex-col text-center">
-                <p class="eyebrow">GalexC</p>
-                <h1 class="text-5xl leading-[0.96] text-stone-950 md:text-6xl">
-                    Professional-grade personal AI.
-                </h1>
-            </div>
+<Layout
+    title="GalexC"
+    description="Professional-grade personal AI with an editorial landing experience and room for deeper routes."
+    noindex
+>
+    <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
+        <StudyLinks />
 
-            <div
-                class="waitlist-reveal"
-                data-reveal
-                data-open={waitlistOpen ? 'true' : 'false'}
-            >
-                <button
-                    class="waitlist-reveal__summary mx-auto"
-                    type="button"
-                    aria-expanded={waitlistOpen ? 'true' : 'false'}
-                    aria-controls="waitlist-panel"
-                    data-reveal-trigger
-                >
-                    <span class="waitlist-reveal__title">Request access</span>
-                </button>
-                <div
-                    id="waitlist-panel"
-                    class="waitlist-reveal__panel"
-                    data-reveal-panel
-                    hidden={!waitlistOpen}
-                >
-                    <div class="waitlist-reveal__content">
-                        <WaitlistForm
-                            issuedAt={issuedAt}
-                            formToken={formToken}
-                            siteKey={siteKey}
-                            status={waitlistStatus}
-                            previewMode={previewMode}
-                        />
-                    </div>
+        <section class="hero-stage panel page-stage page-stage--home">
+            <LandingHero
+                title="Professional-grade personal AI."
+                intro="A quiet landing surface with enough structure to point toward the larger system: what it is, how it is built, what principles it follows, and where it differs from other agentic environments."
+                note="This root page uses the recommended Archive Reveal pattern."
+            />
+
+            <div class="archive-contents">
+                <div class="archive-contents__intro">
+                    <p class="eyebrow">Contents</p>
+                    <p>
+                        The root page stays minimal but no longer stops at the waitlist.
+                        Grouped cards make room for a growing set of essays and technical
+                        routes without turning the page into standard chrome.
+                    </p>
                 </div>
+
+                <NavGroupsList groups={navGroups} mode="cards" />
             </div>
 
-            <script is:inline>
-                (() => {
-                    const reduceMotion = window.matchMedia(
-                        '(prefers-reduced-motion: reduce)',
-                    ).matches;
+            <WaitlistReveal
+                issuedAt={issuedAt}
+                formToken={formToken}
+                siteKey={siteKey}
+                status={waitlistStatus}
+                previewMode={previewMode}
+                title="Request access"
+                open={Boolean(waitlistStatus)}
+            />
+        </section>
 
-                    for (const root of document.querySelectorAll(
-                        '[data-reveal]',
-                    )) {
-                        const trigger = root.querySelector(
-                            '[data-reveal-trigger]',
-                        );
-                        const panel = root.querySelector('[data-reveal-panel]');
-                        if (
-                            !(trigger instanceof HTMLButtonElement) ||
-                            !(panel instanceof HTMLElement)
-                        ) {
-                            continue;
-                        }
+        <section class="variant-overview">
+            <div class="section-intro">
+                <p class="eyebrow">Five studies</p>
+                <h2>Five different ways to let the landing page grow.</h2>
+                <p>
+                    Each route explores the same objective with a different navigation
+                    structure and interaction model.
+                </p>
+            </div>
+            <div class="variant-grid">
+                {
+                    variantStudies.map((study) => (
+                        <a class="variant-card" href={`/${study.slug}`}>
+                            <span class="variant-card__index">Study {study.index}</span>
+                            <span class="variant-card__title">{study.name}</span>
+                            <span class="variant-card__thesis">{study.thesis}</span>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
 
-                        let isOpen = root.getAttribute('data-open') === 'true';
-                        let isAnimating = false;
-
-                        const setOpenState = (open) => {
-                            isOpen = open;
-                            root.setAttribute(
-                                'data-open',
-                                open ? 'true' : 'false',
-                            );
-                            trigger.setAttribute(
-                                'aria-expanded',
-                                open ? 'true' : 'false',
-                            );
-                        };
-
-                        const setAnimating = (animating) => {
-                            isAnimating = animating;
-                            root.setAttribute(
-                                'data-animating',
-                                animating ? 'true' : 'false',
-                            );
-                        };
-
-                        const finishOpen = () => {
-                            panel.style.height = 'auto';
-                            panel.style.opacity = '1';
-                            panel.style.transform = 'translateY(0)';
-                            panel.style.overflow = '';
-                            setAnimating(false);
-                        };
-
-                        const finishClose = () => {
-                            panel.hidden = true;
-                            panel.style.height = '0px';
-                            panel.style.opacity = '0';
-                            panel.style.transform = 'translateY(6px)';
-                            panel.style.overflow = 'hidden';
-                            setAnimating(false);
-                        };
-
-                        const openPanel = () => {
-                            setOpenState(true);
-                            panel.hidden = false;
-
-                            if (reduceMotion) {
-                                finishOpen();
-                                return;
-                            }
-
-                            setAnimating(true);
-                            panel.style.overflow = 'hidden';
-                            panel.style.height = '0px';
-                            panel.style.opacity = '0';
-                            panel.style.transform = 'translateY(-6px)';
-                            void panel.offsetHeight;
-
-                            requestAnimationFrame(() => {
-                                const targetHeight = panel.scrollHeight;
-                                panel.style.height = `${targetHeight}px`;
-                                panel.style.opacity = '1';
-                                panel.style.transform = 'translateY(0)';
-                            });
-
-                            const onEnd = (event) => {
-                                if (
-                                    event.target !== panel ||
-                                    event.propertyName !== 'height'
-                                ) {
-                                    return;
-                                }
-                                panel.removeEventListener(
-                                    'transitionend',
-                                    onEnd,
-                                );
-                                finishOpen();
-                            };
-
-                            panel.addEventListener('transitionend', onEnd);
-                        };
-
-                        const closePanel = () => {
-                            setOpenState(false);
-
-                            if (reduceMotion) {
-                                finishClose();
-                                return;
-                            }
-
-                            setAnimating(true);
-                            panel.style.overflow = 'hidden';
-                            panel.style.height = `${panel.scrollHeight}px`;
-                            panel.style.opacity = '1';
-                            panel.style.transform = 'translateY(0)';
-                            void panel.offsetHeight;
-
-                            requestAnimationFrame(() => {
-                                panel.style.height = '0px';
-                                panel.style.opacity = '0';
-                                panel.style.transform = 'translateY(6px)';
-                            });
-
-                            const onEnd = (event) => {
-                                if (
-                                    event.target !== panel ||
-                                    event.propertyName !== 'height'
-                                ) {
-                                    return;
-                                }
-                                panel.removeEventListener(
-                                    'transitionend',
-                                    onEnd,
-                                );
-                                finishClose();
-                            };
-
-                            panel.addEventListener('transitionend', onEnd);
-                        };
-
-                        if (isOpen) {
-                            panel.hidden = false;
-                            panel.style.height = 'auto';
-                            panel.style.opacity = '1';
-                            panel.style.transform = 'translateY(0)';
-                        } else {
-                            finishClose();
-                        }
-
-                        trigger.addEventListener('click', () => {
-                            if (isAnimating) {
-                                return;
-                            }
-                            if (isOpen) {
-                                closePanel();
-                            } else {
-                                openPanel();
-                            }
-                        });
-                    }
-                })();
-            </script>
+        <section class="mock-page-grid">
+            <div class="section-intro">
+                <p class="eyebrow">Mock routes</p>
+                <h2>Representative subpages already exist.</h2>
+                <p>
+                    The navigation patterns below point into real placeholder routes so the
+                    move from landing to deeper pages can be reviewed directly.
+                </p>
+            </div>
+            <NavGroupsList groups={navGroups} mode="cards" />
         </section>
     </div>
+
+    <DisclosureScript />
 </Layout>

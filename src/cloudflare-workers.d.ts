@@ -29,6 +29,7 @@ declare module 'cloudflare:workers' {
         TURNSTILE_SECRET?: string;
         TURNSTILE_SITE_KEY?: string;
         IP_HMAC_SECRET?: string;
+        PREVIEW_MODE?: string;
     }
 
     export const env: Env;

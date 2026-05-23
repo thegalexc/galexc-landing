@@ -1,0 +1,144 @@
+<script is:inline>
+    (() => {
+        const reduceMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+        ).matches;
+
+        for (const root of document.querySelectorAll('[data-reveal]')) {
+            const trigger = root.querySelector('[data-reveal-trigger]');
+            const panel = root.querySelector('[data-reveal-panel]');
+            if (
+                !(trigger instanceof HTMLButtonElement) ||
+                !(panel instanceof HTMLElement)
+            ) {
+                continue;
+            }
+
+            let isOpen = root.getAttribute('data-open') === 'true';
+            let isAnimating = false;
+
+            const setOpenState = (open) => {
+                isOpen = open;
+                root.setAttribute('data-open', open ? 'true' : 'false');
+                trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            };
+
+            const setAnimating = (animating) => {
+                isAnimating = animating;
+                root.setAttribute(
+                    'data-animating',
+                    animating ? 'true' : 'false',
+                );
+            };
+
+            const finishOpen = () => {
+                panel.style.height = 'auto';
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+                panel.style.overflow = '';
+                setAnimating(false);
+            };
+
+            const finishClose = () => {
+                panel.hidden = true;
+                panel.style.height = '0px';
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(6px)';
+                panel.style.overflow = 'hidden';
+                setAnimating(false);
+            };
+
+            const openPanel = () => {
+                setOpenState(true);
+                panel.hidden = false;
+
+                if (reduceMotion) {
+                    finishOpen();
+                    return;
+                }
+
+                setAnimating(true);
+                panel.style.overflow = 'hidden';
+                panel.style.height = '0px';
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(-6px)';
+                void panel.offsetHeight;
+
+                requestAnimationFrame(() => {
+                    const targetHeight = panel.scrollHeight;
+                    panel.style.height = `${targetHeight}px`;
+                    panel.style.opacity = '1';
+                    panel.style.transform = 'translateY(0)';
+                });
+
+                const onEnd = (event) => {
+                    if (
+                        event.target !== panel ||
+                        event.propertyName !== 'height'
+                    ) {
+                        return;
+                    }
+                    panel.removeEventListener('transitionend', onEnd);
+                    finishOpen();
+                };
+
+                panel.addEventListener('transitionend', onEnd);
+            };
+
+            const closePanel = () => {
+                setOpenState(false);
+
+                if (reduceMotion) {
+                    finishClose();
+                    return;
+                }
+
+                setAnimating(true);
+                panel.style.overflow = 'hidden';
+                panel.style.height = `${panel.scrollHeight}px`;
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+                void panel.offsetHeight;
+
+                requestAnimationFrame(() => {
+                    panel.style.height = '0px';
+                    panel.style.opacity = '0';
+                    panel.style.transform = 'translateY(6px)';
+                });
+
+                const onEnd = (event) => {
+                    if (
+                        event.target !== panel ||
+                        event.propertyName !== 'height'
+                    ) {
+                        return;
+                    }
+                    panel.removeEventListener('transitionend', onEnd);
+                    finishClose();
+                };
+
+                panel.addEventListener('transitionend', onEnd);
+            };
+
+            if (isOpen) {
+                panel.hidden = false;
+                panel.style.height = 'auto';
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+            } else {
+                finishClose();
+            }
+
+            trigger.addEventListener('click', () => {
+                if (isAnimating) {
+                    return;
+                }
+                if (isOpen) {
+                    closePanel();
+                } else {
+                    openPanel();
+                }
+            });
+        }
+    })();
+</script>
