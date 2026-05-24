@@ -1238,7 +1238,7 @@ a {
 }
 
 .content-page__nav {
-    display: grid;
+    display: none;
     gap: 1.15rem;
     align-content: start;
     padding-left: 0.95rem;
@@ -1247,6 +1247,7 @@ a {
 
 @media (min-width: 1000px) {
     .content-page__nav {
+        display: grid;
         position: sticky;
         top: 1.5rem;
     }
@@ -2342,6 +2343,236 @@ a {
     max-width: none;
 }
 
+.public-site-nav {
+    display: grid;
+    gap: 0;
+    width: 100vw;
+    margin-top: -1px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+@media (min-width: 1000px) {
+    .public-site-nav {
+        display: none;
+    }
+}
+
+.public-site-nav__band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.16);
+    background: rgba(250, 247, 241, 0.92);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        0 8px 20px rgba(43, 36, 29, 0.05);
+    backdrop-filter: blur(12px);
+}
+
+.public-site-nav__leading {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+}
+
+.public-site-nav__toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.24rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 113, 108, 0.2);
+    background: rgba(255, 255, 255, 0.66);
+    color: #4a4138;
+    cursor: pointer;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.public-site-nav__toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(21, 74, 122, 0.22);
+    background: rgba(255, 255, 255, 0.82);
+    color: #154a7a;
+}
+
+.public-site-nav__toggle:focus-visible {
+    outline: none;
+    border-color: rgba(21, 74, 122, 0.32);
+    box-shadow: 0 0 0 4px rgba(21, 74, 122, 0.08);
+    color: #154a7a;
+}
+
+.public-site-nav__toggle-line {
+    width: 1rem;
+    height: 1.5px;
+    border-radius: 999px;
+    background: currentColor;
+    transition:
+        transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 180ms ease;
+}
+
+.public-site-nav[data-open='true'] .public-site-nav__toggle-line:nth-child(2) {
+    transform: translateY(0.39rem) rotate(45deg);
+}
+
+.public-site-nav[data-open='true'] .public-site-nav__toggle-line:nth-child(3) {
+    opacity: 0;
+}
+
+.public-site-nav[data-open='true'] .public-site-nav__toggle-line:nth-child(4) {
+    transform: translateY(-0.39rem) rotate(-45deg);
+}
+
+.public-site-nav__brand {
+    color: #2b241d;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.public-site-nav__brand:hover {
+    color: #123c62;
+}
+
+.public-site-nav__panel {
+    height: 0;
+    margin-top: 0;
+    padding: 0 1rem;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+        height 480ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 320ms ease,
+        transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+        margin-top 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.public-site-nav[data-open='true'] .public-site-nav__panel {
+    margin-top: 0.6rem;
+}
+
+.public-site-nav__panel-content {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(120, 113, 108, 0.16);
+    background: rgba(250, 247, 241, 0.8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(10px);
+}
+
+.public-site-nav__meta {
+    padding: 1rem 1.1rem 0.85rem;
+    border-bottom: 1px solid rgba(120, 113, 108, 0.14);
+}
+
+.public-site-nav__meta-copy {
+    margin: 0.65rem 0 0;
+    color: #57534e;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.public-site-nav__links {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.45rem;
+}
+
+.public-site-nav__group {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.75rem 0.55rem 0.35rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.12);
+}
+
+.public-site-nav__group-title {
+    margin: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7a6d60;
+}
+
+.public-site-nav__group-links {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.public-site-nav__link {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: baseline;
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    color: #4a4138;
+    text-decoration: none;
+    transition:
+        background 180ms ease,
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.public-site-nav__link:hover,
+.public-site-nav__link.active {
+    background: rgba(21, 74, 122, 0.1);
+    color: #123c62;
+}
+
+.public-site-nav__link:active {
+    transform: translateY(1px);
+}
+
+.public-site-nav__link:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(21, 74, 122, 0.08);
+}
+
+.public-site-nav__link-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a6d60;
+}
+
+.public-site-nav__link-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+.public-site-nav__link:hover .public-site-nav__link-code,
+.public-site-nav__link.active .public-site-nav__link-code {
+    color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .public-site-nav__toggle,
+    .public-site-nav__toggle-line,
+    .public-site-nav__panel,
+    .public-site-nav__link {
+        transition: none;
+    }
+}
+
 .contents-shell {
     padding-top: 0.4rem;
 }
@@ -2350,6 +2581,13 @@ a {
     display: grid;
     justify-items: center;
     gap: 0.7rem;
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .contents-shell__header {
+        margin-top: 1.35rem;
+    }
 }
 
 .contents-shell__back {

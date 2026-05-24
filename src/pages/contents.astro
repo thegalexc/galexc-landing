@@ -5,24 +5,32 @@ import { getNavCode, navGroups } from '../lib/site-content';
 ---
 
 <Layout title="GalexC - Contents" description="GalexC contents ledger." noindex>
-    <div class="editorial-shell px-4 py-8 md:px-6 md:py-12">
+    <div
+        class="editorial-shell px-4 pb-8 pt-0 md:px-6 md:pb-12 md:pt-8 lg:pt-12"
+    >
         <ContentsPageShell title="Contents">
             <div class="contents-ledger">
                 {
                     navGroups.map((group) => (
                         <section class="contents-ledger__group">
                             <p class="eyebrow">{group.title}</p>
-                            {
-                                group.items.map((item, index) => (
-                                    <a class="contents-ledger__row" href={`/${item.slug}`}>
-                                        <span class="contents-ledger__label">{item.label}</span>
-                                        <span class="contents-ledger__leader" aria-hidden="true"></span>
-                                        <span class="contents-ledger__meta">
-                                            {getNavCode(group.title, index)}
-                                        </span>
-                                    </a>
-                                ))
-                            }
+                            {group.items.map((item, index) => (
+                                <a
+                                    class="contents-ledger__row"
+                                    href={`/${item.slug}`}
+                                >
+                                    <span class="contents-ledger__label">
+                                        {item.label}
+                                    </span>
+                                    <span
+                                        class="contents-ledger__leader"
+                                        aria-hidden="true"
+                                    />
+                                    <span class="contents-ledger__meta">
+                                        {getNavCode(group.title, index)}
+                                    </span>
+                                </a>
+                            ))}
                         </section>
                     ))
                 }

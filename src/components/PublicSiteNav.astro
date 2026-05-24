@@ -1,0 +1,268 @@
+---
+import { getNavCode, navGroups } from '../lib/site-content';
+
+interface Props {
+    currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+const mobileNavId = `public-navigation-${currentSlug ?? 'contents'}`;
+const isContentsActive = currentSlug === 'contents';
+---
+
+<nav
+    class="public-site-nav"
+    aria-label="Public pages"
+    data-public-nav
+    data-open="false"
+>
+    <div class="public-site-nav__band">
+        <div class="public-site-nav__leading">
+            <a href="/" class="public-site-nav__brand">GalexC</a>
+        </div>
+
+        <button
+            type="button"
+            class="public-site-nav__toggle"
+            aria-expanded="false"
+            aria-controls={mobileNavId}
+            aria-label="Toggle public navigation"
+            data-public-nav-toggle
+        >
+            <span class="sr-only">Toggle public navigation</span>
+            <span class="public-site-nav__toggle-line"></span>
+            <span class="public-site-nav__toggle-line"></span>
+            <span class="public-site-nav__toggle-line"></span>
+        </button>
+    </div>
+
+    <div
+        id={mobileNavId}
+        class="public-site-nav__panel"
+        data-public-nav-panel
+        hidden
+    >
+        <div class="public-site-nav__panel-content">
+            <div class="public-site-nav__links">
+                <a href="/" class="public-site-nav__link" data-public-nav-link>
+                    <span class="public-site-nav__link-code">Home</span>
+                    <span class="public-site-nav__link-label">Index</span>
+                </a>
+                <a
+                    href="/contents"
+                    class:list={[
+                        'public-site-nav__link',
+                        { active: isContentsActive },
+                    ]}
+                    aria-current={isContentsActive ? 'page' : undefined}
+                    data-public-nav-link
+                >
+                    <span class="public-site-nav__link-code">TOC</span>
+                    <span class="public-site-nav__link-label"
+                        >Table of Contents</span
+                    >
+                </a>
+
+                {
+                    navGroups.map((group) => (
+                        <section class="public-site-nav__group">
+                            <p class="public-site-nav__group-title">
+                                {group.title}
+                            </p>
+                            <div class="public-site-nav__group-links">
+                                {group.items.map((item, index) => {
+                                    const isActive = item.slug === currentSlug;
+                                    return (
+                                        <a
+                                            href={`/${item.slug}`}
+                                            class:list={[
+                                                'public-site-nav__link',
+                                                { active: isActive },
+                                            ]}
+                                            aria-current={
+                                                isActive ? 'page' : undefined
+                                            }
+                                            data-public-nav-link
+                                        >
+                                            <span class="public-site-nav__link-code">
+                                                {getNavCode(group.title, index)}
+                                            </span>
+                                            <span class="public-site-nav__link-label">
+                                                {item.label}
+                                            </span>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </section>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script is:inline>
+    (() => {
+        const reduceMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+        ).matches;
+        const desktopMedia = window.matchMedia('(min-width: 768px)');
+
+        for (const root of document.querySelectorAll('[data-public-nav]')) {
+            const toggle = root.querySelector('[data-public-nav-toggle]');
+            const panel = root.querySelector('[data-public-nav-panel]');
+            const links = root.querySelectorAll('[data-public-nav-link]');
+            if (
+                !(toggle instanceof HTMLButtonElement) ||
+                !(panel instanceof HTMLElement)
+            ) {
+                continue;
+            }
+
+            let isOpen = false;
+            let isAnimating = false;
+
+            const setOpenState = (open) => {
+                isOpen = open;
+                root.setAttribute('data-open', open ? 'true' : 'false');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            };
+
+            const setAnimating = (animating) => {
+                isAnimating = animating;
+                root.setAttribute(
+                    'data-animating',
+                    animating ? 'true' : 'false',
+                );
+            };
+
+            const finishOpen = () => {
+                panel.hidden = false;
+                panel.style.height = 'auto';
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+                panel.style.overflow = '';
+                setAnimating(false);
+            };
+
+            const finishClose = () => {
+                panel.hidden = true;
+                panel.style.height = '0px';
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(-6px)';
+                panel.style.overflow = 'hidden';
+                setAnimating(false);
+            };
+
+            const openPanel = () => {
+                setOpenState(true);
+                panel.hidden = false;
+
+                if (reduceMotion) {
+                    finishOpen();
+                    return;
+                }
+
+                setAnimating(true);
+                panel.style.overflow = 'hidden';
+                panel.style.height = '0px';
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(-6px)';
+                void panel.offsetHeight;
+
+                requestAnimationFrame(() => {
+                    panel.style.height = `${panel.scrollHeight}px`;
+                    panel.style.opacity = '1';
+                    panel.style.transform = 'translateY(0)';
+                });
+
+                const onEnd = (event) => {
+                    if (
+                        event.target !== panel ||
+                        event.propertyName !== 'height'
+                    ) {
+                        return;
+                    }
+                    panel.removeEventListener('transitionend', onEnd);
+                    finishOpen();
+                };
+
+                panel.addEventListener('transitionend', onEnd);
+            };
+
+            const closePanel = () => {
+                setOpenState(false);
+
+                if (reduceMotion) {
+                    finishClose();
+                    return;
+                }
+
+                setAnimating(true);
+                panel.style.overflow = 'hidden';
+                panel.style.height = `${panel.scrollHeight}px`;
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+                void panel.offsetHeight;
+
+                requestAnimationFrame(() => {
+                    panel.style.height = '0px';
+                    panel.style.opacity = '0';
+                    panel.style.transform = 'translateY(-6px)';
+                });
+
+                const onEnd = (event) => {
+                    if (
+                        event.target !== panel ||
+                        event.propertyName !== 'height'
+                    ) {
+                        return;
+                    }
+                    panel.removeEventListener('transitionend', onEnd);
+                    finishClose();
+                };
+
+                panel.addEventListener('transitionend', onEnd);
+            };
+
+            finishClose();
+
+            toggle.addEventListener('click', () => {
+                if (isAnimating) {
+                    return;
+                }
+
+                if (isOpen) {
+                    closePanel();
+                } else {
+                    openPanel();
+                }
+            });
+
+            for (const link of links) {
+                link.addEventListener('click', () => {
+                    if (!desktopMedia.matches && isOpen && !isAnimating) {
+                        closePanel();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && isOpen && !isAnimating) {
+                    closePanel();
+                    toggle.focus();
+                }
+            });
+
+            const syncDesktopState = (event) => {
+                if (event.matches) {
+                    setOpenState(false);
+                    finishClose();
+                }
+            };
+
+            desktopMedia.addEventListener('change', syncDesktopState);
+        }
+    })();
+</script>

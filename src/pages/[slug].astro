@@ -6,6 +6,7 @@ import DesignPhilosophyPage from '../components/content-pages/DesignPhilosophyPa
 import InteractionNotesPage from '../components/content-pages/InteractionNotesPage.astro';
 import InspirationPage from '../components/content-pages/InspirationPage.astro';
 import OperatorModelPage from '../components/content-pages/OperatorModelPage.astro';
+import PublicSiteNav from '../components/PublicSiteNav.astro';
 import WhatIsGalexCPage from '../components/content-pages/WhatIsGalexCPage.astro';
 import Layout from '../layouts/Layout.astro';
 import {
@@ -42,7 +43,10 @@ const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
 ---
 
 <Layout title={`GalexC - ${page.label}`} description={page.blurb} noindex>
-    <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
+    <div
+        class="editorial-shell page-stack px-4 pb-8 pt-0 md:px-6 md:pb-12 md:pt-8 lg:pt-12"
+    >
+        <PublicSiteNav currentSlug={page.slug} />
         <div class="content-page">
             <aside class="content-page__nav" aria-label="Contents ledger">
                 <p class="content-page__back eyebrow">
