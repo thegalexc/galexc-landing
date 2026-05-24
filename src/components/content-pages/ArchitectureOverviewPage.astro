@@ -1,0 +1,104 @@
+---
+const facts = ['5 layers', '3 control surfaces', 'Private by default'];
+
+const layers = [
+  ['Physical + network', 'Connectivity, power, and private reachability.'],
+  ['Compute', 'Separate daily workstation from always-on workers and service hosts.'],
+  ['Control plane', 'Git, Ansible, just, and encrypted secrets keep the environment reproducible.'],
+  ['Services', 'Forge, search, state, monitoring, notifications, and Hub.'],
+  ['Agent layer', 'Interactive sessions, dispatch, review, and lightweight coordination.'],
+];
+
+const surfaces = [
+  ['Interactive', 'Shape, inspect, debug, and decide in real time.'],
+  ['Dispatch', 'Run bounded background work in isolated sandboxes.'],
+  ['Review', 'Return through PRs, artifacts, dashboards, and notifications.'],
+];
+
+const sequence = ['Shape work', 'Dispatch', 'Isolated run', 'Artifact or PR', 'Review'];
+---
+
+<div class="essay-page architecture-page">
+  <section class="page-hero-note-grid">
+    <div>
+      <p class="eyebrow">System</p>
+      <h1 class="page-display-title">How GalexC is arranged</h1>
+      <p class="page-lede">
+        GalexC is a personal AI operating environment built in layers. Under the
+        surface are private networking, boring compute, a reproducible control plane,
+        and a small set of durable services. On top sits the agent layer: interactive
+        sessions for shaping work, dispatch for bounded execution, and review surfaces
+        that keep the human clearly in charge.
+      </p>
+    </div>
+    <ul class="page-note-list">
+      {facts.map((fact) => <li>{fact}</li>)}
+    </ul>
+  </section>
+
+  <section class="page-module page-module-panel architecture-plate">
+    <p class="eyebrow">System at a glance</p>
+    <div class="architecture-bands">
+      {
+        layers.map(([title, body], index) => (
+          <div class:list={['architecture-band', index === layers.length - 1 && 'architecture-band-active']}>
+            <p class="architecture-band__title">{title}</p>
+            <p>{body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-grid-three">
+    {
+      surfaces.map(([title, body]) => (
+        <article class="page-module page-module-panel surface-card">
+          <p class="eyebrow">Control surface</p>
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="page-module">
+    <div class="module-heading-row">
+      <div>
+        <p class="eyebrow">One unit of work</p>
+        <h2 class="page-section-title">A bounded path back to review</h2>
+      </div>
+      <p class="page-caption">The blue path is execution. The rest of the system exists to support it.</p>
+    </div>
+    <div class="workflow-ribbon">
+      {
+        sequence.map((step, index) => (
+          <>
+            <div class="workflow-ribbon__step">{step}</div>
+            {index < sequence.length - 1 && <div class="workflow-ribbon__connector" aria-hidden="true"></div>}
+          </>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-grid-two">
+    <article class="page-module">
+      <p class="eyebrow">Why the boundaries are strict</p>
+      <p>
+        The stack is arranged around containment as much as capability. Services are
+        private by default. Containers keep hosts boring and replaceable. Search reduces
+        blind wandering. Worktree isolation, allowlists, and review surfaces keep agent
+        work narrow and inspectable.
+      </p>
+    </article>
+    <aside class="page-module page-module-panel legend-card">
+      <p class="eyebrow">Legend</p>
+      <ul class="legend-card__list">
+        <li><strong>Blue path</strong> - active work moving from shaping to review</li>
+        <li><strong>Paper bands</strong> - durable layers of the system</li>
+        <li><strong>Dotted links</strong> - search, control, and coordination</li>
+      </ul>
+    </aside>
+  </section>
+</div>

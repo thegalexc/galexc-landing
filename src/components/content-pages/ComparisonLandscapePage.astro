@@ -1,0 +1,101 @@
+---
+const points = [
+  ['GalexC', 'Operator-owned environment'],
+  ['Claude Code', 'Interactive coding harness'],
+  ['Hermes', 'Flexible agentic autonomy'],
+  ['OpenClaw', 'Open autonomy-forward stack'],
+];
+
+const cards = [
+  ['GalexC', 'Best understood as a personal operating environment for shaping, dispatch, review, and durable memory.'],
+  ['Claude Code', 'Best understood as a powerful coding harness centered on an active repo session.'],
+  ['Hermes', 'Optimizes for flexible skill-driven behavior and broader agentic autonomy.'],
+  ['OpenClaw', 'Represents a more open, hackable, autonomy-forward posture.'],
+];
+
+const workflow = ['Shape', 'Dispatch', 'Review', 'Keep'];
+---
+
+<div class="essay-page comparison-page">
+  <section class="page-hero-note-grid">
+    <div>
+      <p class="eyebrow">Comparisons</p>
+      <h1 class="page-display-title">Where GalexC sits in the agent landscape.</h1>
+      <p class="page-lede">
+        GalexC overlaps with coding agents, autonomous harnesses, and other emerging
+        AI systems, but it is not trying to be a generic assistant or a pure autonomy
+        play. The point is a durable personal operating environment: operator-owned,
+        reviewable, and built for real ongoing work.
+      </p>
+    </div>
+    <div class="page-module page-module-panel compact-callout">
+      <p class="eyebrow">Not a scorecard</p>
+      <p>Center of gravity, not rankings.</p>
+    </div>
+  </section>
+
+  <section class="page-module page-module-panel axes-card">
+    <p class="eyebrow">Landscape axes</p>
+    <div class="axes-card__frame">
+      <div class="axes-card__x"></div>
+      <div class="axes-card__y"></div>
+      {
+        points.map(([label, note], index) => (
+          <div class:list={['axes-card__point', `axes-card__point-${index + 1}`]}>
+            <strong>{label}</strong>
+            <span>{note}</span>
+          </div>
+        ))
+      }
+    </div>
+    <p class="page-caption">
+      Left to right: single-session coding tool to durable operating environment.
+      Bottom to top: high-delegation autonomy to operator-steered bounded execution.
+    </p>
+  </section>
+
+  <section class="comparison-cards">
+    {
+      cards.map(([title, body]) => (
+        <article class="page-module page-module-panel comparison-card">
+          <p class="eyebrow">Reference point</p>
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="page-module">
+    <p class="eyebrow">Workflow shape</p>
+    <div class="workflow-ribbon workflow-ribbon-compact">
+      {
+        workflow.map((step, index) => (
+          <>
+            <div class="workflow-ribbon__step">{step}</div>
+            {index < workflow.length - 1 && <div class="workflow-ribbon__connector" aria-hidden="true"></div>}
+          </>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-grid-two">
+    <article class="page-module page-module-panel boundary-split">
+      <p class="eyebrow">What GalexC is not</p>
+      <ul>
+        <li>Not just a chat shell with extra tools</li>
+        <li>Not a generic SaaS copilot</li>
+        <li>Not an agents-gone-wild framework</li>
+      </ul>
+    </article>
+    <article class="page-module">
+      <p class="eyebrow">Why the distinction matters</p>
+      <p>
+        If you want the fastest path to one interactive coding loop, other tools may be
+        a more natural fit. If you want an operator-owned environment for shaping,
+        execution, memory, and review, GalexC is aiming at that territory on purpose.
+      </p>
+    </article>
+  </section>
+</div>

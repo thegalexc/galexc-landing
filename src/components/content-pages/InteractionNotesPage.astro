@@ -1,0 +1,70 @@
+---
+const lexicon = ['Reveal', 'Disclosure', 'Pacing', 'Restraint', 'Confidence'];
+const beats = ['Invite', 'Unfold', 'Settle'];
+const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
+---
+
+<div class="essay-page interaction-page">
+  <section class="page-hero-note-grid">
+    <div>
+      <p class="eyebrow">Principles / Interaction notes</p>
+      <h1 class="page-display-title">A calmer interaction language.</h1>
+      <p class="page-lede">
+        GalexC should not move like a productivity app trying to prove it is alive.
+        It should open, reveal, and settle with the confidence of a well-kept notebook.
+        Interaction is part of the trust model.
+      </p>
+    </div>
+    <div class="lexicon-strip">
+      {lexicon.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section class="page-module page-module-panel interaction-study">
+    <p class="eyebrow">Three-beat reveal</p>
+    <div class="study-frames">
+      {
+        beats.map((beat, index) => (
+          <div class="study-frame">
+            <div class:list={['study-frame__card', index > 0 && 'study-frame__card-open', index === 2 && 'study-frame__card-settled']}></div>
+            <p>{beat}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-module page-module-panel rhythm-strip-card">
+    <p class="eyebrow">Rhythm</p>
+    <div class="rhythm-strip">
+      {rhythm.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section class="essay-sections">
+    <article class="essay-sections__item">
+      <h2>Reveal is the primary verb</h2>
+      <p>
+        Information should feel uncovered rather than dropped onto the page. A reveal
+        suggests that detail was always there, waiting for intention. That is a better
+        fit for GalexC than drawers snapping open or panels competing for attention.
+      </p>
+    </article>
+    <article class="essay-sections__item">
+      <h2>Disclosure keeps control visible</h2>
+      <p>
+        Nothing important should arrive as a surprise. The operator should understand
+        what opened, why it opened, and how to close it again. Disclosure turns
+        interaction into an explicit handshake instead of a performance happening on its own.
+      </p>
+    </article>
+    <article class="essay-sections__item">
+      <h2>Confidence needs very little</h2>
+      <p>
+        A confident interface does not fidget. It uses fewer gestures, clearer
+        transitions, and stronger stillness between them. The final beat should always
+        be composure, not momentum.
+      </p>
+    </article>
+  </section>
+</div>

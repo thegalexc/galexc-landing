@@ -1,0 +1,129 @@
+---
+const ledger = [
+  {
+    actor: 'Human',
+    owns: 'Intent, approval, authorship',
+    goodFor: 'Deciding what matters and what is safe to delegate',
+    avoid: 'Handing over irreversible judgment',
+  },
+  {
+    actor: 'Session',
+    owns: 'Shaping, debugging, steering',
+    goodFor: 'Reducing ambiguity and tightening the brief',
+    avoid: 'Pretending exploration is already execution',
+  },
+  {
+    actor: 'Dispatch',
+    owns: 'Bounded background execution',
+    goodFor: 'Scoped work that can run asynchronously',
+    avoid: 'Broad open-ended autonomy',
+  },
+  {
+    actor: 'Services',
+    owns: 'State, routing, memory, visibility',
+    goodFor: 'Search, tasks, notifications, forge, observability',
+    avoid: 'Standing in for judgment',
+  },
+];
+
+const decisionSides = {
+  interactive: [
+    'The task is still ambiguous',
+    'Tradeoffs are still being framed',
+    'You need live judgment and steering',
+  ],
+  dispatch: [
+    'Scope is clear enough to bound',
+    'Source of truth is obvious',
+    'The result can come back through a review surface',
+  ],
+};
+
+const services = ['Search', 'Tasks', 'Forgejo', 'Hub', 'Intercom', 'Notifications', 'Monitoring'];
+---
+
+<div class="essay-page operator-page">
+  <section class="page-hero-note-grid">
+    <div>
+      <p class="eyebrow">System</p>
+      <h1 class="page-display-title">The operator stays in charge.</h1>
+      <p class="page-lede">
+        GalexC divides work on purpose. The human shapes intent, exercises judgment,
+        and decides what is worth systematizing. Interactive sessions help explore and
+        refine in real time. Async dispatch jobs take on bounded background work once
+        the task is clear enough to hand off. Services make the loop durable.
+      </p>
+    </div>
+    <div class="page-module page-module-panel compact-callout">
+      <p class="eyebrow">Trust model</p>
+      <p>GalexC delegates execution, not ownership.</p>
+    </div>
+  </section>
+
+  <section class="page-module">
+    <div class="module-heading-row">
+      <div>
+        <p class="eyebrow">Responsibility ledger</p>
+        <h2 class="page-section-title">A system with named responsibilities</h2>
+      </div>
+    </div>
+    <div class="responsibility-ledger">
+      {
+        ledger.map((item) => (
+          <article class="responsibility-row">
+            <p class="responsibility-row__actor">{item.actor}</p>
+            <div class="responsibility-row__body">
+              <p><strong>Owns:</strong> {item.owns}</p>
+              <p><strong>Good for:</strong> {item.goodFor}</p>
+              <p><strong>Should not do:</strong> {item.avoid}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-module page-module-panel flow-band">
+    <p class="eyebrow">Control flow</p>
+    <div class="flow-band__steps">
+      <span>Human</span>
+      <span>Session</span>
+      <span>Choose path</span>
+      <span>Dispatch</span>
+      <span>Review</span>
+      <span>Reality</span>
+    </div>
+  </section>
+
+  <section class="page-grid-two">
+    <article class="page-module page-module-panel threshold-card">
+      <p class="eyebrow">Keep it interactive</p>
+      <ul>
+        {decisionSides.interactive.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+    <article class="page-module page-module-panel threshold-card threshold-card-firm">
+      <p class="eyebrow">Dispatch it</p>
+      <ul>
+        {decisionSides.dispatch.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+  </section>
+
+  <section class="page-grid-two page-grid-two-wide-right">
+    <article class="page-module">
+      <p class="eyebrow">Review is the control surface</p>
+      <p>
+        GalexC stays sane because outputs arrive at inspectable surfaces instead of
+        slipping directly into reality. PRs, artifacts, task updates, dashboards, and
+        notifications make automation accountable at the moment it matters.
+      </p>
+    </article>
+    <aside class="page-module page-module-panel service-capsules">
+      <p class="eyebrow">Substrate services</p>
+      <div class="service-capsules__grid">
+        {services.map((item) => <span>{item}</span>)}
+      </div>
+    </aside>
+  </section>
+</div>

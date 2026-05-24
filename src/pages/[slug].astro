@@ -1,4 +1,11 @@
 ---
+import ArchitectureOverviewPage from '../components/content-pages/ArchitectureOverviewPage.astro';
+import ComparisonLandscapePage from '../components/content-pages/ComparisonLandscapePage.astro';
+import DesignPhilosophyPage from '../components/content-pages/DesignPhilosophyPage.astro';
+import InteractionNotesPage from '../components/content-pages/InteractionNotesPage.astro';
+import ManifestoPage from '../components/content-pages/ManifestoPage.astro';
+import OperatorModelPage from '../components/content-pages/OperatorModelPage.astro';
+import WhatIsGalexCPage from '../components/content-pages/WhatIsGalexCPage.astro';
 import Layout from '../layouts/Layout.astro';
 import {
     contentPages,
@@ -19,6 +26,18 @@ export function getStaticPaths() {
 
 const { page } = Astro.props as { page: NavItem };
 const adjacent = getAdjacentContent(page.slug);
+
+const pageComponents = {
+    'what-is-galexc': WhatIsGalexCPage,
+    manifesto: ManifestoPage,
+    'architecture-overview': ArchitectureOverviewPage,
+    'operator-model': OperatorModelPage,
+    'design-philosophy': DesignPhilosophyPage,
+    'interaction-notes': InteractionNotesPage,
+    'comparison-landscape': ComparisonLandscapePage,
+} as const;
+
+const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
 ---
 
 <Layout title={`GalexC - ${page.label}`} description={page.blurb} noindex>
@@ -52,22 +71,7 @@ const adjacent = getAdjacentContent(page.slug);
             </aside>
 
             <article class="content-page__main">
-                <header class="content-page__header">
-                    <p class="eyebrow">{page.eyebrow}</p>
-                    <h1>{page.label}</h1>
-                    <p class="content-page__summary">{page.summary}</p>
-                </header>
-
-                <div class="content-page__sections">
-                    {
-                        page.sections.map((section) => (
-                            <section class="content-page__section">
-                                <h2>{section.title}</h2>
-                                <p>{section.body}</p>
-                            </section>
-                        ))
-                    }
-                </div>
+                <PageBody />
 
                 <footer class="content-page__footer">
                     {adjacent.previous && (

@@ -1,0 +1,101 @@
+---
+const chapters = [
+  {
+    code: 'M01',
+    title: 'Ownership is a feature',
+    body:
+      'A good AI system should not ask you to disappear inside someone else\'s black box. Repos, notes, tasks, prompts, artifacts, and interfaces you can actually shape are not implementation details. They are the difference between borrowed convenience and real ownership.',
+  },
+  {
+    code: 'M02',
+    title: 'Context should accumulate',
+    body:
+      'Too much valuable work dissolves into scrollback. GalexC takes the opposite stance. Useful context should compound over time so a person can recover prior thinking, understand why a decision was made, and continue from a real place instead of starting over.',
+  },
+  {
+    code: 'M03',
+    title: 'Delegation needs edges',
+    body:
+      'Not every task should be handed off just because it can be. Delegation becomes trustworthy when it is bounded: a known scope, a known source of truth, a known tool surface, and a known review moment. Clear edges do not limit capability. They make capability usable.',
+  },
+  {
+    code: 'M04',
+    title: 'Outputs should come back with receipts',
+    body:
+      'Confidence is not enough. Work should return as something inspectable: a pull request, a report, a task update, or an artifact with provenance. Reviewable outputs preserve the path between intention and result.',
+  },
+  {
+    code: 'M05',
+    title: 'Automation is not authority',
+    body:
+      'The system can route, search, summarize, and execute bounded work. It should not quietly assume the right to decide what matters. Taste, accountability, risk tolerance, and the meaning of done remain human concerns.',
+  },
+  {
+    code: 'M06',
+    title: 'Stay close to the irreversible',
+    body:
+      'Merging, publishing, sending, and approving are not chores to be erased. They are points of authorship. A serious AI environment should reduce drudgery while keeping the person closest to the decisions that actually matter.',
+  },
+];
+
+const loopNodes = [
+  'Source of truth',
+  'Bounded delegation',
+  'Reviewable output',
+  'Durable memory',
+  'Human judgment',
+];
+---
+
+<div class="essay-page manifesto-page">
+  <section class="page-hero-simple">
+    <p class="eyebrow">Foundations / Manifesto</p>
+    <h1 class="page-display-title">Keep the work yours.</h1>
+    <p class="page-lede">
+      GalexC is built on a simple belief: useful AI should help a person think,
+      act, and preserve continuity without taking ownership away from them. The point
+      is not autonomous theater. The point is durable leverage grounded in clear
+      boundaries, searchable context, reviewable outputs, and a human who remains
+      responsible for what matters.
+    </p>
+  </section>
+
+  <section class="page-module page-module-panel declaration-block">
+    <p class="eyebrow">Declaration</p>
+    <p class="declaration-block__text">
+      Build the system so the human can step away from the busywork, not from the responsibility.
+    </p>
+  </section>
+
+  <nav class="chapter-rail" aria-label="Manifesto chapters">
+    {chapters.map((chapter) => <span>{chapter.code}</span>)}
+  </nav>
+
+  <section class="manifesto-chapters">
+    {
+      chapters.map((chapter) => (
+        <article class="manifesto-chapter">
+          <p class="manifesto-chapter__code">{chapter.code}</p>
+          <div>
+            <h2>{chapter.title}</h2>
+            <p>{chapter.body}</p>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="page-module page-module-panel manifesto-loop-card">
+    <p class="eyebrow">System sketch</p>
+    <div class="loop-diagram loop-diagram-compact">
+      {
+        loopNodes.map((node, index) => (
+          <>
+            <div class="loop-step">{node}</div>
+            {index < loopNodes.length - 1 && <div class="loop-connector" aria-hidden="true"></div>}
+          </>
+        ))
+      }
+    </div>
+  </section>
+</div>

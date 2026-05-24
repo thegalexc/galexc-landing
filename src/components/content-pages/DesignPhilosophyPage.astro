@@ -1,0 +1,90 @@
+---
+const doctrine = [
+  ['Warm, not nostalgic', 'Human and held, not retro for its own sake.'],
+  ['Serif for thought', 'Mono keeps structure visible while prose carries the argument.'],
+  ['Blue is a signal', 'Accent where attention matters, not as a wash.'],
+  ['Whitespace is operational', 'Breathing room creates pacing and room for judgment.'],
+  ['Reveal, do not barrage', 'Information should unfold in layers.'],
+  ['Composition over templating', 'Each page should look arranged for its subject.'],
+];
+---
+
+<div class="essay-page design-page">
+  <section class="page-hero-simple">
+    <p class="eyebrow">Principles</p>
+    <h1 class="page-display-title">Design should feel authored.</h1>
+    <p class="page-lede">
+      GalexC should not feel like an AI dashboard that borrowed nicer type. It should
+      feel composed, editorial, and quietly deliberate - more like a publication,
+      notebook, or field manual than a SaaS shell. That choice is not cosmetic. It
+      signals how the product thinks.
+    </p>
+  </section>
+
+  <section class="page-grid-two design-compare-grid">
+    <article class="page-module page-module-panel compare-panel compare-panel-dense">
+      <p class="eyebrow">Dashboard instinct</p>
+      <ul>
+        <li>Dense panes</li>
+        <li>Constant controls</li>
+        <li>Urgent prompts</li>
+        <li>Interface churn</li>
+      </ul>
+    </article>
+    <article class="page-module page-module-panel compare-panel">
+      <p class="eyebrow">Editorial instinct</p>
+      <ul>
+        <li>Quiet hierarchy</li>
+        <li>Readable measures</li>
+        <li>Room for notes</li>
+        <li>Emphasis only where it matters</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="page-module design-anatomy">
+    <div class="module-heading-row">
+      <div>
+        <p class="eyebrow">Surface as posture</p>
+        <h2 class="page-section-title">Visual decisions map to operator posture</h2>
+      </div>
+    </div>
+    <div class="anatomy-poster page-module-panel">
+      <div class="anatomy-poster__frame">
+        <div class="anatomy-poster__headline"></div>
+        <div class="anatomy-poster__rule"></div>
+        <div class="anatomy-poster__body"></div>
+        <div class="anatomy-poster__notes"></div>
+      </div>
+      <div class="anatomy-poster__labels">
+        <span>breathing room</span>
+        <span>quiet hierarchy</span>
+        <span>blue only where it matters</span>
+        <span>room for notes</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-grid-two page-grid-two-wide-right">
+    <article class="page-module">
+      <p class="eyebrow">Why this matters</p>
+      <p>
+        An authored, editorial, calm, durable surface communicates the same values as
+        the system beneath it: bounded work over chaos, legibility over novelty,
+        memory over ephemera, and confidence without noise. The interface should feel
+        kept, not consumed.
+      </p>
+    </article>
+    <aside class="page-module page-module-panel doctrine-grid">
+      <p class="eyebrow">Visual doctrine</p>
+      {
+        doctrine.map(([title, body]) => (
+          <div class="doctrine-grid__item">
+            <p class="doctrine-grid__title">{title}</p>
+            <p>{body}</p>
+          </div>
+        ))
+      }
+    </aside>
+  </section>
+</div>
