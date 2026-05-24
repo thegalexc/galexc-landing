@@ -32,6 +32,23 @@ pnpm check
 
 Set local environment values in `.env` or your shell as needed.
 
+## Formatting
+
+Astro edits should be explicitly formatted after changes.
+
+- `pnpm check` validates types and Astro diagnostics, but does not format files.
+- Zed is configured to format on save for Astro files, so unformatted agent edits may be rewritten heavily on the next manual save.
+- The repo style is defined by `.prettierrc.json` with `prettier-plugin-astro`.
+
+Preferred agent workflow for touched Astro files:
+
+```bash
+pnpm prettier src/path/to/file.astro --write
+pnpm check
+```
+
+Prefer file-scoped Prettier runs over repo-wide formatting when making targeted edits.
+
 ## Required Cloudflare bindings and secrets
 
 - D1 binding `DB`
