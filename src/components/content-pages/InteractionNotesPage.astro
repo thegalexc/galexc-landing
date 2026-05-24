@@ -1,33 +1,58 @@
 ---
-const lexicon = ['Reveal', 'Disclosure', 'Pacing', 'Restraint', 'Confidence'];
-const beats = ['Invite', 'Unfold', 'Settle'];
+const lexicon = [
+  ['Reveal', 'Information should feel uncovered rather than dropped in.'],
+  ['Disclosure', 'The operator should always understand what opened and why.'],
+  ['Settle', 'The last beat should be stillness, not momentum.'],
+];
+
+const beats = [
+  ['Invite', 'A closed surface reads as complete, but not sealed.'],
+  ['Unfold', 'The indicator turns, the seam softens, and the hidden layer appears close to its origin.'],
+  ['Settle', 'The panel arrives, movement stops, and the page returns to composure.'],
+];
+
 const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
 ---
 
 <div class="essay-page interaction-page">
-  <section class="page-hero-note-grid">
-    <div>
-      <p class="eyebrow">Principles / Interaction notes</p>
-      <h1 class="page-display-title">A calmer interaction language.</h1>
-      <p class="page-lede">
-        GalexC should not move like a productivity app trying to prove it is alive.
-        It should open, reveal, and settle with the confidence of a well-kept notebook.
-        Interaction is part of the trust model.
-      </p>
-    </div>
-    <div class="lexicon-strip">
-      {lexicon.map((item) => <span>{item}</span>)}
-    </div>
+  <section class="page-hero-simple">
+    <p class="eyebrow">Principles / Interaction notes</p>
+    <h1 class="page-display-title">A calmer interaction language.</h1>
+    <p class="page-lede">
+      GalexC should not move like a productivity app trying to prove it is alive.
+      It should open, reveal, and settle with the confidence of a well-kept notebook.
+      The clearest current example is the request-access reveal on the landing page.
+    </p>
+  </section>
+
+  <section class="page-grid-two interaction-glossary-grid">
+    {
+      lexicon.map(([title, body]) => (
+        <article class="page-module page-module-panel interaction-glossary-card">
+          <p class="eyebrow">{title}</p>
+          <p>{body}</p>
+        </article>
+      ))
+    }
   </section>
 
   <section class="page-module page-module-panel interaction-study">
-    <p class="eyebrow">Three-beat reveal</p>
-    <div class="study-frames">
+    <p class="eyebrow">Request-access reveal</p>
+    <div class="study-frames study-frames-annotated">
       {
-        beats.map((beat, index) => (
-          <div class="study-frame">
-            <div class:list={['study-frame__card', index > 0 && 'study-frame__card-open', index === 2 && 'study-frame__card-settled']}></div>
-            <p>{beat}</p>
+        beats.map(([beat, body], index) => (
+          <div class="study-frame study-frame-detailed">
+            <div class:list={[
+              'study-frame__card',
+              'study-frame__card-diagram',
+              index > 0 && 'study-frame__card-open',
+              index === 2 && 'study-frame__card-settled',
+            ]}>
+              <div class="study-frame__bar"></div>
+              {index > 0 && <div class="study-frame__panel"></div>}
+            </div>
+            <p class="study-frame__title">{beat}</p>
+            <p class="study-frame__note">{body}</p>
           </div>
         ))
       }
@@ -35,9 +60,16 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
   </section>
 
   <section class="page-module page-module-panel rhythm-strip-card">
-    <p class="eyebrow">Rhythm</p>
-    <div class="rhythm-strip">
-      {rhythm.map((item) => <span>{item}</span>)}
+    <p class="eyebrow">Pacing</p>
+    <div class="rhythm-line">
+      {
+        rhythm.map((item) => (
+          <div class="rhythm-line__item">
+            <span class="rhythm-line__dot"></span>
+            <p>{item}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -45,25 +77,27 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
     <article class="essay-sections__item">
       <h2>Reveal is the primary verb</h2>
       <p>
-        Information should feel uncovered rather than dropped onto the page. A reveal
-        suggests that detail was always there, waiting for intention. That is a better
-        fit for GalexC than drawers snapping open or panels competing for attention.
+        Information should feel uncovered rather than dropped onto the page. That is
+        why the request-access interaction unfolds downward from its trigger instead of
+        arriving from somewhere off-canvas. Motion stays near its origin, so state
+        change remains legible.
       </p>
     </article>
     <article class="essay-sections__item">
       <h2>Disclosure keeps control visible</h2>
       <p>
         Nothing important should arrive as a surprise. The operator should understand
-        what opened, why it opened, and how to close it again. Disclosure turns
-        interaction into an explicit handshake instead of a performance happening on its own.
+        what opened, why it opened, and how to close it again. Indicator rotation,
+        visible seams, and reversible state changes do more for trust than flashy
+        transitions ever will.
       </p>
     </article>
     <article class="essay-sections__item">
-      <h2>Confidence needs very little</h2>
+      <h2>The final beat is stillness</h2>
       <p>
-        A confident interface does not fidget. It uses fewer gestures, clearer
-        transitions, and stronger stillness between them. The final beat should always
-        be composure, not momentum.
+        A confident interface does not fidget. After the reveal, the page should settle
+        and hold. That pause is part of the product posture. It tells the operator that
+        the system has finished speaking and handed control back.
       </p>
     </article>
   </section>

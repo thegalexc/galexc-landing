@@ -1581,6 +1581,31 @@ a {
     line-height: 1;
 }
 
+.chapter-rail-links {
+    gap: 1rem;
+}
+
+.chapter-rail__link {
+    color: #6f6255;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.chapter-rail__link:hover {
+    color: #123c62;
+}
+
+.manifesto-ledger-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.65rem;
+    color: #5b4f43;
+}
+
 .architecture-bands {
     display: grid;
     gap: 0.8rem;
@@ -1634,62 +1659,78 @@ a {
     line-height: 1.05;
 }
 
-.anatomy-poster {
+.flow-timeline,
+.comparison-workflow-list,
+.service-list-grid,
+.anatomy-notes {
     display: grid;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
-.anatomy-poster__frame {
+.flow-timeline__item,
+.comparison-workflow-list__item,
+.service-list-grid__item,
+.anatomy-notes__item {
     display: grid;
-    gap: 0.9rem;
-    min-height: 15rem;
-    padding: 1.3rem;
-    border-radius: 1.25rem;
-    border: 1px solid rgba(120, 113, 108, 0.14);
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(251, 247, 241, 0.62));
+    gap: 0.25rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.14);
 }
 
-.anatomy-poster__headline,
-.anatomy-poster__rule,
-.anatomy-poster__body,
-.anatomy-poster__notes,
-.study-frame__card {
+.flow-timeline__code,
+.comparison-workflow-list__item strong,
+.design-specimen h3,
+.anatomy-notes__item strong,
+.study-frame__title,
+.axes-card__axis-label {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.flow-timeline__code,
+.axes-card__axis-label {
+    font-size: 0.68rem;
+    color: #6f6255;
+}
+
+.service-list-grid__item {
+    grid-template-columns: none;
+    padding-left: 0.2rem;
+    font-family: 'Source Serif 4', serif;
+}
+
+.design-specimen-grid {
+    align-items: start;
+}
+
+.design-specimen {
+    align-content: start;
+}
+
+.design-specimen h3 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.design-specimen__rule {
+    width: min(14rem, 100%);
+    height: 1px;
+    background: rgba(21, 74, 122, 0.24);
+}
+
+.study-frame__card,
+.study-frame__panel,
+.study-frame__bar {
     border-radius: 1rem;
     border: 1px solid rgba(120, 113, 108, 0.16);
     background: rgba(255, 255, 255, 0.56);
 }
 
-.anatomy-poster__headline {
-    width: 58%;
-    height: 2.5rem;
-}
-
-.anatomy-poster__rule {
-    width: 100%;
-    height: 1px;
-    border-radius: 999px;
-    background: rgba(21, 74, 122, 0.22);
-}
-
-.anatomy-poster__body {
-    width: 88%;
-    height: 5.8rem;
-}
-
-.anatomy-poster__notes {
-    width: 34%;
-    height: 4.4rem;
-    justify-self: end;
-}
-
-.anatomy-poster__labels {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-}
-
-.anatomy-poster__labels span,
 .axes-card__point span {
     color: #66594c;
     font-size: 0.9rem;
@@ -1709,6 +1750,22 @@ a {
     min-height: 8rem;
 }
 
+.study-frame__card-diagram {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    padding: 0.85rem;
+}
+
+.study-frame__bar {
+    min-height: 2.2rem;
+}
+
+.study-frame__panel {
+    min-height: 3.8rem;
+    background: rgba(248, 243, 236, 0.72);
+}
+
 .study-frame__card-open {
     min-height: 10rem;
     border-color: rgba(21, 74, 122, 0.2);
@@ -1719,6 +1776,47 @@ a {
     background: rgba(248, 243, 236, 0.74);
 }
 
+.study-frame__title {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #6f6255;
+}
+
+.study-frame__note {
+    margin: 0;
+    color: #5d5145;
+    line-height: 1.55;
+}
+
+.rhythm-line {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    gap: 0.8rem;
+}
+
+.rhythm-line__item {
+    display: grid;
+    gap: 0.45rem;
+    justify-items: center;
+}
+
+.rhythm-line__dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: rgba(21, 74, 122, 0.2);
+    box-shadow: 0 0 0 6px rgba(21, 74, 122, 0.06);
+}
+
+.rhythm-line__item p {
+    margin: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6f6255;
+}
+
 .axes-card__frame {
     position: relative;
     min-height: 18rem;
@@ -1726,6 +1824,38 @@ a {
     border: 1px solid rgba(120, 113, 108, 0.14);
     background: rgba(255, 255, 255, 0.48);
     overflow: hidden;
+}
+
+.axes-card__axis-label {
+    position: absolute;
+    margin: 0;
+    max-width: 10rem;
+    line-height: 1.45;
+}
+
+.axes-card__axis-label-x-start {
+    left: 10%;
+    bottom: 2.3rem;
+}
+
+.axes-card__axis-label-x-end {
+    right: 2rem;
+    bottom: 2.3rem;
+    text-align: right;
+}
+
+.axes-card__axis-label-y-start {
+    left: 0.7rem;
+    bottom: 3.6rem;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+}
+
+.axes-card__axis-label-y-end {
+    left: 0.7rem;
+    top: 3rem;
+    transform: rotate(-90deg);
+    transform-origin: left top;
 }
 
 .axes-card__x,
@@ -1789,11 +1919,41 @@ a {
 
 @media (max-width: 767px) {
     .axes-card__frame {
-        min-height: 22rem;
+        min-height: 24rem;
     }
 
     .axes-card__point {
         max-width: 8.5rem;
+    }
+
+    .axes-card__point-1 {
+        right: 1rem;
+        top: 1.3rem;
+    }
+
+    .axes-card__point-2 {
+        left: 1rem;
+        top: 6.2rem;
+    }
+
+    .axes-card__point-3 {
+        left: 1rem;
+        bottom: 1.6rem;
+    }
+
+    .axes-card__point-4 {
+        right: 1rem;
+        bottom: 6rem;
+    }
+
+    .axes-card__axis-label-x-start,
+    .axes-card__axis-label-x-end {
+        bottom: 0.9rem;
+    }
+
+    .axes-card__axis-label-y-start,
+    .axes-card__axis-label-y-end {
+        display: none;
     }
 }
 

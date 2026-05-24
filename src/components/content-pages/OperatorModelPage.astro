@@ -40,6 +40,13 @@ const decisionSides = {
 };
 
 const services = ['Search', 'Tasks', 'Forgejo', 'Hub', 'Intercom', 'Notifications', 'Monitoring'];
+const flowSteps = [
+  ['01', 'Human sets intent'],
+  ['02', 'Session reduces ambiguity'],
+  ['03', 'Dispatch runs bounded work'],
+  ['04', 'Services capture state and visibility'],
+  ['05', 'Review decides reality'],
+];
 ---
 
 <div class="essay-page operator-page">
@@ -83,15 +90,17 @@ const services = ['Search', 'Tasks', 'Forgejo', 'Hub', 'Intercom', 'Notification
     </div>
   </section>
 
-  <section class="page-module page-module-panel flow-band">
+  <section class="page-module page-module-panel flow-band flow-band-timeline">
     <p class="eyebrow">Control flow</p>
-    <div class="flow-band__steps">
-      <span>Human</span>
-      <span>Session</span>
-      <span>Choose path</span>
-      <span>Dispatch</span>
-      <span>Review</span>
-      <span>Reality</span>
+    <div class="flow-timeline">
+      {
+        flowSteps.map(([code, label]) => (
+          <div class="flow-timeline__item">
+            <span class="flow-timeline__code">{code}</span>
+            <p>{label}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -121,8 +130,8 @@ const services = ['Search', 'Tasks', 'Forgejo', 'Hub', 'Intercom', 'Notification
     </article>
     <aside class="page-module page-module-panel service-capsules">
       <p class="eyebrow">Substrate services</p>
-      <div class="service-capsules__grid">
-        {services.map((item) => <span>{item}</span>)}
+      <div class="service-list-grid">
+        {services.map((item) => <div class="service-list-grid__item">{item}</div>)}
       </div>
     </aside>
   </section>

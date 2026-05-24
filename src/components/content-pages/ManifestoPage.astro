@@ -38,12 +38,12 @@ const chapters = [
   },
 ];
 
-const loopNodes = [
-  'Source of truth',
-  'Bounded delegation',
-  'Reviewable output',
-  'Durable memory',
-  'Human judgment',
+const closingLedger = [
+  'Source of truth before delegation',
+  'Bounded execution instead of vague autonomy',
+  'Reviewable outputs instead of implied trust',
+  'Durable memory instead of scrollback loss',
+  'Human judgment at the irreversible edge',
 ];
 ---
 
@@ -67,14 +67,18 @@ const loopNodes = [
     </p>
   </section>
 
-  <nav class="chapter-rail" aria-label="Manifesto chapters">
-    {chapters.map((chapter) => <span>{chapter.code}</span>)}
+  <nav class="chapter-rail chapter-rail-links" aria-label="Manifesto chapters">
+    {
+      chapters.map((chapter) => (
+        <a class="chapter-rail__link" href={`#${chapter.code.toLowerCase()}`}>{chapter.code}</a>
+      ))
+    }
   </nav>
 
   <section class="manifesto-chapters">
     {
       chapters.map((chapter) => (
-        <article class="manifesto-chapter">
+        <article id={chapter.code.toLowerCase()} class="manifesto-chapter">
           <p class="manifesto-chapter__code">{chapter.code}</p>
           <div>
             <h2>{chapter.title}</h2>
@@ -85,17 +89,10 @@ const loopNodes = [
     }
   </section>
 
-  <section class="page-module page-module-panel manifesto-loop-card">
-    <p class="eyebrow">System sketch</p>
-    <div class="loop-diagram loop-diagram-compact">
-      {
-        loopNodes.map((node, index) => (
-          <>
-            <div class="loop-step">{node}</div>
-            {index < loopNodes.length - 1 && <div class="loop-connector" aria-hidden="true"></div>}
-          </>
-        ))
-      }
-    </div>
+  <section class="page-module page-module-panel manifesto-ledger-card">
+    <p class="eyebrow">Quiet operating standard</p>
+    <ol class="manifesto-ledger-list">
+      {closingLedger.map((item) => <li>{item}</li>)}
+    </ol>
   </section>
 </div>

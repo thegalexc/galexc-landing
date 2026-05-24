@@ -13,7 +13,12 @@ const cards = [
   ['OpenClaw', 'Represents a more open, hackable, autonomy-forward posture.'],
 ];
 
-const workflow = ['Shape', 'Dispatch', 'Review', 'Keep'];
+const workflow = [
+  ['Shape', 'Define the work before anything runs.'],
+  ['Dispatch', 'Send only what is bounded enough to trust.'],
+  ['Review', 'Return through a PR or artifact with receipts.'],
+  ['Keep', 'Store the useful result as durable context.'],
+];
 ---
 
 <div class="essay-page comparison-page">
@@ -39,6 +44,10 @@ const workflow = ['Shape', 'Dispatch', 'Review', 'Keep'];
     <div class="axes-card__frame">
       <div class="axes-card__x"></div>
       <div class="axes-card__y"></div>
+      <p class="axes-card__axis-label axes-card__axis-label-x-start">single-session coding tool</p>
+      <p class="axes-card__axis-label axes-card__axis-label-x-end">durable operating environment</p>
+      <p class="axes-card__axis-label axes-card__axis-label-y-start">high-delegation autonomy</p>
+      <p class="axes-card__axis-label axes-card__axis-label-y-end">operator-steered bounded execution</p>
       {
         points.map(([label, note], index) => (
           <div class:list={['axes-card__point', `axes-card__point-${index + 1}`]}>
@@ -66,15 +75,15 @@ const workflow = ['Shape', 'Dispatch', 'Review', 'Keep'];
     }
   </section>
 
-  <section class="page-module">
+  <section class="page-module page-module-panel comparison-workflow-card">
     <p class="eyebrow">Workflow shape</p>
-    <div class="workflow-ribbon workflow-ribbon-compact">
+    <div class="comparison-workflow-list">
       {
-        workflow.map((step, index) => (
-          <>
-            <div class="workflow-ribbon__step">{step}</div>
-            {index < workflow.length - 1 && <div class="workflow-ribbon__connector" aria-hidden="true"></div>}
-          </>
+        workflow.map(([title, body]) => (
+          <div class="comparison-workflow-list__item">
+            <strong>{title}</strong>
+            <p>{body}</p>
+          </div>
         ))
       }
     </div>
