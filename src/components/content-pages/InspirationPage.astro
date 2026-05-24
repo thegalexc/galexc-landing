@@ -16,27 +16,77 @@ const objectives = [
     />
 
     <section class="page-module manifesto-prose">
-        <p>
-            I wasn't alive when the Whole Earth Catalog was in print. I honestly
-            had no idea what it even was until very recently and although I had
-            likely heard the quote <em>Stay hungry. Stay foolish.</em>, it
-            definitely wasn't a meaningful quote in my life. That has changed
-            for me in a pretty radical way over the last few years. I went so
-            far as to seek out the Whole Earth Epilog, an original copy of which
-            now hangs framed in my office. I look at it most days, and it makes
-            me happy every time I do.
-        </p>
+        <div class="manifesto-intro-flow">
+            <figure class="manifesto-inline-artifact">
+                <button
+                    class="manifesto-inline-artifact__trigger"
+                    type="button"
+                    data-manifesto-lightbox-open
+                    aria-label="Expand Whole Earth Epilog image"
+                >
+                    <img
+                        src="/stay-hungry-stay-foolish.png"
+                        alt="Stay hungry. Stay foolish. image from Gilman's framed Whole Earth Epilog"
+                    />
+                </button>
+                <figcaption>Exhibit 01</figcaption>
+            </figure>
+            <p>
+                I wasn't alive when the Whole Earth Catalog was in print. I
+                honestly had no idea what it even was until very recently and
+                although I had likely heard the quote <em
+                    >Stay hungry. Stay foolish.</em
+                >, it definitely wasn't a meaningful quote in my life. That has
+                changed for me in a pretty radical way over the last few years.
+                I went so far as to seek out the Whole Earth Epilog, an original
+                copy of which now hangs framed in my office. I look at it most
+                days, and it makes me happy every time I do.
+            </p>
+        </div>
 
-        <figure class="manifesto-figure page-module specimen-frame">
+        <dialog class="manifesto-lightbox" data-manifesto-lightbox>
+            <button
+                class="manifesto-lightbox__close"
+                type="button"
+                data-manifesto-lightbox-close
+                aria-label="Close expanded image"
+            >
+                ×
+            </button>
             <img
+                class="manifesto-lightbox__image"
                 src="/stay-hungry-stay-foolish.png"
                 alt="Stay hungry. Stay foolish. image from Gilman's framed Whole Earth Epilog"
             />
-            <figcaption>
-                A touchstone from the Whole Earth Epilog that now hangs framed
-                in my office.
-            </figcaption>
-        </figure>
+        </dialog>
+
+        <script is:inline>
+            (() => {
+                const dialog = document.querySelector(
+                    '[data-manifesto-lightbox]',
+                );
+                const openButton = document.querySelector(
+                    '[data-manifesto-lightbox-open]',
+                );
+                const closeButton = document.querySelector(
+                    '[data-manifesto-lightbox-close]',
+                );
+
+                if (!(dialog instanceof HTMLDialogElement)) return;
+
+                openButton?.addEventListener('click', () => dialog.showModal());
+                closeButton?.addEventListener('click', () => dialog.close());
+                dialog.addEventListener('click', (event) => {
+                    const rect = dialog.getBoundingClientRect();
+                    const inside =
+                        rect.top <= event.clientY &&
+                        event.clientY <= rect.top + rect.height &&
+                        rect.left <= event.clientX &&
+                        event.clientX <= rect.left + rect.width;
+                    if (!inside) dialog.close();
+                });
+            })();
+        </script>
 
         <p>
             That is what GalexC is to me. I was inspired by the incredible work
