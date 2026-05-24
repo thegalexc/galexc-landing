@@ -11,18 +11,27 @@ const previewMode = isPreviewMode();
 const issuedAt = Date.now().toString();
 const formToken = await createFormToken(issuedAt, 'waitlist');
 const siteKey = previewMode ? undefined : env.TURNSTILE_SITE_KEY;
-const waitlistStatus = getWaitlistStatus(Astro.url.searchParams.get('waitlist'));
+const waitlistStatus = getWaitlistStatus(
+    Astro.url.searchParams.get('waitlist'),
+);
 const waitlistOpen = Boolean(waitlistStatus);
 ---
 
-<Layout title="GalexC" description="Private, for now." noindex>
-    <div class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12">
+<Layout title="GalexC" description="Professional-grade personal AI." noindex>
+    <div
+        class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12"
+    >
         <section class="mx-auto w-full max-w-4xl rounded-[2rem] p-6 md:p-10">
             <div class="landing-hero flex flex-col text-center">
                 <p class="eyebrow">GalexC</p>
-                <h1 class="landing-headline text-5xl leading-[0.96] text-stone-950 md:text-6xl">
-                    <span class="landing-headline__line">Professional-grade</span>
-                    <span class="landing-headline__line">personal&nbsp;AI.</span>
+                <h1
+                    class="landing-headline text-5xl leading-[0.96] text-stone-950 md:text-6xl"
+                >
+                    <span class="landing-headline__line"
+                        >Professional-grade</span
+                    >
+                    <span class="landing-headline__line">personal&nbsp;AI.</span
+                    >
                 </h1>
             </div>
 
@@ -32,7 +41,10 @@ const waitlistOpen = Boolean(waitlistStatus);
                 data-open={waitlistOpen ? 'true' : 'false'}
             >
                 <div class="landing-actions">
-                    <a class="landing-actions__link landing-actions__link--explore" href="/contents">
+                    <a
+                        class="landing-actions__link landing-actions__link--explore"
+                        href="/contents"
+                    >
                         <span class="waitlist-reveal__title">Explore</span>
                     </a>
 
@@ -43,7 +55,9 @@ const waitlistOpen = Boolean(waitlistStatus);
                         aria-controls="waitlist-panel"
                         data-reveal-trigger
                     >
-                        <span class="waitlist-reveal__title">Request access</span>
+                        <span class="waitlist-reveal__title"
+                            >Request access</span
+                        >
                     </button>
                 </div>
                 <div

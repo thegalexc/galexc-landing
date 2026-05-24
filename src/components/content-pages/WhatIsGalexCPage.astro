@@ -41,6 +41,10 @@ const trustItems: string[] = [
 
 const qaItems: Array<{ question: string; answer: string }> = [
     {
+        question: 'Why?',
+        answer: 'I see a future where we all have our own, likely multiple, personal AI that extends our capabilities in certain domains. I have created a starter pack for you based on my experience so far. I want it to be clear: this is actively evolving. There is no right answer. I hope this is the beginning of your journey.',
+    },
+    {
         question: 'What is it, exactly?',
         answer: "GalexC is my personal AI I've built over the last several months, grounded in around two decades of development, DevOps, machine learning, and entrepreneurial experience.",
     },
@@ -75,23 +79,48 @@ const qaItems: Array<{ question: string; answer: string }> = [
     <section class="page-hero-note-grid">
         <div>
             <p class="eyebrow">Foundations</p>
-            <h1 class="page-display-title">What is GalexC?</h1>
+            <h1 class="page-display-title">GalexC is <em>my</em> AI.</h1>
         </div>
     </section>
 
     <section>
-        <blockquote class="manifesto-quote manifesto-quote-strong">
-            <p>Professional-grade personal AI.</p>
-        </blockquote>
-
-        <p class="page-lede pt-8">
-            GalexC is simply the beginning of <b>*your*</b> journey, should you choose
-            to use it. I don't pretend to know what is going to happen as a consequence
-            of AI, but I am experiencing first-hand that well-aligned, maintainable,
-            personal AI has the capacity to fundamentally change how I do work (I
-            haven't brought it into my personal life yet...though I imagine that will
-            come sooner rather than later).
+        <p class="pt-4 italic">G(ilman) alex(ander) C(allsen) &rarr; GalexC</p>
+        <p class="page-lede pt-4">
+            I see a future where we all have our own, likely multiple, personal
+            AI that extend our capabilties in certain domains. I have created a
+            starter pack for you based on my experience so far. I want it to be
+            clear: this is actively evolving. There is no right answer. I hope
+            this is the beginning of your journey. Simply the beginning of <b
+                >*your*</b
+            > journey, should you choose to use it. I don't pretend to know what is
+            going to happen as a consequence of AI, but I am experiencing first-hand
+            that well-aligned, maintainable, personal AI has the capacity to fundamentally
+            change how I do work (I haven't brought it into my personal life yet...though
+            I imagine that will come sooner rather than later).
         </p>
+        <section class="page-module pt-8">
+            <div class="module-heading-row">
+                <div>
+                    <p class="eyebrow">Q&A starters</p>
+                </div>
+            </div>
+
+            <dl class="q-and-a-ledger">
+                {
+                    qaItems.map((item) => (
+                        <div class="q-and-a-ledger__item">
+                            <dt class="q-and-a-ledger__question">
+                                {item.question}
+                            </dt>
+                            <dd class="q-and-a-ledger__answer">
+                                {item.answer}
+                            </dd>
+                        </div>
+                    ))
+                }
+            </dl>
+        </section>
+
         <p class="page-lede pt-8">
             I began by building a professional-grade, personal AI for myself.
             (opinionated design with long-term improvement in mind). GalexC is a
@@ -111,7 +140,7 @@ const qaItems: Array<{ question: string; answer: string }> = [
             </p>
         </blockquote>
     </section>
-    <section class="page-module specimen-frame">
+    <section class="page-module operating-loop-ledger">
         <div class="module-heading-row">
             <p class="eyebrow">Operating loop</p>
             <p class="page-caption">
@@ -153,36 +182,6 @@ const qaItems: Array<{ question: string; answer: string }> = [
                 or report that can be reviewed at the right moment.
             </p>
         </article>
-    </section>
-
-    <section class="page-module">
-        <div class="module-heading-row">
-            <div>
-                <p class="eyebrow">Q&A starters</p>
-                <h2 class="page-section-title">
-                    Basic questions, straight answers
-                </h2>
-            </div>
-            <p class="page-caption">
-                The short version of what GalexC is, who it is for, and how to
-                approach it.
-            </p>
-        </div>
-
-        <dl class="grid gap-6 md:gap-8">
-            {
-                qaItems.map((item) => (
-                    <div class="border-t border-stone-200/80 pt-6">
-                        <dt class="text-2xl leading-tight text-stone-950 md:text-[2rem]">
-                            {item.question}
-                        </dt>
-                        <dd class="mt-2 max-w-3xl text-base leading-7 text-stone-700 md:text-lg md:leading-8">
-                            {item.answer}
-                        </dd>
-                    </div>
-                ))
-            }
-        </dl>
     </section>
 
     <section class="page-module">
