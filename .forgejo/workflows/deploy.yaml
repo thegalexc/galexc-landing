@@ -112,13 +112,12 @@ jobs:
               run: |
                   DEPLOY_URL="${{ steps.deploy.outputs.url }}"
                   BRANCH_URL="${{ steps.deploy.outputs.branch_url }}"
+                  MESSAGE=$(printf '%s\npreview alias -> %s\nexact deploy -> %s' "$GITHUB_REF_NAME" "${BRANCH_URL:-unknown}" "${DEPLOY_URL:-unknown}")
                   curl -s \
                     -H "Authorization: Bearer $NTFY_TOKEN" \
                     -H "Title: galexc-landing preview ready" \
                     -H "Tags: white_check_mark" \
-                    -d "$GITHUB_REF_NAME
-preview alias → ${BRANCH_URL:-unknown}
-exact deploy → ${DEPLOY_URL:-unknown}" \
+                    -d "$MESSAGE" \
                     https://ntfy.crested-altair.ts.net/alerts
               env:
                   NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
