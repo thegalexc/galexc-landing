@@ -2,50 +2,50 @@
 const ledger = [
   {
     actor: 'Human',
-    owns: 'Intent, approval, authorship',
-    goodFor: 'Deciding what matters and what is safe to delegate',
-    avoid: 'Handing over irreversible judgment',
+    owns: 'Intent, standards, approvals, and the right to reshape the system',
+    goodFor: 'Deciding what matters, what gets delegated, and what kind of personal AI this should become',
+    avoid: 'Treating the seed as a fixed product or outsourcing irreversible judgment',
   },
   {
     actor: 'Session',
-    owns: 'Shaping, debugging, steering',
-    goodFor: 'Reducing ambiguity and tightening the brief',
-    avoid: 'Pretending exploration is already execution',
+    owns: 'Learning, shaping, debugging, and steering in real time',
+    goodFor: 'Figuring out how you actually want to interact with your system',
+    avoid: 'Pretending exploration is already a finished workflow',
   },
   {
     actor: 'Dispatch',
     owns: 'Bounded background execution',
-    goodFor: 'Scoped work that can run asynchronously',
-    avoid: 'Broad open-ended autonomy',
+    goodFor: 'Scoped async work once the task is clear enough to hand off',
+    avoid: 'Open-ended autonomy without review or a clear source of truth',
   },
   {
-    actor: 'Services',
-    owns: 'State, routing, memory, visibility',
-    goodFor: 'Search, tasks, notifications, forge, observability',
-    avoid: 'Standing in for judgment',
+    actor: 'Seed + services',
+    owns: 'Durability, continuity, and maintenance scaffolding',
+    goodFor: 'Tasks, intercom, scheduled sweeps, version checks, notifications, and shared operational memory',
+    avoid: 'Standing in for operator taste or dictating one permanent stack',
   },
 ];
 
 const decisionSides = {
   interactive: [
-    'The task is still ambiguous',
-    'Tradeoffs are still being framed',
-    'You need live judgment and steering',
+    'You are still learning what works for you',
+    'The workflow or interface is still being shaped',
+    'You need live judgment, experimentation, or taste',
   ],
   dispatch: [
     'Scope is clear enough to bound',
-    'Source of truth is obvious',
     'The result can come back through a review surface',
+    'You want your AI to carry real maintenance or execution work in the background',
   ],
 };
 
-const services = ['Search', 'Tasks', 'Forgejo', 'Hub', 'Intercom', 'Notifications', 'Monitoring'];
+const services = ['Tasks', 'Dispatch', 'Scheduled jobs', 'Pi workstation', 'Intercom', 'Parley', 'Notifications'];
 const flowSteps = [
-  ['01', 'Human sets intent'],
-  ['02', 'Session reduces ambiguity'],
-  ['03', 'Dispatch runs bounded work'],
-  ['04', 'Services capture state and visibility'],
-  ['05', 'Review decides reality'],
+  ['01', 'Seed establishes the base'],
+  ['02', 'Operator learns by using it'],
+  ['03', 'AI helps shape a working cadence'],
+  ['04', 'Async work and upkeep become routine'],
+  ['05', 'The fork becomes truly yours'],
 ];
 ---
 
@@ -53,17 +53,18 @@ const flowSteps = [
   <section class="page-hero-note-grid">
     <div>
       <p class="eyebrow">System</p>
-      <h1 class="page-display-title">The operator stays in charge.</h1>
+      <h1 class="page-display-title">The operator model is meant to become personal.</h1>
       <p class="page-lede">
-        GalexC divides work on purpose. The human shapes intent, exercises judgment,
-        and decides what is worth systematizing. Interactive sessions help explore and
-        refine in real time. Async dispatch jobs take on bounded background work once
-        the task is clear enough to hand off. Services make the loop durable.
+        GalexC is not only a software stack. It is a way to learn how to work with a
+        personal AI system that you actually own. The seed gives you real structure on
+        day one, but the goal is not to keep everyone on Gilman's preferred setup.
+        The goal is to help you and your AI settle into a cadence that matches your
+        own needs, constraints, and taste.
       </p>
     </div>
     <div class="page-module page-module-panel compact-callout">
       <p class="eyebrow">Trust model</p>
-      <p>GalexC delegates execution, not ownership.</p>
+      <p>GalexC delegates execution, but the operator owns the system and its evolution.</p>
     </div>
   </section>
 
@@ -121,11 +122,14 @@ const flowSteps = [
 
   <section class="page-grid-two page-grid-two-wide-right">
     <article class="page-module">
-      <p class="eyebrow">Review is the control surface</p>
+      <p class="eyebrow">Your cadence, not mine</p>
       <p>
-        GalexC stays sane because outputs arrive at inspectable surfaces instead of
-        slipping directly into reality. PRs, artifacts, task updates, dashboards, and
-        notifications make automation accountable at the moment it matters.
+        After the fork, the system is yours. You can keep my defaults, replace nearly
+        every implementation detail, or selectively inherit ideas through Parley. You
+        do not need to treat any of that as mandatory. The seed includes maintenance
+        patterns like weekly version checks and expertise cleanup sweeps, but the real
+        objective is to help you and your AI arrive at a cadence that feels rigorous
+        and sustainable for you.
       </p>
     </article>
     <aside class="page-module page-module-panel service-capsules">

@@ -1606,6 +1606,85 @@ a {
     color: #5b4f43;
 }
 
+.manifesto-source__date {
+    margin: 0.2rem 0 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a6d60;
+}
+
+.manifesto-prose {
+    display: grid;
+    gap: 1rem;
+    max-width: 46rem;
+}
+
+.manifesto-prose p,
+.manifesto-prose li,
+.manifesto-prose figcaption {
+    color: #564a3f;
+    line-height: 1.8;
+    font-size: 1.04rem;
+}
+
+.manifesto-figure {
+    margin: 0.4rem 0;
+    gap: 0.8rem;
+}
+
+.manifesto-figure img {
+    display: block;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.manifesto-figure figcaption {
+    color: #6a5d51;
+}
+
+.manifesto-quote {
+    margin: 0.15rem 0;
+    padding: 0.9rem 1rem;
+    border-left: 2px solid rgba(21, 74, 122, 0.24);
+    background: rgba(255, 255, 255, 0.38);
+    border-radius: 0.75rem;
+}
+
+.manifesto-quote p,
+.manifesto-quote-strong p {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    line-height: 1.05;
+    color: #2b241d;
+}
+
+.manifesto-objectives {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.manifesto-objectives p,
+.manifesto-objectives ol {
+    margin: 0;
+}
+
+.manifesto-objectives ol {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.manifesto-closing {
+    margin-top: 0.3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    color: #2b241d;
+}
+
 .architecture-bands {
     display: grid;
     gap: 0.8rem;

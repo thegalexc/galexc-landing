@@ -78,36 +78,36 @@ export const navGroups: NavGroup[] = [
             {
                 slug: 'architecture-overview',
                 label: 'Architecture overview',
-                blurb: 'A readable map of the orchestration layer, services, and model workflows.',
+                blurb: 'A readable map of the seed layer, replaceable services, and the personal AI stack that grows from there.',
                 eyebrow: 'System',
                 summary:
-                    'GalexC spans orchestration, services, storage, search, and model execution. The landing surface should eventually point to a human-readable architecture page that explains how the pieces work together without collapsing into infra jargon.',
+                    'GalexC starts from a seed system, currently called galexc-starter-pack and likely becoming galexc-seed, that establishes the foundational interaction model rather than prescribing a permanent software stack. It gives you durable interaction layers, tasks, async dispatch, scheduled work, a workstation Pi environment aligned with dispatched agents, and core communications primitives like intercom. From there, you take ownership and shape the system around your own needs.',
                 sections: [
                     {
-                        title: 'Layering',
-                        body: 'The repo already expresses a strong control-plane versus target-repo posture. The product should inherit that clarity so users can understand what owns what.',
+                        title: 'Seed first, then divergence',
+                        body: 'The architecture is meant to give you a serious starting point, not a fixed product boundary. You begin with a coherent seed that already knows how to route work, preserve context, run background jobs, and keep the local and async agent environments aligned. Once that foundation is in place, you can replace any layer you want. Swap Postgres for something else. Rebuild Python services in Go. Change the scheduling model. The point is not conformity. The point is to start from an opinionated, working base and then deliberately diverge.',
                     },
                     {
-                        title: 'Why navigation matters here',
-                        body: 'Architecture content will grow. The landing page therefore needs navigation that scales from a few essays to a larger set of technical subpages without needing a redesign every time.',
+                        title: 'Owned evolution',
+                        body: 'After you fork it, the system is yours. GalexC is not meant to be maintained like traditional software where everyone waits on a central vendor to bless each change. The seed includes patterns for upkeep, like weekly version checks, cleanup sweeps for expertise files, and other maintenance loops that your own AI can help carry forward. You can also tap into my learnings and features through Parley if you want, but that is optional by design. The architecture is supposed to support real ownership, including the freedom to ignore pieces that do not fit.',
                     },
                 ],
             },
             {
                 slug: 'operator-model',
                 label: 'Operator model',
-                blurb: 'How humans, agents, and background workflows divide responsibilities.',
+                blurb: 'How a person and their AI settle into a working cadence that is genuinely their own.',
                 eyebrow: 'System',
                 summary:
-                    'One of the more interesting GalexC ideas is that the operator remains clearly in charge. Agents route, suggest, refine, and automate, but there is always a conscious model of approvals, boundaries, and ownership.',
+                    'GalexC is not only a software architecture. It is an operator model for learning how to work with a personal AI system that you actually own. The human remains in charge, but the more important point is that the relationship becomes adaptable. You and your AI develop a cadence, maintenance posture, and division of labor that fit your own context rather than mine.',
                 sections: [
                     {
-                        title: 'Control surfaces',
-                        body: 'Some work belongs in the main session, some in Forge, some in dispatch. A good product explanation should make that feel legible rather than magical.',
+                        title: 'Learn the system by using it',
+                        body: 'The seed gives you a real operating environment from day one. Durable interaction layers, tasks, async dispatches, scheduled jobs, workstation Pi, and shared skills let you begin interacting with your personal AI in a structured way immediately. That matters because the operator model is not something you understand only by reading docs. You learn it by actually routing work, reviewing outputs, deciding what stays manual, and discovering which interfaces feel natural for your life and work.',
                     },
                     {
-                        title: 'Trust model',
-                        body: 'The operator model is also a trust model. You should know what can happen automatically, what requires approval, and what is intentionally left manual.',
+                        title: 'Your cadence, not mine',
+                        body: 'Once the system is yours, the goal is not to keep matching Gilman\'s preferred setup forever. The goal is to arrive at a professional-grade personal AI that reflects your own preferences, constraints, and standards. Maybe you rely heavily on scheduled sweeps and background jobs. Maybe you keep things more manual. Maybe you use Parley to inherit ideas and capabilities. Maybe you ignore it entirely. That flexibility is central. The operator model only works if the system can become meaningfully personal without losing rigor.',
                     },
                 ],
             },
