@@ -2,107 +2,164 @@
 const facts = ['Seed first', 'Replace any layer', 'Fork and own it'];
 
 const layers = [
-  ['Seed layer', 'GalexC starts from galexc-starter-pack, likely soon galexc-seed, which establishes the foundational interaction model and working system.'],
-  ['Interaction layer', 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious operating surface.'],
-  ['Services', 'Storage, search, routing, notifications, and background services provide continuity and visibility.'],
-  ['Replaceable implementation', 'Postgres, Python services, schedulers, and other internals are defaults, not commandments. Swap them if your system wants something else.'],
-  ['Personal evolution', 'Once forked, the stack becomes your own professional-grade personal AI environment rather than a centrally maintained product.'],
+    [
+        'Seed layer',
+        'GalexC starts from galexc-starter-pack, likely soon galexc-seed, which establishes the foundational interaction model and working system.',
+    ],
+    [
+        'Interaction layer',
+        'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious operating surface.',
+    ],
+    [
+        'Services',
+        'Storage, search, routing, notifications, and background services provide continuity and visibility.',
+    ],
+    [
+        'Replaceable implementation',
+        'Postgres, Python services, schedulers, and other internals are defaults, not commandments. Swap them if your system wants something else.',
+    ],
+    [
+        'Personal evolution',
+        'Once forked, the stack becomes your own professional-grade personal AI environment rather than a centrally maintained product.',
+    ],
 ];
 
 const surfaces = [
-  ['Seed', 'Start from a coherent base instead of assembling every primitive from scratch.'],
-  ['Adapt', 'Replace or reshape infrastructure, services, and workflows to fit your own needs.'],
-  ['Operate', 'Build a real cadence with your AI so the system stays useful, maintained, and personal over time.'],
+    [
+        'Seed',
+        'Start from a coherent base instead of assembling every primitive from scratch.',
+    ],
+    [
+        'Adapt',
+        'Replace or reshape infrastructure, services, and workflows to fit your own needs.',
+    ],
+    [
+        'Operate',
+        'Build a real cadence with your AI so the system stays useful, maintained, and personal over time.',
+    ],
 ];
 
-const sequence = ['Start from seed', 'Learn the surfaces', 'Replace what you want', 'Build your cadence', 'Own the system'];
+const sequence = [
+    'Start from seed',
+    'Learn the surfaces',
+    'Replace what you want',
+    'Build your cadence',
+    'Own the system',
+];
 ---
 
 <div class="essay-page architecture-page">
-  <section class="page-hero-note-grid">
-    <div>
-      <p class="eyebrow">System</p>
-      <h1 class="page-display-title">How GalexC is arranged</h1>
-      <p class="page-lede">
-        GalexC begins with a seed system. Today that is galexc-starter-pack, and it
-        will likely become galexc-seed. The point is not to lock you into my exact
-        stack forever. The point is to establish the foundational elements of a
-        professional-grade personal AI system: durable interaction layers, tasks,
-        async dispatches, scheduled tasks, a workstation Pi environment aligned with
-        dispatched agents, and core communications like intercom. From there, you
-        take it wherever you want.
-      </p>
-    </div>
-    <ul class="page-note-list">
-      {facts.map((fact) => <li>{fact}</li>)}
-    </ul>
-  </section>
+    <section class="page-hero-note-grid">
+        <div>
+            <p class="eyebrow">System</p>
+            <h1 class="page-display-title">How GalexC is arranged</h1>
+            <p class="page-lede">
+                GalexC begins with a seed system. Today that is
+                galexc-starter-pack, and it will likely become galexc-seed. The
+                point is not to lock you into my exact stack forever. The point
+                is to establish the foundational elements of a
+                professional-grade personal AI system: durable interaction
+                layers, tasks, async dispatches, scheduled tasks, a workstation
+                Pi environment aligned with dispatched agents, and core
+                communications like intercom. From there, you take it wherever
+                you want.
+            </p>
+        </div>
+        <ul class="page-note-list">
+            {facts.map((fact) => <li>{fact}</li>)}
+        </ul>
+    </section>
 
-  <section class="page-module page-module-panel architecture-plate">
-    <p class="eyebrow">System at a glance</p>
-    <div class="architecture-bands">
-      {
-        layers.map(([title, body], index) => (
-          <div class:list={['architecture-band', index === layers.length - 1 && 'architecture-band-active']}>
-            <p class="architecture-band__title">{title}</p>
-            <p>{body}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+    <section class="page-module specimen-frame architecture-plate">
+        <p class="eyebrow">System at a glance</p>
+        <div class="architecture-bands">
+            {
+                layers.map(([title, body], index) => (
+                    <div
+                        class:list={[
+                            'architecture-band',
+                            index === layers.length - 1 &&
+                                'architecture-band-active',
+                        ]}
+                    >
+                        <p class="architecture-band__title">{title}</p>
+                        <p>{body}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
 
-  <section class="page-grid-three">
-    {
-      surfaces.map(([title, body]) => (
-        <article class="page-module page-module-panel surface-card">
-          <p class="eyebrow">System motion</p>
-          <h2>{title}</h2>
-          <p>{body}</p>
+    <section class="page-grid-three surface-open-grid">
+        {
+            surfaces.map(([title, body]) => (
+                <article class="page-module surface-open-card surface-card">
+                    <p class="eyebrow">System motion</p>
+                    <h2>{title}</h2>
+                    <p>{body}</p>
+                </article>
+            ))
+        }
+    </section>
+
+    <section class="page-module">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">One path through the system</p>
+                <h2 class="page-section-title">
+                    Start coherent, then diverge deliberately
+                </h2>
+            </div>
+            <p class="page-caption">
+                The seed is the beginning, not the boundary.
+            </p>
+        </div>
+        <div class="workflow-ribbon">
+            {
+                sequence.map((step, index) => (
+                    <>
+                        <div class="workflow-ribbon__step">{step}</div>
+                        {index < sequence.length - 1 && (
+                            <div
+                                class="workflow-ribbon__connector"
+                                aria-hidden="true"
+                            />
+                        )}
+                    </>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="page-grid-two">
+        <article class="page-module">
+            <p class="eyebrow">Why the system starts this way</p>
+            <p>
+                The seed gives you a coherent philosophy and a working substrate
+                before you begin customizing. That makes the system teachable.
+                It lets you learn how to interact with your personal AI before
+                you decide which parts to keep, replace, or extend. If you want
+                my learnings and features through Parley, you can use them. You
+                do not need to. The system is designed so optional inheritance
+                never overrides actual ownership.
+            </p>
         </article>
-      ))
-    }
-  </section>
-
-  <section class="page-module">
-    <div class="module-heading-row">
-      <div>
-        <p class="eyebrow">One path through the system</p>
-        <h2 class="page-section-title">Start coherent, then diverge deliberately</h2>
-      </div>
-      <p class="page-caption">The seed is the beginning, not the boundary.</p>
-    </div>
-    <div class="workflow-ribbon">
-      {
-        sequence.map((step, index) => (
-          <>
-            <div class="workflow-ribbon__step">{step}</div>
-            {index < sequence.length - 1 && <div class="workflow-ribbon__connector" aria-hidden="true"></div>}
-          </>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="page-grid-two">
-    <article class="page-module">
-      <p class="eyebrow">Why the system starts this way</p>
-      <p>
-        The seed gives you a coherent philosophy and a working substrate before you
-        begin customizing. That makes the system teachable. It lets you learn how to
-        interact with your personal AI before you decide which parts to keep, replace,
-        or extend. If you want my learnings and features through Parley, you can use
-        them. You do not need to. The system is designed so optional inheritance never
-        overrides actual ownership.
-      </p>
-    </article>
-    <aside class="page-module page-module-panel legend-card">
-      <p class="eyebrow">Legend</p>
-      <ul class="legend-card__list">
-        <li><strong>Seed layer</strong> - the initial system that establishes GalexC's core philosophy</li>
-        <li><strong>Surface cards</strong> - the three motions that matter: start, adapt, operate</li>
-        <li><strong>Workflow ribbon</strong> - the path from coherent foundation to owned personal system</li>
-      </ul>
-    </aside>
-  </section>
+        <aside class="page-module content-aside legend-card">
+            <p class="eyebrow">Legend</p>
+            <ul class="legend-card__list">
+                <li>
+                    <strong>Seed layer</strong> - the initial system that establishes
+                    GalexC's core philosophy
+                </li>
+                <li>
+                    <strong>Surface cards</strong> - the three motions that matter:
+                    start, adapt, operate
+                </li>
+                <li>
+                    <strong>Workflow ribbon</strong> - the path from coherent foundation
+                    to owned personal system
+                </li>
+            </ul>
+        </aside>
+    </section>
 </div>

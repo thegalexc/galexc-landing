@@ -1,144 +1,233 @@
 ---
-const loopSteps = [
-  'Define work',
-  'Route context',
-  'Choose workflow',
-  'Run in the right mode',
-  'Review output',
-  'Keep what matters',
+const loopSteps: string[] = [
+    'Define work',
+    'Route context',
+    'Choose workflow',
+    'Run in the right mode',
+    'Review output',
+    'Keep what matters',
 ];
 
-const layerItems = [
-  {
-    label: 'Repos',
-    body: 'Source material that matters. Real files, real history, real ownership.',
-  },
-  {
-    label: 'Tasks',
-    body: 'Scoped intent and what done means before execution begins.',
-  },
-  {
-    label: 'Methods',
-    body: 'Prompts and skills that turn good approaches into reusable workflow.',
-  },
-  {
-    label: 'Services',
-    body: 'Search, state, notifications, forge, and observability that keep the loop durable.',
-  },
-  {
-    label: 'Review',
-    body: 'PRs and artifacts that let the human decide what becomes real.',
-  },
+const layerItems: Array<{ label: string; body: string }> = [
+    {
+        label: 'Repos',
+        body: 'Source material that matters. Real files, real history, real ownership.',
+    },
+    {
+        label: 'Tasks',
+        body: 'Scoped intent and what done means before execution begins.',
+    },
+    {
+        label: 'Methods',
+        body: 'Prompts and skills that turn good approaches into reusable workflow.',
+    },
+    {
+        label: 'Services',
+        body: 'Search, state, notifications, forge, and observability that keep the loop durable.',
+    },
+    {
+        label: 'Review',
+        body: 'PRs and artifacts that let the human decide what becomes real.',
+    },
 ];
 
-const trustItems = [
-  'Bounded execution over vague autonomy',
-  'Search before browse',
-  'Reviewable outputs only',
-  'Private by default service exposure',
-  'Recoverable systems with receipts',
+const trustItems: string[] = [
+    'Bounded execution over vague autonomy',
+    'Search before browse',
+    'Reviewable outputs only',
+    'Private by default service exposure',
+    'Recoverable systems with receipts',
+];
+
+const qaItems: Array<{ question: string; answer: string }> = [
+    {
+        question: 'What is it, exactly?',
+        answer: "GalexC is my personal AI I've built over the last several months, grounded in around two decades of development, DevOps, machine learning, and entrepreneurial experience.",
+    },
+    {
+        question: "So you're giving me your AI?",
+        answer: "No. I've created a starter pack that is currently available on an individual basis through the request access flow, and it may become public later.",
+    },
+    {
+        question: 'How do I use it?',
+        answer: "First, request access. Then you'll bootstrap your own GalexC, give it your own name, and hopefully begin to experience the step-change improvement in productivity and quality of output in your own professional life.",
+    },
+    {
+        question: 'Why do you keep saying professional?',
+        answer: "This is currently highly biased toward technical executives, with the goal of accelerating output, improving quality of work, and increasing the depth and breadth of contexts in which you can operate. I haven't done anything to integrate GalexC into my personal life yet — no family calendar management, no meal planning, and so on.",
+    },
+    {
+        question: 'What do you mean by professional-grade?',
+        answer: "This is not just a chatbot, an LLM wrapper, a harness, or a demo project. While it's in its infancy, it's built on top of a robust foundation from my roughly two decades of cloud infrastructure, software engineering, database design, Kubernetes deployments, and all sorts of nerdy stuff in between. I built this purely for myself, and I intend to make it the best AI it can possibly be.",
+    },
+    {
+        question: 'Is it using some specific AI ecosystem?',
+        answer: 'Absolutely zero requirements for your LLM provider of choice — use whatever you want: Anthropic, OpenAI, Google, Llama, DeepSeek, Kimi, OpenRouter, LM Studio, or something else entirely.',
+    },
+    {
+        question: 'Is it using a specific harness?',
+        answer: "Yes. Given that this is my stack, it is highly opinionated. It currently runs on Pi.dev because I believe it is the absolute best harness for deep extensibility and hackability, which is what I need. That said, you should feel free to re-engineer around that if you care to — any harness will work fine, you'll just need to port some of the pixie dust.",
+    },
 ];
 ---
 
 <div class="essay-page what-page">
-  <section class="page-hero-note-grid">
-    <div>
-      <p class="eyebrow">Foundations</p>
-      <h1 class="page-display-title">What GalexC is</h1>
-      <p class="page-lede">
-        GalexC is a personal AI operating environment built for real bounded work.
-        Not a chatbot, not a prompt bundle, and not a demo stack. It combines durable
-        context, explicit methods, real tools, background execution, and reviewable
-        outputs so useful work can happen under clear operational constraints. In the
-        simplest terms, it is professional-grade personal AI.
-      </p>
-    </div>
-    <ul class="page-note-list">
-      <li>Not a chatbot</li>
-      <li>Not a demo stack</li>
-      <li>Not autonomous theater</li>
-      <li>A personal AI operating environment</li>
-    </ul>
-  </section>
+    <section class="page-hero-note-grid">
+        <div>
+            <p class="eyebrow">Foundations</p>
+            <h1 class="page-display-title">What is GalexC?</h1>
+        </div>
+    </section>
 
-  <section class="page-module page-module-panel">
-    <div class="module-heading-row">
-      <p class="eyebrow">Operating loop</p>
-      <p class="page-caption">The product is the loop, not a single assistant.</p>
-    </div>
-    <div class="loop-diagram">
-      {
-        loopSteps.map((step, index) => (
-          <>
-            <div class="loop-step">{step}</div>
-            {index < loopSteps.length - 1 && <div class="loop-connector" aria-hidden="true"></div>}
-          </>
-        ))
-      }
-    </div>
-  </section>
+    <section>
+        <blockquote class="manifesto-quote manifesto-quote-strong">
+            <p>Professional-grade personal AI.</p>
+        </blockquote>
 
-  <section class="page-grid-two">
-    <article class="page-module page-module-panel mode-card">
-      <p class="eyebrow">Interactive mode</p>
-      <h2>Think live.</h2>
-      <p>
-        Interactive sessions are where work takes shape. They clarify scope, test
-        assumptions, search the right context, and tighten the brief until the task is
-        safe to hand off.
-      </p>
-    </article>
-    <article class="page-module page-module-panel mode-card mode-card-firm">
-      <p class="eyebrow">Dispatch mode</p>
-      <h2>Execute asynchronously.</h2>
-      <p>
-        Dispatch takes on work that is already bounded well enough to run in the
-        background. The result comes back as a PR, artifact, or report that can be
-        reviewed at the right moment.
-      </p>
-    </article>
-  </section>
+        <p class="page-lede pt-8">
+            GalexC is simply the beginning of <b>*your*</b> journey, should you choose
+            to use it. I don't pretend to know what is going to happen as a consequence
+            of AI, but I am experiencing first-hand that well-aligned, maintainable,
+            personal AI has the capacity to fundamentally change how I do work (I
+            haven't brought it into my personal life yet...though I imagine that will
+            come sooner rather than later).
+        </p>
+        <p class="page-lede pt-8">
+            I began by building a professional-grade, personal AI for myself.
+            (opinionated design with long-term improvement in mind). GalexC is a
+            personal AI operating environment built for real bounded work. Not a
+            chatbot, not a prompt bundle, and not a demo stack. It combines
+            durable context, explicit methods, real tools, background execution,
+            and reviewable outputs so useful work can happen under clear
+            operational constraints. In the simplest terms, it is
+            professional-grade personal AI.
+        </p>
+    </section>
 
-  <section class="page-module">
-    <div class="module-heading-row">
-      <div>
-        <p class="eyebrow">Built from durable primitives</p>
-        <h2 class="page-section-title">More operating environment than assistant</h2>
-      </div>
-      <p class="page-caption">
-        The leverage comes from composition, not from pretending one model is the whole
-        product.
-      </p>
-    </div>
-    <div class="layer-stack">
-      {
-        layerItems.map((item) => (
-          <div class="layer-stack__item">
-            <p class="layer-stack__label">{item.label}</p>
-            <p>{item.body}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+    <section>
+        <blockquote class="manifesto-quote manifesto-quote-strong">
+            <p>
+                The beginning of <em><b>*your*</b></em> long-term, personal AI.
+            </p>
+        </blockquote>
+    </section>
+    <section class="page-module specimen-frame">
+        <div class="module-heading-row">
+            <p class="eyebrow">Operating loop</p>
+            <p class="page-caption">
+                The product is the loop, not a single assistant.
+            </p>
+        </div>
+        <div class="loop-diagram">
+            {
+                loopSteps.map((step: string, index: number) => (
+                    <>
+                        <div class="loop-step">{step}</div>
+                        {index < loopSteps.length - 1 && (
+                            <div class="loop-connector" aria-hidden="true" />
+                        )}
+                    </>
+                ))
+            }
+        </div>
+    </section>
 
-  <section class="page-grid-two page-grid-two-wide-right">
-    <article class="page-module">
-      <p class="eyebrow">Why it matters</p>
-      <h2 class="page-section-title">A system that compounds</h2>
-      <p>
-        Useful context should accumulate instead of dissolving into scrollback. Methods
-        should become reusable. Async work should return with enough structure that
-        review becomes short and trust becomes earned. GalexC exists to help one person
-        think better, execute faster, preserve continuity, and build real leverage
-        without giving up ownership.
-      </p>
-    </article>
-    <aside class="page-module page-module-panel trust-panel">
-      <p class="eyebrow">Strong boundaries</p>
-      <ul class="trust-panel__list">
-        {trustItems.map((item) => <li>{item}</li>)}
-      </ul>
-    </aside>
-  </section>
+    <section class="page-grid-two compare-open-grid">
+        <article class="page-module compare-open-block mode-card">
+            <p class="eyebrow">Interactive mode</p>
+            <h2>Think live.</h2>
+            <p>
+                Interactive sessions are where work takes shape. They clarify
+                scope, test assumptions, search the right context, and tighten
+                the brief until the task is safe to hand off.
+            </p>
+        </article>
+        <article
+            class="page-module compare-open-block compare-open-block-soft mode-card mode-card-firm"
+        >
+            <p class="eyebrow">Dispatch mode</p>
+            <h2>Execute asynchronously.</h2>
+            <p>
+                Dispatch takes on work that is already bounded well enough to
+                run in the background. The result comes back as a PR, artifact,
+                or report that can be reviewed at the right moment.
+            </p>
+        </article>
+    </section>
+
+    <section class="page-module">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Q&A starters</p>
+                <h2 class="page-section-title">
+                    Basic questions, straight answers
+                </h2>
+            </div>
+            <p class="page-caption">
+                The short version of what GalexC is, who it is for, and how to
+                approach it.
+            </p>
+        </div>
+
+        <dl class="grid gap-6 md:gap-8">
+            {
+                qaItems.map((item) => (
+                    <div class="border-t border-stone-200/80 pt-6">
+                        <dt class="text-2xl leading-tight text-stone-950 md:text-[2rem]">
+                            {item.question}
+                        </dt>
+                        <dd class="mt-2 max-w-3xl text-base leading-7 text-stone-700 md:text-lg md:leading-8">
+                            {item.answer}
+                        </dd>
+                    </div>
+                ))
+            }
+        </dl>
+    </section>
+
+    <section class="page-module">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Built from durable primitives</p>
+                <h2 class="page-section-title">
+                    More operating environment than assistant
+                </h2>
+            </div>
+            <p class="page-caption">
+                The leverage comes from composition, not from pretending one
+                model is the whole product.
+            </p>
+        </div>
+        <div class="layer-stack">
+            {
+                layerItems.map((item) => (
+                    <div class="layer-stack__item">
+                        <p class="layer-stack__label">{item.label}</p>
+                        <p>{item.body}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="page-grid-two page-grid-two-wide-right">
+        <article class="page-module">
+            <p class="eyebrow">Why it matters</p>
+            <h2 class="page-section-title">A system that compounds</h2>
+            <p>
+                Useful context should accumulate instead of dissolving into
+                scrollback. Methods should become reusable. Async work should
+                return with enough structure that review becomes short and trust
+                becomes earned. GalexC exists to help one person think better,
+                execute faster, preserve continuity, and build real leverage
+                without giving up ownership.
+            </p>
+        </article>
+        <aside class="page-module content-aside trust-panel">
+            <p class="eyebrow">Strong boundaries</p>
+            <ul class="trust-panel__list">
+                {trustItems.map((item) => <li>{item}</li>)}
+            </ul>
+        </aside>
+    </section>
 </div>

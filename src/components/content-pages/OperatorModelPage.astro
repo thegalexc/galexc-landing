@@ -1,142 +1,174 @@
 ---
 const ledger = [
-  {
-    actor: 'Human',
-    owns: 'Intent, standards, approvals, and the right to reshape the system',
-    goodFor: 'Deciding what matters, what gets delegated, and what kind of personal AI this should become',
-    avoid: 'Treating the seed as a fixed product or outsourcing irreversible judgment',
-  },
-  {
-    actor: 'Session',
-    owns: 'Learning, shaping, debugging, and steering in real time',
-    goodFor: 'Figuring out how you actually want to interact with your system',
-    avoid: 'Pretending exploration is already a finished workflow',
-  },
-  {
-    actor: 'Dispatch',
-    owns: 'Bounded background execution',
-    goodFor: 'Scoped async work once the task is clear enough to hand off',
-    avoid: 'Open-ended autonomy without review or a clear source of truth',
-  },
-  {
-    actor: 'Seed + services',
-    owns: 'Durability, continuity, and maintenance scaffolding',
-    goodFor: 'Tasks, intercom, scheduled sweeps, version checks, notifications, and shared operational memory',
-    avoid: 'Standing in for operator taste or dictating one permanent stack',
-  },
+    {
+        actor: 'Human',
+        owns: 'Intent, standards, approvals, and the right to reshape the system',
+        goodFor:
+            'Deciding what matters, what gets delegated, and what kind of personal AI this should become',
+        avoid: 'Treating the seed as a fixed product or outsourcing irreversible judgment',
+    },
+    {
+        actor: 'Session',
+        owns: 'Learning, shaping, debugging, and steering in real time',
+        goodFor:
+            'Figuring out how you actually want to interact with your system',
+        avoid: 'Pretending exploration is already a finished workflow',
+    },
+    {
+        actor: 'Dispatch',
+        owns: 'Bounded background execution',
+        goodFor: 'Scoped async work once the task is clear enough to hand off',
+        avoid: 'Open-ended autonomy without review or a clear source of truth',
+    },
+    {
+        actor: 'Seed + services',
+        owns: 'Durability, continuity, and maintenance scaffolding',
+        goodFor:
+            'Tasks, intercom, scheduled sweeps, version checks, notifications, and shared operational memory',
+        avoid: 'Standing in for operator taste or dictating one permanent stack',
+    },
 ];
 
 const decisionSides = {
-  interactive: [
-    'You are still learning what works for you',
-    'The workflow or interface is still being shaped',
-    'You need live judgment, experimentation, or taste',
-  ],
-  dispatch: [
-    'Scope is clear enough to bound',
-    'The result can come back through a review surface',
-    'You want your AI to carry real maintenance or execution work in the background',
-  ],
+    interactive: [
+        'You are still learning what works for you',
+        'The workflow or interface is still being shaped',
+        'You need live judgment, experimentation, or taste',
+    ],
+    dispatch: [
+        'Scope is clear enough to bound',
+        'The result can come back through a review surface',
+        'You want your AI to carry real maintenance or execution work in the background',
+    ],
 };
 
-const services = ['Tasks', 'Dispatch', 'Scheduled jobs', 'Pi workstation', 'Intercom', 'Parley', 'Notifications'];
+const services = [
+    'Tasks',
+    'Dispatch',
+    'Scheduled jobs',
+    'Pi workstation',
+    'Intercom',
+    'Parley',
+    'Notifications',
+];
 const flowSteps = [
-  ['01', 'Seed establishes the base'],
-  ['02', 'Operator learns by using it'],
-  ['03', 'AI helps shape a working cadence'],
-  ['04', 'Async work and upkeep become routine'],
-  ['05', 'The fork becomes truly yours'],
+    ['01', 'Seed establishes the base'],
+    ['02', 'Operator learns by using it'],
+    ['03', 'AI helps shape a working cadence'],
+    ['04', 'Async work and upkeep become routine'],
+    ['05', 'The fork becomes truly yours'],
 ];
 ---
 
 <div class="essay-page operator-page">
-  <section class="page-hero-note-grid">
-    <div>
-      <p class="eyebrow">System</p>
-      <h1 class="page-display-title">The operator model is meant to become personal.</h1>
-      <p class="page-lede">
-        GalexC is not only a software stack. It is a way to learn how to work with a
-        personal AI system that you actually own. The seed gives you real structure on
-        day one, but the goal is not to keep everyone on Gilman's preferred setup.
-        The goal is to help you and your AI settle into a cadence that matches your
-        own needs, constraints, and taste.
-      </p>
-    </div>
-    <div class="page-module page-module-panel compact-callout">
-      <p class="eyebrow">Trust model</p>
-      <p>GalexC delegates execution, but the operator owns the system and its evolution.</p>
-    </div>
-  </section>
+    <section class="page-hero-note-grid">
+        <div>
+            <p class="eyebrow">System</p>
+            <h1 class="page-display-title">
+                The operator model is meant to become personal.
+            </h1>
+            <p class="page-lede">
+                GalexC is not only a software stack. It is a way to learn how to
+                work with a personal AI system that you actually own. The seed
+                gives you real structure on day one, but the goal is not to keep
+                everyone on Gilman's preferred setup. The goal is to help you
+                and your AI settle into a cadence that matches your own needs,
+                constraints, and taste.
+            </p>
+        </div>
+        <div class="page-module content-aside compact-callout">
+            <p class="eyebrow">Trust model</p>
+            <p>
+                GalexC delegates execution, but the operator owns the system and
+                its evolution.
+            </p>
+        </div>
+    </section>
 
-  <section class="page-module">
-    <div class="module-heading-row">
-      <div>
-        <p class="eyebrow">Responsibility ledger</p>
-        <h2 class="page-section-title">A system with named responsibilities</h2>
-      </div>
-    </div>
-    <div class="responsibility-ledger">
-      {
-        ledger.map((item) => (
-          <article class="responsibility-row">
-            <p class="responsibility-row__actor">{item.actor}</p>
-            <div class="responsibility-row__body">
-              <p><strong>Owns:</strong> {item.owns}</p>
-              <p><strong>Good for:</strong> {item.goodFor}</p>
-              <p><strong>Should not do:</strong> {item.avoid}</p>
+    <section class="page-module">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Responsibility ledger</p>
+                <h2 class="page-section-title">
+                    A system with named responsibilities
+                </h2>
             </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
+        </div>
+        <div class="responsibility-ledger">
+            {
+                ledger.map((item) => (
+                    <article class="responsibility-row">
+                        <p class="responsibility-row__actor">{item.actor}</p>
+                        <div class="responsibility-row__body">
+                            <p>
+                                <strong>Owns:</strong> {item.owns}
+                            </p>
+                            <p>
+                                <strong>Good for:</strong> {item.goodFor}
+                            </p>
+                            <p>
+                                <strong>Should not do:</strong> {item.avoid}
+                            </p>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </section>
 
-  <section class="page-module page-module-panel flow-band flow-band-timeline">
-    <p class="eyebrow">Control flow</p>
-    <div class="flow-timeline">
-      {
-        flowSteps.map(([code, label]) => (
-          <div class="flow-timeline__item">
-            <span class="flow-timeline__code">{code}</span>
-            <p>{label}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+    <section class="page-module flow-band flow-band-timeline flow-band-open">
+        <p class="eyebrow">Control flow</p>
+        <div class="flow-timeline">
+            {
+                flowSteps.map(([code, label]) => (
+                    <div class="flow-timeline__item">
+                        <span class="flow-timeline__code">{code}</span>
+                        <p>{label}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
 
-  <section class="page-grid-two">
-    <article class="page-module page-module-panel threshold-card">
-      <p class="eyebrow">Keep it interactive</p>
-      <ul>
-        {decisionSides.interactive.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-    <article class="page-module page-module-panel threshold-card threshold-card-firm">
-      <p class="eyebrow">Dispatch it</p>
-      <ul>
-        {decisionSides.dispatch.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-  </section>
+    <section class="page-grid-two compare-open-grid">
+        <article class="page-module compare-open-block threshold-card">
+            <p class="eyebrow">Keep it interactive</p>
+            <ul>
+                {decisionSides.interactive.map((item) => <li>{item}</li>)}
+            </ul>
+        </article>
+        <article
+            class="page-module compare-open-block compare-open-block-soft threshold-card threshold-card-firm"
+        >
+            <p class="eyebrow">Dispatch it</p>
+            <ul>
+                {decisionSides.dispatch.map((item) => <li>{item}</li>)}
+            </ul>
+        </article>
+    </section>
 
-  <section class="page-grid-two page-grid-two-wide-right">
-    <article class="page-module">
-      <p class="eyebrow">Your cadence, not mine</p>
-      <p>
-        After the fork, the system is yours. You can keep my defaults, replace nearly
-        every implementation detail, or selectively inherit ideas through Parley. You
-        do not need to treat any of that as mandatory. The seed includes maintenance
-        patterns like weekly version checks and expertise cleanup sweeps, but the real
-        objective is to help you and your AI arrive at a cadence that feels rigorous
-        and sustainable for you.
-      </p>
-    </article>
-    <aside class="page-module page-module-panel service-capsules">
-      <p class="eyebrow">Substrate services</p>
-      <div class="service-list-grid">
-        {services.map((item) => <div class="service-list-grid__item">{item}</div>)}
-      </div>
-    </aside>
-  </section>
+    <section class="page-grid-two page-grid-two-wide-right">
+        <article class="page-module">
+            <p class="eyebrow">Your cadence, not mine</p>
+            <p>
+                After the fork, the system is yours. You can keep my defaults,
+                replace nearly every implementation detail, or selectively
+                inherit ideas through Parley. You do not need to treat any of
+                that as mandatory. The seed includes maintenance patterns like
+                weekly version checks and expertise cleanup sweeps, but the real
+                objective is to help you and your AI arrive at a cadence that
+                feels rigorous and sustainable for you.
+            </p>
+        </article>
+        <aside class="page-module content-aside service-capsules">
+            <p class="eyebrow">Substrate services</p>
+            <div class="service-list-grid">
+                {
+                    services.map((item) => (
+                        <div class="service-list-grid__item">{item}</div>
+                    ))
+                }
+            </div>
+        </aside>
+    </section>
 </div>

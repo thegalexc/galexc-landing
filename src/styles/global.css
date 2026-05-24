@@ -1415,12 +1415,78 @@ a {
     gap: 0.9rem;
 }
 
-.page-module-panel {
-    padding: 1.2rem;
-    border-radius: 1.5rem;
+.specimen-frame {
+    padding: 1.15rem 1.2rem;
+    border-radius: 1.35rem 0.95rem 1.15rem 0.92rem;
     border: 1px solid rgba(120, 113, 108, 0.14);
-    background: rgba(251, 247, 241, 0.54);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(251, 247, 241, 0.52)),
+        repeating-linear-gradient(
+            180deg,
+            rgba(120, 113, 108, 0.038) 0,
+            rgba(120, 113, 108, 0.038) 1px,
+            transparent 1px,
+            transparent 33px
+        );
     box-shadow: 0 10px 28px rgba(43, 36, 29, 0.04);
+}
+
+.content-aside {
+    gap: 0.6rem;
+    padding-left: 1.15rem;
+    border-left: 2px solid rgba(21, 74, 122, 0.18);
+}
+
+.compare-open-grid,
+.surface-open-grid,
+.comparison-open-grid,
+.glossary-open-grid {
+    align-items: start;
+}
+
+.compare-open-block,
+.surface-open-card,
+.comparison-open-card,
+.glossary-open-entry,
+.workflow-ledger-card,
+.rhythm-strip-open,
+.flow-band-open {
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(120, 113, 108, 0.14);
+}
+
+.compare-open-block-soft {
+    background:
+        linear-gradient(90deg, rgba(21, 74, 122, 0.045), transparent 58%);
+}
+
+@media (min-width: 900px) {
+    .compare-open-grid {
+        gap: 1.6rem;
+    }
+
+    .compare-open-grid > * + * {
+        position: relative;
+    }
+
+    .compare-open-grid > * + *::before {
+        content: '';
+        position: absolute;
+        left: -0.8rem;
+        top: 0.25rem;
+        bottom: 0.25rem;
+        width: 1px;
+        background: rgba(120, 113, 108, 0.12);
+    }
+
+    .surface-open-grid {
+        gap: 1.35rem;
+    }
+
+    .surface-open-grid > * + * {
+        padding-left: 1rem;
+        border-left: 1px solid rgba(120, 113, 108, 0.12);
+    }
 }
 
 .module-heading-row {
@@ -1493,11 +1559,7 @@ a {
 
 .loop-diagram,
 .workflow-ribbon,
-.flow-band__steps,
-.rhythm-strip,
 .study-frames,
-.lexicon-strip,
-.service-capsules__grid,
 .chapter-rail {
     display: flex;
     flex-wrap: wrap;
@@ -1505,12 +1567,7 @@ a {
 }
 
 .loop-step,
-.workflow-ribbon__step,
-.flow-band__steps span,
-.rhythm-strip span,
-.lexicon-strip span,
-.service-capsules__grid span,
-.chapter-rail span {
+.workflow-ribbon__step {
     padding: 0.65rem 0.9rem;
     border-radius: 999px;
     border: 1px solid rgba(120, 113, 108, 0.16);
@@ -1630,7 +1687,8 @@ a {
 }
 
 .manifesto-figure {
-    margin: 0.4rem 0;
+    width: min(100%, 30rem);
+    margin: 0.4rem auto;
     gap: 0.8rem;
 }
 
@@ -1638,6 +1696,7 @@ a {
     display: block;
     width: 100%;
     border-radius: 1rem;
+    filter: saturate(1.24) contrast(1.08) brightness(1.02);
 }
 
 .manifesto-figure figcaption {

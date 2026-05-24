@@ -1,106 +1,135 @@
 ---
 const doctrine = [
-  ['Warm, not nostalgic', 'Human and held, not retro for its own sake.'],
-  ['Serif for thought', 'Mono keeps structure visible while prose carries the argument.'],
-  ['Blue is a signal', 'Accent where attention matters, not as a wash.'],
-  ['Whitespace is operational', 'Breathing room creates pacing and room for judgment.'],
-  ['Reveal, do not barrage', 'Information should unfold in layers.'],
-  ['Composition over templating', 'Each page should look arranged for its subject.'],
+    ['Warm, not nostalgic', 'Human and held, not retro for its own sake.'],
+    [
+        'Serif for thought',
+        'Mono keeps structure visible while prose carries the argument.',
+    ],
+    ['Blue is a signal', 'Accent where attention matters, not as a wash.'],
+    [
+        'Whitespace is operational',
+        'Breathing room creates pacing and room for judgment.',
+    ],
+    ['Reveal, do not barrage', 'Information should unfold in layers.'],
+    [
+        'Composition over templating',
+        'Each page should look arranged for its subject.',
+    ],
 ];
 ---
 
 <div class="essay-page design-page">
-  <section class="page-hero-simple">
-    <p class="eyebrow">Principles</p>
-    <h1 class="page-display-title">Design should feel authored.</h1>
-    <p class="page-lede">
-      GalexC should not feel like an AI dashboard that borrowed nicer type. It should
-      feel composed, editorial, and quietly deliberate - more like a publication,
-      notebook, or field manual than a SaaS shell. That choice is not cosmetic. It
-      signals how the product thinks.
-    </p>
-  </section>
-
-  <section class="page-grid-two design-compare-grid">
-    <article class="page-module page-module-panel compare-panel compare-panel-dense">
-      <p class="eyebrow">Dashboard instinct</p>
-      <ul>
-        <li>Dense panes</li>
-        <li>Constant controls</li>
-        <li>Urgent prompts</li>
-        <li>Interface churn</li>
-      </ul>
-    </article>
-    <article class="page-module page-module-panel compare-panel">
-      <p class="eyebrow">Editorial instinct</p>
-      <ul>
-        <li>Quiet hierarchy</li>
-        <li>Readable measures</li>
-        <li>Room for notes</li>
-        <li>Emphasis only where it matters</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="page-module design-anatomy">
-    <div class="module-heading-row">
-      <div>
-        <p class="eyebrow">Surface as posture</p>
-        <h2 class="page-section-title">Visual decisions map to operator posture</h2>
-      </div>
-    </div>
-    <div class="page-grid-two design-specimen-grid">
-      <article class="page-module page-module-panel design-specimen">
-        <p class="eyebrow">Specimen spread</p>
-        <h3>A page should feel composed enough to think inside.</h3>
-        <div class="design-specimen__rule"></div>
-        <p>
-          Big serif hierarchy for thought. A measured reading column for the actual
-          argument. Small mono notes for structure. Blue only where emphasis is earned.
+    <section class="page-hero-simple">
+        <p class="eyebrow">Principles</p>
+        <h1 class="page-display-title">Design should feel authored.</h1>
+        <p class="page-lede">
+            GalexC should not feel like an AI dashboard that borrowed nicer
+            type. It should feel composed, editorial, and quietly deliberate -
+            more like a publication, notebook, or field manual than a SaaS
+            shell. That choice is not cosmetic. It signals how the product
+            thinks.
         </p>
-      </article>
-      <aside class="page-module page-module-panel anatomy-notes">
-        <p class="eyebrow">Anatomy</p>
-        <div class="anatomy-notes__item">
-          <strong>Breathing room</strong>
-          <p>Whitespace suggests confidence and pacing, not emptiness.</p>
-        </div>
-        <div class="anatomy-notes__item">
-          <strong>Quiet rule</strong>
-          <p>Thin dividers keep rhythm visible without turning the page into chrome.</p>
-        </div>
-        <div class="anatomy-notes__item">
-          <strong>Marginal note</strong>
-          <p>Micro-labels let the system explain itself without shouting.</p>
-        </div>
-        <div class="anatomy-notes__item">
-          <strong>Accent discipline</strong>
-          <p>The blue only appears where attention or interaction truly matters.</p>
-        </div>
-      </aside>
-    </div>
-  </section>
+    </section>
 
-  <section class="page-grid-two page-grid-two-wide-right">
-    <article class="page-module">
-      <p class="eyebrow">Why this matters</p>
-      <p>
-        An authored, editorial, calm, durable surface communicates the same values as
-        the system beneath it: bounded work over chaos, legibility over novelty,
-        memory over ephemera, and confidence without noise. The interface should feel
-        kept, not consumed.
-      </p>
-    </article>
-    <aside class="page-module page-module-panel doctrine-grid">
-      <p class="eyebrow">Visual doctrine</p>
-      {
-        doctrine.map(([title, body]) => (
-          <div class="doctrine-grid__item">
-            <p class="doctrine-grid__title">{title}</p>
-            <p>{body}</p>
-          </div>
-        ))
-      }
-    </aside>
-  </section>
+    <section class="page-grid-two compare-open-grid design-compare-grid">
+        <article
+            class="page-module compare-open-block compare-panel compare-panel-dense"
+        >
+            <p class="eyebrow">Dashboard instinct</p>
+            <ul>
+                <li>Dense panes</li>
+                <li>Constant controls</li>
+                <li>Urgent prompts</li>
+                <li>Interface churn</li>
+            </ul>
+        </article>
+        <article
+            class="page-module compare-open-block compare-open-block-soft compare-panel"
+        >
+            <p class="eyebrow">Editorial instinct</p>
+            <ul>
+                <li>Quiet hierarchy</li>
+                <li>Readable measures</li>
+                <li>Room for notes</li>
+                <li>Emphasis only where it matters</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="page-module design-anatomy">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Surface as posture</p>
+                <h2 class="page-section-title">
+                    Visual decisions map to operator posture
+                </h2>
+            </div>
+        </div>
+        <div class="page-grid-two design-specimen-grid">
+            <article class="page-module specimen-frame design-specimen">
+                <p class="eyebrow">Specimen spread</p>
+                <h3>A page should feel composed enough to think inside.</h3>
+                <div class="design-specimen__rule"></div>
+                <p>
+                    Big serif hierarchy for thought. A measured reading column
+                    for the actual argument. Small mono notes for structure.
+                    Blue only where emphasis is earned.
+                </p>
+            </article>
+            <aside class="page-module content-aside anatomy-notes">
+                <p class="eyebrow">Anatomy</p>
+                <div class="anatomy-notes__item">
+                    <strong>Breathing room</strong>
+                    <p>
+                        Whitespace suggests confidence and pacing, not
+                        emptiness.
+                    </p>
+                </div>
+                <div class="anatomy-notes__item">
+                    <strong>Quiet rule</strong>
+                    <p>
+                        Thin dividers keep rhythm visible without turning the
+                        page into chrome.
+                    </p>
+                </div>
+                <div class="anatomy-notes__item">
+                    <strong>Marginal note</strong>
+                    <p>
+                        Micro-labels let the system explain itself without
+                        shouting.
+                    </p>
+                </div>
+                <div class="anatomy-notes__item">
+                    <strong>Accent discipline</strong>
+                    <p>
+                        The blue only appears where attention or interaction
+                        truly matters.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="page-grid-two page-grid-two-wide-right">
+        <article class="page-module">
+            <p class="eyebrow">Why this matters</p>
+            <p>
+                An authored, editorial, calm, durable surface communicates the
+                same values as the system beneath it: bounded work over chaos,
+                legibility over novelty, memory over ephemera, and confidence
+                without noise. The interface should feel kept, not consumed.
+            </p>
+        </article>
+        <aside class="page-module content-aside doctrine-grid">
+            <p class="eyebrow">Visual doctrine</p>
+            {
+                doctrine.map(([title, body]) => (
+                    <div class="doctrine-grid__item">
+                        <p class="doctrine-grid__title">{title}</p>
+                        <p>{body}</p>
+                    </div>
+                ))
+            }
+        </aside>
+    </section>
 </div>

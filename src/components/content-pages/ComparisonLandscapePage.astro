@@ -1,110 +1,137 @@
 ---
 const points = [
-  ['GalexC', 'Operator-owned environment'],
-  ['Claude Code', 'Interactive coding harness'],
-  ['Hermes', 'Flexible agentic autonomy'],
-  ['OpenClaw', 'Open autonomy-forward stack'],
+    ['GalexC', 'Operator-owned environment'],
+    ['Claude Code', 'Interactive coding harness'],
+    ['Hermes', 'Flexible agentic autonomy'],
+    ['OpenClaw', 'Open autonomy-forward stack'],
 ];
 
 const cards = [
-  ['GalexC', 'Best understood as a personal operating environment for shaping, dispatch, review, and durable memory.'],
-  ['Claude Code', 'Best understood as a powerful coding harness centered on an active repo session.'],
-  ['Hermes', 'Optimizes for flexible skill-driven behavior and broader agentic autonomy.'],
-  ['OpenClaw', 'Represents a more open, hackable, autonomy-forward posture.'],
+    [
+        'GalexC',
+        'Best understood as a personal operating environment for shaping, dispatch, review, and durable memory.',
+    ],
+    [
+        'Claude Code',
+        'Best understood as a powerful coding harness centered on an active repo session.',
+    ],
+    [
+        'Hermes',
+        'Optimizes for flexible skill-driven behavior and broader agentic autonomy.',
+    ],
+    ['OpenClaw', 'Represents a more open, hackable, autonomy-forward posture.'],
 ];
 
 const workflow = [
-  ['Shape', 'Define the work before anything runs.'],
-  ['Dispatch', 'Send only what is bounded enough to trust.'],
-  ['Review', 'Return through a PR or artifact with receipts.'],
-  ['Keep', 'Store the useful result as durable context.'],
+    ['Shape', 'Define the work before anything runs.'],
+    ['Dispatch', 'Send only what is bounded enough to trust.'],
+    ['Review', 'Return through a PR or artifact with receipts.'],
+    ['Keep', 'Store the useful result as durable context.'],
 ];
 ---
 
 <div class="essay-page comparison-page">
-  <section class="page-hero-note-grid">
-    <div>
-      <p class="eyebrow">Comparisons</p>
-      <h1 class="page-display-title">Where GalexC sits in the agent landscape.</h1>
-      <p class="page-lede">
-        GalexC overlaps with coding agents, autonomous harnesses, and other emerging
-        AI systems, but it is not trying to be a generic assistant or a pure autonomy
-        play. The point is a durable personal operating environment: operator-owned,
-        reviewable, and built for real ongoing work.
-      </p>
-    </div>
-    <div class="page-module page-module-panel compact-callout">
-      <p class="eyebrow">Not a scorecard</p>
-      <p>Center of gravity, not rankings.</p>
-    </div>
-  </section>
+    <section class="page-hero-note-grid">
+        <div>
+            <p class="eyebrow">Comparisons</p>
+            <h1 class="page-display-title">
+                Where GalexC sits in the agent landscape.
+            </h1>
+            <p class="page-lede">
+                GalexC overlaps with coding agents, autonomous harnesses, and
+                other emerging AI systems, but it is not trying to be a generic
+                assistant or a pure autonomy play. The point is a durable
+                personal operating environment: operator-owned, reviewable, and
+                built for real ongoing work.
+            </p>
+        </div>
+        <div class="page-module content-aside compact-callout">
+            <p class="eyebrow">Not a scorecard</p>
+            <p>Center of gravity, not rankings.</p>
+        </div>
+    </section>
 
-  <section class="page-module page-module-panel axes-card">
-    <p class="eyebrow">Landscape axes</p>
-    <div class="axes-card__frame">
-      <div class="axes-card__x"></div>
-      <div class="axes-card__y"></div>
-      <p class="axes-card__axis-label axes-card__axis-label-x-start">single-session coding tool</p>
-      <p class="axes-card__axis-label axes-card__axis-label-x-end">durable operating environment</p>
-      <p class="axes-card__axis-label axes-card__axis-label-y-start">high-delegation autonomy</p>
-      <p class="axes-card__axis-label axes-card__axis-label-y-end">operator-steered bounded execution</p>
-      {
-        points.map(([label, note], index) => (
-          <div class:list={['axes-card__point', `axes-card__point-${index + 1}`]}>
-            <strong>{label}</strong>
-            <span>{note}</span>
-          </div>
-        ))
-      }
-    </div>
-    <p class="page-caption">
-      Left to right: single-session coding tool to durable operating environment.
-      Bottom to top: high-delegation autonomy to operator-steered bounded execution.
-    </p>
-  </section>
+    <section class="page-module specimen-frame axes-card">
+        <p class="eyebrow">Landscape axes</p>
+        <div class="axes-card__frame">
+            <div class="axes-card__x"></div>
+            <div class="axes-card__y"></div>
+            <p class="axes-card__axis-label axes-card__axis-label-x-start">
+                single-session coding tool
+            </p>
+            <p class="axes-card__axis-label axes-card__axis-label-x-end">
+                durable operating environment
+            </p>
+            <p class="axes-card__axis-label axes-card__axis-label-y-start">
+                high-delegation autonomy
+            </p>
+            <p class="axes-card__axis-label axes-card__axis-label-y-end">
+                operator-steered bounded execution
+            </p>
+            {
+                points.map(([label, note], index) => (
+                    <div
+                        class:list={[
+                            'axes-card__point',
+                            `axes-card__point-${index + 1}`,
+                        ]}
+                    >
+                        <strong>{label}</strong>
+                        <span>{note}</span>
+                    </div>
+                ))
+            }
+        </div>
+        <p class="page-caption">
+            Left to right: single-session coding tool to durable operating
+            environment. Bottom to top: high-delegation autonomy to
+            operator-steered bounded execution.
+        </p>
+    </section>
 
-  <section class="comparison-cards">
-    {
-      cards.map(([title, body]) => (
-        <article class="page-module page-module-panel comparison-card">
-          <p class="eyebrow">Reference point</p>
-          <h2>{title}</h2>
-          <p>{body}</p>
+    <section class="comparison-cards comparison-open-grid">
+        {
+            cards.map(([title, body]) => (
+                <article class="page-module comparison-open-card comparison-card">
+                    <p class="eyebrow">Reference point</p>
+                    <h2>{title}</h2>
+                    <p>{body}</p>
+                </article>
+            ))
+        }
+    </section>
+
+    <section class="page-module comparison-workflow-card workflow-ledger-card">
+        <p class="eyebrow">Workflow shape</p>
+        <div class="comparison-workflow-list">
+            {
+                workflow.map(([title, body]) => (
+                    <div class="comparison-workflow-list__item">
+                        <strong>{title}</strong>
+                        <p>{body}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="page-grid-two">
+        <article class="page-module content-aside boundary-split">
+            <p class="eyebrow">What GalexC is not</p>
+            <ul>
+                <li>Not just a chat shell with extra tools</li>
+                <li>Not a generic SaaS copilot</li>
+                <li>Not an agents-gone-wild framework</li>
+            </ul>
         </article>
-      ))
-    }
-  </section>
-
-  <section class="page-module page-module-panel comparison-workflow-card">
-    <p class="eyebrow">Workflow shape</p>
-    <div class="comparison-workflow-list">
-      {
-        workflow.map(([title, body]) => (
-          <div class="comparison-workflow-list__item">
-            <strong>{title}</strong>
-            <p>{body}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="page-grid-two">
-    <article class="page-module page-module-panel boundary-split">
-      <p class="eyebrow">What GalexC is not</p>
-      <ul>
-        <li>Not just a chat shell with extra tools</li>
-        <li>Not a generic SaaS copilot</li>
-        <li>Not an agents-gone-wild framework</li>
-      </ul>
-    </article>
-    <article class="page-module">
-      <p class="eyebrow">Why the distinction matters</p>
-      <p>
-        If you want the fastest path to one interactive coding loop, other tools may be
-        a more natural fit. If you want an operator-owned environment for shaping,
-        execution, memory, and review, GalexC is aiming at that territory on purpose.
-      </p>
-    </article>
-  </section>
+        <article class="page-module">
+            <p class="eyebrow">Why the distinction matters</p>
+            <p>
+                If you want the fastest path to one interactive coding loop,
+                other tools may be a more natural fit. If you want an
+                operator-owned environment for shaping, execution, memory, and
+                review, GalexC is aiming at that territory on purpose.
+            </p>
+        </article>
+    </section>
 </div>
