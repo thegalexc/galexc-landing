@@ -1253,11 +1253,16 @@ a {
 
 .content-page__back {
     width: fit-content;
+    margin: 0;
+    color: inherit;
+}
+
+.content-page__back a {
     color: inherit;
     text-decoration: none;
 }
 
-.content-page__back:hover {
+.content-page__back a:hover {
     color: #123c62;
 }
 
@@ -1434,7 +1439,11 @@ a {
     border-radius: 1.35rem 0.95rem 1.15rem 0.92rem;
     border: 1px solid rgba(120, 113, 108, 0.14);
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(251, 247, 241, 0.52)),
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.44),
+            rgba(251, 247, 241, 0.52)
+        ),
         repeating-linear-gradient(
             180deg,
             rgba(120, 113, 108, 0.038) 0,
@@ -1470,8 +1479,11 @@ a {
 }
 
 .compare-open-block-soft {
-    background:
-        linear-gradient(90deg, rgba(21, 74, 122, 0.045), transparent 58%);
+    background: linear-gradient(
+        90deg,
+        rgba(21, 74, 122, 0.045),
+        transparent 58%
+    );
 }
 
 @media (min-width: 900px) {
@@ -1677,15 +1689,6 @@ a {
     color: #5b4f43;
 }
 
-.manifesto-source__date {
-    margin: 0.2rem 0 0;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #7a6d60;
-}
-
 .manifesto-prose {
     display: grid;
     gap: 1rem;
@@ -1779,7 +1782,11 @@ a {
 .architecture-band-active {
     padding-left: 0.9rem;
     border-left: 2px solid rgba(21, 74, 122, 0.24);
-    background: linear-gradient(90deg, rgba(21, 74, 122, 0.05), transparent 62%);
+    background: linear-gradient(
+        90deg,
+        rgba(21, 74, 122, 0.05),
+        transparent 62%
+    );
 }
 
 .surface-card h2,

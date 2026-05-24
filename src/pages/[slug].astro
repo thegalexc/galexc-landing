@@ -44,7 +44,11 @@ const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
     <div class="editorial-shell page-stack px-4 py-8 md:px-6 md:py-12">
         <div class="content-page">
             <aside class="content-page__nav" aria-label="Contents ledger">
-                <a class="content-page__back eyebrow" href="/contents">Back to contents</a>
+                <p class="content-page__back eyebrow">
+                    <a href="/">GalexC</a>
+                    <span aria-hidden="true"> / </span>
+                    <a href="/contents">Contents</a>
+                </p>
                 {
                     navGroups.map((group) => (
                         <div class="content-page__nav-group">
@@ -74,10 +78,15 @@ const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
                 <PageBody />
 
                 <footer class="content-page__footer">
-                    {adjacent.previous && (
+                    {adjacent.previous ? (
                         <a class="content-page__pager" href={`/${adjacent.previous.slug}`}>
                             <span class="eyebrow">Previous</span>
                             <span>{adjacent.previous.label}</span>
+                        </a>
+                    ) : (
+                        <a class="content-page__pager" href="/contents">
+                            <span class="eyebrow">Back</span>
+                            <span>Contents</span>
                         </a>
                     )}
                     {adjacent.next && (

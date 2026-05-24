@@ -46,12 +46,52 @@ const sequence = [
     'Build your cadence',
     'Own the system',
 ];
+
+const loopSteps: string[] = [
+    'Define work',
+    'Route context',
+    'Choose workflow',
+    'Run in the right mode',
+    'Review output',
+    'Keep what matters',
+];
+
+const layerItems: Array<{ label: string; body: string }> = [
+    {
+        label: 'Repos',
+        body: 'Source material that matters. Real files, real history, real ownership.',
+    },
+    {
+        label: 'Tasks',
+        body: 'Scoped intent and what done means before execution begins.',
+    },
+    {
+        label: 'Methods',
+        body: 'Prompts and skills that turn good approaches into reusable workflow.',
+    },
+    {
+        label: 'Services',
+        body: 'Search, state, notifications, forge, and observability that keep the loop durable.',
+    },
+    {
+        label: 'Review',
+        body: 'PRs and artifacts that let the human decide what becomes real.',
+    },
+];
+
+const trustItems: string[] = [
+    'Bounded execution over vague autonomy',
+    'Search before browse',
+    'Reviewable outputs only',
+    'Private by default service exposure',
+    'Recoverable systems with receipts',
+];
 ---
 
 <div class="essay-page architecture-page">
     <section class="page-hero-note-grid">
         <div>
-            <p class="eyebrow">System</p>
+            <p class="eyebrow">System / Architecture overview</p>
             <h1 class="page-display-title">How GalexC is arranged</h1>
             <p class="page-lede">
                 GalexC begins with a seed system. Today that is
@@ -159,6 +199,96 @@ const sequence = [
                     <strong>Workflow ribbon</strong> - the path from coherent foundation
                     to owned personal system
                 </li>
+            </ul>
+        </aside>
+    </section>
+
+    <section class="page-module operating-loop-ledger">
+        <div class="module-heading-row">
+            <p class="eyebrow">Operating loop</p>
+            <p class="page-caption">
+                The product is the loop, not a single assistant.
+            </p>
+        </div>
+        <div class="loop-diagram">
+            {
+                loopSteps.map((step: string, index: number) => (
+                    <>
+                        <div class="loop-step">{step}</div>
+                        {index < loopSteps.length - 1 && (
+                            <div class="loop-connector" aria-hidden="true" />
+                        )}
+                    </>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="page-grid-two compare-open-grid">
+        <article class="page-module compare-open-block mode-card">
+            <p class="eyebrow">Interactive mode</p>
+            <h2>Think live.</h2>
+            <p>
+                Interactive sessions are where work takes shape. They clarify
+                scope, test assumptions, search the right context, and tighten
+                the brief until the task is safe to hand off.
+            </p>
+        </article>
+        <article
+            class="page-module compare-open-block compare-open-block-soft mode-card mode-card-firm"
+        >
+            <p class="eyebrow">Dispatch mode</p>
+            <h2>Execute asynchronously.</h2>
+            <p>
+                Dispatch takes on work that is already bounded well enough to
+                run in the background. The result comes back as a PR, artifact,
+                or report that can be reviewed at the right moment.
+            </p>
+        </article>
+    </section>
+
+    <section class="page-module">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Built from durable primitives</p>
+                <h2 class="page-section-title">
+                    More operating environment than assistant
+                </h2>
+            </div>
+            <p class="page-caption">
+                The leverage comes from composition, not from pretending one
+                model is the whole product.
+            </p>
+        </div>
+        <div class="layer-stack">
+            {
+                layerItems.map((item) => (
+                    <div class="layer-stack__item">
+                        <p class="layer-stack__label">{item.label}</p>
+                        <p>{item.body}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <section class="page-grid-two page-grid-two-wide-right">
+        <article class="page-module">
+            <p class="eyebrow">Why it matters</p>
+            <h2 class="page-section-title">A system that compounds</h2>
+            <p>
+                Useful context should accumulate instead of dissolving into
+                scrollback. Methods should become reusable. Async work should
+                return with enough structure that review becomes short and trust
+                becomes earned. GalexC exists to help one person think better,
+                execute faster, preserve continuity, and build real leverage
+                without giving up ownership.
+            </p>
+        </article>
+        <aside class="page-module content-aside trust-panel">
+            <p class="eyebrow">Strong boundaries</p>
+            <ul class="trust-panel__list">
+                {trustItems.map((item) => <li>{item}</li>)}
             </ul>
         </aside>
     </section>
