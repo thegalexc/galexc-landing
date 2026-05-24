@@ -1,0 +1,22 @@
+---
+interface Props {
+    eyebrow: string;
+    title?: string;
+    lede?: string;
+}
+
+const { eyebrow, title, lede } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+const hasTitleSlot = Astro.slots.has('title');
+---
+
+<section class:list={[hasAside ? 'page-hero-note-grid' : 'page-hero-simple']}>
+    <div>
+        <p class="eyebrow">{eyebrow}</p>
+        <h1 class="page-display-title pt-3 md:pt-4">
+            {hasTitleSlot ? <slot name="title" /> : title}
+        </h1>
+        {lede && <p class="page-lede">{lede}</p>}
+    </div>
+    {hasAside && <slot name="aside" />}
+</section>

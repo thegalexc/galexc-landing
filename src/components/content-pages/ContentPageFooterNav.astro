@@ -1,0 +1,37 @@
+---
+interface NavTarget {
+    slug: string;
+    label: string;
+}
+
+interface Props {
+    previous: NavTarget | null;
+    next: NavTarget | null;
+}
+
+const { previous, next } = Astro.props;
+---
+
+<footer class="content-page__footer">
+    {
+        previous ? (
+            <a class="content-page__pager" href={`/${previous.slug}`}>
+                <span class="eyebrow">Previous</span>
+                <span>{previous.label}</span>
+            </a>
+        ) : (
+            <a class="content-page__pager" href="/contents">
+                <span class="eyebrow">Back</span>
+                <span>Contents</span>
+            </a>
+        )
+    }
+    {
+        next && (
+            <a class="content-page__pager" href={`/${next.slug}`}>
+                <span class="eyebrow">Next</span>
+                <span>{next.label}</span>
+            </a>
+        )
+    }
+</footer>
