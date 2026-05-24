@@ -1,4 +1,6 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
 const facts = ['Seed first', 'Replace any layer', 'Fork and own it'];
 
 const layers = [
@@ -89,26 +91,15 @@ const trustItems: string[] = [
 ---
 
 <div class="essay-page architecture-page">
-    <section class="page-hero-note-grid">
-        <div>
-            <p class="eyebrow">System / Architecture overview</p>
-            <h1 class="page-display-title">How GalexC is arranged</h1>
-            <p class="page-lede">
-                GalexC begins with a seed system. Today that is
-                galexc-starter-pack, and it will likely become galexc-seed. The
-                point is not to lock you into my exact stack forever. The point
-                is to establish the foundational elements of a
-                professional-grade personal AI system: durable interaction
-                layers, tasks, async dispatches, scheduled tasks, a workstation
-                Pi environment aligned with dispatched agents, and core
-                communications like intercom. From there, you take it wherever
-                you want.
-            </p>
-        </div>
-        <ul class="page-note-list">
+    <ContentPageHero
+        eyebrow="System / Architecture overview"
+        title="How GalexC is arranged"
+        lede="GalexC begins with a seed system. Today that is galexc-starter-pack, and it will likely become galexc-seed. The point is not to lock you into my exact stack forever. The point is to establish the foundational elements of a professional-grade personal AI system: durable interaction layers, tasks, async dispatches, scheduled tasks, a workstation Pi environment aligned with dispatched agents, and core communications like intercom. From there, you take it wherever you want."
+    >
+        <ul slot="aside" class="page-note-list">
             {facts.map((fact) => <li>{fact}</li>)}
         </ul>
-    </section>
+    </ContentPageHero>
 
     <section class="page-module architecture-plate">
         <p class="eyebrow">System at a glance</p>

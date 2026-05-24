@@ -1,9 +1,10 @@
 ---
 import ArchitectureOverviewPage from '../components/content-pages/ArchitectureOverviewPage.astro';
 import ComparisonLandscapePage from '../components/content-pages/ComparisonLandscapePage.astro';
+import ContentPageFooterNav from '../components/content-pages/ContentPageFooterNav.astro';
 import DesignPhilosophyPage from '../components/content-pages/DesignPhilosophyPage.astro';
 import InteractionNotesPage from '../components/content-pages/InteractionNotesPage.astro';
-import ManifestoPage from '../components/content-pages/ManifestoPage.astro';
+import InspirationPage from '../components/content-pages/InspirationPage.astro';
 import OperatorModelPage from '../components/content-pages/OperatorModelPage.astro';
 import WhatIsGalexCPage from '../components/content-pages/WhatIsGalexCPage.astro';
 import Layout from '../layouts/Layout.astro';
@@ -29,7 +30,7 @@ const adjacent = getAdjacentContent(page.slug);
 
 const pageComponents = {
     'what-is-galexc': WhatIsGalexCPage,
-    manifesto: ManifestoPage,
+    inspiration: InspirationPage,
     'architecture-overview': ArchitectureOverviewPage,
     'operator-model': OperatorModelPage,
     'design-philosophy': DesignPhilosophyPage,
@@ -53,22 +54,22 @@ const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
                     navGroups.map((group) => (
                         <div class="content-page__nav-group">
                             <p>{group.title}</p>
-                            {
-                                group.items.map((item, index) => (
-                                    <a
-                                        class:list={[
-                                            'content-page__nav-link',
-                                            item.slug === page.slug && 'active',
-                                        ]}
-                                        href={`/${item.slug}`}
-                                    >
-                                        <span class="content-page__nav-code">
-                                            {getNavCode(group.title, index)}
-                                        </span>
-                                        <span class="content-page__nav-label">{item.label}</span>
-                                    </a>
-                                ))
-                            }
+                            {group.items.map((item, index) => (
+                                <a
+                                    class:list={[
+                                        'content-page__nav-link',
+                                        item.slug === page.slug && 'active',
+                                    ]}
+                                    href={`/${item.slug}`}
+                                >
+                                    <span class="content-page__nav-code">
+                                        {getNavCode(group.title, index)}
+                                    </span>
+                                    <span class="content-page__nav-label">
+                                        {item.label}
+                                    </span>
+                                </a>
+                            ))}
                         </div>
                     ))
                 }
@@ -77,25 +78,10 @@ const PageBody = pageComponents[page.slug as keyof typeof pageComponents];
             <article class="content-page__main">
                 <PageBody />
 
-                <footer class="content-page__footer">
-                    {adjacent.previous ? (
-                        <a class="content-page__pager" href={`/${adjacent.previous.slug}`}>
-                            <span class="eyebrow">Previous</span>
-                            <span>{adjacent.previous.label}</span>
-                        </a>
-                    ) : (
-                        <a class="content-page__pager" href="/contents">
-                            <span class="eyebrow">Back</span>
-                            <span>Contents</span>
-                        </a>
-                    )}
-                    {adjacent.next && (
-                        <a class="content-page__pager" href={`/${adjacent.next.slug}`}>
-                            <span class="eyebrow">Next</span>
-                            <span>{adjacent.next.label}</span>
-                        </a>
-                    )}
-                </footer>
+                <ContentPageFooterNav
+                    previous={adjacent.previous}
+                    next={adjacent.next}
+                />
             </article>
         </div>
     </div>

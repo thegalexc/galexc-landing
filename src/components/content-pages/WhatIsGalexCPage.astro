@@ -1,4 +1,6 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
 const qaItems: Array<{ question: string; answer: string }> = [
     {
         question: 'Why should I care?',
@@ -40,17 +42,18 @@ const qaItems: Array<{ question: string; answer: string }> = [
 ---
 
 <div class="essay-page what-page">
-    <section class="page-hero-note-grid">
-        <div>
-            <p class="eyebrow">Foundations / What is GalexC?</p>
-            <h1 class="page-display-title">GalexC is <em>my</em> AI.</h1>
-        </div>
-    </section>
+    <ContentPageHero eyebrow="Foundations / What is GalexC?">
+        <Fragment slot="title">GalexC is <em>my</em> AI.</Fragment>
+    </ContentPageHero>
 
     <section>
-        <p class="pt-4 italic">G(ilman) alex(ander) C(allsen) &rarr; GalexC</p>
+        <p class="italic">
+            G<span class="text-stone-500">(ilman)</span> alex<span
+                class="text-stone-500">(ander)</span
+            > C<span class="text-stone-500">(allsen)</span> / GalexC
+        </p>
 
-        <section class="page-module pt-8">
+        <section class="page-module pt-6">
             <div class="module-heading-row">
                 <div>
                     <p class="eyebrow">Q&A starters</p>
@@ -77,8 +80,8 @@ const qaItems: Array<{ question: string; answer: string }> = [
     <section>
         <blockquote class="manifesto-quote manifesto-quote-strong">
             <p>
-                Use GalexC as the beginning of <em><b>*your*</b></em> long-term, personal
-                AI.
+                I hope you can use GalexC as the spark to build <em>your</em>
+                personal AI.
             </p>
         </blockquote>
     </section>

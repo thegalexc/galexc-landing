@@ -1,4 +1,6 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
 const doctrine = [
     ['Warm, not nostalgic', 'Human and held, not retro for its own sake.'],
     [
@@ -19,17 +21,11 @@ const doctrine = [
 ---
 
 <div class="essay-page design-page">
-    <section class="page-hero-simple">
-        <p class="eyebrow">Principles / Design philosophy</p>
-        <h1 class="page-display-title">Design should feel authored.</h1>
-        <p class="page-lede">
-            GalexC should not feel like an AI dashboard that borrowed nicer
-            type. It should feel composed, editorial, and quietly deliberate -
-            more like a publication, notebook, or field manual than a SaaS
-            shell. That choice is not cosmetic. It signals how the product
-            thinks.
-        </p>
-    </section>
+    <ContentPageHero
+        eyebrow="Principles / Design philosophy"
+        title="Design should feel authored."
+        lede="GalexC should not feel like an AI dashboard that borrowed nicer type. It should feel composed, editorial, and quietly deliberate - more like a publication, notebook, or field manual than a SaaS shell. That choice is not cosmetic. It signals how the product thinks."
+    />
 
     <section class="page-grid-two compare-open-grid design-compare-grid">
         <article

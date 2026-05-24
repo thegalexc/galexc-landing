@@ -1,4 +1,6 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
 const ledger = [
     {
         actor: 'Human',
@@ -61,29 +63,19 @@ const flowSteps = [
 ---
 
 <div class="essay-page operator-page">
-    <section class="page-hero-note-grid">
-        <div>
-            <p class="eyebrow">System / Operator model</p>
-            <h1 class="page-display-title">
-                The operator model is meant to become personal.
-            </h1>
-            <p class="page-lede">
-                GalexC is not only a software stack. It is a way to learn how to
-                work with a personal AI system that you actually own. The seed
-                gives you real structure on day one, but the goal is not to keep
-                everyone on Gilman's preferred setup. The goal is to help you
-                and your AI settle into a cadence that matches your own needs,
-                constraints, and taste.
-            </p>
-        </div>
-        <div class="page-module content-aside compact-callout">
+    <ContentPageHero
+        eyebrow="System / Operator model"
+        title="The operator model is meant to become personal."
+        lede="GalexC is not only a software stack. It is a way to learn how to work with a personal AI system that you actually own. The seed gives you real structure on day one, but the goal is not to keep everyone on Gilman's preferred setup. The goal is to help you and your AI settle into a cadence that matches your own needs, constraints, and taste."
+    >
+        <div slot="aside" class="page-module content-aside compact-callout">
             <p class="eyebrow">Trust model</p>
             <p>
                 GalexC delegates execution, but the operator owns the system and
                 its evolution.
             </p>
         </div>
-    </section>
+    </ContentPageHero>
 
     <section class="page-module">
         <div class="module-heading-row">

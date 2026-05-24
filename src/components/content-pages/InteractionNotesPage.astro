@@ -1,4 +1,6 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
 const lexicon = [
     ['Reveal', 'Information should feel uncovered rather than dropped in.'],
     [
@@ -24,16 +26,11 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
 ---
 
 <div class="essay-page interaction-page">
-    <section class="page-hero-simple">
-        <p class="eyebrow">Principles / Interaction notes</p>
-        <h1 class="page-display-title">A calmer interaction language.</h1>
-        <p class="page-lede">
-            GalexC should not move like a productivity app trying to prove it is
-            alive. It should open, reveal, and settle with the confidence of a
-            well-kept notebook. The clearest current example is the
-            request-access reveal on the landing page.
-        </p>
-    </section>
+    <ContentPageHero
+        eyebrow="Principles / Interaction notes"
+        title="A calmer interaction language."
+        lede="GalexC should not move like a productivity app trying to prove it is alive. It should open, reveal, and settle with the confidence of a well-kept notebook. The clearest current example is the request-access reveal on the landing page."
+    />
 
     <section class="page-grid-two interaction-glossary-grid glossary-open-grid">
         {
