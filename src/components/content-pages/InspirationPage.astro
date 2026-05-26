@@ -2,27 +2,32 @@
 import ContentPageHero from './ContentPageHero.astro';
 ---
 
-<div class="essay-page manifesto-page">
+<div class="grid gap-[2.4rem]">
     <ContentPageHero
         eyebrow="Foundations / Inspiration"
         title="Stay hungry. Stay foolish."
     />
 
-    <section class="page-module manifesto-prose manifesto-prose--intro">
-        <p>
+    <section
+        class="block max-w-[46rem] pt-[0.3rem] after:block after:clear-both after:content-['']"
+    >
+        <p class="text-[1.04rem] leading-[1.8] text-[#564a3f]">
             I wasn't alive when the <a
+                class="text-[#123c62] underline decoration-[rgba(18,60,98,0.18)] underline-offset-[0.18em] transition-colors duration-150 ease-out hover:text-[#0f3150] focus-visible:text-[#0f3150] focus-visible:outline-none"
                 href="https://en.wikipedia.org/wiki/Whole_Earth_Catalog?utm_source=galexc"
                 target="_blank"
                 rel="noreferrer">Whole Earth Catalog</a
             > was in print and I honestly had no idea what it was until a few years
             ago. For whatever reason, I am struck by its <a
+                class="text-[#123c62] underline decoration-[rgba(18,60,98,0.18)] underline-offset-[0.18em] transition-colors duration-150 ease-out hover:text-[#0f3150] focus-visible:text-[#0f3150] focus-visible:outline-none"
                 href="https://en.wikipedia.org/wiki/Whole_Earth_Catalog#/media/File:WEC-69F-C.jpg"
                 target="_blank"
                 rel="noreferrer">ethos</a
             > (as I understand it) and I often remind myself to try staying hungry
             and foolish. In today's technical landscape, however, this can easily
-            push you towards endless acceleration — so I try to hold this against
+            push you towards endless acceleration - so I try to hold this against
             the <a
+                class="text-[#123c62] underline decoration-[rgba(18,60,98,0.18)] underline-offset-[0.18em] transition-colors duration-150 ease-out hover:text-[#0f3150] focus-visible:text-[#0f3150] focus-visible:outline-none"
                 href="https://longnow.org?utm_source=galexc"
                 target="_blank"
                 rel="noreferrer">Long Now's</a
@@ -31,20 +36,23 @@ import ContentPageHero from './ContentPageHero.astro';
         </p>
 
         <figure
-            class="manifesto-inline-artifact manifesto-inline-artifact--intro mx-auto my-[1.8rem] xs:mx-[1.8rem]"
+            class="relative my-[1.8rem] mx-auto w-[min(56vw,15rem)] before:absolute before:left-0 before:top-[-0.5rem] before:block before:h-px before:w-[3.1rem] before:bg-[rgba(120,113,108,0.22)] before:content-[''] min-[900px]:float-right min-[900px]:my-[1.8rem] min-[900px]:ml-[2.35rem] min-[900px]:mr-0 min-[900px]:w-[min(34vw,16rem)]"
         >
             <button
-                class="manifesto-inline-artifact__trigger"
+                class="block w-full cursor-pointer overflow-hidden border border-[rgba(120,113,108,0.2)] bg-[rgba(255,252,247,0.3)] p-[0.45rem] transition-[border-color,transform,background] duration-[220ms] ease-out hover:translate-y-[-1px] hover:border-[rgba(21,74,122,0.24)] hover:bg-[rgba(255,252,247,0.44)] focus-visible:border-[rgba(21,74,122,0.28)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(21,74,122,0.08)]"
                 type="button"
                 data-manifesto-lightbox-open
                 aria-label="Expand Whole Earth Epilog image"
             >
                 <img
+                    class="block w-full"
                     src="/stay-hungry-stay-foolish.png"
                     alt="Stay hungry. Stay foolish. image from Gilman's framed Whole Earth Epilog"
                 />
             </button>
-            <figcaption>
+            <figcaption
+                class="mt-[0.5rem] text-center font-mono text-[0.68rem] leading-[1.85] tracking-[0.14em] text-[#7a6d60] uppercase"
+            >
                 Exhibit 01 - An original copy of the Whole Earth Epilog in my
                 office, which provides a meaningful reminder for me.
             </figcaption>
@@ -94,20 +102,21 @@ import ContentPageHero from './ContentPageHero.astro';
             })();
         </script>
 
-        <p>
+        <p class="mt-[1.05rem] text-[1.04rem] leading-[1.8] text-[#564a3f]">
             I've seen several incredible innovations in the last ~15 years of
             deploying machine learning into professional-grade products
             (Tensorflow, anyone? Serverless compute?). That said, LLMs have
             unlocked a step-change in capabilities unlike anything I've
             personally experienced. As one should, I turn to my nerd friends,
             mentors, colleagues and communities like <a
+                class="text-[#123c62] underline decoration-[rgba(18,60,98,0.18)] underline-offset-[0.18em] transition-colors duration-150 ease-out hover:text-[#0f3150] focus-visible:text-[#0f3150] focus-visible:outline-none"
                 href="https://agentcribs.com/"
                 target="_blank"
                 rel="noreferrer">Agent Cribs</a
             > to try navigating this wacky, ever-changing world.
         </p>
 
-        <p>
+        <p class="mt-[1.05rem] text-[1.04rem] leading-[1.8] text-[#564a3f]">
             A few months ago I had an incredible experience that changed the
             trajectory of my AI-journey. My friend, Kyle, had his AI, KyleOps,
             share an overview of what they had been building. The level of
@@ -119,11 +128,14 @@ import ContentPageHero from './ContentPageHero.astro';
             moment I saw that, I felt compelled to just start building.
         </p>
 
-        <section>
+        <section class="mt-[1.05rem]">
             <blockquote
-                class="manifesto-quote manifesto-quote-strong manifesto-quote--wide"
+                class="grid w-[80%] justify-items-center mx-auto my-[0.55rem] pb-[1rem] after:mt-[0.6rem] after:block after:h-px after:w-[max(12rem,32%)] after:bg-[rgba(21,74,122,0.3)] after:content-['']"
             >
-                <p>
+                <p
+                    class="m-0 w-full max-w-none text-center text-[clamp(2rem,3.2vw,2.65rem)] leading-[1.02] text-[#2b241d] [text-wrap:pretty]"
+                    style="font-family: 'Cormorant Garamond', serif;"
+                >
                     I hope you can use GalexC as the spark to build <em>your</em
                     >
                     personal AI.
