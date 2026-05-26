@@ -2,89 +2,25 @@
 import ContentsPageShell from '../components/ContentsPageShell.astro';
 import Layout from '../layouts/Layout.astro';
 import { getNavCode, navGroups } from '../lib/site-content';
-
-const startHere = [
-    {
-        href: '/architecture-overview',
-        code: 'S01',
-        label: 'Architecture overview',
-        note: 'Start with the stack and the seed idea.',
-    },
-    {
-        href: '/operator-model',
-        code: 'S02',
-        label: 'Operator model',
-        note: 'Then read how a person and system share the work.',
-    },
-    {
-        href: '/design-philosophy',
-        code: 'S03',
-        label: 'Design philosophy',
-        note: 'Finish with the visual and editorial doctrine.',
-    },
-];
 ---
 
 <Layout title="GalexC - Contents" description="GalexC contents ledger." noindex>
     <div
         class="editorial-shell px-4 pb-8 pt-0 md:px-6 md:pb-12 md:pt-8 lg:pt-12"
     >
-        <ContentsPageShell
-            title="Contents"
-            intro="A compact register of the current GalexC surface, ordered to help you orient before you dive."
-        >
-            <section class="page-module contents-start-here">
-                <div class="module-heading-row">
-                    <div>
-                        <p class="eyebrow">Suggested sequence</p>
-                        <h2 class="page-section-title">Start here</h2>
-                    </div>
-                    <p class="page-caption">
-                        The shortest path from system shape to product taste.
-                    </p>
-                </div>
-                <div class="contents-start-here__grid">
-                    {
-                        startHere.map((item) => (
-                            <a
-                                class="contents-start-here__item"
-                                href={item.href}
-                            >
-                                <span class="contents-start-here__code">
-                                    {item.code}
-                                </span>
-                                <span class="contents-start-here__label">
-                                    {item.label}
-                                </span>
-                                <span class="contents-start-here__note">
-                                    {item.note}
-                                </span>
-                            </a>
-                        ))
-                    }
-                </div>
-            </section>
-
+        <ContentsPageShell title="Contents">
             <div class="contents-ledger">
                 {
                     navGroups.map((group) => (
                         <section class="contents-ledger__group">
                             <p class="eyebrow">{group.title}</p>
-                            <p class="contents-ledger__group-intro">
-                                {group.intro}
-                            </p>
                             {group.items.map((item, index) => (
                                 <a
                                     class="contents-ledger__row"
                                     href={`/${item.slug}`}
                                 >
-                                    <span class="contents-ledger__label-wrap">
-                                        <span class="contents-ledger__label">
-                                            {item.label}
-                                        </span>
-                                        <span class="contents-ledger__blurb">
-                                            {item.blurb}
-                                        </span>
+                                    <span class="contents-ledger__label">
+                                        {item.label}
                                     </span>
                                     <span
                                         class="contents-ledger__leader"

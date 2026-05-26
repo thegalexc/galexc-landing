@@ -51,20 +51,20 @@ export const navGroups: NavGroup[] = [
                 ],
             },
             {
-                slug: 'inspiration',
-                label: 'Inspiration',
-                blurb: 'The foundational inspiration behind GalexC, from access to tools to access to agency.',
+                slug: 'comparison-landscape',
+                label: 'Comparisons',
+                blurb: 'A framework for comparing GalexC with Hermes, Claude Code, OpenClaw, and adjacent agentic systems.',
                 eyebrow: 'Foundations',
                 summary:
-                    'GalexC should help a person think and operate with more continuity. This page captures the underlying inspiration: not replacing judgment, but building an AI environment that respects constraints, keeps context intact, and rewards deliberate use.',
+                    'Comparison content should not read like a feature matrix. It should explain which class of problem each system optimizes for and why GalexC is aiming at a different blend of ownership, orchestration, and day-to-day utility.',
                 sections: [
                     {
-                        title: 'Owned interfaces',
-                        body: 'The system should favor interfaces that Gilman or the project can actually control, inspect, and evolve. That means fewer black boxes and more explicit seams.',
+                        title: 'Same family, different posture',
+                        body: 'Some systems optimize for coding throughput. Others optimize for local autonomy or extensibility. GalexC is trying to preserve serious operator control while still feeling personal and broadly useful.',
                     },
                     {
-                        title: 'Quiet power',
-                        body: 'The visual and interaction language should signal confidence without noise. Strong systems do not need to shout to prove they are sophisticated.',
+                        title: 'Why this page exists',
+                        body: "Visitors will arrive with reference points. A thoughtful comparison page helps them orient quickly without flattening the product into someone else's category.",
                     },
                 ],
             },
@@ -154,28 +154,21 @@ export const navGroups: NavGroup[] = [
                     },
                 ],
             },
-        ],
-    },
-    {
-        id: 'comparisons',
-        title: 'Comparisons',
-        intro: 'Where GalexC overlaps with other AI approaches and where it clearly diverges.',
-        items: [
             {
-                slug: 'comparison-landscape',
-                label: 'Comparisons',
-                blurb: 'A framework for comparing GalexC with Hermes, Claude Code, OpenClaw, and adjacent agentic systems.',
-                eyebrow: 'Comparisons',
+                slug: 'inspiration',
+                label: 'Inspiration',
+                blurb: 'The foundational inspiration behind GalexC, from access to tools to access to agency.',
+                eyebrow: 'Principles',
                 summary:
-                    'Comparison content should not read like a feature matrix. It should explain which class of problem each system optimizes for and why GalexC is aiming at a different blend of ownership, orchestration, and day-to-day utility.',
+                    'GalexC should help a person think and operate with more continuity. This page captures the underlying inspiration: not replacing judgment, but building an AI environment that respects constraints, keeps context intact, and rewards deliberate use.',
                 sections: [
                     {
-                        title: 'Same family, different posture',
-                        body: 'Some systems optimize for coding throughput. Others optimize for local autonomy or extensibility. GalexC is trying to preserve serious operator control while still feeling personal and broadly useful.',
+                        title: 'Owned interfaces',
+                        body: 'The system should favor interfaces that Gilman or the project can actually control, inspect, and evolve. That means fewer black boxes and more explicit seams.',
                     },
                     {
-                        title: 'Why this page exists',
-                        body: "Visitors will arrive with reference points. A thoughtful comparison page helps them orient quickly without flattening the product into someone else's category.",
+                        title: 'Quiet power',
+                        body: 'The visual and interaction language should signal confidence without noise. Strong systems do not need to shout to prove they are sophisticated.',
                     },
                 ],
             },
