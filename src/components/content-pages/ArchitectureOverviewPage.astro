@@ -5,52 +5,88 @@ import ContentPageHero from './ContentPageHero.astro';
 const facts = ['Seed first', 'Replace any layer', 'Fork and own it'];
 
 const layers = [
-    [
-        'Seed layer',
-        'GalexC starts from galexc-starter-pack, likely soon galexc-seed, which establishes the foundational interaction model and working system.',
-    ],
-    [
-        'Interaction layer',
-        'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious operating surface.',
-    ],
-    [
-        'Services',
-        'Storage, search, routing, notifications, and background services provide continuity and visibility.',
-    ],
-    [
-        'Replaceable implementation',
-        'Postgres, Python services, schedulers, and other internals are defaults, not commandments. Swap them if your system wants something else.',
-    ],
-    [
-        'Personal evolution',
-        'Once forked, the stack becomes your own professional-grade personal AI environment rather than a centrally maintained product.',
-    ],
+    {
+        title: 'Seed layer',
+        body: 'GalexC starts from galexc-starter-pack, likely soon galexc-seed, which establishes the foundational interaction model and working system.',
+        tags: ['default', 'teachable base', 'owned fork'],
+    },
+    {
+        title: 'Interaction layer',
+        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious operating surface.',
+        tags: ['live shaping', 'workflow control', 'review path'],
+    },
+    {
+        title: 'Services',
+        body: 'Storage, search, routing, notifications, and background services provide continuity and visibility.',
+        tags: ['durable memory', 'observability', 'continuity'],
+    },
+    {
+        title: 'Replaceable implementation',
+        body: 'Postgres, Python services, schedulers, and other internals are defaults, not commandments. Swap them if your system wants something else.',
+        tags: ['replaceable', 'not sacred', 'operator choice'],
+    },
+    {
+        title: 'Personal evolution',
+        body: 'Once forked, the stack becomes your own professional-grade personal AI environment rather than a centrally maintained product.',
+        tags: ['your cadence', 'long-term ownership', 'compounding system'],
+    },
 ];
 
-const surfaces = [
-    [
-        'Seed',
-        'Start from a coherent base instead of assembling every primitive from scratch.',
-    ],
-    [
-        'Adapt',
-        'Replace or reshape infrastructure, services, and workflows to fit your own needs.',
-    ],
-    [
-        'Operate',
-        'Build a real cadence with your AI so the system stays useful, maintained, and personal over time.',
-    ],
+const replaceabilityLedger = [
+    {
+        layer: 'Seed',
+        defaultState: 'Coherent starting point',
+        canChange: 'Yes, after the operator understands the working base',
+        consequence:
+            'You preserve the operating idea while making the system truly your own.',
+    },
+    {
+        layer: 'Interaction layer',
+        defaultState: 'Durable session and dispatch workflow',
+        canChange: 'Yes, if you want a different rhythm or surface',
+        consequence:
+            'The cadence changes, but the review boundary still matters.',
+    },
+    {
+        layer: 'Services',
+        defaultState: 'Opinionated infra defaults',
+        canChange: 'Yes, service by service',
+        consequence:
+            'The substrate shifts without forcing a full product rewrite.',
+    },
+    {
+        layer: 'Implementation',
+        defaultState: 'Current languages and internal services',
+        canChange: 'Yes, aggressively',
+        consequence:
+            'You can replace internals without giving up ownership of the operating model.',
+    },
 ];
 
-const sequence = [
-    'Start from seed',
-    'Learn the surfaces',
-    'Replace what you want',
-    'Build your cadence',
-    'Own the system',
+const progression = [
+    {
+        code: '01',
+        title: 'Seed',
+        body: 'Start from a coherent base instead of assembling every primitive from scratch.',
+    },
+    {
+        code: '02',
+        title: 'Adapt',
+        body: 'Replace or reshape infrastructure, services, and workflows to fit your own needs.',
+    },
+    {
+        code: '03',
+        title: 'Operate',
+        body: 'Build a real cadence with your AI so the system stays useful, maintained, and personal over time.',
+    },
+    {
+        code: '04',
+        title: 'Own',
+        body: 'The fork stops feeling borrowed and starts behaving like your environment.',
+    },
 ];
 
-const loopSteps: string[] = [
+const loopSteps = [
     'Define work',
     'Route context',
     'Choose workflow',
@@ -59,7 +95,7 @@ const loopSteps: string[] = [
     'Keep what matters',
 ];
 
-const layerItems: Array<{ label: string; body: string }> = [
+const layerItems = [
     {
         label: 'Repos',
         body: 'Source material that matters. Real files, real history, real ownership.',
@@ -82,7 +118,7 @@ const layerItems: Array<{ label: string; body: string }> = [
     },
 ];
 
-const trustItems: string[] = [
+const trustItems = [
     'Bounded execution over vague autonomy',
     'Search before browse',
     'Reviewable outputs only',
@@ -93,9 +129,9 @@ const trustItems: string[] = [
 
 <div class="essay-page architecture-page">
     <ContentPageHero
-        eyebrow="System / Architecture overview"
-        title="How GalexC is arranged"
-        lede="GalexC begins with a seed system. Today that is galexc-starter-pack, and it will likely become galexc-seed. The point is not to lock you into my exact stack forever. The point is to establish the foundational elements of a professional-grade personal AI system: durable interaction layers, tasks, async dispatches, scheduled tasks, a workstation Pi environment aligned with dispatched agents, and core communications like intercom. From there, you take it wherever you want."
+        eyebrow="System"
+        title="Architecture Overview"
+        lede="GalexC begins with a seed system, currently galexc-starter-pack and likely becoming galexc-seed. This establishes the foundational interaction model and a working system from day one. You get durable interaction layers, tasks, async dispatch, scheduled work, a workstation Pi environment aligned with dispatched agents, and core communications primitives like intercom. From there, you take full ownership and shape the system around your own needs."
     >
         <ul slot="aside" class="page-note-list">
             {facts.map((fact) => <li>{fact}</li>)}
@@ -103,15 +139,22 @@ const trustItems: string[] = [
     </ContentPageHero>
 
     <section class="page-module specimen-frame">
-        <p class="eyebrow">System seam</p>
+        <h2 class="eyebrow">System seam</h2>
         <ArchitectureSeamDiagram />
     </section>
 
     <section class="page-module architecture-plate">
-        <p class="eyebrow">System at a glance</p>
-        <div class="architecture-bands">
+        <div class="module-heading-row">
+            <div>
+                <h2 class="eyebrow">System at a glance</h2>
+                <h2 class="page-section-title">
+                    A stack meant to be inherited, then changed
+                </h2>
+            </div>
+        </div>
+        <div class="architecture-bands architecture-bands-stepped">
             {
-                layers.map(([title, body], index) => (
+                layers.map((layer, index) => (
                     <div
                         class:list={[
                             'architecture-band',
@@ -119,27 +162,55 @@ const trustItems: string[] = [
                                 'architecture-band-active',
                         ]}
                     >
-                        <p class="architecture-band__title">{title}</p>
-                        <p>{body}</p>
+                        <div class="architecture-band__header">
+                            <h3>{layer.title}</h3>
+                            <div class="architecture-band__tags">
+                                {layer.tags.map((tag) => (
+                                    <span>{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <p>{layer.body}</p>
                     </div>
                 ))
             }
         </div>
     </section>
 
-    <section class="page-grid-three surface-open-grid">
-        {
-            surfaces.map(([title, body]) => (
-                <article class="page-module surface-open-card surface-card">
-                    <p class="eyebrow">System motion</p>
-                    <h2>{title}</h2>
-                    <p>{body}</p>
-                </article>
-            ))
-        }
+    <section class="page-module architecture-ledger-card">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Replaceability ledger</p>
+                <h2 class="page-section-title">
+                    What is fixed, what is optional
+                </h2>
+            </div>
+            <p class="page-caption">
+                The seed matters. The exact implementation does not have to
+                stay.
+            </p>
+        </div>
+        <div class="architecture-ledger">
+            {
+                replaceabilityLedger.map((item) => (
+                    <div class="architecture-ledger__row">
+                        <p class="architecture-ledger__layer">{item.layer}</p>
+                        <p>
+                            <strong>Default:</strong> {item.defaultState}
+                        </p>
+                        <p>
+                            <strong>Can change:</strong> {item.canChange}
+                        </p>
+                        <p>
+                            <strong>Consequence:</strong> {item.consequence}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
     </section>
 
-    <section class="page-module">
+    <section class="page-module flow-module">
         <div class="module-heading-row">
             <div>
                 <p class="eyebrow">One path through the system</p>
@@ -151,18 +222,16 @@ const trustItems: string[] = [
                 The seed is the beginning, not the boundary.
             </p>
         </div>
-        <div class="workflow-ribbon">
+        <div class="architecture-progression">
             {
-                sequence.map((step, index) => (
-                    <>
-                        <div class="workflow-ribbon__step">{step}</div>
-                        {index < sequence.length - 1 && (
-                            <div
-                                class="workflow-ribbon__connector"
-                                aria-hidden="true"
-                            />
-                        )}
-                    </>
+                progression.map((item) => (
+                    <div class="architecture-progression__item">
+                        <span class="architecture-progression__code">
+                            {item.code}
+                        </span>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                    </div>
                 ))
             }
         </div>
@@ -170,7 +239,7 @@ const trustItems: string[] = [
 
     <section class="page-grid-two">
         <article class="page-module">
-            <p class="eyebrow">Why the system starts this way</p>
+            <h2 class="eyebrow">Why the system starts this way</h2>
             <p>
                 The seed gives you a coherent philosophy and a working substrate
                 before you begin customizing. That makes the system teachable.
@@ -189,27 +258,27 @@ const trustItems: string[] = [
                     a durable record before it moves onward
                 </li>
                 <li>
-                    <strong>Surface cards</strong> - the three motions that matter:
-                    start, adapt, operate
+                    <strong>Stepped stack</strong> - each layer keeps the logic of
+                    the system visible even as implementations change
                 </li>
                 <li>
-                    <strong>Workflow ribbon</strong> - the path from coherent foundation
-                    to owned personal system
+                    <strong>Replaceability ledger</strong> - where ownership becomes
+                    practical rather than rhetorical
                 </li>
             </ul>
         </aside>
     </section>
 
     <section class="page-module operating-loop-ledger">
+        <h2 class="eyebrow">Operating loop</h2>
         <div class="module-heading-row">
-            <p class="eyebrow">Operating loop</p>
             <p class="page-caption">
                 The product is the loop, not a single assistant.
             </p>
         </div>
         <div class="loop-diagram">
             {
-                loopSteps.map((step: string, index: number) => (
+                loopSteps.map((step, index) => (
                     <>
                         <div class="loop-step">{step}</div>
                         {index < loopSteps.length - 1 && (
@@ -221,30 +290,7 @@ const trustItems: string[] = [
         </div>
     </section>
 
-    <section class="page-grid-two compare-open-grid">
-        <article class="page-module compare-open-block mode-card">
-            <p class="eyebrow">Interactive mode</p>
-            <h2>Think live.</h2>
-            <p>
-                Interactive sessions are where work takes shape. They clarify
-                scope, test assumptions, search the right context, and tighten
-                the brief until the task is safe to hand off.
-            </p>
-        </article>
-        <article
-            class="page-module compare-open-block compare-open-block-soft mode-card mode-card-firm"
-        >
-            <p class="eyebrow">Dispatch mode</p>
-            <h2>Execute asynchronously.</h2>
-            <p>
-                Dispatch takes on work that is already bounded well enough to
-                run in the background. The result comes back as a PR, artifact,
-                or report that can be reviewed at the right moment.
-            </p>
-        </article>
-    </section>
-
-    <section class="page-module">
+    <section class="page-module stack-module">
         <div class="module-heading-row">
             <div>
                 <p class="eyebrow">Built from durable primitives</p>
@@ -261,7 +307,7 @@ const trustItems: string[] = [
             {
                 layerItems.map((item) => (
                     <div class="layer-stack__item">
-                        <p class="layer-stack__label">{item.label}</p>
+                        <h3 class="layer-stack__label">{item.label}</h3>
                         <p>{item.body}</p>
                     </div>
                 ))
@@ -271,7 +317,7 @@ const trustItems: string[] = [
 
     <section class="page-grid-two page-grid-two-wide-right">
         <article class="page-module">
-            <p class="eyebrow">Why it matters</p>
+            <h2 class="eyebrow">Why it matters</h2>
             <h2 class="page-section-title">A system that compounds</h2>
             <p>
                 Useful context should accumulate instead of dissolving into

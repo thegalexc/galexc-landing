@@ -19,6 +19,21 @@ const doctrine = [
         'Each page should look arranged for its subject.',
     ],
 ];
+
+const contrast = {
+    dashboard: [
+        'Dense panes and constant controls',
+        'Urgent prompts competing for attention',
+        'Little room for notes or hierarchy to breathe',
+    ],
+    editorial: [
+        'Quiet hierarchy and readable measures',
+        'Room for notes, context, and pause',
+        'Accent only where attention is earned',
+    ],
+};
+
+const anchoredDoctrine = doctrine.slice(0, 4);
 ---
 
 <div class="essay-page design-page">
@@ -33,27 +48,21 @@ const doctrine = [
         <DesignProofPlate />
     </section>
 
-    <section class="page-grid-two compare-open-grid design-compare-grid">
-        <article
-            class="page-module compare-open-block compare-panel compare-panel-dense"
-        >
+    <section class="page-grid-two page-grid-two-wide-left design-proof-grid">
+        <article class="page-module design-proof-card design-proof-card-dense">
             <p class="eyebrow">Dashboard instinct</p>
+            <h2 class="design-proof-card__title">Busy by default</h2>
             <ul>
-                <li>Dense panes</li>
-                <li>Constant controls</li>
-                <li>Urgent prompts</li>
-                <li>Interface churn</li>
+                {contrast.dashboard.map((item) => <li>{item}</li>)}
             </ul>
         </article>
-        <article
-            class="page-module compare-open-block compare-open-block-soft compare-panel"
-        >
-            <p class="eyebrow">Editorial instinct</p>
+        <article class="page-module design-proof-card design-proof-card-open">
+            <p class="eyebrow">Authored surface</p>
+            <h2 class="design-proof-card__title">
+                Composed enough to think inside
+            </h2>
             <ul>
-                <li>Quiet hierarchy</li>
-                <li>Readable measures</li>
-                <li>Room for notes</li>
-                <li>Emphasis only where it matters</li>
+                {contrast.editorial.map((item) => <li>{item}</li>)}
             </ul>
         </article>
     </section>
@@ -122,12 +131,12 @@ const doctrine = [
                 without noise. The interface should feel kept, not consumed.
             </p>
         </article>
-        <aside class="page-module content-aside doctrine-grid">
+        <aside class="page-module content-aside doctrine-notes">
             <p class="eyebrow">Visual doctrine</p>
             {
-                doctrine.map(([title, body]) => (
-                    <div class="doctrine-grid__item">
-                        <p class="doctrine-grid__title">{title}</p>
+                anchoredDoctrine.map(([title, body]) => (
+                    <div class="doctrine-notes__item">
+                        <p class="doctrine-notes__title">{title}</p>
                         <p>{body}</p>
                     </div>
                 ))

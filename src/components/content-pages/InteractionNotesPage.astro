@@ -11,7 +11,36 @@ const lexicon = [
     ['Settle', 'The last beat should be stillness, not momentum.'],
 ];
 
-const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
+const rhythm = [
+    ['Still', 'A closed surface should already feel composed.'],
+    ['Invite', 'The trigger suggests depth without forcing it.'],
+    ['Open', 'Motion stays near its origin and remains legible.'],
+    ['Settle', 'Animation ends in a stable readable state.'],
+    ['Hold', 'The interface stops speaking and hands control back.'],
+];
+
+const motionLedger = [
+    ['Trigger', 'A single clear control should begin the reveal.'],
+    ['Motion origin', 'The panel should open close to where intent began.'],
+    ['Duration', 'Long enough to read, short enough to avoid theatrics.'],
+    ['Easing', 'Soften the arrival and remove any snap.'],
+    [
+        'Settle state',
+        'The end state should look like it belonged there all along.',
+    ],
+    ['Close behavior', 'Reversibility should stay obvious and low-friction.'],
+];
+
+const specimens = [
+    {
+        tone: 'Do',
+        body: 'Reveal downward from the trigger, keep the seam visible, and let the panel settle into the page.',
+    },
+    {
+        tone: "Don't",
+        body: 'Do not launch content from off-canvas, overshoot the target, or keep motion alive after the state is clear.',
+    },
+];
 ---
 
 <div class="essay-page interaction-page">
@@ -37,49 +66,53 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
         <InteractionSeamStudy />
     </section>
 
+    <section
+        class="page-grid-two page-grid-two-wide-right interaction-specimen-grid"
+    >
+        <article class="page-module interaction-ledger-card">
+            <p class="eyebrow">Interaction ledger</p>
+            <div class="interaction-ledger">
+                {
+                    motionLedger.map(([title, body]) => (
+                        <div class="interaction-ledger__item">
+                            <p class="interaction-ledger__title">{title}</p>
+                            <p>{body}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </article>
+        <aside class="page-module content-aside interaction-do-dont">
+            <p class="eyebrow">Do / don't</p>
+            {
+                specimens.map((item) => (
+                    <div
+                        class:list={[
+                            'interaction-do-dont__item',
+                            item.tone === 'Do' &&
+                                'interaction-do-dont__item-good',
+                        ]}
+                    >
+                        <p class="interaction-do-dont__tone">{item.tone}</p>
+                        <p>{item.body}</p>
+                    </div>
+                ))
+            }
+        </aside>
+    </section>
+
     <section class="page-module rhythm-strip-card rhythm-strip-open">
         <p class="eyebrow">Pacing</p>
-        <div class="rhythm-line">
+        <div class="rhythm-line rhythm-line--annotated">
             {
-                rhythm.map((item) => (
+                rhythm.map(([item, note]) => (
                     <div class="rhythm-line__item">
                         <span class="rhythm-line__dot" />
                         <p>{item}</p>
+                        <span class="rhythm-line__note">{note}</span>
                     </div>
                 ))
             }
         </div>
-    </section>
-
-    <section class="essay-sections">
-        <article class="essay-sections__item">
-            <h2>Reveal is the primary verb</h2>
-            <p>
-                Information should feel uncovered rather than dropped onto the
-                page. That is why the request-access interaction unfolds
-                downward from its trigger instead of arriving from somewhere
-                off-canvas. Motion stays near its origin, so state change
-                remains legible.
-            </p>
-        </article>
-        <article class="essay-sections__item">
-            <h2>Disclosure keeps control visible</h2>
-            <p>
-                Nothing important should arrive as a surprise. The operator
-                should understand what opened, why it opened, and how to close
-                it again. Indicator rotation, visible seams, and reversible
-                state changes do more for trust than flashy transitions ever
-                will.
-            </p>
-        </article>
-        <article class="essay-sections__item">
-            <h2>The final beat is stillness</h2>
-            <p>
-                A confident interface does not fidget. After the reveal, the
-                page should settle and hold. That pause is part of the product
-                posture. It tells the operator that the system has finished
-                speaking and handed control back.
-            </p>
-        </article>
     </section>
 </div>

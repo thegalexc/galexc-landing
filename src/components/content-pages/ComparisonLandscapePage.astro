@@ -2,34 +2,52 @@
 import ComparisonConstellationMap from '../graphics/ComparisonConstellationMap.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const cards = [
-    [
-        'GalexC',
-        'Best understood as a personal operating environment for shaping, dispatch, review, and durable memory.',
-    ],
-    [
-        'Claude Code',
-        'Best understood as a powerful coding harness centered on an active repo session.',
-    ],
-    [
-        'Hermes',
-        'Optimizes for flexible skill-driven behavior and broader agentic autonomy.',
-    ],
-    ['OpenClaw', 'Represents a more open, hackable, autonomy-forward posture.'],
+const adjacentTools = [
+    {
+        name: 'Claude Code',
+        optimizesFor: 'Fast interactive coding inside an active repo session.',
+        givesUp:
+            'Broader durable operating environment and long-running personal system posture.',
+    },
+    {
+        name: 'Hermes',
+        optimizesFor:
+            'Flexible skill-driven behavior and wider agentic autonomy.',
+        givesUp:
+            'The same emphasis on bounded operator review as the product center.',
+    },
+    {
+        name: 'OpenClaw',
+        optimizesFor: 'Hackable autonomy-forward experimentation.',
+        givesUp: 'A warmer, more governed day-to-day working environment.',
+    },
 ];
 
 const workflow = [
-    ['Shape', 'Define the work before anything runs.'],
-    ['Dispatch', 'Send only what is bounded enough to trust.'],
-    ['Review', 'Return through a PR or artifact with receipts.'],
-    ['Keep', 'Store the useful result as durable context.'],
+    ['01', 'Shape', 'Define the work before anything runs.'],
+    ['02', 'Dispatch', 'Send only what is bounded enough to trust.'],
+    ['03', 'Review', 'Return through a PR or artifact with receipts.'],
+    ['04', 'Keep', 'Store the useful result as durable context.'],
 ];
+
+const fit = {
+    best: [
+        'You want an operator-owned environment rather than a single agent surface',
+        'You care about routing, review, and memory as much as raw execution',
+        'You want a personal AI system that can become more your own over time',
+    ],
+    notFor: [
+        'You only want the fastest possible one-session coding loop',
+        'You want unbounded autonomy to roam without an explicit review surface',
+        'You want a generic SaaS copilot more than an owned system',
+    ],
+};
 ---
 
 <div class="essay-page comparison-page">
     <ContentPageHero
-        eyebrow="Comparisons / Comparison landscape"
-        title="Where GalexC sits in the agent landscape."
+        eyebrow="Comparisons"
+        title="Comparison Landscape"
         lede="GalexC overlaps with coding agents, autonomous harnesses, and other emerging AI systems, but it is not trying to be a generic assistant or a pure autonomy play. The point is a durable personal operating environment: operator-owned, reviewable, and built for real ongoing work."
     >
         <div slot="aside" class="page-module content-aside compact-callout">
@@ -39,7 +57,7 @@ const workflow = [
     </ContentPageHero>
 
     <section class="page-module specimen-frame">
-        <p class="eyebrow">Landscape axes</p>
+        <h2 class="eyebrow">Landscape axes</h2>
         <ComparisonConstellationMap />
         <p class="page-caption">
             Left to right: single-session coding tool to durable operating
@@ -48,24 +66,71 @@ const workflow = [
         </p>
     </section>
 
-    <section class="comparison-cards comparison-open-grid">
-        {
-            cards.map(([title, body]) => (
-                <article class="page-module comparison-open-card comparison-card">
-                    <p class="eyebrow">Reference point</p>
-                    <h2>{title}</h2>
-                    <p>{body}</p>
-                </article>
-            ))
-        }
+    <section
+        class="page-grid-two page-grid-two-wide-left comparison-posture-grid"
+    >
+        <article
+            class="page-module comparison-posture comparison-posture--galexc"
+        >
+            <p class="eyebrow">GalexC posture</p>
+            <h2>Personal operating environment</h2>
+            <p>
+                GalexC is strongest when the problem is not merely executing one
+                task, but building a durable relationship between shaping,
+                dispatch, review, and retained knowledge.
+            </p>
+            <div class="comparison-posture__split">
+                <div>
+                    <strong>Optimizes for</strong>
+                    <p>
+                        Ownership, bounded execution, reviewable outputs, and a
+                        system that compounds over time.
+                    </p>
+                </div>
+                <div>
+                    <strong>Gives up</strong>
+                    <p>
+                        Some of the immediacy and simplicity of a narrower,
+                        single-surface tool.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <aside class="page-module content-aside comparison-ledger">
+            <p class="eyebrow">Adjacent tools</p>
+            {
+                adjacentTools.map((tool) => (
+                    <div class="comparison-ledger__item">
+                        <p class="comparison-ledger__name">{tool.name}</p>
+                        <p>
+                            <strong>Optimizes for:</strong> {tool.optimizesFor}
+                        </p>
+                        <p>
+                            <strong>Gives up:</strong> {tool.givesUp}
+                        </p>
+                    </div>
+                ))
+            }
+        </aside>
     </section>
 
     <section class="page-module comparison-workflow-card workflow-ledger-card">
-        <p class="eyebrow">Workflow shape</p>
-        <div class="comparison-workflow-list">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Workflow shape</p>
+                <h2 class="page-section-title">Method over feature matrix</h2>
+            </div>
+            <p class="page-caption">
+                The distinction becomes clearest once the work has to come back
+                through review.
+            </p>
+        </div>
+        <div class="comparison-sequence">
             {
-                workflow.map(([title, body]) => (
-                    <div class="comparison-workflow-list__item">
+                workflow.map(([code, title, body]) => (
+                    <div class="comparison-sequence__item">
+                        <span class="comparison-sequence__code">{code}</span>
                         <strong>{title}</strong>
                         <p>{body}</p>
                     </div>
@@ -74,23 +139,20 @@ const workflow = [
         </div>
     </section>
 
-    <section class="page-grid-two">
-        <article class="page-module content-aside boundary-split">
-            <p class="eyebrow">What GalexC is not</p>
+    <section class="page-grid-two compare-open-grid">
+        <article class="page-module boundary-split comparison-fit-card">
+            <p class="eyebrow">Best fit</p>
             <ul>
-                <li>Not just a chat shell with extra tools</li>
-                <li>Not a generic SaaS copilot</li>
-                <li>Not an agents-gone-wild framework</li>
+                {fit.best.map((item) => <li>{item}</li>)}
             </ul>
         </article>
-        <article class="page-module">
-            <p class="eyebrow">Why the distinction matters</p>
-            <p>
-                If you want the fastest path to one interactive coding loop,
-                other tools may be a more natural fit. If you want an
-                operator-owned environment for shaping, execution, memory, and
-                review, GalexC is aiming at that territory on purpose.
-            </p>
+        <article
+            class="page-module boundary-split comparison-fit-card comparison-fit-card-soft"
+        >
+            <p class="eyebrow">Not for</p>
+            <ul>
+                {fit.notFor.map((item) => <li>{item}</li>)}
+            </ul>
         </article>
     </section>
 </div>

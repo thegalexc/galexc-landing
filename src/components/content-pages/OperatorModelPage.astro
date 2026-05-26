@@ -32,34 +32,48 @@ const ledger = [
     },
 ];
 
-const decisionSides = {
-    interactive: [
-        'You are still learning what works for you',
-        'The workflow or interface is still being shaped',
-        'You need live judgment, experimentation, or taste',
-    ],
-    dispatch: [
-        'Scope is clear enough to bound',
-        'The result can come back through a review surface',
-        'You want your AI to carry real maintenance or execution work in the background',
-    ],
-};
-
-const services = [
-    'Tasks',
-    'Dispatch',
-    'Scheduled jobs',
-    'Pi workstation',
-    'Intercom',
-    'Parley',
-    'Notifications',
+const decisionRows = [
+    {
+        mode: 'Stay in session',
+        useWhen:
+            'You are still shaping the work, testing assumptions, or using taste and judgment live.',
+        returnSurface: 'The active session itself',
+        output: 'A tighter brief, clearer constraints, or a direct edit',
+    },
+    {
+        mode: 'Dispatch it',
+        useWhen:
+            'The task is bounded enough to run unattended and come back through review.',
+        returnSurface: 'A PR, artifact, or structured report',
+        output: 'Background execution with receipts and a review surface',
+    },
 ];
+
+const serviceGroups = [
+    {
+        title: 'Planning',
+        items: ['Tasks', 'Pi workstation'],
+    },
+    {
+        title: 'Execution',
+        items: ['Dispatch', 'Intercom'],
+    },
+    {
+        title: 'Upkeep',
+        items: ['Scheduled jobs', 'Notifications'],
+    },
+    {
+        title: 'Inheritance',
+        items: ['Parley'],
+    },
+];
+
 const flowSteps = [
-    ['01', 'Seed establishes the base'],
-    ['02', 'Operator learns by using it'],
-    ['03', 'AI helps shape a working cadence'],
-    ['04', 'Async work and upkeep become routine'],
-    ['05', 'The fork becomes truly yours'],
+    ['01', 'Seed the base', 'Start from a working system, not a blank shell.'],
+    ['02', 'Shape live', 'Use the session to clarify scope and standards.'],
+    ['03', 'Run bounded work', 'Dispatch only what can return cleanly.'],
+    ['04', 'Review the return', 'Accept, reject, or revise with receipts.'],
+    ['05', 'Keep the learning', 'Let useful methods and context compound.'],
 ];
 ---
 
@@ -115,34 +129,61 @@ const flowSteps = [
     </section>
 
     <section class="page-module flow-band flow-band-timeline flow-band-open">
-        <p class="eyebrow">Control flow</p>
-        <div class="flow-timeline">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Control flow</p>
+                <h2 class="page-section-title">How the cadence settles</h2>
+            </div>
+        </div>
+        <div class="flow-timeline flow-timeline--procedural">
             {
-                flowSteps.map(([code, label]) => (
+                flowSteps.map(([code, label, body]) => (
                     <div class="flow-timeline__item">
                         <span class="flow-timeline__code">{code}</span>
-                        <p>{label}</p>
+                        <p class="flow-timeline__title">{label}</p>
+                        <p>{body}</p>
                     </div>
                 ))
             }
         </div>
     </section>
 
-    <section class="page-grid-two compare-open-grid">
-        <article class="page-module compare-open-block threshold-card">
-            <p class="eyebrow">Keep it interactive</p>
-            <ul>
-                {decisionSides.interactive.map((item) => <li>{item}</li>)}
-            </ul>
-        </article>
-        <article
-            class="page-module compare-open-block compare-open-block-soft threshold-card threshold-card-firm"
-        >
-            <p class="eyebrow">Dispatch it</p>
-            <ul>
-                {decisionSides.dispatch.map((item) => <li>{item}</li>)}
-            </ul>
-        </article>
+    <section class="page-module operator-decision-ledger">
+        <div class="module-heading-row">
+            <div>
+                <p class="eyebrow">Routing decision</p>
+                <h2 class="page-section-title">
+                    When to stay live, when to dispatch
+                </h2>
+            </div>
+            <p class="page-caption">
+                The real operating habit is choosing the right execution mode.
+            </p>
+        </div>
+        <div class="operator-decision-table">
+            <div class="operator-decision-table__header">Mode</div>
+            <div class="operator-decision-table__header">Use when</div>
+            <div class="operator-decision-table__header">Returns through</div>
+            <div class="operator-decision-table__header">Likely output</div>
+            {
+                decisionRows.map((row) => (
+                    <>
+                        <div class="operator-decision-table__cell operator-decision-table__cell--mode">
+                            {row.mode}
+                        </div>
+                        <div class="operator-decision-table__cell">
+                            {row.useWhen}
+                        </div>
+                        <div class="operator-decision-table__cell">
+                            {row.returnSurface}
+                        </div>
+                        <div class="operator-decision-table__cell">
+                            {row.output}
+                        </div>
+                    </>
+                ))
+            }
+        </div>
     </section>
 
     <section class="page-grid-two page-grid-two-wide-right">
@@ -160,10 +201,21 @@ const flowSteps = [
         </article>
         <aside class="page-module content-aside service-capsules">
             <p class="eyebrow">Substrate services</p>
-            <div class="service-list-grid">
+            <div class="operator-service-groups">
                 {
-                    services.map((item) => (
-                        <div class="service-list-grid__item">{item}</div>
+                    serviceGroups.map((group) => (
+                        <div class="operator-service-groups__item">
+                            <p class="operator-service-groups__title">
+                                {group.title}
+                            </p>
+                            <div class="service-list-grid service-list-grid--stacked">
+                                {group.items.map((item) => (
+                                    <div class="service-list-grid__item">
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     ))
                 }
             </div>
