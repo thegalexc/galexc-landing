@@ -16,41 +16,46 @@ const objectives = [
     />
 
     <section class="page-module manifesto-prose manifesto-prose--intro">
-        <div class="manifesto-intro-split">
-            <div class="manifesto-intro-split__prose">
-                <p>
-                    I wasn't alive when the <a
-                        href="https://en.wikipedia.org/wiki/Whole_Earth_Catalog?utm_source=galexc"
-                        target="_blank"
-                        rel="noreferrer">Whole Earth Catalog</a
-                    > was in print. I honestly had no idea what it even was until
-                    very recently and although I had likely heard the quote <em
-                        >Stay hungry. Stay foolish.</em
-                    >, it definitely wasn't a meaningful quote in my life. That
-                    has changed for me in a pretty radical way over the last few
-                    years. I went so far as to seek out the Whole Earth Epilog,
-                    an original copy of which now hangs framed in my office. I
-                    look at it most days, and it makes me happy every time I do.
-                </p>
-            </div>
+        <p>
+            I wasn't alive when the <a
+                href="https://en.wikipedia.org/wiki/Whole_Earth_Catalog?utm_source=galexc"
+                target="_blank"
+                rel="noreferrer">Whole Earth Catalog</a
+            > was in print and I honestly had no idea what it was until a few years
+            ago. For whatever reason, I am struck by its <a
+                href="https://en.wikipedia.org/wiki/Whole_Earth_Catalog#/media/File:WEC-69F-C.jpg"
+                target="_blank"
+                rel="noreferrer">ethos</a
+            > (as I understand it) and I often remind myself to try staying hungry
+            and foolish. In today's technical landscape, however, this can easily
+            push you towards endless acceleration — so I try to hold this against
+            the <a
+                href="https://longnow.org?utm_source=galexc"
+                target="_blank"
+                rel="noreferrer">Long Now's</a
+            > much longer view, and ask whether what I'm building will still matter
+            in decades, not just this week. I'm not entirely what what will.
+        </p>
 
-            <figure
-                class="manifesto-inline-artifact manifesto-inline-artifact--intro"
+        <figure
+            class="manifesto-inline-artifact manifesto-inline-artifact--intro mx-auto my-[1.8rem] xs:mx-[1.8rem]"
+        >
+            <button
+                class="manifesto-inline-artifact__trigger"
+                type="button"
+                data-manifesto-lightbox-open
+                aria-label="Expand Whole Earth Epilog image"
             >
-                <button
-                    class="manifesto-inline-artifact__trigger"
-                    type="button"
-                    data-manifesto-lightbox-open
-                    aria-label="Expand Whole Earth Epilog image"
-                >
-                    <img
-                        src="/stay-hungry-stay-foolish.png"
-                        alt="Stay hungry. Stay foolish. image from Gilman's framed Whole Earth Epilog"
-                    />
-                </button>
-                <figcaption>Exhibit 01</figcaption>
-            </figure>
-        </div>
+                <img
+                    src="/stay-hungry-stay-foolish.png"
+                    alt="Stay hungry. Stay foolish. image from Gilman's framed Whole Earth Epilog"
+                />
+            </button>
+            <figcaption>
+                Exhibit 01 - An original copy of the Whole Earth Epilog in my
+                office, which provides a meaningful reminder for me.
+            </figcaption>
+        </figure>
 
         <dialog class="manifesto-lightbox" data-manifesto-lightbox>
             <button
@@ -97,15 +102,29 @@ const objectives = [
         </script>
 
         <p>
-            That is what GalexC is to me. I was inspired by the incredible work
-            Kyle Jensen was sharing with me through KyleOps, his personal AI.
-            The level of clarity and depth across a complex, clearly evolving
-            system was unlike anything I had ever seen before. Explaining
-            complex DevOps concepts and setups is seriously challenging, and
-            KyleOps cranked it out in a few minutes with an extremely cogent,
-            actionable, helpful summary. Magic.
+            I've seen several incredible innovations in the last ~15 years of
+            deploying machine learning into professional-grade products
+            (Tensorflow, anyone? Serverless compute?). That said, LLMs have
+            unlocked a step-change in capabilities unlike anything I've
+            personally experienced. As one should, I turn to my nerd friends,
+            mentors, colleagues and communities like <a
+                href="https://agentcribs.com/"
+                target="_blank"
+                rel="noreferrer">Agent Cribs</a
+            > to try navigating this wacky, ever-changing world.
         </p>
 
+        <p>
+            A few months ago I had an incredible experience that changed the
+            trajectory of my AI-journey. My friend, Kyle, had his AI, KyleOps,
+            share an overview of what they had been building. The level of
+            clarity and depth across a complex, evolving system was unlike
+            anything I had ever seen before. Trying to explain complex DevOps
+            concepts and setups is seriously challenging in the best of
+            times...KyleOps cranked it out in a few minutes with an extremely
+            cogent, actionable, helpful summary. It was truly inspiring. The
+            moment I saw that, I felt compelled to just start building.
+        </p>
         <p>
             As an homage to the Whole Earth Catalog, which had a simple yet
             expansive description
@@ -137,9 +156,11 @@ const objectives = [
     <hr class="manifesto-divider" />
 
     <section class="page-module manifesto-prose manifesto-prose--practical">
-        <p class="eyebrow">Professional-Grade Personal AI</p>
+        <p class="eyebrow manifesto-section-label">
+            Professional-Grade Personal AI
+        </p>
 
-        <p>On a practical level:</p>
+        <p class="manifesto-practical-intro">On a practical level:</p>
 
         <blockquote class="manifesto-quote manifesto-quote-strong">
             <p>GalexC is Professional-Grade Personal AI</p>

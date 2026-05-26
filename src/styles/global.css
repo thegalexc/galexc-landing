@@ -1743,12 +1743,19 @@ a {
 .manifesto-prose {
     position: relative;
     display: grid;
-    gap: 1rem;
+    gap: 1.45rem;
     max-width: 46rem;
 }
 
 .manifesto-prose--intro {
+    display: block;
     padding: 0.3rem 0 0.1rem;
+}
+
+.manifesto-prose--intro::after {
+    content: '';
+    display: block;
+    clear: both;
 }
 
 .manifesto-prose--practical {
@@ -1766,6 +1773,16 @@ a {
     color: #564a3f;
     line-height: 1.8;
     font-size: 1.04rem;
+}
+
+.manifesto-prose > p + p,
+.manifesto-prose > p + blockquote,
+.manifesto-prose > blockquote + p {
+    margin-top: 1.05rem;
+}
+
+.manifesto-prose--intro > figure + dialog + script + p {
+    margin-top: 1.05rem;
 }
 
 .manifesto-prose > .eyebrow {
@@ -1796,34 +1813,19 @@ a {
     );
 }
 
-.manifesto-intro-split {
-    display: grid;
-    gap: 1.15rem;
-    align-items: start;
-}
-
-.manifesto-intro-split__prose {
-    min-width: 0;
-}
-
 @media (min-width: 900px) {
-    .manifesto-intro-split {
-        grid-template-columns: minmax(0, 1fr) minmax(15rem, 17rem);
-        gap: 2.5rem;
-        align-items: start;
-    }
-
     .manifesto-inline-artifact--intro {
-        width: 100%;
-        margin: 0.8rem 0 0;
-        justify-self: end;
+        float: right;
+        width: min(34vw, 16rem);
+        margin-block: 1.8rem;
+        margin-left: 2.35rem;
+        margin-right: 0;
     }
 }
 
 .manifesto-inline-artifact {
     position: relative;
     width: min(56vw, 15rem);
-    margin: 0.35rem auto 1rem;
 }
 
 .manifesto-inline-artifact::before {
@@ -1945,33 +1947,48 @@ a {
 }
 
 .manifesto-quote {
-    margin: 0.2rem 0;
-    padding: 0.35rem 0 0.35rem 1rem;
-    border-left: 1.5px solid rgba(21, 74, 122, 0.28);
+    display: grid;
+    justify-items: center;
+    margin: 0.35rem 0 0.55rem;
+    padding: 0 0 0.85rem;
+    border: 0;
     background: transparent;
-    border-radius: 0;
+}
+
+.manifesto-quote::after {
+    content: '';
+    width: min(10rem, 26%);
+    height: 1px;
+    margin-top: 0.6rem;
+    background: rgba(21, 74, 122, 0.22);
 }
 
 .manifesto-quote-strong {
-    margin: 0.3rem 0 0.1rem;
-    padding: 0.8rem 0 0.55rem 1rem;
-    border-left-width: 2px;
-    border-left-color: rgba(21, 74, 122, 0.38);
-    border-top: 1px solid rgba(120, 113, 108, 0.12);
-    background: transparent;
+    margin: 0.55rem 0 0.25rem;
+    padding-bottom: 1rem;
+    border-top: 0;
+}
+
+.manifesto-quote-strong::after {
+    width: min(12rem, 32%);
+    background: rgba(21, 74, 122, 0.3);
 }
 
 .manifesto-quote p,
 .manifesto-quote-strong p {
     margin: 0;
+    max-width: 18ch;
+    text-align: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.7rem, 3vw, 2.3rem);
-    line-height: 1.05;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    line-height: 1.02;
     color: #2b241d;
+    text-wrap: balance;
 }
 
 .manifesto-quote-strong p {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    max-width: 14ch;
+    font-size: clamp(2rem, 3.2vw, 2.65rem);
 }
 
 .manifesto-objectives {
@@ -2990,7 +3007,7 @@ a {
         transform: translate(-0.2rem, -50%);
     }
     100% {
-        left: calc(100% + 0.9rem);
+        left: calc(100% + 0.34rem);
         transform: translate(-0.21rem, -50%);
     }
 }
@@ -3005,7 +3022,7 @@ a {
     }
 
     .contents-ledger__leader::after {
-        left: calc(100% + 0.9rem);
+        left: calc(100% + 0.34rem);
     }
 }
 

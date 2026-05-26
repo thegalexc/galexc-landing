@@ -1,4 +1,5 @@
 ---
+import DisclosureScript from '../DisclosureScript.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
 const qaItems: Array<{ question: string; answer: string }> = [
@@ -54,21 +55,58 @@ const qaItems: Array<{ question: string; answer: string }> = [
         </p>
 
         <section class="page-module pt-6">
-            <div class="module-heading-row">
+            <div class="module-heading-row q-and-a-ledger__header">
                 <div>
                     <p class="eyebrow">Q&A starters</p>
                 </div>
+                <div class="q-and-a-ledger__bulk-actions">
+                    <button
+                        class="q-and-a-ledger__bulk-toggle"
+                        type="button"
+                        data-q-and-a-expand-all
+                    >
+                        Expand
+                    </button>
+                    <button
+                        class="q-and-a-ledger__bulk-toggle"
+                        type="button"
+                        data-q-and-a-collapse-all
+                    >
+                        Collapse
+                    </button>
+                </div>
             </div>
 
-            <dl class="q-and-a-ledger">
+            <dl class="q-and-a-ledger" data-q-and-a-ledger>
                 {
-                    qaItems.map((item) => (
-                        <div class="q-and-a-ledger__item">
-                            <dt class="q-and-a-ledger__question">
-                                {item.question}
+                    qaItems.map((item, index) => (
+                        <div
+                            class="q-and-a-ledger__item"
+                            data-reveal
+                            data-open="false"
+                        >
+                            <dt>
+                                <button
+                                    class="q-and-a-ledger__trigger"
+                                    type="button"
+                                    aria-expanded="false"
+                                    aria-controls={`what-is-galexc-answer-${index}`}
+                                    data-reveal-trigger
+                                >
+                                    <span class="q-and-a-ledger__question">
+                                        {item.question}
+                                    </span>
+                                </button>
                             </dt>
-                            <dd class="q-and-a-ledger__answer">
-                                {item.answer}
+                            <dd
+                                id={`what-is-galexc-answer-${index}`}
+                                class="q-and-a-ledger__panel"
+                                data-reveal-panel
+                                hidden
+                            >
+                                <div class="q-and-a-ledger__answer">
+                                    {item.answer}
+                                </div>
                             </dd>
                         </div>
                     ))
@@ -85,4 +123,52 @@ const qaItems: Array<{ question: string; answer: string }> = [
             </p>
         </blockquote>
     </section>
+
+    <DisclosureScript />
+
+    <script is:inline>
+        (() => {
+            const ledger = document.querySelector('[data-q-and-a-ledger]');
+            const expandAllButton = document.querySelector(
+                '[data-q-and-a-expand-all]',
+            );
+            const collapseAllButton = document.querySelector(
+                '[data-q-and-a-collapse-all]',
+            );
+            if (
+                !(ledger instanceof HTMLElement) ||
+                !(expandAllButton instanceof HTMLButtonElement) ||
+                !(collapseAllButton instanceof HTMLButtonElement)
+            ) {
+                return;
+            }
+
+            const getItems = () =>
+                Array.from(ledger.querySelectorAll('[data-reveal]')).filter(
+                    (item) => item instanceof HTMLElement,
+                );
+
+            const setAll = (open) => {
+                for (const item of getItems()) {
+                    const trigger = item.querySelector('[data-reveal-trigger]');
+                    const isOpen = item.getAttribute('data-open') === 'true';
+                    if (
+                        !(trigger instanceof HTMLButtonElement) ||
+                        isOpen === open
+                    ) {
+                        continue;
+                    }
+                    trigger.click();
+                }
+            };
+
+            expandAllButton.addEventListener('click', () => {
+                setAll(true);
+            });
+
+            collapseAllButton.addEventListener('click', () => {
+                setAll(false);
+            });
+        })();
+    </script>
 </div>
