@@ -69,9 +69,6 @@ const flowSteps = [
         title="The operator model is meant to become personal."
         lede="GalexC is not only a software stack. It is a way to learn how to work with a personal AI system that you actually own. The seed gives you real structure on day one, but the goal is not to keep everyone on Gilman's preferred setup. The goal is to help you and your AI settle into a cadence that matches your own needs, constraints, and taste."
     >
-        <div slot="artifact" class="page-module">
-            <OperatorOrbitDiagram />
-        </div>
         <div slot="aside" class="page-module content-aside compact-callout">
             <p class="eyebrow">Trust model</p>
             <p>
@@ -80,6 +77,11 @@ const flowSteps = [
             </p>
         </div>
     </ContentPageHero>
+
+    <section class="page-module specimen-frame">
+        <p class="eyebrow">Responsibility map</p>
+        <OperatorOrbitDiagram />
+    </section>
 
     <section class="page-module">
         <div class="module-heading-row">
@@ -93,7 +95,7 @@ const flowSteps = [
         <div class="responsibility-ledger">
             {
                 ledger.map((item) => (
-                    <article class="responsibility-row responsibility-row--pulse">
+                    <article class="responsibility-row">
                         <p class="responsibility-row__actor">{item.actor}</p>
                         <div class="responsibility-row__body">
                             <p>
@@ -114,7 +116,7 @@ const flowSteps = [
 
     <section class="page-module flow-band flow-band-timeline flow-band-open">
         <p class="eyebrow">Control flow</p>
-        <div class="flow-timeline flow-timeline--editorial">
+        <div class="flow-timeline">
             {
                 flowSteps.map(([code, label]) => (
                     <div class="flow-timeline__item">
@@ -158,7 +160,7 @@ const flowSteps = [
         </article>
         <aside class="page-module content-aside service-capsules">
             <p class="eyebrow">Substrate services</p>
-            <div class="service-list-grid service-list-grid--capsules">
+            <div class="service-list-grid">
                 {
                     services.map((item) => (
                         <div class="service-list-grid__item">{item}</div>

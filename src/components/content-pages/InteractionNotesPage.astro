@@ -19,11 +19,7 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
         eyebrow="Principles / Interaction notes"
         title="A calmer interaction language."
         lede="GalexC should not move like a productivity app trying to prove it is alive. It should open, reveal, and settle with the confidence of a well-kept notebook. The clearest current example is the request-access reveal on the landing page."
-    >
-        <div slot="artifact" class="page-module">
-            <InteractionSeamStudy />
-        </div>
-    </ContentPageHero>
+    />
 
     <section class="page-grid-two interaction-glossary-grid glossary-open-grid">
         {
@@ -43,14 +39,11 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
 
     <section class="page-module rhythm-strip-card rhythm-strip-open">
         <p class="eyebrow">Pacing</p>
-        <div class="rhythm-line rhythm-line--editorial">
+        <div class="rhythm-line">
             {
-                rhythm.map((item, index) => (
+                rhythm.map((item) => (
                     <div class="rhythm-line__item">
-                        <span
-                            class="rhythm-line__dot"
-                            style={`--rhythm-delay:${index * 0.6}s;`}
-                        />
+                        <span class="rhythm-line__dot" />
                         <p>{item}</p>
                     </div>
                 ))

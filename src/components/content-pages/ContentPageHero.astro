@@ -8,36 +8,15 @@ interface Props {
 const { eyebrow, title, lede } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 const hasTitleSlot = Astro.slots.has('title');
-const hasArtifact = Astro.slots.has('artifact');
 ---
 
-<section
-    class:list={[
-        'content-page-hero',
-        hasAside && 'content-page-hero--with-aside',
-        hasArtifact && 'content-page-hero--with-artifact',
-    ]}
->
-    <div class="content-page-hero__copy">
+<section class:list={[hasAside ? 'page-hero-note-grid' : 'page-hero-simple']}>
+    <div>
         <p class="eyebrow">{eyebrow}</p>
         <h1 class="page-display-title pt-3 md:pt-4">
             {hasTitleSlot ? <slot name="title" /> : title}
         </h1>
         {lede && <p class="page-lede">{lede}</p>}
     </div>
-
-    {
-        hasArtifact && (
-            <div class="content-page-hero__artifact">
-                <slot name="artifact" />
-            </div>
-        )
-    }
-    {
-        hasAside && (
-            <div class="content-page-hero__aside">
-                <slot name="aside" />
-            </div>
-        )
-    }
+    {hasAside && <slot name="aside" />}
 </section>

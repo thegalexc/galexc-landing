@@ -1,6 +1,5 @@
 ---
 import { env } from 'cloudflare:workers';
-import HomeSignalField from '../components/graphics/HomeSignalField.astro';
 import DisclosureScript from '../components/DisclosureScript.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import Layout from '../layouts/Layout.astro';
@@ -20,95 +19,63 @@ const waitlistOpen = Boolean(waitlistStatus);
 
 <Layout title="GalexC" description="Professional-grade personal AI." noindex>
     <div
-        class="editorial-shell landing-stage px-4 py-8 md:px-6 md:py-12 lg:min-h-screen"
+        class="editorial-shell flex min-h-screen items-center px-4 py-8 md:px-6 md:py-12"
     >
-        <section class="landing-spread">
-            <div class="landing-copy-block">
-                <div
-                    class="landing-hero flex flex-col text-center md:text-left"
+        <section class="mx-auto w-full max-w-4xl rounded-[2rem] p-6 md:p-10">
+            <div class="landing-hero flex flex-col text-center">
+                <p class="eyebrow">GalexC</p>
+                <h1
+                    class="landing-headline text-5xl leading-[0.96] text-stone-950 md:text-6xl"
                 >
-                    <p class="eyebrow">GalexC</p>
-                    <h1
-                        class="landing-headline text-5xl leading-[0.96] text-stone-950 md:text-6xl"
+                    <span class="landing-headline__line"
+                        >Professional-grade</span
                     >
-                        <span class="landing-headline__line"
-                            >Professional-grade</span
+                    <span class="landing-headline__line">personal&nbsp;AI.</span
+                    >
+                </h1>
+            </div>
+
+            <div
+                class="waitlist-reveal waitlist-reveal--duo landing-reveal"
+                data-reveal
+                data-open={waitlistOpen ? 'true' : 'false'}
+            >
+                <div class="landing-actions">
+                    <a
+                        class="landing-actions__link landing-actions__link--explore"
+                        href="/contents"
+                    >
+                        <span class="waitlist-reveal__title">Explore</span>
+                    </a>
+
+                    <button
+                        class="waitlist-reveal__summary"
+                        type="button"
+                        aria-expanded={waitlistOpen ? 'true' : 'false'}
+                        aria-controls="waitlist-panel"
+                        data-reveal-trigger
+                    >
+                        <span class="waitlist-reveal__title"
+                            >Request access</span
                         >
-                        <span class="landing-headline__line"
-                            >personal&nbsp;AI.</span
-                        >
-                    </h1>
-                    <p class="landing-deck">
-                        Built like an owned operating environment, not rented
-                        app furniture.
-                    </p>
+                    </button>
                 </div>
-
                 <div
-                    class="waitlist-reveal waitlist-reveal--duo landing-reveal"
-                    data-reveal
-                    data-open={waitlistOpen ? 'true' : 'false'}
+                    id="waitlist-panel"
+                    class="waitlist-reveal__panel"
+                    data-reveal-panel
+                    hidden={!waitlistOpen}
                 >
-                    <div class="landing-actions" aria-label="Primary actions">
-                        <a
-                            class="landing-actions__link landing-actions__link--explore"
-                            href="/contents"
-                        >
-                            <span class="landing-actions__code">Open</span>
-                            <span class="waitlist-reveal__title"
-                                >Contents ledger</span
-                            >
-                            <span
-                                class="landing-actions__rule"
-                                aria-hidden="true"></span>
-                        </a>
-
-                        <button
-                            class="waitlist-reveal__summary"
-                            type="button"
-                            aria-expanded={waitlistOpen ? 'true' : 'false'}
-                            aria-controls="waitlist-panel"
-                            data-reveal-trigger
-                        >
-                            <span class="landing-actions__code">Request</span>
-                            <span class="waitlist-reveal__title"
-                                >Access to the seed</span
-                            >
-                            <span
-                                class="landing-actions__rule"
-                                aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div
-                        id="waitlist-panel"
-                        class="waitlist-reveal__panel"
-                        data-reveal-panel
-                        hidden={!waitlistOpen}
-                    >
-                        <div class="waitlist-reveal__content">
-                            <WaitlistForm
-                                issuedAt={issuedAt}
-                                formToken={formToken}
-                                siteKey={siteKey}
-                                status={waitlistStatus}
-                                previewMode={previewMode}
-                            />
-                        </div>
+                    <div class="waitlist-reveal__content">
+                        <WaitlistForm
+                            issuedAt={issuedAt}
+                            formToken={formToken}
+                            siteKey={siteKey}
+                            status={waitlistStatus}
+                            previewMode={previewMode}
+                        />
                     </div>
                 </div>
-            </div>
-
-            <div class="landing-graphic-shell">
-                <HomeSignalField />
-            </div>
-
-            <div class="landing-margin-note landing-margin-note--left">
-                <span>Context carried forward</span>
-                <span>Review stays visible</span>
-            </div>
-            <div class="landing-margin-note landing-margin-note--right">
-                <span>Warm surface</span>
-                <span>Bounded execution</span>
             </div>
 
             <DisclosureScript />

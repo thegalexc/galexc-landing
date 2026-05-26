@@ -32,14 +32,21 @@ const workflow = [
         title="Where GalexC sits in the agent landscape."
         lede="GalexC overlaps with coding agents, autonomous harnesses, and other emerging AI systems, but it is not trying to be a generic assistant or a pure autonomy play. The point is a durable personal operating environment: operator-owned, reviewable, and built for real ongoing work."
     >
-        <div slot="artifact" class="page-module">
-            <ComparisonConstellationMap />
-        </div>
         <div slot="aside" class="page-module content-aside compact-callout">
             <p class="eyebrow">Not a scorecard</p>
             <p>Center of gravity, not rankings.</p>
         </div>
     </ContentPageHero>
+
+    <section class="page-module specimen-frame">
+        <p class="eyebrow">Landscape axes</p>
+        <ComparisonConstellationMap />
+        <p class="page-caption">
+            Left to right: single-session coding tool to durable operating
+            environment. Bottom to top: high-delegation autonomy to
+            operator-steered bounded execution.
+        </p>
+    </section>
 
     <section class="comparison-cards comparison-open-grid">
         {
@@ -55,7 +62,7 @@ const workflow = [
 
     <section class="page-module comparison-workflow-card workflow-ledger-card">
         <p class="eyebrow">Workflow shape</p>
-        <div class="comparison-workflow-list comparison-workflow-list--signals">
+        <div class="comparison-workflow-list">
             {
                 workflow.map(([title, body]) => (
                     <div class="comparison-workflow-list__item">
