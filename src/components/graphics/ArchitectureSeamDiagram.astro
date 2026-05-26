@@ -112,7 +112,7 @@ const layers = [
 <style>
     .architecture-seam-diagram {
         position: relative;
-        min-height: 21rem;
+        min-height: 22rem;
         overflow: hidden;
         border-radius: 1.8rem;
         border: 1px solid rgba(120, 113, 108, 0.14);
@@ -181,10 +181,12 @@ const layers = [
     .architecture-seam-diagram__gutter-label,
     .architecture-seam-diagram__side span {
         position: absolute;
+        max-width: 7rem;
         font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.62rem;
-        letter-spacing: 0.16em;
+        font-size: 0.58rem;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
+        line-height: 1.45;
         color: #6f6255;
     }
 
@@ -195,41 +197,45 @@ const layers = [
     }
 
     .architecture-seam-diagram__gutter-label--top {
-        top: 0.95rem;
+        top: 0.8rem;
     }
 
     .architecture-seam-diagram__gutter-label--bottom {
-        bottom: 0.95rem;
+        bottom: 0.8rem;
     }
 
     .architecture-seam-diagram__side--left span:nth-child(1) {
-        left: 1.2rem;
+        left: 1.5rem;
         top: 4rem;
     }
     .architecture-seam-diagram__side--left span:nth-child(2) {
-        left: 1.2rem;
+        left: 1.5rem;
         top: 9rem;
     }
     .architecture-seam-diagram__side--left span:nth-child(3) {
-        left: 1.2rem;
+        left: 1.5rem;
         top: 14rem;
     }
 
     .architecture-seam-diagram__side--right span:nth-child(1) {
-        right: 1.2rem;
-        top: 4.4rem;
+        right: 1.5rem;
+        top: 4.35rem;
+        text-align: right;
     }
     .architecture-seam-diagram__side--right span:nth-child(2) {
-        right: 1.2rem;
-        top: 8.4rem;
+        right: 1.5rem;
+        top: 8.35rem;
+        text-align: right;
     }
     .architecture-seam-diagram__side--right span:nth-child(3) {
-        right: 1.2rem;
-        top: 12.4rem;
+        right: 1.5rem;
+        top: 12.35rem;
+        text-align: right;
     }
     .architecture-seam-diagram__side--right span:nth-child(4) {
-        right: 1.2rem;
-        top: 16.4rem;
+        right: 1.5rem;
+        top: 16.35rem;
+        text-align: right;
     }
 
     @keyframes archPathFlow {

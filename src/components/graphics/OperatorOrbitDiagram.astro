@@ -4,19 +4,19 @@ const stations = [
         title: 'Session',
         detail: 'Live shaping and debugging close to the operator.',
         className: 'operator-orbit-diagram__station--session',
-        style: 'left:52%;top:14%;--x:-50%;--y:0%;',
+        style: 'left:50%;top:12%;--x:-50%;--y:0%;',
     },
     {
         title: 'Dispatch',
         detail: 'Bounded work leaves cleanly and returns with receipts.',
         className: 'operator-orbit-diagram__station--dispatch',
-        style: 'left:12%;top:38%;--x:0%;--y:-50%;',
+        style: 'left:14%;top:40%;--x:0%;--y:-50%;',
     },
     {
         title: 'Seed + services',
         detail: 'Continuity, memory, and maintenance pulse underneath.',
         className: 'operator-orbit-diagram__station--seed',
-        style: 'left:88%;top:68%;--x:-100%;--y:-50%;',
+        style: 'left:84%;top:72%;--x:-100%;--y:-50%;',
     },
 ] as const;
 ---
@@ -65,25 +65,12 @@ const stations = [
             </article>
         ))
     }
-
-    <span
-        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--human"
-    ></span>
-    <span
-        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--session"
-    ></span>
-    <span
-        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--dispatch"
-    ></span>
-    <span
-        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--seed"
-    ></span>
 </div>
 
 <style>
     .operator-orbit-diagram {
         position: relative;
-        min-height: 25rem;
+        min-height: 26rem;
         overflow: hidden;
         border-radius: 2rem;
         border: 1px solid rgba(120, 113, 108, 0.14);
@@ -121,14 +108,14 @@ const stations = [
     }
 
     .operator-orbit-diagram__ring--outer {
-        width: 74%;
-        height: 74%;
+        width: 72%;
+        height: 72%;
         border: 1px solid rgba(120, 113, 108, 0.16);
     }
 
     .operator-orbit-diagram__ring--inner {
-        width: 44%;
-        height: 44%;
+        width: 42%;
+        height: 42%;
         border: 1px dashed rgba(21, 74, 122, 0.22);
         animation: operatorOrbitSpin 26s linear infinite;
     }
@@ -146,29 +133,29 @@ const stations = [
     }
 
     .operator-orbit-diagram__handoff--left {
-        width: 24%;
-        left: 36%;
-        top: 40%;
-        transform: rotate(-18deg);
+        width: 22%;
+        left: 37%;
+        top: 39%;
+        transform: rotate(-14deg);
     }
 
     .operator-orbit-diagram__handoff--right {
-        width: 24%;
-        left: 64%;
-        top: 39%;
+        width: 22%;
+        left: 63%;
+        top: 40%;
         transform: rotate(18deg);
     }
 
     .operator-orbit-diagram__handoff--down {
-        width: 20%;
+        width: 18%;
         left: 50%;
-        top: 63%;
+        top: 64%;
         transform: translate(-50%, -50%) rotate(90deg);
     }
 
     .operator-orbit-diagram__station {
         position: absolute;
-        width: min(10.5rem, calc(100% - 2rem));
+        width: min(10rem, calc(100% - 2rem));
         padding: 0.9rem 1rem;
         border-radius: 1.2rem;
         border: 1px solid rgba(120, 113, 108, 0.14);
@@ -218,103 +205,9 @@ const stations = [
         color: #154a7a;
     }
 
-    .operator-orbit-diagram__particle {
-        position: absolute;
-        display: block;
-        width: 0.6rem;
-        height: 0.6rem;
-        border-radius: 999px;
-        background: #154a7a;
-        box-shadow: 0 0 0 0.32rem rgba(21, 74, 122, 0.08);
-    }
-
-    .operator-orbit-diagram__particle--human {
-        left: calc(50% - 0.3rem);
-        top: 21%;
-        animation: operatorOrbitLoop 11s linear infinite;
-    }
-
-    .operator-orbit-diagram__particle--session {
-        left: 22%;
-        top: 22%;
-        background: #c17a39;
-        animation: operatorSessionDrift 7.4s ease-in-out infinite;
-    }
-
-    .operator-orbit-diagram__particle--dispatch {
-        left: 74%;
-        top: 34%;
-        animation: operatorDispatchRun 8.6s linear infinite;
-    }
-
-    .operator-orbit-diagram__particle--seed {
-        left: 49%;
-        top: 69%;
-        background: #8e5525;
-        animation: operatorSeedPulse 6.8s ease-in-out infinite;
-    }
-
     @keyframes operatorOrbitSpin {
         to {
             transform: translate(-50%, -50%) rotate(360deg);
-        }
-    }
-
-    @keyframes operatorOrbitLoop {
-        0% {
-            transform: translate(0, 0);
-        }
-        24% {
-            transform: translate(8.5rem, 7rem);
-        }
-        50% {
-            transform: translate(0, 15rem);
-        }
-        74% {
-            transform: translate(-8.5rem, 7rem);
-        }
-        100% {
-            transform: translate(0, 0);
-        }
-    }
-
-    @keyframes operatorSessionDrift {
-        0%,
-        100% {
-            transform: translate(0, 0);
-        }
-        50% {
-            transform: translate(1.2rem, 0.7rem);
-        }
-    }
-
-    @keyframes operatorDispatchRun {
-        0% {
-            transform: translate(0, 0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        70% {
-            transform: translate(5rem, -1rem);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(7rem, -1.4rem);
-            opacity: 0;
-        }
-    }
-
-    @keyframes operatorSeedPulse {
-        0%,
-        100% {
-            transform: scale(1);
-            opacity: 0.8;
-        }
-        50% {
-            transform: scale(1.2);
-            opacity: 1;
         }
     }
 
@@ -324,7 +217,7 @@ const stations = [
         }
 
         .operator-orbit-diagram__station {
-            width: min(12rem, calc(100% - 2rem));
+            width: min(10.5rem, calc(100% - 2rem));
         }
 
         .operator-orbit-diagram__station-detail {
@@ -333,8 +226,7 @@ const stations = [
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .operator-orbit-diagram__ring--inner,
-        .operator-orbit-diagram__particle {
+        .operator-orbit-diagram__ring--inner {
             animation: none;
         }
     }

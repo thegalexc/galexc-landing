@@ -3,25 +3,25 @@ const points = [
     {
         title: 'GalexC',
         note: 'Owned operating environment',
-        style: 'left:72%;top:24%;',
+        style: 'left:76%;top:20%;',
         tone: 'comparison-constellation-map__point--blue',
     },
     {
         title: 'Claude Code',
         note: 'Single-session coding harness',
-        style: 'left:22%;top:58%;',
+        style: 'left:24%;top:56%;',
         tone: 'comparison-constellation-map__point--ink',
     },
     {
         title: 'Hermes',
         note: 'More autonomy-forward',
-        style: 'left:46%;top:74%;',
+        style: 'left:47%;top:78%;',
         tone: 'comparison-constellation-map__point--warm',
     },
     {
         title: 'OpenClaw',
         note: 'Open-ended autonomy stack',
-        style: 'left:58%;top:60%;',
+        style: 'left:60%;top:58%;',
         tone: 'comparison-constellation-map__point--warm',
     },
 ] as const;
@@ -48,11 +48,25 @@ const points = [
         class="comparison-constellation-map__region comparison-constellation-map__region--autonomy"
     >
     </div>
-    <div class="comparison-constellation-map__trajectory"></div>
-    <div
-        class="comparison-constellation-map__trajectory comparison-constellation-map__trajectory--galexc"
+    <svg
+        class="comparison-constellation-map__connectors"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
     >
-    </div>
+        <polyline
+            class="comparison-constellation-map__connector comparison-constellation-map__connector--warm"
+            points="24,56 47,78 60,58"></polyline>
+        <polyline
+            class="comparison-constellation-map__connector comparison-constellation-map__connector--blue"
+            points="60,58 76,20"></polyline>
+        <line
+            class="comparison-constellation-map__connector comparison-constellation-map__connector--ink"
+            x1="24"
+            y1="56"
+            x2="24"
+            y2="16"></line>
+    </svg>
 
     {
         points.map((point, index) => (
@@ -92,7 +106,7 @@ const points = [
 <style>
     .comparison-constellation-map {
         position: relative;
-        min-height: 22rem;
+        min-height: 25rem;
         overflow: hidden;
         border-radius: 1.6rem;
         border: 1px solid rgba(120, 113, 108, 0.14);
@@ -116,13 +130,13 @@ const points = [
 
     .comparison-constellation-map__axis,
     .comparison-constellation-map__region,
-    .comparison-constellation-map__trajectory {
+    .comparison-constellation-map__connectors {
         position: absolute;
     }
 
     .comparison-constellation-map__axis--x {
-        left: 12%;
-        right: 8%;
+        left: 17%;
+        right: 9%;
         bottom: 16%;
         height: 1px;
         background: rgba(21, 74, 122, 0.24);
@@ -131,7 +145,7 @@ const points = [
     .comparison-constellation-map__axis--y {
         top: 10%;
         bottom: 12%;
-        left: 17%;
+        left: 21%;
         width: 1px;
         background: rgba(21, 74, 122, 0.24);
     }
@@ -143,54 +157,54 @@ const points = [
     }
 
     .comparison-constellation-map__region--galexc {
-        right: 7%;
-        top: 10%;
-        width: 30%;
-        height: 38%;
+        right: 8%;
+        top: 8%;
+        width: 27%;
+        height: 34%;
         background: rgba(21, 74, 122, 0.24);
     }
 
     .comparison-constellation-map__region--autonomy {
-        left: 24%;
-        bottom: 10%;
-        width: 22%;
-        height: 22%;
+        left: 30%;
+        bottom: 8%;
+        width: 18%;
+        height: 18%;
         background: rgba(193, 122, 57, 0.12);
     }
 
-    .comparison-constellation-map__trajectory {
-        left: 33%;
-        top: 54%;
-        width: 26%;
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            rgba(193, 122, 57, 0),
-            rgba(193, 122, 57, 0.42),
-            rgba(193, 122, 57, 0)
-        );
-        transform: rotate(22deg);
+    .comparison-constellation-map__connectors {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
     }
 
-    .comparison-constellation-map__trajectory--galexc {
-        left: 59%;
-        top: 34%;
-        width: 18%;
-        background: linear-gradient(
-            90deg,
-            rgba(21, 74, 122, 0),
-            rgba(21, 74, 122, 0.58),
-            rgba(21, 74, 122, 0)
-        );
-        transform: rotate(-34deg);
+    .comparison-constellation-map__connector {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 0.18;
+        opacity: 0.72;
+    }
+
+    .comparison-constellation-map__connector--warm {
+        stroke: rgba(193, 122, 57, 0.56);
+    }
+
+    .comparison-constellation-map__connector--blue {
+        stroke: rgba(21, 74, 122, 0.62);
+    }
+
+    .comparison-constellation-map__connector--ink {
+        stroke: rgba(120, 113, 108, 0.38);
     }
 
     .comparison-constellation-map__point {
         position: absolute;
         display: grid;
         gap: 0.16rem;
-        max-width: 10.5rem;
-        padding: 0.8rem 0.85rem;
+        max-width: 10.25rem;
+        padding: 0.8rem 0.9rem;
         border-radius: 1rem;
         border: 1px solid rgba(120, 113, 108, 0.16);
         background: rgba(255, 252, 247, 0.82);
@@ -222,7 +236,7 @@ const points = [
         border-color: rgba(21, 74, 122, 0.22);
         box-shadow:
             0 16px 30px rgba(88, 64, 34, 0.1),
-            0 0 0 0.45rem rgba(21, 74, 122, 0.06);
+            0 0 0 0.3rem rgba(21, 74, 122, 0.05);
     }
 
     .comparison-constellation-map__point--blue
@@ -262,25 +276,27 @@ const points = [
     }
 
     .comparison-constellation-map__label--x-start {
-        left: 12%;
-        bottom: 0.9rem;
+        left: 17%;
+        bottom: 1rem;
     }
     .comparison-constellation-map__label--x-end {
-        right: 1rem;
-        bottom: 0.9rem;
+        right: 1.35rem;
+        bottom: 1rem;
         text-align: right;
     }
     .comparison-constellation-map__label--y-start {
-        left: 0.5rem;
-        bottom: 4.4rem;
-        transform: rotate(-90deg);
-        transform-origin: left bottom;
+        left: 3.1%;
+        bottom: 18%;
+        font-size: 0.54rem;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
     }
     .comparison-constellation-map__label--y-end {
-        left: 0.5rem;
-        top: 3rem;
-        transform: rotate(-90deg);
-        transform-origin: left top;
+        left: 3.1%;
+        top: 10%;
+        font-size: 0.54rem;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
     }
 
     @keyframes comparisonGalexcPulse {
@@ -307,7 +323,17 @@ const points = [
 
     @media (max-width: 767px) {
         .comparison-constellation-map {
-            min-height: 24rem;
+            min-height: 25rem;
+        }
+
+        .comparison-constellation-map__point {
+            max-width: 9rem;
+            padding: 0.72rem 0.78rem;
+        }
+
+        .comparison-constellation-map__point span:last-child {
+            font-size: 0.8rem;
+            line-height: 1.4;
         }
 
         .comparison-constellation-map__label--y-start,
