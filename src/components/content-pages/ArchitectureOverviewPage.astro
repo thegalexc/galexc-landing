@@ -1,4 +1,5 @@
 ---
+import ArchitectureSeamDiagram from '../graphics/ArchitectureSeamDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
 const facts = ['Seed first', 'Replace any layer', 'Fork and own it'];
@@ -49,16 +50,7 @@ const sequence = [
     'Own the system',
 ];
 
-const loopSteps: string[] = [
-    'Define work',
-    'Route context',
-    'Choose workflow',
-    'Run in the right mode',
-    'Review output',
-    'Keep what matters',
-];
-
-const layerItems: Array<{ label: string; body: string }> = [
+const layerItems = [
     {
         label: 'Repos',
         body: 'Source material that matters. Real files, real history, real ownership.',
@@ -81,7 +73,7 @@ const layerItems: Array<{ label: string; body: string }> = [
     },
 ];
 
-const trustItems: string[] = [
+const trustItems = [
     'Bounded execution over vague autonomy',
     'Search before browse',
     'Reviewable outputs only',
@@ -96,6 +88,9 @@ const trustItems: string[] = [
         title="How GalexC is arranged"
         lede="GalexC begins with a seed system. Today that is galexc-starter-pack, and it will likely become galexc-seed. The point is not to lock you into my exact stack forever. The point is to establish the foundational elements of a professional-grade personal AI system: durable interaction layers, tasks, async dispatches, scheduled tasks, a workstation Pi environment aligned with dispatched agents, and core communications like intercom. From there, you take it wherever you want."
     >
+        <div slot="artifact" class="page-module">
+            <ArchitectureSeamDiagram />
+        </div>
         <ul slot="aside" class="page-note-list">
             {facts.map((fact) => <li>{fact}</li>)}
         </ul>
@@ -145,7 +140,7 @@ const trustItems: string[] = [
                 The seed is the beginning, not the boundary.
             </p>
         </div>
-        <div class="workflow-ribbon">
+        <div class="workflow-ribbon workflow-ribbon--editorial">
             {
                 sequence.map((step, index) => (
                     <>
@@ -179,8 +174,8 @@ const trustItems: string[] = [
             <p class="eyebrow">Legend</p>
             <ul class="legend-card__list">
                 <li>
-                    <strong>Seed layer</strong> - the initial system that establishes
-                    GalexC's core philosophy
+                    <strong>Center seam</strong> - signal gets stitched into a shared
+                    record before it travels onward
                 </li>
                 <li>
                     <strong>Surface cards</strong> - the three motions that matter:
@@ -201,63 +196,20 @@ const trustItems: string[] = [
                 The product is the loop, not a single assistant.
             </p>
         </div>
-        <div class="loop-diagram">
+        <div class="loop-diagram loop-diagram--editorial">
             {
-                loopSteps.map((step: string, index: number) => (
+                layerItems.map((item, index) => (
                     <>
-                        <div class="loop-step">{step}</div>
-                        {index < loopSteps.length - 1 && (
+                        <div class="loop-step loop-step--editorial">
+                            <span class="loop-step__index">
+                                {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span>{item.label}</span>
+                        </div>
+                        {index < layerItems.length - 1 && (
                             <div class="loop-connector" aria-hidden="true" />
                         )}
                     </>
-                ))
-            }
-        </div>
-    </section>
-
-    <section class="page-grid-two compare-open-grid">
-        <article class="page-module compare-open-block mode-card">
-            <p class="eyebrow">Interactive mode</p>
-            <h2>Think live.</h2>
-            <p>
-                Interactive sessions are where work takes shape. They clarify
-                scope, test assumptions, search the right context, and tighten
-                the brief until the task is safe to hand off.
-            </p>
-        </article>
-        <article
-            class="page-module compare-open-block compare-open-block-soft mode-card mode-card-firm"
-        >
-            <p class="eyebrow">Dispatch mode</p>
-            <h2>Execute asynchronously.</h2>
-            <p>
-                Dispatch takes on work that is already bounded well enough to
-                run in the background. The result comes back as a PR, artifact,
-                or report that can be reviewed at the right moment.
-            </p>
-        </article>
-    </section>
-
-    <section class="page-module">
-        <div class="module-heading-row">
-            <div>
-                <p class="eyebrow">Built from durable primitives</p>
-                <h2 class="page-section-title">
-                    More operating environment than assistant
-                </h2>
-            </div>
-            <p class="page-caption">
-                The leverage comes from composition, not from pretending one
-                model is the whole product.
-            </p>
-        </div>
-        <div class="layer-stack">
-            {
-                layerItems.map((item) => (
-                    <div class="layer-stack__item">
-                        <p class="layer-stack__label">{item.label}</p>
-                        <p>{item.body}</p>
-                    </div>
                 ))
             }
         </div>

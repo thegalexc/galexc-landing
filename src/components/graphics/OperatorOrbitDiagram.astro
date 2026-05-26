@@ -1,0 +1,341 @@
+---
+const stations = [
+    {
+        title: 'Session',
+        detail: 'Live shaping and debugging close to the operator.',
+        className: 'operator-orbit-diagram__station--session',
+        style: 'left:52%;top:14%;--x:-50%;--y:0%;',
+    },
+    {
+        title: 'Dispatch',
+        detail: 'Bounded work leaves cleanly and returns with receipts.',
+        className: 'operator-orbit-diagram__station--dispatch',
+        style: 'left:12%;top:38%;--x:0%;--y:-50%;',
+    },
+    {
+        title: 'Seed + services',
+        detail: 'Continuity, memory, and maintenance pulse underneath.',
+        className: 'operator-orbit-diagram__station--seed',
+        style: 'left:88%;top:68%;--x:-100%;--y:-50%;',
+    },
+] as const;
+---
+
+<div class="operator-orbit-diagram" aria-hidden="true" data-graphic-reveal>
+    <div
+        class="operator-orbit-diagram__ring operator-orbit-diagram__ring--outer"
+    >
+    </div>
+    <div
+        class="operator-orbit-diagram__ring operator-orbit-diagram__ring--inner"
+    >
+    </div>
+    <div
+        class="operator-orbit-diagram__handoff operator-orbit-diagram__handoff--left"
+    >
+    </div>
+    <div
+        class="operator-orbit-diagram__handoff operator-orbit-diagram__handoff--right"
+    >
+    </div>
+    <div
+        class="operator-orbit-diagram__handoff operator-orbit-diagram__handoff--down"
+    >
+    </div>
+    <div class="operator-orbit-diagram__center-badge">
+        <span class="operator-orbit-diagram__center-code">Human</span>
+        <span>Intent and standards stay still at the center.</span>
+    </div>
+
+    {
+        stations.map((station) => (
+            <article
+                class:list={[
+                    'operator-orbit-diagram__station',
+                    station.className,
+                ]}
+                style={station.style}
+            >
+                <p class="operator-orbit-diagram__station-title">
+                    {station.title}
+                </p>
+                <p class="operator-orbit-diagram__station-detail">
+                    {station.detail}
+                </p>
+            </article>
+        ))
+    }
+
+    <span
+        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--human"
+    ></span>
+    <span
+        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--session"
+    ></span>
+    <span
+        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--dispatch"
+    ></span>
+    <span
+        class="operator-orbit-diagram__particle operator-orbit-diagram__particle--seed"
+    ></span>
+</div>
+
+<style>
+    .operator-orbit-diagram {
+        position: relative;
+        min-height: 25rem;
+        overflow: hidden;
+        border-radius: 2rem;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background:
+            radial-gradient(
+                circle at 50% 52%,
+                rgba(255, 255, 255, 0.82),
+                rgba(255, 255, 255, 0) 18%
+            ),
+            radial-gradient(
+                circle at 24% 22%,
+                rgba(21, 74, 122, 0.08),
+                transparent 24%
+            ),
+            radial-gradient(
+                circle at 78% 26%,
+                rgba(193, 122, 57, 0.08),
+                transparent 24%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(255, 252, 247, 0.86),
+                rgba(244, 235, 222, 0.72)
+            );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .operator-orbit-diagram__ring,
+    .operator-orbit-diagram__handoff {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        pointer-events: none;
+    }
+
+    .operator-orbit-diagram__ring--outer {
+        width: 74%;
+        height: 74%;
+        border: 1px solid rgba(120, 113, 108, 0.16);
+    }
+
+    .operator-orbit-diagram__ring--inner {
+        width: 44%;
+        height: 44%;
+        border: 1px dashed rgba(21, 74, 122, 0.22);
+        animation: operatorOrbitSpin 26s linear infinite;
+    }
+
+    .operator-orbit-diagram__handoff {
+        width: 34%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            rgba(120, 113, 108, 0),
+            rgba(21, 74, 122, 0.35),
+            rgba(120, 113, 108, 0)
+        );
+        opacity: 0.72;
+    }
+
+    .operator-orbit-diagram__handoff--left {
+        width: 24%;
+        left: 36%;
+        top: 40%;
+        transform: rotate(-18deg);
+    }
+
+    .operator-orbit-diagram__handoff--right {
+        width: 24%;
+        left: 64%;
+        top: 39%;
+        transform: rotate(18deg);
+    }
+
+    .operator-orbit-diagram__handoff--down {
+        width: 20%;
+        left: 50%;
+        top: 63%;
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .operator-orbit-diagram__station {
+        position: absolute;
+        width: min(10.5rem, calc(100% - 2rem));
+        padding: 0.9rem 1rem;
+        border-radius: 1.2rem;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background: rgba(255, 252, 247, 0.8);
+        box-shadow: 0 16px 32px rgba(88, 64, 34, 0.08);
+        transform: translate(var(--x), var(--y));
+    }
+
+    .operator-orbit-diagram__station-title {
+        margin: 0;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #154a7a;
+    }
+
+    .operator-orbit-diagram__station-detail {
+        margin: 0.45rem 0 0;
+        color: #5b4f43;
+        line-height: 1.55;
+        font-size: 0.9rem;
+    }
+
+    .operator-orbit-diagram__center-badge {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: grid;
+        gap: 0.22rem;
+        width: 9.5rem;
+        padding: 0.7rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background: rgba(255, 250, 243, 0.92);
+        text-align: center;
+        color: #5b4f43;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 12px 24px rgba(88, 64, 34, 0.08);
+    }
+
+    .operator-orbit-diagram__center-code {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #154a7a;
+    }
+
+    .operator-orbit-diagram__particle {
+        position: absolute;
+        display: block;
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 999px;
+        background: #154a7a;
+        box-shadow: 0 0 0 0.32rem rgba(21, 74, 122, 0.08);
+    }
+
+    .operator-orbit-diagram__particle--human {
+        left: calc(50% - 0.3rem);
+        top: 21%;
+        animation: operatorOrbitLoop 11s linear infinite;
+    }
+
+    .operator-orbit-diagram__particle--session {
+        left: 22%;
+        top: 22%;
+        background: #c17a39;
+        animation: operatorSessionDrift 7.4s ease-in-out infinite;
+    }
+
+    .operator-orbit-diagram__particle--dispatch {
+        left: 74%;
+        top: 34%;
+        animation: operatorDispatchRun 8.6s linear infinite;
+    }
+
+    .operator-orbit-diagram__particle--seed {
+        left: 49%;
+        top: 69%;
+        background: #8e5525;
+        animation: operatorSeedPulse 6.8s ease-in-out infinite;
+    }
+
+    @keyframes operatorOrbitSpin {
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    @keyframes operatorOrbitLoop {
+        0% {
+            transform: translate(0, 0);
+        }
+        24% {
+            transform: translate(8.5rem, 7rem);
+        }
+        50% {
+            transform: translate(0, 15rem);
+        }
+        74% {
+            transform: translate(-8.5rem, 7rem);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+
+    @keyframes operatorSessionDrift {
+        0%,
+        100% {
+            transform: translate(0, 0);
+        }
+        50% {
+            transform: translate(1.2rem, 0.7rem);
+        }
+    }
+
+    @keyframes operatorDispatchRun {
+        0% {
+            transform: translate(0, 0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        70% {
+            transform: translate(5rem, -1rem);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(7rem, -1.4rem);
+            opacity: 0;
+        }
+    }
+
+    @keyframes operatorSeedPulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .operator-orbit-diagram {
+            min-height: 29rem;
+        }
+
+        .operator-orbit-diagram__station {
+            width: min(12rem, calc(100% - 2rem));
+        }
+
+        .operator-orbit-diagram__station-detail {
+            font-size: 0.82rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .operator-orbit-diagram__ring--inner,
+        .operator-orbit-diagram__particle {
+            animation: none;
+        }
+    }
+</style>

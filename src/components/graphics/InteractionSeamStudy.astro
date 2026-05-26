@@ -1,0 +1,172 @@
+---
+const beats = [
+    { title: 'Seam', detail: 'A line appears and prepares the reveal.' },
+    { title: 'Hinge', detail: 'The surface opens close to its origin.' },
+    { title: 'Settle', detail: 'Motion ends in composure, not momentum.' },
+] as const;
+---
+
+<div class="interaction-seam-study" aria-hidden="true" data-graphic-reveal>
+    {
+        beats.map((beat, index) => (
+            <article
+                class="interaction-seam-study__beat"
+                style={`--beat-delay:${index * 0.8}s;`}
+            >
+                <div
+                    class:list={[
+                        'interaction-seam-study__frame',
+                        index > 0 && 'interaction-seam-study__frame--open',
+                        index === 2 && 'interaction-seam-study__frame--settled',
+                    ]}
+                >
+                    <span class="interaction-seam-study__bar" />
+                    {index > 0 && (
+                        <span class="interaction-seam-study__panel" />
+                    )}
+                </div>
+                <p class="interaction-seam-study__title">{beat.title}</p>
+                <p class="interaction-seam-study__detail">{beat.detail}</p>
+            </article>
+        ))
+    }
+</div>
+
+<style>
+    .interaction-seam-study {
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    @media (min-width: 900px) {
+        .interaction-seam-study {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    .interaction-seam-study__beat {
+        display: grid;
+        gap: 0.6rem;
+    }
+
+    .interaction-seam-study__frame {
+        display: grid;
+        align-content: start;
+        gap: 0.8rem;
+        min-height: 10rem;
+        padding: 0.95rem;
+        border-radius: 1.4rem;
+        border: 1px solid rgba(120, 113, 108, 0.16);
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.56),
+                rgba(247, 241, 232, 0.74)
+            ),
+            repeating-linear-gradient(
+                180deg,
+                rgba(120, 113, 108, 0.03) 0,
+                rgba(120, 113, 108, 0.03) 1px,
+                transparent 1px,
+                transparent 28px
+            );
+        box-shadow: 0 12px 26px rgba(88, 64, 34, 0.06);
+    }
+
+    .interaction-seam-study__bar,
+    .interaction-seam-study__panel {
+        display: block;
+        border-radius: 1rem;
+        border: 1px solid rgba(120, 113, 108, 0.16);
+        background: rgba(255, 255, 255, 0.68);
+    }
+
+    .interaction-seam-study__bar {
+        min-height: 2.4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .interaction-seam-study__bar::after {
+        content: '';
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            rgba(120, 113, 108, 0),
+            rgba(21, 74, 122, 0.45),
+            rgba(120, 113, 108, 0)
+        );
+        animation: interactionSeamDraw 5.8s ease-in-out infinite;
+        animation-delay: var(--beat-delay);
+    }
+
+    .interaction-seam-study__panel {
+        min-height: 0;
+        opacity: 0;
+        transform: translateY(-0.35rem);
+    }
+
+    .interaction-seam-study__frame--open .interaction-seam-study__panel {
+        min-height: 4.3rem;
+        opacity: 0.84;
+        animation: interactionPanelOpen 5.8s ease-in-out infinite;
+        animation-delay: var(--beat-delay);
+    }
+
+    .interaction-seam-study__frame--settled .interaction-seam-study__panel {
+        min-height: 5.4rem;
+        background: rgba(248, 243, 236, 0.82);
+    }
+
+    .interaction-seam-study__title {
+        margin: 0;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #154a7a;
+    }
+
+    .interaction-seam-study__detail {
+        margin: 0;
+        color: #5b4f43;
+        line-height: 1.6;
+    }
+
+    @keyframes interactionSeamDraw {
+        0%,
+        18% {
+            transform: scaleX(0.16);
+            opacity: 0.22;
+            transform-origin: left;
+        }
+        36%,
+        100% {
+            transform: scaleX(1);
+            opacity: 1;
+            transform-origin: left;
+        }
+    }
+
+    @keyframes interactionPanelOpen {
+        0%,
+        18% {
+            opacity: 0;
+            transform: translateY(-0.35rem);
+        }
+        48%,
+        100% {
+            opacity: 0.92;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .interaction-seam-study__bar::after,
+        .interaction-seam-study__frame--open .interaction-seam-study__panel {
+            animation: none;
+        }
+    }
+</style>

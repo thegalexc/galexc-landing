@@ -1,0 +1,324 @@
+---
+const points = [
+    {
+        title: 'GalexC',
+        note: 'Owned operating environment',
+        style: 'left:72%;top:24%;',
+        tone: 'comparison-constellation-map__point--blue',
+    },
+    {
+        title: 'Claude Code',
+        note: 'Single-session coding harness',
+        style: 'left:22%;top:58%;',
+        tone: 'comparison-constellation-map__point--ink',
+    },
+    {
+        title: 'Hermes',
+        note: 'More autonomy-forward',
+        style: 'left:46%;top:74%;',
+        tone: 'comparison-constellation-map__point--warm',
+    },
+    {
+        title: 'OpenClaw',
+        note: 'Open-ended autonomy stack',
+        style: 'left:58%;top:60%;',
+        tone: 'comparison-constellation-map__point--warm',
+    },
+] as const;
+---
+
+<div
+    class="comparison-constellation-map"
+    aria-hidden="true"
+    data-graphic-reveal
+>
+    <div
+        class="comparison-constellation-map__axis comparison-constellation-map__axis--x"
+    >
+    </div>
+    <div
+        class="comparison-constellation-map__axis comparison-constellation-map__axis--y"
+    >
+    </div>
+    <div
+        class="comparison-constellation-map__region comparison-constellation-map__region--galexc"
+    >
+    </div>
+    <div
+        class="comparison-constellation-map__region comparison-constellation-map__region--autonomy"
+    >
+    </div>
+    <div class="comparison-constellation-map__trajectory"></div>
+    <div
+        class="comparison-constellation-map__trajectory comparison-constellation-map__trajectory--galexc"
+    >
+    </div>
+
+    {
+        points.map((point, index) => (
+            <article
+                class:list={['comparison-constellation-map__point', point.tone]}
+                style={`${point.style}--point-delay:${index * 0.9}s;`}
+            >
+                <span class="comparison-constellation-map__dot" />
+                <strong>{point.title}</strong>
+                <span>{point.note}</span>
+            </article>
+        ))
+    }
+
+    <p
+        class="comparison-constellation-map__label comparison-constellation-map__label--x-start"
+    >
+        single-session coding tool
+    </p>
+    <p
+        class="comparison-constellation-map__label comparison-constellation-map__label--x-end"
+    >
+        durable operating environment
+    </p>
+    <p
+        class="comparison-constellation-map__label comparison-constellation-map__label--y-start"
+    >
+        high-delegation autonomy
+    </p>
+    <p
+        class="comparison-constellation-map__label comparison-constellation-map__label--y-end"
+    >
+        operator-steered bounded execution
+    </p>
+</div>
+
+<style>
+    .comparison-constellation-map {
+        position: relative;
+        min-height: 22rem;
+        overflow: hidden;
+        border-radius: 1.6rem;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background:
+            radial-gradient(
+                circle at 70% 28%,
+                rgba(21, 74, 122, 0.1),
+                transparent 24%
+            ),
+            radial-gradient(
+                circle at 30% 68%,
+                rgba(193, 122, 57, 0.1),
+                transparent 26%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(255, 252, 247, 0.88),
+                rgba(244, 235, 222, 0.7)
+            );
+    }
+
+    .comparison-constellation-map__axis,
+    .comparison-constellation-map__region,
+    .comparison-constellation-map__trajectory {
+        position: absolute;
+    }
+
+    .comparison-constellation-map__axis--x {
+        left: 12%;
+        right: 8%;
+        bottom: 16%;
+        height: 1px;
+        background: rgba(21, 74, 122, 0.24);
+    }
+
+    .comparison-constellation-map__axis--y {
+        top: 10%;
+        bottom: 12%;
+        left: 17%;
+        width: 1px;
+        background: rgba(21, 74, 122, 0.24);
+    }
+
+    .comparison-constellation-map__region {
+        border-radius: 999px;
+        filter: blur(20px);
+        opacity: 0.45;
+    }
+
+    .comparison-constellation-map__region--galexc {
+        right: 7%;
+        top: 10%;
+        width: 30%;
+        height: 38%;
+        background: rgba(21, 74, 122, 0.24);
+    }
+
+    .comparison-constellation-map__region--autonomy {
+        left: 24%;
+        bottom: 10%;
+        width: 22%;
+        height: 22%;
+        background: rgba(193, 122, 57, 0.12);
+    }
+
+    .comparison-constellation-map__trajectory {
+        left: 33%;
+        top: 54%;
+        width: 26%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            rgba(193, 122, 57, 0),
+            rgba(193, 122, 57, 0.42),
+            rgba(193, 122, 57, 0)
+        );
+        transform: rotate(22deg);
+    }
+
+    .comparison-constellation-map__trajectory--galexc {
+        left: 59%;
+        top: 34%;
+        width: 18%;
+        background: linear-gradient(
+            90deg,
+            rgba(21, 74, 122, 0),
+            rgba(21, 74, 122, 0.58),
+            rgba(21, 74, 122, 0)
+        );
+        transform: rotate(-34deg);
+    }
+
+    .comparison-constellation-map__point {
+        position: absolute;
+        display: grid;
+        gap: 0.16rem;
+        max-width: 10.5rem;
+        padding: 0.8rem 0.85rem;
+        border-radius: 1rem;
+        border: 1px solid rgba(120, 113, 108, 0.16);
+        background: rgba(255, 252, 247, 0.82);
+        box-shadow: 0 12px 24px rgba(88, 64, 34, 0.08);
+        transform: translate(-50%, -50%);
+    }
+
+    .comparison-constellation-map__point strong {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #2b241d;
+    }
+
+    .comparison-constellation-map__point span:last-child {
+        color: #5b4f43;
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .comparison-constellation-map__dot {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 999px;
+    }
+
+    .comparison-constellation-map__point--blue {
+        border-color: rgba(21, 74, 122, 0.22);
+        box-shadow:
+            0 16px 30px rgba(88, 64, 34, 0.1),
+            0 0 0 0.45rem rgba(21, 74, 122, 0.06);
+    }
+
+    .comparison-constellation-map__point--blue
+        .comparison-constellation-map__dot {
+        background: #154a7a;
+        box-shadow: 0 0 0 0.45rem rgba(21, 74, 122, 0.12);
+        animation: comparisonGalexcPulse 5.6s ease-in-out infinite;
+        animation-delay: var(--point-delay);
+    }
+
+    .comparison-constellation-map__point--warm
+        .comparison-constellation-map__dot {
+        background: #c17a39;
+        box-shadow: 0 0 0 0.35rem rgba(193, 122, 57, 0.08);
+        animation: comparisonAmbientFade 8s ease-in-out infinite;
+        animation-delay: var(--point-delay);
+    }
+
+    .comparison-constellation-map__point--ink
+        .comparison-constellation-map__dot {
+        background: #6f6255;
+        box-shadow: 0 0 0 0.35rem rgba(111, 98, 85, 0.08);
+        animation: comparisonAmbientFade 8s ease-in-out infinite;
+        animation-delay: var(--point-delay);
+    }
+
+    .comparison-constellation-map__label {
+        position: absolute;
+        margin: 0;
+        max-width: 10rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        line-height: 1.5;
+        color: #6f6255;
+    }
+
+    .comparison-constellation-map__label--x-start {
+        left: 12%;
+        bottom: 0.9rem;
+    }
+    .comparison-constellation-map__label--x-end {
+        right: 1rem;
+        bottom: 0.9rem;
+        text-align: right;
+    }
+    .comparison-constellation-map__label--y-start {
+        left: 0.5rem;
+        bottom: 4.4rem;
+        transform: rotate(-90deg);
+        transform-origin: left bottom;
+    }
+    .comparison-constellation-map__label--y-end {
+        left: 0.5rem;
+        top: 3rem;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+    }
+
+    @keyframes comparisonGalexcPulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.82;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 1;
+        }
+    }
+
+    @keyframes comparisonAmbientFade {
+        0%,
+        100% {
+            opacity: 0.58;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .comparison-constellation-map {
+            min-height: 24rem;
+        }
+
+        .comparison-constellation-map__label--y-start,
+        .comparison-constellation-map__label--y-end {
+            display: none;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .comparison-constellation-map__dot {
+            animation: none;
+        }
+    }
+</style>

@@ -1,12 +1,6 @@
 ---
+import ComparisonConstellationMap from '../graphics/ComparisonConstellationMap.astro';
 import ContentPageHero from './ContentPageHero.astro';
-
-const points = [
-    ['GalexC', 'Operator-owned environment'],
-    ['Claude Code', 'Interactive coding harness'],
-    ['Hermes', 'Flexible agentic autonomy'],
-    ['OpenClaw', 'Open autonomy-forward stack'],
-];
 
 const cards = [
     [
@@ -38,49 +32,14 @@ const workflow = [
         title="Where GalexC sits in the agent landscape."
         lede="GalexC overlaps with coding agents, autonomous harnesses, and other emerging AI systems, but it is not trying to be a generic assistant or a pure autonomy play. The point is a durable personal operating environment: operator-owned, reviewable, and built for real ongoing work."
     >
+        <div slot="artifact" class="page-module">
+            <ComparisonConstellationMap />
+        </div>
         <div slot="aside" class="page-module content-aside compact-callout">
             <p class="eyebrow">Not a scorecard</p>
             <p>Center of gravity, not rankings.</p>
         </div>
     </ContentPageHero>
-
-    <section class="page-module specimen-frame axes-card">
-        <p class="eyebrow">Landscape axes</p>
-        <div class="axes-card__frame">
-            <div class="axes-card__x"></div>
-            <div class="axes-card__y"></div>
-            <p class="axes-card__axis-label axes-card__axis-label-x-start">
-                single-session coding tool
-            </p>
-            <p class="axes-card__axis-label axes-card__axis-label-x-end">
-                durable operating environment
-            </p>
-            <p class="axes-card__axis-label axes-card__axis-label-y-start">
-                high-delegation autonomy
-            </p>
-            <p class="axes-card__axis-label axes-card__axis-label-y-end">
-                operator-steered bounded execution
-            </p>
-            {
-                points.map(([label, note], index) => (
-                    <div
-                        class:list={[
-                            'axes-card__point',
-                            `axes-card__point-${index + 1}`,
-                        ]}
-                    >
-                        <strong>{label}</strong>
-                        <span>{note}</span>
-                    </div>
-                ))
-            }
-        </div>
-        <p class="page-caption">
-            Left to right: single-session coding tool to durable operating
-            environment. Bottom to top: high-delegation autonomy to
-            operator-steered bounded execution.
-        </p>
-    </section>
 
     <section class="comparison-cards comparison-open-grid">
         {
@@ -96,7 +55,7 @@ const workflow = [
 
     <section class="page-module comparison-workflow-card workflow-ledger-card">
         <p class="eyebrow">Workflow shape</p>
-        <div class="comparison-workflow-list">
+        <div class="comparison-workflow-list comparison-workflow-list--signals">
             {
                 workflow.map(([title, body]) => (
                     <div class="comparison-workflow-list__item">

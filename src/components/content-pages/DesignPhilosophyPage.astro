@@ -1,4 +1,5 @@
 ---
+import DesignProofPlate from '../graphics/DesignProofPlate.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
 const doctrine = [
@@ -25,7 +26,11 @@ const doctrine = [
         eyebrow="Principles / Design philosophy"
         title="Design should feel authored."
         lede="GalexC should not feel like an AI dashboard that borrowed nicer type. It should feel composed, editorial, and quietly deliberate - more like a publication, notebook, or field manual than a SaaS shell. That choice is not cosmetic. It signals how the product thinks."
-    />
+    >
+        <div slot="artifact" class="page-module">
+            <DesignProofPlate />
+        </div>
+    </ContentPageHero>
 
     <section class="page-grid-two compare-open-grid design-compare-grid">
         <article
@@ -116,11 +121,16 @@ const doctrine = [
                 without noise. The interface should feel kept, not consumed.
             </p>
         </article>
-        <aside class="page-module content-aside doctrine-grid">
+        <aside
+            class="page-module content-aside doctrine-grid doctrine-grid--tracked"
+        >
             <p class="eyebrow">Visual doctrine</p>
             {
-                doctrine.map(([title, body]) => (
-                    <div class="doctrine-grid__item">
+                doctrine.map(([title, body], index) => (
+                    <div
+                        class="doctrine-grid__item"
+                        style={`--doctrine-delay:${index * 0.5}s;`}
+                    >
                         <p class="doctrine-grid__title">{title}</p>
                         <p>{body}</p>
                     </div>

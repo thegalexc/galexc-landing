@@ -1,0 +1,247 @@
+---
+const callouts = [
+    { label: 'breathing room', x: '6%', y: '14%' },
+    { label: 'quiet rule', x: '70%', y: '18%' },
+    { label: 'accent discipline', x: '62%', y: '68%' },
+    { label: 'marginal note', x: '10%', y: '78%' },
+] as const;
+---
+
+<div class="design-proof-plate" aria-hidden="true" data-graphic-reveal>
+    <div class="design-proof-plate__page"></div>
+    <div class="design-proof-plate__headline"></div>
+    <div class="design-proof-plate__measure"></div>
+    <div class="design-proof-plate__measure design-proof-plate__measure--short">
+    </div>
+    <div class="design-proof-plate__measure design-proof-plate__measure--tiny">
+    </div>
+    <div class="design-proof-plate__rule"></div>
+    <div class="design-proof-plate__note-rail"></div>
+    <div
+        class="design-proof-plate__dimension design-proof-plate__dimension--top"
+    >
+        <span>measure 42ch</span>
+    </div>
+    <div
+        class="design-proof-plate__dimension design-proof-plate__dimension--left"
+    >
+        <span>margin 16</span>
+    </div>
+    <div
+        class="design-proof-plate__dimension design-proof-plate__dimension--right"
+    >
+        <span>note rail</span>
+    </div>
+
+    {
+        callouts.map((callout, index) => (
+            <div
+                class="design-proof-plate__callout"
+                style={`left:${callout.x};top:${callout.y};--callout-delay:${index * 0.9}s;`}
+            >
+                <span class="design-proof-plate__dot" />
+                <span>{callout.label}</span>
+            </div>
+        ))
+    }
+</div>
+
+<style>
+    .design-proof-plate {
+        position: relative;
+        min-height: 18rem;
+        overflow: hidden;
+        border-radius: 1.8rem 1.2rem 1.6rem 1.2rem;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255, 252, 247, 0.92),
+                rgba(245, 237, 226, 0.74)
+            ),
+            repeating-linear-gradient(
+                180deg,
+                rgba(120, 113, 108, 0.035) 0,
+                rgba(120, 113, 108, 0.035) 1px,
+                transparent 1px,
+                transparent 34px
+            );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+    }
+
+    .design-proof-plate__page,
+    .design-proof-plate__headline,
+    .design-proof-plate__measure,
+    .design-proof-plate__rule,
+    .design-proof-plate__note-rail,
+    .design-proof-plate__dimension {
+        position: absolute;
+    }
+
+    .design-proof-plate__page {
+        inset: 1.2rem 1.3rem;
+        border-radius: 1.2rem;
+        border: 1px solid rgba(120, 113, 108, 0.12);
+        background: rgba(255, 255, 255, 0.38);
+    }
+
+    .design-proof-plate__headline {
+        left: 20%;
+        top: 18%;
+        width: 42%;
+        height: 2.8rem;
+        border-radius: 999px;
+        background: linear-gradient(
+            90deg,
+            rgba(43, 36, 29, 0.88),
+            rgba(43, 36, 29, 0.24)
+        );
+    }
+
+    .design-proof-plate__measure {
+        left: 20%;
+        right: 18%;
+        height: 0.55rem;
+        border-radius: 999px;
+        background: rgba(120, 113, 108, 0.22);
+        top: 40%;
+    }
+
+    .design-proof-plate__measure--short {
+        right: 30%;
+        top: 50%;
+    }
+
+    .design-proof-plate__measure--tiny {
+        right: 42%;
+        top: 60%;
+    }
+
+    .design-proof-plate__rule {
+        left: 16%;
+        top: 24%;
+        bottom: 18%;
+        width: 1px;
+        background: linear-gradient(
+            180deg,
+            rgba(21, 74, 122, 0.32),
+            rgba(21, 74, 122, 0)
+        );
+    }
+
+    .design-proof-plate__note-rail {
+        right: 13%;
+        top: 18%;
+        bottom: 18%;
+        width: 6.5rem;
+        border-left: 1px solid rgba(120, 113, 108, 0.14);
+        background: linear-gradient(
+            90deg,
+            rgba(21, 74, 122, 0.04),
+            transparent 64%
+        );
+    }
+
+    .design-proof-plate__dimension {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.56rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #7a6d60;
+    }
+
+    .design-proof-plate__dimension::before {
+        content: '';
+        position: absolute;
+        background: rgba(21, 74, 122, 0.26);
+    }
+
+    .design-proof-plate__dimension--top {
+        left: 20%;
+        top: 11%;
+        width: 42%;
+        text-align: center;
+    }
+
+    .design-proof-plate__dimension--top::before {
+        left: 0;
+        right: 0;
+        bottom: -0.35rem;
+        height: 1px;
+    }
+
+    .design-proof-plate__dimension--left {
+        left: 11%;
+        top: 40%;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+    }
+
+    .design-proof-plate__dimension--left::before {
+        left: -0.45rem;
+        top: 0.3rem;
+        width: 2rem;
+        height: 1px;
+    }
+
+    .design-proof-plate__dimension--right {
+        right: 8%;
+        top: 48%;
+        transform: rotate(-90deg);
+        transform-origin: right top;
+    }
+
+    .design-proof-plate__dimension--right::before {
+        right: -0.35rem;
+        top: 0.3rem;
+        width: 2rem;
+        height: 1px;
+    }
+
+    .design-proof-plate__callout {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6f6255;
+    }
+
+    .design-proof-plate__dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 999px;
+        background: #154a7a;
+        box-shadow: 0 0 0 0.35rem rgba(21, 74, 122, 0.08);
+        animation: designProofPulse 6s ease-in-out infinite;
+        animation-delay: var(--callout-delay);
+    }
+
+    .design-proof-plate__callout:nth-child(8) .design-proof-plate__dot,
+    .design-proof-plate__callout:nth-child(9) .design-proof-plate__dot,
+    .design-proof-plate__callout:nth-child(10) .design-proof-plate__dot,
+    .design-proof-plate__callout:nth-child(11) .design-proof-plate__dot {
+        animation-duration: 5.2s;
+    }
+
+    @keyframes designProofPulse {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.68;
+        }
+        50% {
+            transform: scale(1.18);
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .design-proof-plate__dot {
+            animation: none;
+        }
+    }
+</style>

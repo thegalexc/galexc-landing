@@ -8,24 +8,38 @@ import { getNavCode, navGroups } from '../lib/site-content';
     <div
         class="editorial-shell px-4 pb-8 pt-0 md:px-6 md:pb-12 md:pt-8 lg:pt-12"
     >
-        <ContentsPageShell title="Contents">
+        <ContentsPageShell
+            title="Contents"
+            intro="A live register of the current provisional surface."
+        >
             <div class="contents-ledger">
                 {
                     navGroups.map((group) => (
                         <section class="contents-ledger__group">
                             <p class="eyebrow">{group.title}</p>
+                            <p class="contents-ledger__group-intro">
+                                {group.intro}
+                            </p>
                             {group.items.map((item, index) => (
                                 <a
                                     class="contents-ledger__row"
                                     href={`/${item.slug}`}
                                 >
-                                    <span class="contents-ledger__label">
-                                        {item.label}
+                                    <span class="contents-ledger__label-wrap">
+                                        <span class="contents-ledger__label">
+                                            {item.label}
+                                        </span>
+                                        <span class="contents-ledger__blurb">
+                                            {item.blurb}
+                                        </span>
                                     </span>
                                     <span
                                         class="contents-ledger__leader"
                                         aria-hidden="true"
-                                    />
+                                    >
+                                        <span class="contents-ledger__leader-line" />
+                                        <span class="contents-ledger__leader-particle" />
+                                    </span>
                                     <span class="contents-ledger__meta">
                                         {getNavCode(group.title, index)}
                                     </span>

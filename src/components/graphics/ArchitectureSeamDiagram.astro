@@ -1,0 +1,259 @@
+---
+const layers = [
+    { name: 'Seed', y: 88, tone: 'seed' },
+    { name: 'Session', y: 152, tone: 'session' },
+    { name: 'Dispatch', y: 216, tone: 'dispatch' },
+    { name: 'Review', y: 280, tone: 'review' },
+] as const;
+---
+
+<div class="architecture-seam-diagram" aria-hidden="true" data-graphic-reveal>
+    <svg
+        viewBox="0 0 920 360"
+        class="architecture-seam-diagram__svg"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <defs>
+            <linearGradient
+                id="archFlow"
+                x1="72"
+                y1="94"
+                x2="846"
+                y2="280"
+                gradientUnits="userSpaceOnUse"
+            >
+                <stop stop-color="#C17A39"></stop>
+                <stop offset="0.48" stop-color="#154A7A"></stop>
+                <stop offset="1" stop-color="#DAB98E"></stop>
+            </linearGradient>
+        </defs>
+
+        <rect
+            x="445"
+            y="42"
+            width="30"
+            height="276"
+            rx="15"
+            class="architecture-seam-diagram__seam"></rect>
+
+        {
+            layers.map((layer) => (
+                <g>
+                    <path
+                        d={`M58 ${layer.y}C168 ${layer.y - 46} 278 ${layer.y - 48} 356 ${layer.y - 22}C406 ${layer.y - 6} 432 ${layer.y + 12} 446 ${layer.y + 12}`}
+                        class="architecture-seam-diagram__path architecture-seam-diagram__path--incoming"
+                    />
+                    <path
+                        d={`M474 ${layer.y + 12}C540 ${layer.y + 12} 604 ${layer.y - 2} 694 ${layer.y - 8}C764 ${layer.y - 12} 822 ${layer.y + 4} 864 ${layer.y + 20}`}
+                        class="architecture-seam-diagram__path architecture-seam-diagram__path--outgoing"
+                    />
+                    <circle
+                        cx="446"
+                        cy={layer.y + 12}
+                        r="7"
+                        class={`architecture-seam-diagram__node architecture-seam-diagram__node--${layer.tone}`}
+                    />
+                </g>
+            ))
+        }
+
+        <circle r="4.5" fill="#154A7A">
+            <animateMotion
+                dur="12s"
+                begin="-4.5s"
+                repeatCount="indefinite"
+                path="M58 88C168 42 278 40 356 66C406 82 432 100 446 100"
+            ></animateMotion>
+        </circle>
+        <circle r="4.5" fill="#C17A39">
+            <animateMotion
+                dur="11s"
+                begin="-7s"
+                repeatCount="indefinite"
+                path="M58 216C168 170 278 168 356 194C406 210 432 228 446 228"
+            ></animateMotion>
+        </circle>
+        <circle r="4" fill="#154A7A">
+            <animateMotion
+                dur="12.5s"
+                begin="-2s"
+                repeatCount="indefinite"
+                path="M474 228C540 228 604 214 694 208C764 204 822 220 864 236"
+            ></animateMotion>
+        </circle>
+    </svg>
+
+    <div
+        class="architecture-seam-diagram__gutter-label architecture-seam-diagram__gutter-label--top"
+    >
+        Stitched shared record
+    </div>
+    <div
+        class="architecture-seam-diagram__gutter-label architecture-seam-diagram__gutter-label--bottom"
+    >
+        Ownership passes through the seam
+    </div>
+
+    <div
+        class="architecture-seam-diagram__side architecture-seam-diagram__side--left"
+    >
+        <span>Scattered signal</span>
+        <span>Questions</span>
+        <span>Context</span>
+    </div>
+    <div
+        class="architecture-seam-diagram__side architecture-seam-diagram__side--right"
+    >
+        {layers.map((layer) => <span>{layer.name}</span>)}
+    </div>
+</div>
+
+<style>
+    .architecture-seam-diagram {
+        position: relative;
+        min-height: 21rem;
+        overflow: hidden;
+        border-radius: 1.8rem;
+        border: 1px solid rgba(120, 113, 108, 0.14);
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255, 252, 247, 0.88),
+                rgba(244, 235, 222, 0.68)
+            ),
+            radial-gradient(
+                circle at 22% 22%,
+                rgba(193, 122, 57, 0.12),
+                transparent 24%
+            ),
+            radial-gradient(
+                circle at 72% 32%,
+                rgba(21, 74, 122, 0.08),
+                transparent 28%
+            );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .architecture-seam-diagram__svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .architecture-seam-diagram__seam {
+        fill: rgba(251, 247, 241, 0.72);
+        stroke: rgba(120, 113, 108, 0.18);
+        stroke-width: 1;
+        filter: drop-shadow(0 18px 26px rgba(88, 64, 34, 0.08));
+    }
+
+    .architecture-seam-diagram__path {
+        fill: none;
+        stroke: url(#archFlow);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 1 11;
+        opacity: 0.78;
+        animation: archPathFlow 18s linear infinite;
+    }
+
+    .architecture-seam-diagram__path--incoming {
+        opacity: 0.6;
+    }
+
+    .architecture-seam-diagram__node {
+        stroke: rgba(255, 255, 255, 0.7);
+        stroke-width: 1.5;
+    }
+
+    .architecture-seam-diagram__node--seed,
+    .architecture-seam-diagram__node--session {
+        fill: #154a7a;
+    }
+
+    .architecture-seam-diagram__node--dispatch,
+    .architecture-seam-diagram__node--review {
+        fill: #c17a39;
+    }
+
+    .architecture-seam-diagram__gutter-label,
+    .architecture-seam-diagram__side span {
+        position: absolute;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #6f6255;
+    }
+
+    .architecture-seam-diagram__gutter-label {
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .architecture-seam-diagram__gutter-label--top {
+        top: 0.95rem;
+    }
+
+    .architecture-seam-diagram__gutter-label--bottom {
+        bottom: 0.95rem;
+    }
+
+    .architecture-seam-diagram__side--left span:nth-child(1) {
+        left: 1.2rem;
+        top: 4rem;
+    }
+    .architecture-seam-diagram__side--left span:nth-child(2) {
+        left: 1.2rem;
+        top: 9rem;
+    }
+    .architecture-seam-diagram__side--left span:nth-child(3) {
+        left: 1.2rem;
+        top: 14rem;
+    }
+
+    .architecture-seam-diagram__side--right span:nth-child(1) {
+        right: 1.2rem;
+        top: 4.4rem;
+    }
+    .architecture-seam-diagram__side--right span:nth-child(2) {
+        right: 1.2rem;
+        top: 8.4rem;
+    }
+    .architecture-seam-diagram__side--right span:nth-child(3) {
+        right: 1.2rem;
+        top: 12.4rem;
+    }
+    .architecture-seam-diagram__side--right span:nth-child(4) {
+        right: 1.2rem;
+        top: 16.4rem;
+    }
+
+    @keyframes archPathFlow {
+        to {
+            stroke-dashoffset: -220;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .architecture-seam-diagram {
+            min-height: 17rem;
+        }
+
+        .architecture-seam-diagram__gutter-label,
+        .architecture-seam-diagram__side span {
+            font-size: 0.54rem;
+            letter-spacing: 0.12em;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .architecture-seam-diagram__path,
+        animateMotion {
+            animation: none;
+        }
+    }
+</style>

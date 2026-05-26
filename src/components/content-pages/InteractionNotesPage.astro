@@ -1,4 +1,5 @@
 ---
+import InteractionSeamStudy from '../graphics/InteractionSeamStudy.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
 const lexicon = [
@@ -10,18 +11,6 @@ const lexicon = [
     ['Settle', 'The last beat should be stillness, not momentum.'],
 ];
 
-const beats = [
-    ['Invite', 'A closed surface reads as complete, but not sealed.'],
-    [
-        'Unfold',
-        'The indicator turns, the seam softens, and the hidden layer appears close to its origin.',
-    ],
-    [
-        'Settle',
-        'The panel arrives, movement stops, and the page returns to composure.',
-    ],
-];
-
 const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
 ---
 
@@ -30,7 +19,11 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
         eyebrow="Principles / Interaction notes"
         title="A calmer interaction language."
         lede="GalexC should not move like a productivity app trying to prove it is alive. It should open, reveal, and settle with the confidence of a well-kept notebook. The clearest current example is the request-access reveal on the landing page."
-    />
+    >
+        <div slot="artifact" class="page-module">
+            <InteractionSeamStudy />
+        </div>
+    </ContentPageHero>
 
     <section class="page-grid-two interaction-glossary-grid glossary-open-grid">
         {
@@ -45,36 +38,19 @@ const rhythm = ['Still', 'Invite', 'Open', 'Settle', 'Hold'];
 
     <section class="page-module specimen-frame interaction-study">
         <p class="eyebrow">Request-access reveal</p>
-        <div class="study-frames study-frames-annotated">
-            {
-                beats.map(([beat, body], index) => (
-                    <div class="study-frame study-frame-detailed">
-                        <div
-                            class:list={[
-                                'study-frame__card',
-                                'study-frame__card-diagram',
-                                index > 0 && 'study-frame__card-open',
-                                index === 2 && 'study-frame__card-settled',
-                            ]}
-                        >
-                            <div class="study-frame__bar" />
-                            {index > 0 && <div class="study-frame__panel" />}
-                        </div>
-                        <p class="study-frame__title">{beat}</p>
-                        <p class="study-frame__note">{body}</p>
-                    </div>
-                ))
-            }
-        </div>
+        <InteractionSeamStudy />
     </section>
 
     <section class="page-module rhythm-strip-card rhythm-strip-open">
         <p class="eyebrow">Pacing</p>
-        <div class="rhythm-line">
+        <div class="rhythm-line rhythm-line--editorial">
             {
-                rhythm.map((item) => (
+                rhythm.map((item, index) => (
                     <div class="rhythm-line__item">
-                        <span class="rhythm-line__dot" />
+                        <span
+                            class="rhythm-line__dot"
+                            style={`--rhythm-delay:${index * 0.6}s;`}
+                        />
                         <p>{item}</p>
                     </div>
                 ))
