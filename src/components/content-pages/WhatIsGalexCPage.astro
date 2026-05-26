@@ -2,6 +2,13 @@
 import DisclosureScript from '../DisclosureScript.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
+const objectives = [
+    'To help one person operate with greater clarity, reach, judgment, and follow-through.',
+    'To build tools and systems that make professional capability feel more personal, more powerful, and more alive.',
+    'To create leverage without losing ownership.',
+    'To make serious software that still feels playful to build and satisfying to use.',
+];
+
 const qaItems: Array<{ question: string; answer: string }> = [
     {
         question: 'Why should I care?',
@@ -122,6 +129,62 @@ const qaItems: Array<{ question: string; answer: string }> = [
                 personal AI.
             </p>
         </blockquote>
+    </section>
+
+    <section>
+        <blockquote class="manifesto-quote">
+            <p>access to tools</p>
+        </blockquote>
+
+        <p>
+            I would like to propose that GalexC exists as my contribution to
+            provide <em>access to agency</em>.
+        </p>
+
+        <p>
+            I want to build something that allows people to act on <em>ideas</em
+            >
+            in their own way, for their own passions, and in a new way that is truly
+            impossible without AI.
+        </p>
+
+        <p>
+            For the sake of clarity, I explicitly do <strong>not</strong> want to
+            join the race to build the next monolithic, SaaS-era, walled-garden software
+            we've been made to accept. AI can be something truly incredible, if we
+            build it.
+        </p>
+    </section>
+
+    <hr class="manifesto-divider" />
+
+    <section class="page-module manifesto-prose manifesto-prose--practical">
+        <p class="eyebrow manifesto-section-label">
+            Professional-Grade Personal AI
+        </p>
+
+        <p class="manifesto-practical-intro">On a practical level:</p>
+
+        <blockquote class="manifesto-quote manifesto-quote-strong">
+            <p>GalexC is Professional-Grade Personal AI</p>
+        </blockquote>
+
+        <div class="manifesto-objectives">
+            <p><strong>Objectives:</strong></p>
+            <ol>
+                {objectives.map((objective) => <li>{objective}</li>)}
+            </ol>
+        </div>
+
+        <p>
+            If GalexC achieves its objectives, it could make room for better
+            work, better decisions, and a better way of moving through the
+            digital world. If it never becomes more than what it is today, a
+            personal project that has been genuinely, deeply fun to build, I
+            count this as a success.
+        </p>
+
+        <p class="manifesto-closing">Personal first. Professional grade.</p>
     </section>
 
     <DisclosureScript />

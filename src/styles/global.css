@@ -1957,7 +1957,7 @@ a {
 
 .manifesto-quote::after {
     content: '';
-    width: min(10rem, 26%);
+    width: max(10rem, 26%);
     height: 1px;
     margin-top: 0.6rem;
     background: rgba(21, 74, 122, 0.22);
@@ -1970,14 +1970,27 @@ a {
 }
 
 .manifesto-quote-strong::after {
-    width: min(12rem, 32%);
+    width: max(12rem, 32%);
     background: rgba(21, 74, 122, 0.3);
+}
+
+.manifesto-quote--wide {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: stretch;
+}
+
+.manifesto-quote--wide p,
+.manifesto-quote--wide.manifesto-quote-strong p {
+    width: 100%;
+    max-width: none;
+    text-wrap: pretty;
 }
 
 .manifesto-quote p,
 .manifesto-quote-strong p {
     margin: 0;
-    max-width: 18ch;
     text-align: center;
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.8rem, 3vw, 2.35rem);
