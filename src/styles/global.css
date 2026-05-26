@@ -1431,6 +1431,55 @@ a {
     line-height: 1.8;
 }
 
+.content-page__summary a,
+.content-page__section p a,
+.content-page__section li a,
+.chapter-shell__detail p a,
+.chapter-shell__detail li a,
+.page-lede a,
+.page-module p a,
+.page-module li a,
+.manifesto-prose p a,
+.manifesto-prose li a,
+.manifesto-prose figcaption a {
+    color: #154a7a;
+    text-decoration-line: underline;
+    text-decoration-color: rgba(21, 74, 122, 0.28);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.18em;
+    transition:
+        color 140ms ease,
+        text-decoration-color 140ms ease,
+        text-decoration-thickness 140ms ease;
+}
+
+.content-page__summary a:hover,
+.content-page__summary a:focus-visible,
+.content-page__section p a:hover,
+.content-page__section p a:focus-visible,
+.content-page__section li a:hover,
+.content-page__section li a:focus-visible,
+.chapter-shell__detail p a:hover,
+.chapter-shell__detail p a:focus-visible,
+.chapter-shell__detail li a:hover,
+.chapter-shell__detail li a:focus-visible,
+.page-lede a:hover,
+.page-lede a:focus-visible,
+.page-module p a:hover,
+.page-module p a:focus-visible,
+.page-module li a:hover,
+.page-module li a:focus-visible,
+.manifesto-prose p a:hover,
+.manifesto-prose p a:focus-visible,
+.manifesto-prose li a:hover,
+.manifesto-prose li a:focus-visible,
+.manifesto-prose figcaption a:hover,
+.manifesto-prose figcaption a:focus-visible {
+    color: #123c62;
+    text-decoration-color: rgba(21, 74, 122, 0.58);
+    text-decoration-thickness: 2px;
+}
+
 .page-module {
     display: grid;
     gap: 0.9rem;
@@ -1745,32 +1794,42 @@ a {
     );
 }
 
-.manifesto-intro-flow::after {
-    content: '';
-    display: block;
-    clear: both;
+.manifesto-intro-split {
+    display: grid;
+    gap: 1.15rem;
+    align-items: start;
+}
+
+.manifesto-intro-split__prose {
+    min-width: 0;
 }
 
 @media (min-width: 900px) {
-    .manifesto-inline-artifact {
-        float: right;
-        width: min(34vw, 12rem);
-        margin: 0.35rem 0 1rem 1.45rem;
+    .manifesto-intro-split {
+        grid-template-columns: minmax(0, 1fr) minmax(15rem, 17rem);
+        gap: 2.5rem;
+        align-items: start;
+    }
+
+    .manifesto-inline-artifact--intro {
+        width: 100%;
+        margin: 0.8rem 0 0;
+        justify-self: end;
     }
 }
 
 .manifesto-inline-artifact {
-    width: min(48vw, 9rem);
-    margin: 0.1rem auto 0.7rem;
+    width: min(56vw, 15rem);
+    margin: 0.35rem auto 1rem;
 }
 
 .manifesto-inline-artifact__trigger {
     display: block;
     width: 100%;
-    padding: 0.35rem;
+    padding: 0.8rem;
     border: 1px solid rgba(120, 113, 108, 0.14);
     border-radius: 0.8rem;
-    background: rgba(255, 255, 255, 0.48);
+    background: rgba(255, 255, 255, 0.56);
     overflow: hidden;
     cursor: pointer;
     box-shadow: 0 8px 22px rgba(43, 36, 29, 0.06);
@@ -1820,7 +1879,9 @@ a {
 }
 
 .manifesto-inline-artifact img {
-    border-radius: 0.45rem;
+    display: block;
+    width: 100%;
+    border-radius: 0.55rem;
 }
 
 .manifesto-figure figcaption {
