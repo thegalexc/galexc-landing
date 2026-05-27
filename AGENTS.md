@@ -11,6 +11,20 @@ Astro landing surface for `galexc.net`, deployed to a single Cloudflare Worker w
 - Validate behavior with `pnpm check`.
 - Format touched files explicitly after edits, especially `.astro` files.
 
+## Styling policy
+
+- Prefer inline Tailwind utilities first for page layout, spacing, responsive behavior, and one-off editorial composition.
+- Treat `src/styles/global.css` as the secondary layer.
+- Keep `global.css` for true globals and high-leverage exceptions only:
+    - theme and base typography
+    - shared site chrome
+    - shared link and prose defaults
+    - pseudo-elements
+    - dialog, animation, and stateful patterns that are awkward inline
+- Do not add new page-specific semantic styling to `global.css` when inline Tailwind or a small Astro component will do.
+- If a utility cluster repeats across pages, extract a small Astro component before adding another shared semantic CSS block.
+- Prefer repo theme tokens for recurring editorial spacing, color, and sizing decisions so inline utilities stay consistent over time.
+
 ## Formatting rules
 
 This repo has an important formatting wrinkle:

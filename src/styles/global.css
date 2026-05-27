@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+@theme {
+    --color-editorial-ink: #2b241d;
+    --color-editorial-body: #564a3f;
+    --color-editorial-muted: #6f6255;
+    --color-editorial-accent: #123c62;
+    --spacing-editorial-page: 2.4rem;
+    --spacing-editorial-module: 0.9rem;
+    --spacing-editorial-prose: 1.05rem;
+    --spacing-editorial-figure: 1.8rem;
+    --spacing-editorial-inset: 1.15rem;
+    --spacing-editorial-panel: 1.35rem;
+    --radius-editorial-frame: 1rem;
+}
+
 html {
     min-height: 100%;
     background: #f4eee4;
