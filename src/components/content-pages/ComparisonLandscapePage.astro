@@ -1,174 +1,36 @@
 ---
 import ContentPageHero from './ContentPageHero.astro';
-
-const pillars = [
-    {
-        code: '01',
-        title: 'Operator-owned environment',
-        body: 'GalexC runs as an environment you own. Context, credentials, and system posture stay under your control rather than behind a vendor boundary.',
-    },
-    {
-        code: '02',
-        title: 'Bounded execution with review',
-        body: 'Work does not disappear into a black box. Tasks return through reviewable surfaces like PRs, artifacts, and structured outputs.',
-    },
-    {
-        code: '03',
-        title: 'Durable context that compounds',
-        body: 'Useful outputs, decisions, and patterns persist across sessions so the system becomes more helpful over time instead of starting over each day.',
-    },
-];
-
-const workflow = [
-    ['01', 'Shape', 'Define the work before anything executes.'],
-    ['02', 'Dispatch', 'Send bounded, well-scoped tasks to agents.'],
-    [
-        '03',
-        'Review',
-        'Every result returns with receipts for operator approval.',
-    ],
-    ['04', 'Keep', 'Store useful outputs as durable, reusable context.'],
-];
-
-const fit = {
-    best: [
-        'You want an operator-owned environment rather than a vendor-controlled surface',
-        'You care about routing, review, and memory as much as raw execution speed',
-        'You want a personal AI system that compounds and becomes more your own over time',
-    ],
-    notFor: [
-        'You only want the fastest possible single-session coding loop',
-        'You want unbounded autonomy without an explicit review surface',
-        'You want a generic SaaS copilot more than an owned system',
-    ],
-};
 ---
 
-<div class="grid gap-12 md:gap-14">
-    <ContentPageHero
-        eyebrow="Position"
-        title="A professional AI, not a novelty"
-        lede="GalexC combines large language models with durable infrastructure, bounded execution, operator review, and retained context so it can handle real technical and business work over time. It is not a generic assistant, a coding-only loop, or a pure autonomy play."
-    />
-
-    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-5">
-        <div class="grid gap-2.5 max-w-[42rem]">
-            <p class="eyebrow">Architecture</p>
-            <h2
-                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(2rem,3.4vw,2.9rem)] leading-[0.96] text-[#2b241d]"
-            >
-                Three choices that define the system
-            </h2>
-        </div>
-        <div class="grid gap-4 md:grid-cols-3 md:gap-5">
-            {
-                pillars.map((pillar) => (
-                    <article class="grid gap-2.5 rounded-[1.35rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.46)] p-5">
-                        <span class="font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.14em] uppercase text-[#6f6255]">
-                            {pillar.code}
-                        </span>
-                        <h3 class="m-0 font-[Cormorant_Garamond,serif] text-[1.65rem] leading-[1.02] text-[#2b241d]">
-                            {pillar.title}
-                        </h3>
-                        <p class="m-0 text-[#5b4f43] leading-relaxed">
-                            {pillar.body}
-                        </p>
-                    </article>
-                ))
-            }
-        </div>
-    </section>
-
-    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.42fr)] md:items-end"
-        >
-            <div class="grid gap-2.5 max-w-[38rem]">
-                <p class="eyebrow">Method</p>
-                <h2
-                    class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(2rem,3.4vw,2.9rem)] leading-[0.96] text-[#2b241d]"
-                >
-                    How work moves through the system
-                </h2>
-            </div>
-            <p class="m-0 text-[#6a5e52] text-[0.94rem] leading-relaxed">
-                The point is not only model access. The point is a repeatable
-                way to shape, execute, review, and retain serious work.
-            </p>
-        </div>
-        <div
-            class="grid gap-3.5 grid-cols-[repeat(auto-fit,minmax(12rem,1fr))]"
-        >
-            {
-                workflow.map(([code, title, body]) => (
-                    <div class="grid gap-2 rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,255,255,0.42)] p-4">
-                        <span class="font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255]">
-                            {code}
-                        </span>
-                        <strong>{title}</strong>
-                        <p>{body}</p>
-                    </div>
-                ))
-            }
-        </div>
-    </section>
+<div class="grid gap-10 md:gap-12">
+    <ContentPageHero eyebrow="Comparisons">
+        <span slot="title">What kind of AI is GalexC?</span>
+    </ContentPageHero>
 
     <section
-        class="grid gap-4 border-t border-t-[rgba(120,113,108,0.14)] pt-5 max-w-[44rem]"
+        class="max-w-[46rem] border-t border-t-[rgba(120,113,108,0.14)] pt-6"
     >
-        <div class="grid gap-2.5">
-            <p class="eyebrow">Context</p>
-            <h2
-                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.6rem)] leading-[0.98] text-[#2b241d]"
-            >
-                Where this sits
-            </h2>
-        </div>
-        <div class="grid gap-4 text-[#5b4f43] leading-relaxed">
+        <div class="grid gap-5 text-lg leading-[1.8] text-[#4f4438]">
             <p class="m-0">
-                If you are comparing coding agents, GalexC overlaps with them
-                but is not confined to a single repo session. It keeps useful
-                context, supports longer-lived workflows, and is meant to stay
-                useful across many kinds of work.
+                GalexC overlaps with coding agents, autonomous harnesses, and
+                other emerging AI systems, but it isn't trying to be a generic
+                assistant or a pure autonomy play.
             </p>
             <p class="m-0">
-                If you are comparing autonomy frameworks, GalexC deliberately
-                constrains autonomy. Results come back through explicit review
-                surfaces because trust matters more than theatrical
-                independence.
+                The point is a professional-grade personal AI that can do
+                technical and business-related work with you and for you.
             </p>
             <p class="m-0">
-                If you are comparing assistants, the difference is even simpler:
-                this is not just an LLM in a chat shell. It is a personal AI
-                environment that combines LLMs with proven surrounding
-                technologies like version control, memory, routing, tools, and
-                background execution.
+                It starts from a simple idea. LLMs are incredible, but they're
+                only one tool in the tool chest.
             </p>
-        </div>
-    </section>
-
-    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-5">
-        <div class="grid gap-2.5 max-w-[34rem]">
-            <p class="eyebrow">Fit</p>
-            <h2
-                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.6rem)] leading-[0.98] text-[#2b241d]"
-            >
-                Is this for you?
-            </h2>
-        </div>
-        <div class="grid gap-4 items-start md:grid-cols-2 md:gap-8">
-            <article class="grid gap-3.5">
-                <p class="eyebrow">Best fit</p>
-                <ul class="m-0 grid list-none gap-2.5 p-0">
-                    {fit.best.map((item) => <li>{item}</li>)}
-                </ul>
-            </article>
-            <article class="grid gap-3.5">
-                <p class="eyebrow">Not for</p>
-                <ul class="m-0 grid list-none gap-2.5 p-0">
-                    {fit.notFor.map((item) => <li>{item}</li>)}
-                </ul>
-            </article>
+            <p class="m-0">
+                We already have other incredible, proven, and often overlooked
+                technologies for memory, routing, background work, review,
+                versioning, and system ownership. GalexC is about putting those
+                pieces together so the result is actually useful for serious
+                professional and technical work.
+            </p>
         </div>
     </section>
 </div>
