@@ -2,8 +2,6 @@
 import ArchitectureSeamDiagram from '../graphics/ArchitectureSeamDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const facts = ['Seed first', 'Own the fork', 'Change with intent'];
-
 const layers = [
     {
         title: 'Seed system',
@@ -136,14 +134,7 @@ const trustItems = [
         eyebrow="System"
         title="Architecture overview"
         lede="GalexC starts from a seed system that already knows how to route work, preserve context, run background execution, and return outputs through review. Today that seed is galexc-starter-pack and likely soon galexc-seed. The important point is not the exact stack. The important point is that you begin with a coherent operating model, learn it by using it, and then reshape it around your own needs."
-    >
-        <ul
-            slot="aside"
-            class="m-0 grid list-none gap-2 border-t border-stone-400/14 p-0 pt-2 font-['IBM_Plex_Mono',monospace] text-xs uppercase tracking-[0.12em] text-[#6f6255]"
-        >
-            {facts.map((fact) => <li>{fact}</li>)}
-        </ul>
-    </ContentPageHero>
+    />
 
     <section
         class="grid gap-3.5 rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.44),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] p-5 shadow-[0_10px_28px_rgba(43,36,29,0.04)]"

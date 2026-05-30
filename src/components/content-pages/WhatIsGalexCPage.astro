@@ -88,7 +88,7 @@ const qaItems: Array<{ question: string; answer: string }> = [
                 {
                     qaItems.map((item, index) => (
                         <div
-                            class="group border-t border-[rgba(120,113,108,0.14)] py-4 pb-4"
+                            class="group border-t border-[rgba(120,113,108,0.14)] py-7"
                             data-reveal
                             data-open="false"
                         >
@@ -129,107 +129,131 @@ const qaItems: Array<{ question: string; answer: string }> = [
         </section>
     </section>
 
-    <section class="mt-4">
-        <blockquote
-            class="grid justify-items-center my-2 pb-4 after:mt-2.5 after:block after:h-px after:w-[max(12rem,32%)] after:bg-[rgba(21,74,122,0.3)] after:content-['']"
+    <section class="grid gap-8 border-t border-stone-400/16 pt-7">
+        <header class="grid max-w-[46rem] gap-2.5">
+            <p class="eyebrow">Professional-Grade Personal AI</p>
+            <p class="m-0 text-[0.93rem] leading-relaxed text-[#7a6d60] italic">
+                On a practical level...
+            </p>
+        </header>
+
+        <figure
+            class="relative grid justify-items-center gap-5 overflow-hidden rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.5),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] px-6 py-10 text-center shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.62)] md:px-10 md:py-14"
         >
+            <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -top-12 -right-12 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(21,74,122,0.1),transparent_72%)]"
+            ></span>
+            <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -bottom-16 -left-12 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(180,83,9,0.08),transparent_70%)]"
+            ></span>
+
             <p
-                class="m-0 max-w-[14ch] text-center text-[clamp(2rem,3.2vw,2.65rem)] leading-none text-[#2b241d] [text-wrap:balance]"
-                style="font-family: 'Cormorant Garamond', serif;"
+                class="m-0 font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.22em] text-[#154a7a] uppercase"
             >
-                I hope you can use GalexC as the spark to build <em>your</em>
-                personal AI.
+                In one line
             </p>
-        </blockquote>
-    </section>
 
-    <section class="block max-w-[46rem]">
-        <blockquote
-            class="grid justify-items-center my-1.5 mb-2 pb-3.5 after:mt-2.5 after:block after:h-px after:w-[max(10rem,26%)] after:bg-[rgba(21,74,122,0.22)] after:content-['']"
-        >
-            <p
-                class="m-0 max-w-[18ch] text-center text-[clamp(1.8rem,3vw,2.35rem)] leading-none text-[#2b241d] [text-wrap:balance]"
-                style="font-family: 'Cormorant Garamond', serif;"
+            <blockquote class="m-0">
+                <p
+                    class="m-0 max-w-[14ch] text-[clamp(2.2rem,3.8vw,3rem)] leading-none text-[#2b241d] [text-wrap:balance]"
+                    style="font-family: 'Cormorant Garamond', serif;"
+                >
+                    GalexC is Professional-Grade Personal AI
+                </p>
+            </blockquote>
+
+            <span
+                aria-hidden="true"
+                class="block h-px w-32 bg-[rgba(21,74,122,0.3)]"></span>
+        </figure>
+
+        <div class="grid gap-4 border-t border-stone-400/14 pt-6">
+            <div
+                class="flex max-w-[46rem] items-end justify-between gap-3 border-b border-stone-400/12 pb-2.5"
             >
-                access to tools
-            </p>
-        </blockquote>
+                <p class="eyebrow">Objectives</p>
+                <span
+                    class="font-['IBM_Plex_Mono',monospace] text-[0.62rem] tracking-[0.18em] text-[#a39689] uppercase"
+                >
+                    {String(objectives.length).padStart(2, '0')} in total
+                </span>
+            </div>
 
-        <p class="mt-4 text-base leading-[1.8] text-[#564a3f]">
-            I would like to propose that GalexC exists as my contribution to
-            provide <em>access to agency</em>.
-        </p>
-
-        <p class="mt-4 text-base leading-[1.8] text-[#564a3f]">
-            I want to build something that allows people to act on <em>ideas</em
-            >
-            in their own way, for their own passions, and in a new way that is truly
-            impossible without AI.
-        </p>
-
-        <p class="mt-4 text-base leading-[1.8] text-[#564a3f]">
-            For the sake of clarity, I explicitly do <strong>not</strong> want to
-            join the race to build the next monolithic, SaaS-era, walled-garden software
-            we've been made to accept. AI can be something truly incredible, if we
-            build it.
-        </p>
-    </section>
-
-    <hr
-        class="h-px w-[min(6rem,20%)] border-0 bg-[linear-gradient(90deg,rgba(21,74,122,0.22),rgba(21,74,122,0))]"
-    />
-
-    <section
-        class="grid max-w-[46rem] gap-4 border-t border-[rgba(120,113,108,0.16)] pt-5"
-    >
-        <p class="eyebrow mt-0 border-b border-[rgba(120,113,108,0.12)] pb-2">
-            Professional-Grade Personal AI
-        </p>
-
-        <p class="m-0 text-[#5a4e43]">On a practical level:</p>
-
-        <blockquote
-            class="grid justify-items-center my-2 pb-4 after:mt-2.5 after:block after:h-px after:w-[max(12rem,32%)] after:bg-[rgba(21,74,122,0.3)] after:content-['']"
-        >
-            <p
-                class="m-0 max-w-[14ch] text-center text-[clamp(2rem,3.2vw,2.65rem)] leading-none text-[#2b241d] [text-wrap:balance]"
-                style="font-family: 'Cormorant Garamond', serif;"
-            >
-                GalexC is Professional-Grade Personal AI
-            </p>
-        </blockquote>
-
-        <div class="mt-1 grid gap-2.5">
-            <p
-                class="m-0 font-mono text-xs tracking-[0.14em] text-[#6f6255] uppercase"
-            >
-                <strong class="font-medium">Objectives:</strong>
-            </p>
-            <ol class="m-0 grid list-none gap-0 p-0 [counter-reset:objective]">
+            <ol class="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
                 {
-                    objectives.map((objective) => (
-                        <li class="grid grid-cols-[2.2rem_minmax(0,1fr)] items-baseline gap-3 border-t border-[rgba(120,113,108,0.12)] py-3.5 before:font-mono before:text-xs before:tracking-[0.12em] before:text-[#7a6d60] before:content-[counter(objective,decimal-leading-zero)] [&]:[counter-increment:objective]">
-                            {objective}
+                    objectives.map((objective, index) => (
+                        <li class="group relative grid gap-3 rounded-2xl border border-stone-400/14 bg-white/40 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-[rgba(21,74,122,0.2)] hover:shadow-[0_14px_30px_rgba(43,36,29,0.06),inset_0_1px_0_rgba(255,255,255,0.6)]">
+                            <header class="flex items-baseline justify-between gap-2">
+                                <span class="font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
+                                    {String(index + 1).padStart(2, '0')}
+                                </span>
+                                <span
+                                    aria-hidden="true"
+                                    class="block h-px w-10 bg-[rgba(120,113,108,0.22)] transition-colors duration-300 group-hover:bg-[rgba(21,74,122,0.32)]"
+                                />
+                            </header>
+                            <p class="m-0 leading-relaxed text-[#4f4438]">
+                                {objective}
+                            </p>
                         </li>
                     ))
                 }
             </ol>
         </div>
 
-        <p class="text-base leading-[1.8] text-[#564a3f]">
-            If GalexC achieves its objectives, it could make room for better
-            work, better decisions, and a better way of moving through the
-            digital world. If it never becomes more than what it is today, a
-            personal project that has been genuinely, deeply fun to build, I
-            count this as a success.
-        </p>
-
-        <p
-            class="mt-2 border-t border-[rgba(120,113,108,0.1)] pt-2 text-[clamp(2rem,4vw,3rem)] leading-none text-[#2b241d]"
-            style="font-family: 'Cormorant Garamond', serif;"
+        <aside
+            class="grid max-w-[46rem] gap-2 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
         >
-            Personal first. Professional grade.
-        </p>
+            <p
+                class="m-0 font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.18em] text-[#154a7a] uppercase"
+            >
+                Why bother
+            </p>
+            <p class="m-0 text-base leading-[1.8] text-[#564a3f]">
+                If GalexC achieves its objectives, it could make room for better
+                work, better decisions, and a better way of moving through the
+                digital world. If it never becomes more than what it is today, a
+                personal project that has been genuinely, deeply fun to build, I
+                count this as a success.
+            </p>
+        </aside>
+
+        <div
+            class="grid grid-cols-1 overflow-hidden rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.46),rgba(251,247,241,0.42))] shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.6)] sm:grid-cols-2"
+        >
+            <div
+                class="grid gap-2 p-6 sm:border-r sm:border-stone-400/14 md:p-8"
+            >
+                <span
+                    class="font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.22em] text-[#7a6d60] uppercase"
+                >
+                    01 / Posture
+                </span>
+                <p
+                    class="m-0 text-[clamp(2rem,4vw,3rem)] leading-none text-[#2b241d]"
+                    style="font-family: 'Cormorant Garamond', serif;"
+                >
+                    Personal first.
+                </p>
+            </div>
+            <div
+                class="grid gap-2 border-t border-stone-400/14 p-6 sm:border-t-0 md:p-8"
+            >
+                <span
+                    class="font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.22em] text-[#154a7a] uppercase"
+                >
+                    02 / Standard
+                </span>
+                <p
+                    class="m-0 text-[clamp(2rem,4vw,3rem)] leading-none text-[#2b241d]"
+                    style="font-family: 'Cormorant Garamond', serif;"
+                >
+                    Professional grade.
+                </p>
+            </div>
+        </div>
     </section>
 
     <DisclosureScript />
