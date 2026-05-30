@@ -4,17 +4,17 @@ import ContentPageHero from './ContentPageHero.astro';
 
 const ledger = [
     {
-        actor: 'Human',
+        actor: 'Operator',
         owns: 'Intent, standards, approvals, and the right to reshape the system',
         goodFor:
             'Deciding what matters, what gets delegated, and what kind of personal AI this should become',
         avoid: 'Treating the seed as a fixed product or outsourcing irreversible judgment',
     },
     {
-        actor: 'Session',
+        actor: 'Live session',
         owns: 'Learning, shaping, debugging, and steering in real time',
         goodFor:
-            'Figuring out how you actually want to interact with your system',
+            'Clarifying the work while taste, context, and feedback are still moving',
         avoid: 'Pretending exploration is already a finished workflow',
     },
     {
@@ -34,46 +34,66 @@ const ledger = [
 
 const decisionRows = [
     {
-        mode: 'Stay in session',
+        mode: 'Stay live',
         useWhen:
-            'You are still shaping the work, testing assumptions, or using taste and judgment live.',
+            'You are still shaping the task, testing assumptions, or using judgment in real time.',
         returnSurface: 'The active session itself',
         output: 'A tighter brief, clearer constraints, or a direct edit',
     },
     {
         mode: 'Dispatch it',
         useWhen:
-            'The task is bounded enough to run unattended and come back through review.',
+            'The task is bounded enough to run unattended and return through review.',
         returnSurface: 'A PR, artifact, or structured report',
-        output: 'Background execution with receipts and a review surface',
+        output: 'Background execution with receipts and a clear review surface',
     },
 ];
 
 const serviceGroups = [
     {
-        title: 'Planning',
+        title: 'Planning and shaping',
         items: ['Tasks', 'Pi workstation'],
     },
     {
-        title: 'Execution',
+        title: 'Execution and handoff',
         items: ['Dispatch', 'Intercom'],
     },
     {
-        title: 'Upkeep',
+        title: 'Upkeep and continuity',
         items: ['Scheduled jobs', 'Notifications'],
     },
     {
-        title: 'Inheritance',
+        title: 'Optional inheritance',
         items: ['Parley'],
     },
 ];
 
 const flowSteps = [
-    ['01', 'Seed the base', 'Start from a working system, not a blank shell.'],
-    ['02', 'Shape live', 'Use the session to clarify scope and standards.'],
-    ['03', 'Run bounded work', 'Dispatch only what can return cleanly.'],
-    ['04', 'Review the return', 'Accept, reject, or revise with receipts.'],
-    ['05', 'Keep the learning', 'Let useful methods and context compound.'],
+    [
+        '01',
+        'Start from the seed',
+        'Begin with a working system instead of a blank shell.',
+    ],
+    [
+        '02',
+        'Shape the work live',
+        'Use the session to clarify scope, standards, and unknowns.',
+    ],
+    [
+        '03',
+        'Hand off bounded work',
+        'Dispatch only what can return cleanly through review.',
+    ],
+    [
+        '04',
+        'Review and decide',
+        'Accept, reject, or revise with receipts in hand.',
+    ],
+    [
+        '05',
+        'Keep the gain',
+        'Let useful methods, habits, and context compound over time.',
+    ],
 ];
 ---
 
@@ -81,7 +101,7 @@ const flowSteps = [
     <ContentPageHero
         eyebrow="System / Operator model"
         title="The operator model is meant to become personal."
-        lede="GalexC is not only a software stack. It is a way to learn how to work with a personal AI system that you actually own. The seed gives you real structure on day one, but the goal is not to keep everyone on Gilman's preferred setup. The goal is to help you and your AI settle into a cadence that matches your own needs, constraints, and taste."
+        lede="GalexC is not only a software stack. It is a way to learn how to work with a personal AI system that you actually own. The seed gives you real structure on day one, but the goal is not to keep everyone on Gilman's preferred setup. The real goal is to help you and your AI settle into a cadence that matches your own needs, constraints, and standards."
     >
         <div
             slot="aside"
@@ -91,8 +111,8 @@ const flowSteps = [
             <p
                 class="m-0 font-[Cormorant_Garamond,serif] text-[1.65rem] leading-[1.05]"
             >
-                GalexC delegates execution, but the operator owns the system and
-                its evolution.
+                GalexC can delegate execution, but the operator owns the system
+                and its evolution.
             </p>
         </div>
     </ContentPageHero>
@@ -115,7 +135,7 @@ const flowSteps = [
                     class="mt-1 text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
-                    A system with named responsibilities
+                    A system with explicit responsibilities
                 </h2>
             </div>
         </div>
@@ -155,7 +175,7 @@ const flowSteps = [
                     class="mt-1 text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
-                    How the cadence settles
+                    How the working cadence settles
                 </h2>
             </div>
         </div>
@@ -192,7 +212,8 @@ const flowSteps = [
                 </h2>
             </div>
             <p class="m-0 text-[#6a5e52] text-[0.93rem] leading-relaxed">
-                The real operating habit is choosing the right execution mode.
+                The real operating habit is choosing the right mode for the
+                work.
             </p>
         </div>
         <div
@@ -247,9 +268,9 @@ const flowSteps = [
             <p>
                 After the fork, the system is yours. You can keep my defaults,
                 replace nearly every implementation detail, or selectively
-                inherit ideas through Parley. You do not need to treat any of
-                that as mandatory. The seed includes maintenance patterns like
-                weekly version checks and expertise cleanup sweeps, but the real
+                inherit ideas through Parley. None of that is meant to be
+                mandatory. The seed includes maintenance patterns like weekly
+                version checks and expertise cleanup sweeps, but the real
                 objective is to help you and your AI arrive at a cadence that
                 feels rigorous and sustainable for you.
             </p>

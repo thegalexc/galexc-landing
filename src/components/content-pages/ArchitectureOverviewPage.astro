@@ -2,127 +2,131 @@
 import ArchitectureSeamDiagram from '../graphics/ArchitectureSeamDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const facts = ['Seed first', 'Replace any layer', 'Fork and own it'];
+const facts = ['Start from a seed', 'Own the fork', 'Replace with intent'];
 
 const layers = [
     {
-        title: 'Seed layer',
-        body: 'GalexC starts from galexc-starter-pack, likely soon galexc-seed, which establishes the foundational interaction model and working system.',
-        tags: ['default', 'teachable base', 'owned fork'],
+        title: 'Seed system',
+        body: 'GalexC begins with a working base, currently galexc-starter-pack and likely soon galexc-seed. It gives you a coherent operating idea and a live environment on day one rather than asking you to assemble every primitive yourself.',
+        tags: ['coherent base', 'working day one', 'teachable'],
     },
     {
-        title: 'Interaction layer',
-        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious operating surface.',
-        tags: ['live shaping', 'workflow control', 'review path'],
+        title: 'Interaction surfaces',
+        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious interface between the operator and the system.',
+        tags: ['live shaping', 'workflow control', 'reviewable'],
     },
     {
-        title: 'Services',
-        body: 'Storage, search, routing, notifications, and background services provide continuity and visibility.',
-        tags: ['durable memory', 'observability', 'continuity'],
+        title: 'Supporting services',
+        body: 'Storage, search, routing, notifications, and background services keep context intact and make long-running work observable instead of opaque.',
+        tags: ['continuity', 'visibility', 'durable memory'],
     },
     {
-        title: 'Replaceable implementation',
-        body: 'Postgres, Python services, schedulers, and other internals are defaults, not commandments. Swap them if your system wants something else.',
+        title: 'Replaceable internals',
+        body: 'Postgres, Python services, schedulers, and other implementation choices are defaults, not dogma. The system is meant to tolerate real substitution.',
         tags: ['replaceable', 'not sacred', 'operator choice'],
     },
     {
-        title: 'Personal evolution',
-        body: 'Once forked, the stack becomes your own professional-grade personal AI environment rather than a centrally maintained product.',
-        tags: ['your cadence', 'long-term ownership', 'compounding system'],
+        title: 'Personal environment',
+        body: 'After the fork, the stack should stop feeling borrowed. It becomes your own professional-grade personal AI environment, shaped around your standards and cadence.',
+        tags: ['your cadence', 'long-term ownership', 'compounding leverage'],
     },
 ];
 
 const replaceabilityLedger = [
     {
-        layer: 'Seed',
-        defaultState: 'Coherent starting point',
-        canChange: 'Yes, after the operator understands the working base',
+        layer: 'Seed model',
+        defaultState:
+            'A coherent starting point with real workflows already in place',
+        canChange: 'Yes, once the operating idea is understood',
         consequence:
-            'You preserve the operating idea while making the system truly your own.',
+            'You keep the parts that teach well and replace the parts that do not fit.',
     },
     {
-        layer: 'Interaction layer',
-        defaultState: 'Durable session and dispatch workflow',
-        canChange: 'Yes, if you want a different rhythm or surface',
+        layer: 'Interaction surfaces',
+        defaultState:
+            'Session, task, and dispatch rhythms that already work together',
+        canChange: 'Yes, if your preferred working cadence is different',
         consequence:
-            'The cadence changes, but the review boundary still matters.',
+            'The surface changes, but the review boundary still matters.',
     },
     {
-        layer: 'Services',
-        defaultState: 'Opinionated infra defaults',
+        layer: 'Infra services',
+        defaultState:
+            'Opinionated storage, search, and background-service defaults',
         canChange: 'Yes, service by service',
         consequence:
-            'The substrate shifts without forcing a full product rewrite.',
+            'The substrate can evolve without forcing a total rewrite of the system.',
     },
     {
-        layer: 'Implementation',
-        defaultState: 'Current languages and internal services',
+        layer: 'Implementation details',
+        defaultState:
+            'Current languages, libraries, and internal service boundaries',
         canChange: 'Yes, aggressively',
         consequence:
-            'You can replace internals without giving up ownership of the operating model.',
+            'You can modernize internals without giving up the operator model.',
     },
 ];
 
 const progression = [
     {
         code: '01',
-        title: 'Seed',
-        body: 'Start from a coherent base instead of assembling every primitive from scratch.',
+        title: 'Start coherent',
+        body: 'Begin with a working system that already knows how to route work, preserve context, and return results for review.',
     },
     {
         code: '02',
-        title: 'Adapt',
-        body: 'Replace or reshape infrastructure, services, and workflows to fit your own needs.',
+        title: 'Learn by use',
+        body: 'Operate the seed long enough to understand which surfaces feel natural and which assumptions you want to challenge.',
     },
     {
         code: '03',
-        title: 'Operate',
-        body: 'Build a real cadence with your AI so the system stays useful, maintained, and personal over time.',
+        title: 'Diverge deliberately',
+        body: 'Replace infrastructure, services, or workflows where your needs, standards, or taste genuinely differ.',
     },
     {
         code: '04',
-        title: 'Own',
-        body: 'The fork stops feeling borrowed and starts behaving like your environment.',
+        title: 'Own the result',
+        body: 'The fork becomes your environment, not a copy waiting for upstream permission.',
     },
 ];
 
 const loopSteps = [
-    'Define work',
-    'Route context',
-    'Choose workflow',
-    'Run in the right mode',
-    'Review output',
-    'Keep what matters',
+    'Define the work',
+    'Route the right context',
+    'Pick the execution mode',
+    'Run with clear bounds',
+    'Review what returns',
+    'Keep the durable gain',
 ];
 
 const layerItems = [
     {
-        label: 'Repos',
-        body: 'Source material that matters. Real files, real history, real ownership.',
+        label: 'Repos and artifacts',
+        body: 'Real source material, real file history, and real ownership. The system starts from things that matter.',
     },
     {
-        label: 'Tasks',
-        body: 'Scoped intent and what done means before execution begins.',
+        label: 'Tasks and intent',
+        body: 'A durable record of what the work is, why it matters, and what done means before execution begins.',
     },
     {
-        label: 'Methods',
-        body: 'Prompts and skills that turn good approaches into reusable workflow.',
+        label: 'Methods and skills',
+        body: 'Prompts, skills, and recurring workflows that make good operating habits reusable instead of improvised.',
     },
     {
-        label: 'Services',
-        body: 'Search, state, notifications, forge, and observability that keep the loop durable.',
+        label: 'Durable services',
+        body: 'Search, state, notifications, dispatch, and observability that keep the loop from collapsing into scrollback.',
     },
     {
-        label: 'Review',
-        body: 'PRs and artifacts that let the human decide what becomes real.',
+        label: 'Review surfaces',
+        body: 'PRs, artifacts, and bounded outputs that let the human decide what becomes real.',
     },
 ];
 
 const trustItems = [
     'Bounded execution over vague autonomy',
-    'Search before browse',
-    'Reviewable outputs only',
-    'Private by default service exposure',
+    'Reviewable returns over hidden action',
+    'Searchable state over disposable chat history',
+    'Private infrastructure over casual exposure',
     'Recoverable systems with receipts',
 ];
 ---
@@ -130,8 +134,8 @@ const trustItems = [
 <div class="grid gap-10">
     <ContentPageHero
         eyebrow="System"
-        title="Architecture Overview"
-        lede="GalexC begins with a seed system, currently galexc-starter-pack and likely becoming galexc-seed. This establishes the foundational interaction model and a working system from day one. You get durable interaction layers, tasks, async dispatch, scheduled work, a workstation Pi environment aligned with dispatched agents, and core communications primitives like intercom. From there, you take full ownership and shape the system around your own needs."
+        title="Architecture overview"
+        lede="GalexC starts from a seed system that already knows how to route work, preserve context, run background execution, and return outputs through review. Today that seed is galexc-starter-pack and likely soon galexc-seed. The important point is not the exact stack. The important point is that you begin with a coherent operating model, then take full ownership and reshape the system around your own needs."
     >
         <ul
             slot="aside"
@@ -157,7 +161,7 @@ const trustItems = [
                 <h2
                     class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
-                    A stack meant to be inherited, then changed
+                    A working base meant to be inherited, then reshaped
                 </h2>
             </div>
         </div>
@@ -199,12 +203,12 @@ const trustItems = [
                 <h2
                     class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
-                    What is fixed, what is optional
+                    What should stay coherent, and what can change freely
                 </h2>
             </div>
             <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The seed matters. The exact implementation does not have to
-                stay.
+                The seed is important because it teaches. The exact
+                implementation is allowed to move.
             </p>
         </div>
         <div class="grid gap-0">
@@ -243,11 +247,11 @@ const trustItems = [
                 <h2
                     class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
-                    Start coherent, then diverge deliberately
+                    Start coherent, then diverge with judgment
                 </h2>
             </div>
             <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The seed is the beginning, not the boundary.
+                The seed is a starting posture, not a permanent boundary.
             </p>
         </div>
         <div
@@ -277,9 +281,9 @@ const trustItems = [
                 before you begin customizing. That makes the system teachable.
                 It lets you learn how to interact with your personal AI before
                 you decide which parts to keep, replace, or extend. If you want
-                my learnings and features through Parley, you can use them. You
-                do not need to. The system is designed so optional inheritance
-                never overrides actual ownership.
+                to inherit my learnings and features through Parley, you can.
+                You do not need to. Optional inheritance is useful only if it
+                never overrides real ownership.
             </p>
         </article>
         <aside
@@ -309,7 +313,7 @@ const trustItems = [
             class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
             <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The product is the loop, not a single assistant.
+                The product is the operating loop, not a single chat surface.
             </p>
         </div>
         <div class="flex flex-wrap gap-3">
