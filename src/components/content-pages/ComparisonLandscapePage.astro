@@ -1,5 +1,45 @@
 ---
 import ContentPageHero from './ContentPageHero.astro';
+
+const references = [
+    {
+        name: 'Claude Code',
+        kind: 'Coding agent',
+        note: 'Excellent at focused coding work inside an active repo session.',
+        relation:
+            'GalexC overlaps with that loop, but it is trying to support a wider working environment that also includes routing, retained context, background execution, review, and business-facing work.',
+        url: 'https://www.anthropic.com/claude-code',
+    },
+    {
+        name: 'Cursor',
+        kind: 'IDE',
+        note: 'A strong editor-centered way to work with models while you code.',
+        relation:
+            'GalexC is not trying to be an IDE. The overlap is real, but the center of gravity is different. It is closer to an owned operating environment than a development surface.',
+        url: 'https://cursor.com',
+    },
+    {
+        name: 'Hermes',
+        kind: 'Agentic harness',
+        note: 'Pushes further toward flexible agent behavior and autonomy-forward workflows.',
+        relation:
+            'GalexC shares some of that ambition, but stays much more opinionated about bounded execution, review surfaces, and operator control.',
+        url: 'https://hermes-agent.nousresearch.com/',
+    },
+    {
+        name: 'OpenClaw',
+        kind: 'Autonomous harness',
+        note: 'Lives closer to open-ended autonomy and hackable agent infrastructure.',
+        relation:
+            'GalexC is not trying to maximize freedom of agent action. It is trying to make a personal AI system that remains useful, durable, and governable in ordinary professional life.',
+        url: 'https://openclaw.ai/',
+    },
+];
+
+const withUtm = (url: string) => {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}utm_source=galexc`;
+};
 ---
 
 <div class="grid gap-10 md:gap-12">
@@ -16,21 +56,239 @@ import ContentPageHero from './ContentPageHero.astro';
                 other emerging AI systems, but it isn't trying to be a generic
                 assistant or a pure autonomy play.
             </p>
+            <blockquote
+                class="m-0 grid gap-3 border-l-2 border-l-[rgba(21,74,122,0.24)] pl-5"
+            >
+                <p
+                    class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.6rem] tracking-[0.18em] uppercase text-[#154a7a]"
+                >
+                    In one line
+                </p>
+                <p
+                    class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.5rem,2.4vw,2.1rem)] leading-tight text-[#2b241d]"
+                >
+                    The point is a professional-grade personal AI that can do
+                    technical and business-related work with you and for you.
+                </p>
+            </blockquote>
             <p class="m-0">
-                The point is a professional-grade personal AI that can do
-                technical and business-related work with you and for you.
+                Generative AI is incredible, but it's only one tool in the tool
+                chest. There are many other incredible, proven, and often
+                overlooked technologies for memory, routing, background work,
+                review, versioning, and system ownership. GalexC is about
+                putting some of those pieces together so the result is actually
+                useful for long-term, serious work.
             </p>
-            <p class="m-0">
-                It starts from a simple idea. LLMs are incredible, but they're
-                only one tool in the tool chest.
+        </div>
+    </section>
+
+    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6">
+        <div class="grid gap-2.5 max-w-2xl">
+            <p class="eyebrow">Orientation</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                How does GalexC compare to ...?
+            </h2>
+            <p class="m-0 text-[#5b4f43] leading-relaxed">
+                Claude Code, Cursor, Hermes, and OpenClaw are all useful
+                reference points. They help explain parts of GalexC, but none of
+                them is quite the right category for it.
             </p>
-            <p class="m-0">
-                We already have other incredible, proven, and often overlooked
-                technologies for memory, routing, background work, review,
-                versioning, and system ownership. GalexC is about putting those
-                pieces together so the result is actually useful for serious
-                professional and technical work.
-            </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+            {
+                references.map((reference, index) => (
+                    <a
+                        href={withUtm(reference.url)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group relative grid cursor-pointer gap-4 overflow-hidden rounded-3xl border border-[rgba(120,113,108,0.16)] bg-[linear-gradient(180deg,rgba(255,253,248,0.78),rgba(250,245,238,0.42))] p-5 no-underline shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.6)] transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-[rgba(21,74,122,0.2)] hover:shadow-[0_18px_38px_rgba(43,36,29,0.08),inset_0_1px_0_rgba(255,255,255,0.72)] focus-visible:-translate-y-px focus-visible:border-[rgba(21,74,122,0.2)] focus-visible:shadow-[0_18px_38px_rgba(43,36,29,0.08),inset_0_1px_0_rgba(255,255,255,0.72)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(21,74,122,0.35)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e8]"
+                        aria-label={`${reference.name} - ${reference.kind} (opens in a new tab)`}
+                    >
+                        <span
+                            aria-hidden="true"
+                            class="pointer-events-none absolute right-0 top-0 h-24 w-24 bg-[radial-gradient(circle_at_top_right,rgba(21,74,122,0.1),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                        />
+                        <header class="flex items-baseline justify-between gap-3">
+                            <span class="font-[IBM_Plex_Mono,monospace] text-[0.7rem] tracking-[0.2em] text-[#7a6d60]">
+                                {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span class="inline-flex items-center rounded-full bg-[rgba(21,74,122,0.07)] px-2.5 py-1 font-[IBM_Plex_Mono,monospace] text-[0.62rem] tracking-[0.14em] uppercase text-[#123c62]">
+                                {reference.kind}
+                            </span>
+                        </header>
+                        <div class="-mt-1 grid gap-3">
+                            <h3 class="m-0 flex items-baseline gap-2 font-[Cormorant_Garamond,serif] text-[clamp(1.7rem,2.6vw,2.1rem)] leading-[0.98] text-[#2b241d]">
+                                <span>{reference.name}</span>
+                                <span
+                                    aria-hidden="true"
+                                    class="font-[IBM_Plex_Mono,monospace] text-[0.75rem] leading-none text-[#7a6d60] transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:text-[#154a7a] group-focus-visible:-translate-y-px group-focus-visible:text-[#154a7a]"
+                                >
+                                    ↗
+                                </span>
+                            </h3>
+                            <p class="m-0 font-[Cormorant_Garamond,serif] italic text-lg leading-snug text-[#7a6d60]">
+                                {reference.note}
+                            </p>
+                        </div>
+                        <div class="grid gap-2 border-l-2 border-l-[rgba(21,74,122,0.24)] pl-3.5">
+                            <p class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.6rem] tracking-[0.18em] uppercase text-[#154a7a]">
+                                Where GalexC sits
+                            </p>
+                            <p class="m-0 text-[#4f4438] leading-relaxed">
+                                {reference.relation}
+                            </p>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+
+    <section
+        class="grid gap-5 max-w-[46rem] border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">Fit</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                What this page should help you decide
+            </h2>
+        </div>
+
+        <p class="m-0 text-[#5b4f43] leading-relaxed">
+            This is not a pitch for why GalexC is better..because it isn't!
+            These systems are doing different things, and many of them are
+            better than GalexC at the thing they are actually trying to do.
+        </p>
+
+        <div
+            class="mt-2 grid gap-0"
+            role="group"
+            aria-label="Fit decision flow"
+        >
+            <div
+                class="rounded-2xl border border-[rgba(120,113,108,0.18)] bg-[rgba(255,253,248,0.55)] px-5 py-4 md:mx-auto md:max-w-xl"
+            >
+                <p
+                    class="font-[IBM_Plex_Mono,monospace] text-[0.6rem] tracking-[0.18em] uppercase text-[#154a7a]"
+                >
+                    The useful question
+                </p>
+                <p
+                    class="mt-2 font-[Cormorant_Garamond,serif] text-[clamp(1.4rem,2.2vw,1.85rem)] leading-[1.18] text-[#2b241d] [text-wrap:balance]"
+                >
+                    Do you want to "own" your AI infrastructure?
+                </p>
+                <ul
+                    class="m-0 mt-3 grid list-none gap-2 p-0 leading-relaxed text-[#5b4f43]"
+                >
+                    <li class="m-0 flex items-baseline gap-3">
+                        <span
+                            aria-hidden="true"
+                            class="mt-[0.5em] flex flex-none items-center"
+                        >
+                            <span
+                                class="block h-px w-3 bg-[rgba(120,113,108,0.45)]"
+                            ></span>
+                            <span
+                                class="block h-1.5 w-1.5 rounded-full bg-[rgba(21,74,122,0.45)]"
+                            ></span>
+                        </span>
+                        <span>use any harness, any model</span>
+                    </li>
+                    <li class="m-0 flex items-baseline gap-3">
+                        <span
+                            aria-hidden="true"
+                            class="mt-[0.5em] flex flex-none items-center"
+                        >
+                            <span
+                                class="block h-px w-3 bg-[rgba(120,113,108,0.45)]"
+                            ></span>
+                            <span
+                                class="block h-1.5 w-1.5 rounded-full bg-[rgba(21,74,122,0.45)]"
+                            ></span>
+                        </span>
+                        <span>
+                            have full control over third party interactions
+                        </span>
+                    </li>
+                    <li class="m-0 flex items-baseline gap-3">
+                        <span
+                            aria-hidden="true"
+                            class="mt-[0.5em] flex flex-none items-center"
+                        >
+                            <span
+                                class="block h-px w-3 bg-[rgba(120,113,108,0.45)]"
+                            ></span>
+                            <span
+                                class="block h-1.5 w-1.5 rounded-full bg-[rgba(21,74,122,0.45)]"
+                            ></span>
+                        </span>
+                        <span>
+                            compound genuinely around what <em>you</em> do
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex justify-center" aria-hidden="true">
+                <span class="block h-8 w-px bg-[rgba(120,113,108,0.32)] md:h-10"
+                ></span>
+            </div>
+
+            <div class="hidden justify-center md:flex" aria-hidden="true">
+                <span class="block h-px w-1/2 bg-[rgba(120,113,108,0.32)]"
+                ></span>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 md:gap-0">
+                <div class="flex flex-col items-center">
+                    <span
+                        aria-hidden="true"
+                        class="hidden h-6 w-px bg-[rgba(120,113,108,0.32)] md:block"
+                    ></span>
+                    <p
+                        class="mt-2 font-[IBM_Plex_Mono,monospace] text-[0.65rem] tracking-[0.18em] uppercase text-[#154a7a]"
+                    >
+                        Yes
+                    </p>
+                    <span
+                        aria-hidden="true"
+                        class="mt-2 block h-5 w-px bg-[rgba(120,113,108,0.32)]"
+                    ></span>
+                    <div
+                        class="mt-2 w-full rounded-2xl border border-[rgba(21,74,122,0.18)] bg-[rgba(21,74,122,0.04)] px-4 py-3.5 leading-relaxed text-[#4f4438] md:max-w-[22rem]"
+                    >
+                        GalexC may be relevant.
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <span
+                        aria-hidden="true"
+                        class="hidden h-6 w-px bg-[rgba(120,113,108,0.32)] md:block"
+                    ></span>
+                    <p
+                        class="mt-2 font-[IBM_Plex_Mono,monospace] text-[0.65rem] tracking-[0.18em] uppercase text-[#7a6d60]"
+                    >
+                        No
+                    </p>
+                    <span
+                        aria-hidden="true"
+                        class="mt-2 block h-5 w-px bg-[rgba(120,113,108,0.32)]"
+                    ></span>
+                    <div
+                        class="mt-2 w-full rounded-2xl border border-[rgba(120,113,108,0.18)] bg-[rgba(255,253,248,0.5)] px-4 py-3.5 leading-relaxed text-[#5b4f43] md:max-w-[22rem]"
+                    >
+                        If what you want is the best coding loop, the most
+                        autonomous harness, or the strongest editor-native model
+                        experience, you are probably looking for something else.
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
