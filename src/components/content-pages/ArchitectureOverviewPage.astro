@@ -127,7 +127,7 @@ const trustItems = [
 ];
 ---
 
-<div class="grid gap-[2.4rem]">
+<div class="grid gap-10">
     <ContentPageHero
         eyebrow="System"
         title="Architecture Overview"
@@ -135,49 +135,49 @@ const trustItems = [
     >
         <ul
             slot="aside"
-            class="m-0 grid list-none gap-[0.55rem] border-t border-stone-400/14 p-0 pt-[0.45rem] font-['IBM_Plex_Mono',monospace] text-[0.74rem] uppercase tracking-[0.12em] text-[#6f6255]"
+            class="m-0 grid list-none gap-2 border-t border-stone-400/14 p-0 pt-2 font-['IBM_Plex_Mono',monospace] text-xs uppercase tracking-[0.12em] text-[#6f6255]"
         >
             {facts.map((fact) => <li>{fact}</li>)}
         </ul>
     </ContentPageHero>
 
     <section
-        class="grid gap-[0.9rem] rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.44),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] p-[1.15rem_1.2rem] shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
+        class="grid gap-3.5 rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.44),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] p-[1.15rem_1.2rem] shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
     >
         <h2 class="eyebrow">System seam</h2>
         <ArchitectureSeamDiagram />
     </section>
 
-    <section class="grid gap-[0.9rem] border-t border-stone-400/14 pt-[0.9rem]">
+    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
         <div
-            class="grid gap-[0.6rem] md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
+            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
             <div>
                 <h2 class="eyebrow">System at a glance</h2>
                 <h2
-                    class="mt-[0.3rem] font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
+                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
                     A stack meant to be inherited, then changed
                 </h2>
             </div>
         </div>
-        <div class="grid gap-[0.85rem]">
+        <div class="grid gap-3.5">
             {
                 layers.map((layer, index) => (
                     <div
                         class:list={[
-                            'grid gap-[0.35rem] py-[0.95rem] border-b border-stone-400/10',
+                            'grid gap-1.5 py-4 border-b border-stone-400/10',
                             index === layers.length - 1 &&
-                                'pl-[0.9rem] border-l-2 border-l-[rgba(21,74,122,0.24)] bg-[linear-gradient(90deg,rgba(21,74,122,0.05),transparent_62%)]',
+                                'pl-3.5 border-l-2 border-l-[rgba(21,74,122,0.24)] bg-[linear-gradient(90deg,rgba(21,74,122,0.05),transparent_62%)]',
                         ]}
                     >
-                        <div class="grid gap-[0.55rem]">
+                        <div class="grid gap-2">
                             <h3 class="m-0 font-['Cormorant_Garamond',serif] text-[clamp(1.8rem,3vw,2.45rem)] leading-none text-[#2b241d]">
                                 {layer.title}
                             </h3>
-                            <div class="grid grid-cols-[repeat(auto-fit,minmax(9rem,max-content))] gap-[0.45rem]">
+                            <div class="grid grid-cols-[repeat(auto-fit,minmax(9rem,max-content))] gap-2">
                                 {layer.tags.map((tag) => (
-                                    <span class="rounded-full bg-[rgba(21,74,122,0.08)] px-[0.55rem] py-[0.3rem] font-['IBM_Plex_Mono',monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#123c62]">
+                                    <span class="rounded-full bg-[rgba(21,74,122,0.08)] px-2 py-1 font-['IBM_Plex_Mono',monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#123c62]">
                                         {tag}
                                     </span>
                                 ))}
@@ -190,19 +190,19 @@ const trustItems = [
         </div>
     </section>
 
-    <section class="grid gap-[0.9rem] border-t border-stone-400/14 pt-[0.9rem]">
+    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
         <div
-            class="grid gap-[0.6rem] md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
+            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
             <div>
                 <p class="eyebrow">Replaceability ledger</p>
                 <h2
-                    class="mt-[0.3rem] font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
+                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
                     What is fixed, what is optional
                 </h2>
             </div>
-            <p class="m-0 text-[0.93rem] leading-[1.6] text-[#6a5e52]">
+            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
                 The seed matters. The exact implementation does not have to
                 stay.
             </p>
@@ -212,7 +212,7 @@ const trustItems = [
                 replaceabilityLedger.map((item, index) => (
                     <div
                         class:list={[
-                            'grid gap-[0.35rem] py-[0.95rem]',
+                            'grid gap-1.5 py-4',
                             index > 0 && 'border-t border-stone-400/12',
                         ]}
                     >
@@ -234,28 +234,28 @@ const trustItems = [
         </div>
     </section>
 
-    <section class="grid gap-[0.9rem]">
+    <section class="grid gap-3.5">
         <div
-            class="grid gap-[0.6rem] md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
+            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
             <div>
                 <p class="eyebrow">One path through the system</p>
                 <h2
-                    class="mt-[0.3rem] font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
+                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
                     Start coherent, then diverge deliberately
                 </h2>
             </div>
-            <p class="m-0 text-[0.93rem] leading-[1.6] text-[#6a5e52]">
+            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
                 The seed is the beginning, not the boundary.
             </p>
         </div>
         <div
-            class="grid gap-[0.9rem] grid-cols-[repeat(auto-fit,minmax(12rem,1fr))]"
+            class="grid gap-3.5 grid-cols-[repeat(auto-fit,minmax(12rem,1fr))]"
         >
             {
                 progression.map((item) => (
-                    <div class="grid gap-[0.45rem] rounded-[1rem] border border-stone-400/14 bg-white/42 p-4">
+                    <div class="grid gap-2 rounded-2xl border border-stone-400/14 bg-white/42 p-4">
                         <span class="font-['IBM_Plex_Mono',monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]">
                             {item.code}
                         </span>
@@ -270,7 +270,7 @@ const trustItems = [
     </section>
 
     <section class="grid gap-4 md:grid-cols-2">
-        <article class="grid gap-[0.9rem]">
+        <article class="grid gap-3.5">
             <h2 class="eyebrow">Why the system starts this way</h2>
             <p>
                 The seed gives you a coherent philosophy and a working substrate
@@ -283,10 +283,10 @@ const trustItems = [
             </p>
         </article>
         <aside
-            class="grid gap-[0.6rem] border-l-2 border-l-[rgba(21,74,122,0.18)] pl-[1.15rem]"
+            class="grid gap-2.5 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
         >
             <p class="eyebrow">Legend</p>
-            <ul class="m-0 grid list-none gap-[0.65rem] p-0">
+            <ul class="m-0 grid list-none gap-2.5 p-0">
                 <li>
                     <strong>Center seam</strong> - shared context gets stitched into
                     a durable record before it moves onward
@@ -303,12 +303,12 @@ const trustItems = [
         </aside>
     </section>
 
-    <section class="grid gap-[0.9rem] border-t border-stone-400/14 pt-[0.9rem]">
+    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
         <h2 class="eyebrow">Operating loop</h2>
         <div
-            class="grid gap-[0.6rem] md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
+            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
-            <p class="m-0 text-[0.93rem] leading-[1.6] text-[#6a5e52]">
+            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
                 The product is the loop, not a single assistant.
             </p>
         </div>
@@ -316,12 +316,12 @@ const trustItems = [
             {
                 loopSteps.map((step, index) => (
                     <>
-                        <div class="rounded-full border border-stone-400/16 bg-white/52 px-[0.9rem] py-[0.65rem] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                        <div class="rounded-full border border-stone-400/16 bg-white/52 px-3.5 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
                             {step}
                         </div>
                         {index < loopSteps.length - 1 && (
                             <div
-                                class="h-px w-[1.6rem] self-center bg-[rgba(21,74,122,0.28)]"
+                                class="h-px w-6 self-center bg-[rgba(21,74,122,0.28)]"
                                 aria-hidden="true"
                             />
                         )}
@@ -331,28 +331,28 @@ const trustItems = [
         </div>
     </section>
 
-    <section class="grid gap-[0.9rem]">
+    <section class="grid gap-3.5">
         <div
-            class="grid gap-[0.6rem] md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
+            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
         >
             <div>
                 <p class="eyebrow">Built from durable primitives</p>
                 <h2
-                    class="mt-[0.3rem] font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
+                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
                 >
                     More operating environment than assistant
                 </h2>
             </div>
-            <p class="m-0 text-[0.93rem] leading-[1.6] text-[#6a5e52]">
+            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
                 The leverage comes from composition, not from pretending one
                 model is the whole product.
             </p>
         </div>
-        <div class="grid gap-[0.9rem]">
+        <div class="grid gap-3.5">
             {
                 layerItems.map((item) => (
-                    <div class="grid gap-[0.35rem] border-t border-stone-400/14 pt-[0.95rem]">
-                        <h3 class="m-0 font-['IBM_Plex_Mono',monospace] text-[0.73rem] uppercase tracking-[0.12em] text-[#6f6255]">
+                    <div class="grid gap-1.5 border-t border-stone-400/14 pt-4">
+                        <h3 class="m-0 font-['IBM_Plex_Mono',monospace] text-xs uppercase tracking-[0.12em] text-[#6f6255]">
                             {item.label}
                         </h3>
                         <p>{item.body}</p>
@@ -365,10 +365,10 @@ const trustItems = [
     <section
         class="grid gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(280px,0.7fr)]"
     >
-        <article class="grid gap-[0.9rem]">
+        <article class="grid gap-3.5">
             <h2 class="eyebrow">Why it matters</h2>
             <h2
-                class="mt-[0.3rem] font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
+                class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
             >
                 A system that compounds
             </h2>
@@ -382,10 +382,10 @@ const trustItems = [
             </p>
         </article>
         <aside
-            class="grid gap-[0.6rem] border-l-2 border-l-[rgba(21,74,122,0.18)] pl-[1.15rem]"
+            class="grid gap-2.5 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
         >
             <p class="eyebrow">Strong boundaries</p>
-            <ul class="m-0 grid list-none gap-[0.65rem] p-0">
+            <ul class="m-0 grid list-none gap-2.5 p-0">
                 {trustItems.map((item) => <li>{item}</li>)}
             </ul>
         </aside>
