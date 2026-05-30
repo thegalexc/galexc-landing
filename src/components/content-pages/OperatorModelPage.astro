@@ -98,7 +98,7 @@ const flowSteps = [
     </ContentPageHero>
 
     <section
-        class="grid gap-3.5 p-[1.15rem_1.2rem] rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-[rgba(120,113,108,0.14)] shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
+        class="grid gap-3.5 p-5 rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-[rgba(120,113,108,0.14)] shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
         style="background: linear-gradient(180deg, rgba(255,255,255,0.44), rgba(251,247,241,0.52)), repeating-linear-gradient(180deg, rgba(120,113,108,0.038) 0, rgba(120,113,108,0.038) 1px, transparent 1px, transparent 33px);"
     >
         <p class="eyebrow">Responsibility map</p>
@@ -199,38 +199,38 @@ const flowSteps = [
             class="grid grid-cols-[repeat(4,minmax(0,1fr))] gap-0 border-t border-l border-[rgba(120,113,108,0.12)] max-md:grid-cols-1"
         >
             <div
-                class="hidden md:block p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
             >
                 Mode
             </div>
             <div
-                class="hidden md:block p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
             >
                 Use when
             </div>
             <div
-                class="hidden md:block p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
             >
                 Returns through
             </div>
             <div
-                class="hidden md:block p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
             >
                 Likely output
             </div>
             {
                 decisionRows.map((row) => (
                     <>
-                        <div class="p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] text-[#2b241d] max-md:border-l-0">
+                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] text-[#2b241d] max-md:border-l-0">
                             {row.mode}
                         </div>
-                        <div class="p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
+                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
                             {row.useWhen}
                         </div>
-                        <div class="p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
+                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
                             {row.returnSurface}
                         </div>
-                        <div class="p-[0.9rem_0.95rem] border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
+                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
                             {row.output}
                         </div>
                     </>
