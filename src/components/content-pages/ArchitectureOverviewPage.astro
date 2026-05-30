@@ -1,388 +1,201 @@
 ---
-import ArchitectureSeamDiagram from '../graphics/ArchitectureSeamDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const layers = [
+const stackRows = [
+    [
+        'Pi.dev runtime',
+        'Required',
+        'GalexC seed ships as a Pi-based working environment.',
+    ],
+    [
+        'Hub web UI',
+        'Required',
+        'Primary browser interface for visibility, review, and light interaction.',
+    ],
+    [
+        'Postgres',
+        'Required',
+        'System state, tasks, durable records, and service-backed memory surfaces.',
+    ],
+    [
+        'Dispatch worker',
+        'Required',
+        'Runs bounded async jobs outside the live session.',
+    ],
+    [
+        'Intercom',
+        'Required',
+        'Message channel between sessions, jobs, and services.',
+    ],
+    [
+        'ntfy',
+        'Required',
+        'Out-of-band notifications when work finishes or needs attention.',
+    ],
+    [
+        'Search + indexing',
+        'Required',
+        'Makes docs, notes, and system state retrievable instead of lost in scrollback.',
+    ],
+    [
+        'LM provider layer',
+        'Pluggable',
+        'Anthropic, OpenAI, Google, OpenRouter, LM Studio, or other providers.',
+    ],
+];
+
+const wiring = [
     {
-        title: 'Seed system',
-        body: 'GalexC begins with a working base, currently galexc-starter-pack and likely soon galexc-seed. The point is to start from a coherent operating model that already works, not to assemble every primitive from scratch before you can learn anything useful.',
-        tags: ['coherent base', 'working day one', 'teachable'],
+        title: 'Operator surfaces',
+        body: 'Pi sessions and Hub are the main human control planes.',
     },
     {
-        title: 'Interaction surfaces',
-        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious interface between the operator and the system. This is where the architecture stops being abstract and becomes a usable practice.',
-        tags: ['live shaping', 'workflow control', 'reviewable'],
+        title: 'Coordination layer',
+        body: 'Tasks, dispatch, intercom, and notifications coordinate work across live and async paths.',
     },
     {
-        title: 'Supporting services',
-        body: 'Storage, search, routing, notifications, and background services keep context intact and make long-running work observable instead of opaque. They exist so useful work does not collapse back into chat history and forgotten tabs.',
-        tags: ['continuity', 'visibility', 'durable memory'],
+        title: 'State layer',
+        body: 'Postgres and search keep work durable, queryable, and reviewable.',
     },
     {
-        title: 'Replaceable internals',
-        body: 'Postgres, Python services, schedulers, and other implementation choices are defaults, not dogma. They matter because they work, not because they are sacred.',
-        tags: ['replaceable', 'not sacred', 'operator choice'],
-    },
-    {
-        title: 'Personal environment',
-        body: 'After the fork, the stack should stop feeling borrowed. It becomes your own professional-grade personal AI environment, shaped around your standards, your workflows, and your cadence.',
-        tags: ['your cadence', 'long-term ownership', 'compounding leverage'],
+        title: 'Execution layer',
+        body: 'Agents, jobs, and tools run against repos, files, services, and external APIs.',
     },
 ];
 
-const replaceabilityLedger = [
-    {
-        layer: 'Seed model',
-        defaultState:
-            'A coherent starting point with real workflows already in place',
-        canChange: 'Yes, once the operating idea is understood',
-        consequence:
-            'You keep the parts that teach well and replace the parts that do not fit.',
-    },
-    {
-        layer: 'Interaction surfaces',
-        defaultState:
-            'Session, task, and dispatch rhythms that already work together',
-        canChange: 'Yes, if your preferred working cadence is different',
-        consequence:
-            'The surface changes, but the review boundary still matters.',
-    },
-    {
-        layer: 'Infra services',
-        defaultState:
-            'Opinionated storage, search, and background-service defaults',
-        canChange: 'Yes, service by service',
-        consequence:
-            'The substrate can evolve without forcing a total rewrite of the system.',
-    },
-    {
-        layer: 'Implementation details',
-        defaultState:
-            'Current languages, libraries, and internal service boundaries',
-        canChange: 'Yes, aggressively',
-        consequence:
-            'You can modernize internals without giving up the operator model.',
-    },
-];
-
-const progression = [
-    {
-        code: '01',
-        title: 'Start coherent',
-        body: 'Begin with a working system that already knows how to route work, preserve context, and return results for review.',
-    },
-    {
-        code: '02',
-        title: 'Learn by use',
-        body: 'Operate the seed long enough to understand which surfaces feel natural and which assumptions you want to challenge.',
-    },
-    {
-        code: '03',
-        title: 'Diverge deliberately',
-        body: 'Replace infrastructure, services, or workflows where your needs, standards, or taste genuinely differ.',
-    },
-    {
-        code: '04',
-        title: 'Own the result',
-        body: 'The fork becomes your environment, not a copy waiting for upstream permission.',
-    },
-];
-
-const loopSteps = [
-    'Define the work',
-    'Route the right context',
-    'Pick the execution mode',
-    'Run with clear bounds',
-    'Review what returns',
-    'Keep the durable gain',
-];
-
-const layerItems = [
-    {
-        label: 'Repos and artifacts',
-        body: 'Real source material, real file history, and real ownership. The system starts from things that matter.',
-    },
-    {
-        label: 'Tasks and intent',
-        body: 'A durable record of what the work is, why it matters, and what done means before execution begins.',
-    },
-    {
-        label: 'Methods and skills',
-        body: 'Prompts, skills, and recurring workflows that make good operating habits reusable instead of improvised.',
-    },
-    {
-        label: 'Durable services',
-        body: 'Search, state, notifications, dispatch, and observability that keep the loop from collapsing into scrollback.',
-    },
-    {
-        label: 'Review surfaces',
-        body: 'PRs, artifacts, and bounded outputs that let the human decide what becomes real.',
-    },
-];
-
-const trustItems = [
-    'Bounded execution over vague autonomy',
-    'Reviewable returns over hidden action',
-    'Searchable state over disposable chat history',
-    'Private infrastructure over casual exposure',
-    'Recoverable systems with receipts',
+const nonNegotiables = [
+    'You need a Pi-based local runtime, not only a chat UI.',
+    'You need Postgres-backed durable state.',
+    'You need the Hub web interface for review and operational visibility.',
+    'You need async execution through dispatch, not only live sessions.',
+    'You need notifications outside the terminal, currently through ntfy.',
 ];
 ---
 
-<div class="grid gap-10">
+<div class="grid gap-10 md:gap-12">
     <ContentPageHero
         eyebrow="System"
         title="Architecture overview"
-        lede="GalexC starts from a seed system that already knows how to route work, preserve context, run background execution, and return outputs through review. Today that seed is galexc-starter-pack and likely soon galexc-seed. The important point is not the exact stack. The important point is that you begin with a coherent operating model, learn it by using it, and then reshape it around your own needs."
+        lede="GalexC seed is a wired system, not a prompt pack. The important question is not which model you use. The important question is whether you want the full stack required to run live sessions, async jobs, durable state, review surfaces, and notifications as one environment."
     />
 
     <section
-        class="grid gap-3.5 rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.44),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] p-5 shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[56rem]"
     >
-        <h2 class="eyebrow">System seam</h2>
-        <ArchitectureSeamDiagram />
-    </section>
-
-    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <h2 class="eyebrow">System at a glance</h2>
-                <h2
-                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                >
-                    A working base meant to be inherited, then reshaped
-                </h2>
-            </div>
+        <div class="grid gap-2.5">
+            <p class="eyebrow">Non-negotiables</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                What the seed actually requires
+            </h2>
         </div>
-        <div class="grid gap-3.5">
+        <ul class="m-0 grid list-none gap-3 p-0">
             {
-                layers.map((layer, index) => (
-                    <div
-                        class:list={[
-                            'grid gap-1.5 py-4 border-b border-stone-400/10',
-                            index === layers.length - 1 &&
-                                'pl-3.5 border-l-2 border-l-[rgba(21,74,122,0.24)] bg-[linear-gradient(90deg,rgba(21,74,122,0.05),transparent_62%)]',
-                        ]}
-                    >
-                        <div class="grid gap-2">
-                            <h3 class="m-0 font-['Cormorant_Garamond',serif] text-[clamp(1.8rem,3vw,2.45rem)] leading-none text-[#2b241d]">
-                                {layer.title}
-                            </h3>
-                            <div class="grid grid-cols-[repeat(auto-fit,minmax(9rem,max-content))] gap-2">
-                                {layer.tags.map((tag) => (
-                                    <span class="rounded-full bg-[rgba(21,74,122,0.08)] px-2 py-1 font-['IBM_Plex_Mono',monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#123c62]">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                        <p>{layer.body}</p>
-                    </div>
+                nonNegotiables.map((item) => (
+                    <li class="border-t border-t-[rgba(120,113,108,0.12)] pt-3 text-[#4f4438] leading-relaxed">
+                        {item}
+                    </li>
                 ))
             }
-        </div>
+        </ul>
     </section>
 
-    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">Replaceability ledger</p>
-                <h2
-                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                >
-                    What should stay coherent, and what can change freely
-                </h2>
-            </div>
-            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The seed is important because it teaches. The exact
-                implementation is allowed to move.
-            </p>
+    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6">
+        <div class="grid gap-2.5 max-w-[44rem]">
+            <p class="eyebrow">System wiring</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                How the seed is wired together
+            </h2>
         </div>
-        <div class="grid gap-0">
+        <div
+            class="overflow-x-auto rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.42)] p-4 md:p-5"
+        >
+            <pre
+                class="m-0 whitespace-pre-wrap font-[IBM_Plex_Mono,monospace] text-[0.72rem] leading-[1.7] text-[#4f4438] md:text-[0.78rem]">[ operator ]
+   ├─ Pi session
+   ├─ Hub web
+   └─ ntfy notifications
+          │
+          ▼
+[ coordination ]
+   ├─ tasks
+   ├─ dispatch
+   ├─ intercom
+   └─ scheduled jobs
+          │
+          ▼
+[ durable state ]
+   ├─ Postgres
+   └─ search / indexes
+          │
+          ▼
+[ execution targets ]
+   ├─ local repos and files
+   ├─ background agents
+   ├─ external APIs
+   └─ model providers / LM Studio</pre>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {
-                replaceabilityLedger.map((item, index) => (
-                    <div
-                        class:list={[
-                            'grid gap-1.5 py-4',
-                            index > 0 && 'border-t border-stone-400/12',
-                        ]}
-                    >
-                        <p class="m-0 font-['Cormorant_Garamond',serif] text-[clamp(1.8rem,3vw,2.45rem)] leading-none text-[#2b241d]">
-                            {item.layer}
-                        </p>
-                        <p>
-                            <strong>Default:</strong> {item.defaultState}
-                        </p>
-                        <p>
-                            <strong>Can change:</strong> {item.canChange}
-                        </p>
-                        <p>
-                            <strong>Consequence:</strong> {item.consequence}
-                        </p>
-                    </div>
-                ))
-            }
-        </div>
-    </section>
-
-    <section class="grid gap-3.5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">One path through the system</p>
-                <h2
-                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                >
-                    Start coherent, then diverge with judgment
-                </h2>
-            </div>
-            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The seed is a starting posture, not a permanent boundary.
-            </p>
-        </div>
-        <div
-            class="grid gap-3.5 grid-cols-[repeat(auto-fit,minmax(12rem,1fr))]"
-        >
-            {
-                progression.map((item) => (
-                    <div class="grid gap-2 rounded-2xl border border-stone-400/14 bg-white/42 p-4">
-                        <span class="font-['IBM_Plex_Mono',monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]">
-                            {item.code}
-                        </span>
-                        <h3 class="m-0 font-['Cormorant_Garamond',serif] text-[clamp(1.8rem,3vw,2.45rem)] leading-none text-[#2b241d]">
+                wiring.map((item) => (
+                    <article class="grid gap-2 border-t border-t-[rgba(120,113,108,0.12)] pt-3">
+                        <h3 class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255]">
                             {item.title}
                         </h3>
-                        <p>{item.body}</p>
-                    </div>
+                        <p class="m-0 text-[#4f4438] leading-relaxed">
+                            {item.body}
+                        </p>
+                    </article>
                 ))
             }
         </div>
     </section>
 
-    <section class="grid gap-4 md:grid-cols-2">
-        <article class="grid gap-3.5">
-            <h2 class="eyebrow">Why the system starts this way</h2>
-            <p>
-                The seed gives you a coherent philosophy and a working substrate
-                before you begin customizing. That makes the system teachable.
-                It lets you learn how to interact with your personal AI before
-                you decide which parts to keep, replace, or extend. If you want
-                to inherit my learnings and features through Parley, you can.
-                You do not need to. Optional inheritance is useful only if it
-                never overrides real ownership.
-            </p>
-        </article>
-        <aside
-            class="grid gap-2.5 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
-        >
-            <p class="eyebrow">Legend</p>
-            <ul class="m-0 grid list-none gap-2.5 p-0">
-                <li>
-                    <strong>Center seam</strong> - shared context gets stitched into
-                    a durable record before it moves onward
-                </li>
-                <li>
-                    <strong>Stepped stack</strong> - each layer keeps the logic of
-                    the system visible even as implementations change
-                </li>
-                <li>
-                    <strong>Replaceability ledger</strong> - where ownership becomes
-                    practical rather than rhetorical
-                </li>
-            </ul>
-        </aside>
-    </section>
-
-    <section class="grid gap-3.5 border-t border-stone-400/14 pt-3.5">
-        <h2 class="eyebrow">Operating loop</h2>
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The product is the operating loop, not a single chat surface.
-            </p>
+    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6">
+        <div class="grid gap-2.5 max-w-[44rem]">
+            <p class="eyebrow">Stack table</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                Required pieces vs. pluggable pieces
+            </h2>
         </div>
-        <div class="flex flex-wrap gap-3">
+        <div
+            class="grid grid-cols-[minmax(0,1.1fr)_120px_minmax(0,2fr)] gap-0 border-t border-l border-[rgba(120,113,108,0.12)] max-md:grid-cols-1"
+        >
+            <div
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
+            >
+                Component
+            </div>
+            <div
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
+            >
+                Status
+            </div>
+            <div
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
+            >
+                Role in the seed
+            </div>
             {
-                loopSteps.map((step, index) => (
+                stackRows.map(([component, status, role]) => (
                     <>
-                        <div class="rounded-full border border-stone-400/16 bg-white/52 px-3.5 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
-                            {step}
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#2b241d]">
+                            {component}
                         </div>
-                        {index < loopSteps.length - 1 && (
-                            <div
-                                class="h-px w-6 self-center bg-[rgba(21,74,122,0.28)]"
-                                aria-hidden="true"
-                            />
-                        )}
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#5b4f43]">
+                            {status}
+                        </div>
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#5b4f43]">
+                            {role}
+                        </div>
                     </>
                 ))
             }
         </div>
-    </section>
-
-    <section class="grid gap-3.5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">Built from durable primitives</p>
-                <h2
-                    class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                >
-                    More operating environment than assistant
-                </h2>
-            </div>
-            <p class="m-0 text-[0.93rem] leading-relaxed text-[#6a5e52]">
-                The leverage comes from composition, not from pretending one
-                model is the whole product.
-            </p>
-        </div>
-        <div class="grid gap-3.5">
-            {
-                layerItems.map((item) => (
-                    <div class="grid gap-1.5 border-t border-stone-400/14 pt-4">
-                        <h3 class="m-0 font-['IBM_Plex_Mono',monospace] text-xs uppercase tracking-[0.12em] text-[#6f6255]">
-                            {item.label}
-                        </h3>
-                        <p>{item.body}</p>
-                    </div>
-                ))
-            }
-        </div>
-    </section>
-
-    <section
-        class="grid gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(280px,0.7fr)]"
-    >
-        <article class="grid gap-3.5">
-            <h2 class="eyebrow">Why it matters</h2>
-            <h2
-                class="mt-1 font-['Cormorant_Garamond',serif] text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-            >
-                A system that compounds
-            </h2>
-            <p>
-                Useful context should accumulate instead of dissolving into
-                scrollback. Methods should become reusable. Async work should
-                return with enough structure that review becomes short and trust
-                becomes earned. GalexC exists to help one person think better,
-                execute faster, preserve continuity, and build real leverage
-                without giving up ownership.
-            </p>
-        </article>
-        <aside
-            class="grid gap-2.5 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
-        >
-            <p class="eyebrow">Strong boundaries</p>
-            <ul class="m-0 grid list-none gap-2.5 p-0">
-                {trustItems.map((item) => <li>{item}</li>)}
-            </ul>
-        </aside>
     </section>
 </div>

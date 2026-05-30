@@ -1,0 +1,176 @@
+---
+import DisclosureScript from '../DisclosureScript.astro';
+import ContentPageHero from './ContentPageHero.astro';
+
+const qaItems: Array<{ question: string; answer: string }> = [
+    {
+        question: 'Where did GalexC come from?',
+        answer: `
+            <p class="m-0 text-[clamp(1.5rem,2.4vw,2.1rem)] leading-tight mt-4 text-[#2b241d]" style="font-family: 'Cormorant Garamond', serif;">
+                GalexC is <em>my</em> AI.
+            </p>
+            <p class="m-0 mt-3 italic text-[#564a3f]">
+                G<span class="text-stone-500">(ilman)</span> alex<span class="text-stone-500">(ander)</span> C<span class="text-stone-500">(allsen)</span> / GalexC
+            </p>
+        `,
+    },
+    {
+        question: 'Why should I care?',
+        answer: 'Good question, you tell me! I expect you may be interested if you want to bootstrap a professional-grade personal AI for yourself.',
+    },
+    {
+        question: "So you're giving me your AI?",
+        answer: "No. I've created a starter pack that is currently available on an individual, case-by-case basis. I may open up broader access later, but for now you'll need to request it directly.",
+    },
+    {
+        question: 'Who is this for?',
+        answer: 'GalexC is built for highly technical professionals. If you are not comfortable in a shell, this is not for you right now (sorry!).',
+    },
+    {
+        question: 'Why are you building this?',
+        answer: "First and foremost: I'm a nerd...so I'm like a kid in a candy store right now and I want to see what I can do. Secondly, I see a future where we all have our own, likely multiple, personal AIs that extend our capabilities in certain domains. GalexC is already extending my capabilities as a technical CEO, so I keep building it.",
+    },
+    {
+        question: 'What is it, exactly?',
+        answer: "GalexC is professional-grade personal AI that I've built over the last several months. It is based on two decades of cloud infrastructure, software engineering, database design, machine learning, entrepreneurial experience, and all sorts of nerdy stuff in between.",
+    },
+    {
+        question: 'How do I use it?',
+        answer: "First, request access. Then you'll bootstrap your own GalexC, give it your own name, and hopefully begin to experience the step-change improvement in productivity and quality of output in your own professional life.",
+    },
+    {
+        question: 'Why do you keep saying "professional"?',
+        answer: "GalexC is currently highly biased toward technical executives, with the goal of accelerating output, improving quality of work, and increasing the depth and breadth of contexts in which you can operate. I haven't done anything to integrate GalexC into my personal life yet — no family calendar management, no meal planning, and so on.",
+    },
+    {
+        question: 'What about vendor lock-in?',
+        answer: 'Vendor lock-in has no place here! There are absolutely zero requirements for your LLM provider of choice — use whatever you want (Anthropic, OpenAI, Google, Llama, DeepSeek, Kimi, OpenRouter, LM Studio, or something else entirely).',
+    },
+    {
+        question: 'What about the tech-stack?',
+        answer: "Given that this is my stack, it is highly opinionated. For example, it currently runs on Pi.dev (not claude code, codex, etc.) because I believe it is the absolute best harness for deep extensibility and hackability, which is what I need. I also have several technologies of choice like Postgres, Python, Typescript, Tailscale, etc. That said, you should re-engineer around that! Any harness will work, any databases, any languages...you'll just need to port some of the GalexC pixie dust if you want it.",
+    },
+];
+---
+
+<div class="grid gap-10">
+    <ContentPageHero eyebrow="Foundations">
+        <Fragment slot="title">FAQs</Fragment>
+    </ContentPageHero>
+
+    <section
+        class="grid gap-3.5 border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+    >
+        <div class="flex items-center justify-between gap-4">
+            <p class="eyebrow">Frequently asked</p>
+            <div class="flex items-center justify-end gap-3">
+                <button
+                    class="cursor-pointer bg-transparent p-0 font-mono text-[0.68rem] tracking-[0.12em] text-[#7a6d60] uppercase transition-colors duration-180 ease-out hover:text-[#154a7a] focus-visible:text-[#154a7a] focus-visible:outline-none"
+                    type="button"
+                    data-q-and-a-expand-all
+                >
+                    Expand
+                </button>
+                <button
+                    class="cursor-pointer bg-transparent p-0 font-mono text-[0.68rem] tracking-[0.12em] text-[#7a6d60] uppercase transition-colors duration-180 ease-out hover:text-[#154a7a] focus-visible:text-[#154a7a] focus-visible:outline-none"
+                    type="button"
+                    data-q-and-a-collapse-all
+                >
+                    Collapse
+                </button>
+            </div>
+        </div>
+
+        <dl class="grid gap-0" data-q-and-a-ledger>
+            {
+                qaItems.map((item, index) => (
+                    <div
+                        class="group border-t border-[rgba(120,113,108,0.14)] py-7"
+                        data-reveal
+                        data-open="false"
+                    >
+                        <dt>
+                            <button
+                                class="relative w-full cursor-pointer bg-transparent pr-10 text-left focus-visible:outline-none"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls={`faqs-answer-${index}`}
+                                data-reveal-trigger
+                            >
+                                <span
+                                    class="block text-[clamp(1.9rem,3.2vw,2.45rem)] leading-none text-[#2b241d] transition-colors duration-[220ms] ease-out group-hover:text-[#154a7a]"
+                                    style="font-family: 'Cormorant Garamond', serif;"
+                                >
+                                    {item.question}
+                                </span>
+                                <span
+                                    class="pointer-events-none absolute top-1/2 right-1.5 block h-4 w-4 -translate-y-1/2 rotate-135 border-t-[1.5px] border-r-[1.5px] border-[#6f6255] transition-[transform,border-color] duration-[420ms,320ms] ease-[cubic-bezier(0.22,1,0.36,1),ease] group-data-[open=true]:translate-y-[-38%] group-data-[open=true]:-rotate-45 group-data-[open=true]:border-[#154a7a]"
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        </dt>
+                        <dd
+                            id={`faqs-answer-${index}`}
+                            class="-translate-y-1.5 opacity-0 transition-[height,opacity,transform] duration-[560ms,500ms,560ms] ease-[cubic-bezier(0.22,1,0.36,1),ease,cubic-bezier(0.22,1,0.36,1)]"
+                            data-reveal-panel
+                            hidden
+                        >
+                            <div
+                                class="max-w-2xl pt-3 text-base leading-[1.8] text-[#5a4e43]"
+                                set:html={item.answer}
+                            />
+                        </dd>
+                    </div>
+                ))
+            }
+        </dl>
+    </section>
+
+    <DisclosureScript />
+
+    <script is:inline>
+        (() => {
+            const ledger = document.querySelector('[data-q-and-a-ledger]');
+            const expandAllButton = document.querySelector(
+                '[data-q-and-a-expand-all]',
+            );
+            const collapseAllButton = document.querySelector(
+                '[data-q-and-a-collapse-all]',
+            );
+            if (
+                !(ledger instanceof HTMLElement) ||
+                !(expandAllButton instanceof HTMLButtonElement) ||
+                !(collapseAllButton instanceof HTMLButtonElement)
+            ) {
+                return;
+            }
+
+            const getItems = () =>
+                Array.from(ledger.querySelectorAll('[data-reveal]')).filter(
+                    (item) => item instanceof HTMLElement,
+                );
+
+            const setAll = (open) => {
+                for (const item of getItems()) {
+                    const trigger = item.querySelector('[data-reveal-trigger]');
+                    const isOpen = item.getAttribute('data-open') === 'true';
+                    if (
+                        !(trigger instanceof HTMLButtonElement) ||
+                        isOpen === open
+                    ) {
+                        continue;
+                    }
+                    trigger.click();
+                }
+            };
+
+            expandAllButton.addEventListener('click', () => {
+                setAll(true);
+            });
+
+            collapseAllButton.addEventListener('click', () => {
+                setAll(false);
+            });
+        })();
+    </script>
+</div>

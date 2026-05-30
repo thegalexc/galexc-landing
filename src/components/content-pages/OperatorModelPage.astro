@@ -1,258 +1,161 @@
 ---
-import OperatorOrbitDiagram from '../graphics/OperatorOrbitDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const ledger = [
+const surfaces = [
     {
-        actor: 'Operator',
-        owns: 'Intent, standards, approvals, and the right to reshape the system',
-        goodFor:
-            'Deciding what matters, what gets delegated, and what kind of personal AI this should become',
-        avoid: 'Treating the seed as a fixed product or outsourcing irreversible judgment',
+        name: 'Pi session',
+        use: 'Main place for shaping work, editing, debugging, and issuing commands.',
+        when: 'Use when the task is still changing or you need direct control.',
     },
     {
-        actor: 'Live session',
-        owns: 'Learning, shaping, debugging, and steering in real time',
-        goodFor:
-            'Clarifying the work while taste, context, and feedback are still moving',
-        avoid: 'Pretending exploration is already a finished workflow or shipping mechanism',
+        name: 'Hub web',
+        use: 'Browser interface for visibility, review, state, and lighter interaction loops.',
+        when: 'Use when you want a calmer operational surface than the terminal.',
     },
     {
-        actor: 'Dispatch',
-        owns: 'Bounded background execution',
-        goodFor: 'Scoped async work once the task is clear enough to hand off',
-        avoid: 'Open-ended autonomy without review or a clear source of truth',
+        name: 'Dispatch',
+        use: 'Async execution path for bounded background work.',
+        when: 'Use when the task can run unattended and return later.',
     },
     {
-        actor: 'Seed + services',
-        owns: 'Durability, continuity, and maintenance scaffolding',
-        goodFor:
-            'Tasks, intercom, scheduled sweeps, version checks, notifications, and shared operational memory',
-        avoid: 'Standing in for operator taste or pretending one stack should fit everyone forever',
+        name: 'ntfy',
+        use: 'Push notifications for completed work, blockers, and prompts for attention.',
+        when: 'Use when you do not want to babysit a terminal or browser tab.',
     },
 ];
 
-const decisionRows = [
-    {
-        mode: 'Stay live',
-        useWhen:
-            'You are still shaping the task, testing assumptions, or using judgment in real time.',
-        returnSurface: 'The active session itself',
-        output: 'A tighter brief, clearer constraints, or a direct edit',
-    },
-    {
-        mode: 'Dispatch it',
-        useWhen:
-            'The task is bounded enough to run unattended and return through review.',
-        returnSurface: 'A PR, artifact, or structured report',
-        output: 'Background execution with receipts and a clear review surface',
-    },
+const flowRows = [
+    [
+        'Shape',
+        'Pi session or Hub',
+        'Clarify task, context, constraints, and desired output.',
+    ],
+    ['Launch', 'Pi session or Hub', 'Run directly or dispatch as async work.'],
+    [
+        'Execute',
+        'Dispatch worker / tools',
+        'Work happens against repos, files, services, or APIs.',
+    ],
+    [
+        'Return',
+        'Hub / PR / artifact / intercom',
+        'Results come back through an explicit review surface.',
+    ],
+    [
+        'Notify',
+        'ntfy',
+        'You get pulled back in only when something needs review or input.',
+    ],
+    [
+        'Keep',
+        'Tasks / Postgres / search',
+        'Useful state stays durable instead of dissolving into chat history.',
+    ],
 ];
 
-const serviceGroups = [
-    {
-        title: 'Planning and shaping',
-        items: ['Tasks', 'Pi workstation'],
-    },
-    {
-        title: 'Execution and handoff',
-        items: ['Dispatch', 'Intercom'],
-    },
-    {
-        title: 'Upkeep and continuity',
-        items: ['Scheduled jobs', 'Notifications'],
-    },
-    {
-        title: 'Optional inheritance',
-        items: ['Parley'],
-    },
-];
-
-const flowSteps = [
-    [
-        '01',
-        'Start from the seed',
-        'Begin with a working system instead of a blank shell.',
-    ],
-    [
-        '02',
-        'Shape the work live',
-        'Use the session to clarify scope, standards, and unknowns.',
-    ],
-    [
-        '03',
-        'Hand off bounded work',
-        'Dispatch only what can return cleanly through review.',
-    ],
-    [
-        '04',
-        'Review and decide',
-        'Accept, reject, or revise with receipts in hand.',
-    ],
-    [
-        '05',
-        'Keep the gain',
-        'Let useful methods, habits, and context compound over time.',
-    ],
+const rules = [
+    'Stay in Pi when the work is still being shaped.',
+    'Dispatch only work that can return cleanly through review.',
+    'Use Hub when you want visibility across sessions and jobs.',
+    'Expect ntfy to pull you back when the system needs you.',
+    'Treat durable state as part of the product, not as logging overhead.',
 ];
 ---
 
-<div class="grid gap-10">
+<div class="grid gap-10 md:gap-12">
     <ContentPageHero
         eyebrow="System / Operator model"
-        title="The operator model is meant to become personal."
-        lede="GalexC is not only a software stack. It is a way to learn how to work with a personal AI system that you actually own. The seed gives you real structure on day one, but the goal is not to keep everyone on Gilman's preferred setup. The real goal is to help you and your AI settle into a cadence that matches your own needs, constraints, standards, and taste."
-    >
-        <div
-            slot="aside"
-            class="grid gap-2.5 content-start pl-5 border-l-2 border-[rgba(21,74,122,0.18)]"
-        >
-            <p class="eyebrow">Trust model</p>
-            <p
-                class="m-0 font-[Cormorant_Garamond,serif] text-[1.65rem] leading-[1.05]"
+        title="How you interact with GalexC"
+        lede="The operator model is not abstract. It is the set of surfaces you actually use: Pi sessions for direct work, Hub for browser-based visibility and review, dispatch for async jobs, and ntfy for getting pulled back in when the system needs attention."
+    />
+
+    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6">
+        <div class="grid gap-2.5 max-w-[44rem]">
+            <p class="eyebrow">Interaction surfaces</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
             >
-                GalexC can delegate execution, but the operator owns the system
-                and its evolution.
-            </p>
+                Four surfaces you actually use
+            </h2>
         </div>
-    </ContentPageHero>
-
-    <section
-        class="grid gap-3.5 p-5 rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-[rgba(120,113,108,0.14)] shadow-[0_10px_28px_rgba(43,36,29,0.04)]"
-        style="background: linear-gradient(180deg, rgba(255,255,255,0.44), rgba(251,247,241,0.52)), repeating-linear-gradient(180deg, rgba(120,113,108,0.038) 0, rgba(120,113,108,0.038) 1px, transparent 1px, transparent 33px);"
-    >
-        <p class="eyebrow">Responsibility map</p>
-        <OperatorOrbitDiagram />
-    </section>
-
-    <section class="grid gap-3.5">
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">Responsibility ledger</p>
-                <h2
-                    class="mt-1 text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                    style="font-family: 'Cormorant Garamond', serif;"
-                >
-                    A working relationship with explicit responsibilities
-                </h2>
-            </div>
-        </div>
-        <div class="grid gap-3.5">
+        <div class="grid gap-4 md:grid-cols-2">
             {
-                ledger.map((item) => (
-                    <article class="grid gap-1 pt-4 border-t border-[rgba(120,113,108,0.14)] md:grid-cols-[5rem_minmax(0,1fr)] md:gap-4 md:items-start">
-                        <p class="m-0 font-[IBM_Plex_Mono,monospace] text-xs tracking-[0.12em] uppercase text-[#6f6255]">
-                            {item.actor}
+                surfaces.map((surface) => (
+                    <article class="grid gap-2 rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.44)] p-5">
+                        <h3 class="m-0 font-[Cormorant_Garamond,serif] text-[1.75rem] leading-[1.02] text-[#2b241d]">
+                            {surface.name}
+                        </h3>
+                        <p class="m-0 text-[#4f4438] leading-relaxed">
+                            {surface.use}
                         </p>
-                        <div>
-                            <p>
-                                <strong>Owns:</strong> {item.owns}
-                            </p>
-                            <p>
-                                <strong>Good for:</strong> {item.goodFor}
-                            </p>
-                            <p>
-                                <strong>Should not do:</strong> {item.avoid}
-                            </p>
-                        </div>
+                        <p class="m-0 text-[#5b4f43] leading-relaxed">
+                            <strong>Use when:</strong> {surface.when}
+                        </p>
                     </article>
                 ))
             }
         </div>
     </section>
 
-    <section
-        class="grid gap-3.5 pt-3.5 border-t border-[rgba(120,113,108,0.14)]"
-    >
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">Control flow</p>
-                <h2
-                    class="mt-1 text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                    style="font-family: 'Cormorant Garamond', serif;"
-                >
-                    How the working cadence settles
-                </h2>
-            </div>
-        </div>
-        <div class="grid gap-3">
-            {
-                flowSteps.map(([code, label, body]) => (
-                    <div class="grid gap-1 pt-3 border-t border-[rgba(120,113,108,0.14)]">
-                        <span class="font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255]">
-                            {code}
-                        </span>
-                        <p class="m-0 font-[Cormorant_Garamond,serif] text-[1.35rem] leading-none text-[#2b241d]">
-                            {label}
-                        </p>
-                        <p>{body}</p>
-                    </div>
-                ))
-            }
-        </div>
-    </section>
-
-    <section
-        class="grid gap-3.5 border-t border-[rgba(120,113,108,0.14)] pt-3.5"
-    >
-        <div
-            class="grid gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] md:items-end"
-        >
-            <div>
-                <p class="eyebrow">Routing decision</p>
-                <h2
-                    class="mt-1 text-[clamp(2rem,3.6vw,3rem)] leading-[0.95] text-[#2b241d]"
-                    style="font-family: 'Cormorant Garamond', serif;"
-                >
-                    When to stay live, and when to hand work off
-                </h2>
-            </div>
-            <p class="m-0 text-[#6a5e52] text-[0.93rem] leading-relaxed">
-                The real operating habit is choosing the right mode for the
-                work.
-            </p>
+    <section class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6">
+        <div class="grid gap-2.5 max-w-[44rem]">
+            <p class="eyebrow">Interaction flow</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                The normal operating loop
+            </h2>
         </div>
         <div
-            class="grid grid-cols-[repeat(4,minmax(0,1fr))] gap-0 border-t border-l border-[rgba(120,113,108,0.12)] max-md:grid-cols-1"
+            class="overflow-x-auto rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.42)] p-4 md:p-5"
+        >
+            <pre
+                class="m-0 whitespace-pre-wrap font-[IBM_Plex_Mono,monospace] text-[0.72rem] leading-[1.7] text-[#4f4438] md:text-[0.78rem]">Pi / Hub
+   │
+   ├─ shape the work
+   ├─ run directly or dispatch
+   ▼
+dispatch worker / tools
+   │
+   ├─ execute bounded work
+   ├─ write state
+   └─ generate artifact / PR / report
+   ▼
+Hub / intercom / review surface
+   │
+   ├─ operator reviews
+   ├─ operator approves or revises
+   └─ ntfy pulls operator back in when needed</pre>
+        </div>
+        <div
+            class="grid grid-cols-[120px_180px_minmax(0,1fr)] gap-0 border-t border-l border-[rgba(120,113,108,0.12)] max-md:grid-cols-1"
         >
             <div
-                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
             >
-                Mode
+                Step
             </div>
             <div
-                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
             >
-                Use when
+                Primary surface
             </div>
             <div
-                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
+                class="hidden md:block border-r border-b border-[rgba(120,113,108,0.12)] bg-[rgba(248,243,236,0.62)] px-4 py-3 font-[IBM_Plex_Mono,monospace] text-[0.68rem] uppercase tracking-[0.12em] text-[#6f6255]"
             >
-                Returns through
-            </div>
-            <div
-                class="hidden md:block py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255] bg-[rgba(248,243,236,0.62)]"
-            >
-                Likely output
+                What happens
             </div>
             {
-                decisionRows.map((row) => (
+                flowRows.map(([step, surface, action]) => (
                     <>
-                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] text-[#2b241d] max-md:border-l-0">
-                            {row.mode}
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#2b241d]">
+                            {step}
                         </div>
-                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
-                            {row.useWhen}
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#5b4f43]">
+                            {surface}
                         </div>
-                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
-                            {row.returnSurface}
-                        </div>
-                        <div class="py-3.5 px-4 border-r border-b border-[rgba(120,113,108,0.12)] max-md:border-l-0">
-                            {row.output}
+                        <div class="border-r border-b border-[rgba(120,113,108,0.12)] px-4 py-3 text-[#5b4f43]">
+                            {action}
                         </div>
                     </>
                 ))
@@ -261,42 +164,24 @@ const flowSteps = [
     </section>
 
     <section
-        class="grid gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(280px,0.7fr)]"
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[52rem]"
     >
-        <article class="grid gap-3.5">
-            <p class="eyebrow">Your cadence, not mine</p>
-            <p>
-                After the fork, the system is yours. You can keep my defaults,
-                replace nearly every implementation detail, or selectively
-                inherit ideas through Parley. None of that is meant to be
-                mandatory. The seed includes maintenance patterns like weekly
-                version checks and expertise cleanup sweeps, but the real
-                objective is to help you and your AI arrive at a cadence that
-                feels rigorous, sustainable, and genuinely your own.
-            </p>
-        </article>
-        <aside
-            class="grid gap-2.5 pl-5 border-l-2 border-[rgba(21,74,122,0.18)]"
-        >
-            <p class="eyebrow">Substrate services</p>
-            <div class="grid gap-3">
-                {
-                    serviceGroups.map((group) => (
-                        <div class="grid gap-2 p-4 rounded-2xl border border-[rgba(120,113,108,0.14)] bg-[rgba(255,255,255,0.42)]">
-                            <p class="font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.12em] uppercase text-[#6f6255]">
-                                {group.title}
-                            </p>
-                            <div class="grid gap-2">
-                                {group.items.map((item) => (
-                                    <div class="grid gap-1 pt-2 border-t border-[rgba(120,113,108,0.14)] pl-1 font-[Source_Serif_4,serif]">
-                                        {item}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-        </aside>
+        <div class="grid gap-2.5">
+            <p class="eyebrow">Operating rules</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                How the operator model stays sane
+            </h2>
+        </div>
+        <ul class="m-0 grid list-none gap-3 p-0">
+            {
+                rules.map((rule) => (
+                    <li class="border-t border-t-[rgba(120,113,108,0.12)] pt-3 text-[#4f4438] leading-relaxed">
+                        {rule}
+                    </li>
+                ))
+            }
+        </ul>
     </section>
 </div>
