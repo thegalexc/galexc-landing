@@ -1,142 +1,14 @@
 ---
-import DisclosureScript from '../DisclosureScript.astro';
-import ContentPageHero from './ContentPageHero.astro';
-
 const objectives = [
-    'To help one person operate with greater clarity, reach, judgment, and follow-through.',
-    'To build tools and systems that make professional capability feel more personal, more powerful, and more alive.',
-    'To create leverage without losing ownership.',
-    'To make serious software that still feels playful to build and satisfying to use.',
-];
-
-const qaItems: Array<{ question: string; answer: string }> = [
-    {
-        question: 'Why should I care?',
-        answer: 'Good question, you tell me! I expect you may be interested if you want to bootstrap a professional-grade personal AI for yourself.',
-    },
-    {
-        question: "So you're giving me your AI?",
-        answer: "No. I've created a starter pack that is currently available on an individual, case-by-case basis. I may open up broader access later, but for now you'll need to request it directly.",
-    },
-    {
-        question: 'Who is this for?',
-        answer: 'GalexC is built for highly technical professionals. If you are not comfortable in a shell, this is not for you right now (sorry!).',
-    },
-    {
-        question: 'Why are you building this?',
-        answer: "First and foremost: I'm a nerd...so I'm like a kid in a candy store right now and I want to see what I can do. Secondly, I see a future where we all have our own, likely multiple, personal AIs that extend our capabilities in certain domains. GalexC is already extending my capabilities as a technical CEO, so I keep building it.",
-    },
-    {
-        question: 'What is it, exactly?',
-        answer: "GalexC is professional-grade personal AI that I've built over the last several months. It is based on two decades of cloud infrastructure, software engineering, database design, machine learning, entrepreneurial experience, and all sorts of nerdy stuff in between.",
-    },
-    {
-        question: 'How do I use it?',
-        answer: "First, request access. Then you'll bootstrap your own GalexC, give it your own name, and hopefully begin to experience the step-change improvement in productivity and quality of output in your own professional life.",
-    },
-    {
-        question: 'Why do you keep saying "professional"?',
-        answer: "GalexC is currently highly biased toward technical executives, with the goal of accelerating output, improving quality of work, and increasing the depth and breadth of contexts in which you can operate. I haven't done anything to integrate GalexC into my personal life yet — no family calendar management, no meal planning, and so on.",
-    },
-    {
-        question: 'What about vendor lock-in?',
-        answer: 'Vendor lock-in has no place here! There are absolutely zero requirements for your LLM provider of choice — use whatever you want (Anthropic, OpenAI, Google, Llama, DeepSeek, Kimi, OpenRouter, LM Studio, or something else entirely).',
-    },
-    {
-        question: 'What about the tech-stack?',
-        answer: "Given that this is my stack, it is highly opinionated. For example, it currently runs on Pi.dev (not claude code, codex, etc.) because I believe it is the absolute best harness for deep extensibility and hackability, which is what I need. I also have several technologies of choice like Postgres, Python, Typescript, Tailscale, etc. That said, you should re-engineer around that! Any harness will work, any databases, any languages...you'll just need to port some of the GalexC pixie dust if you want it.",
-    },
+    "Build an AI system around one person's actual needs.",
+    'Use AI deeply without giving up ownership.',
+    'Start from a seed that can become fully your own.',
+    'Do serious work in a way that still feels playful and satisfying.',
 ];
 ---
 
 <div class="grid gap-10">
-    <ContentPageHero eyebrow="Foundations / What is GalexC?">
-        <Fragment slot="title">GalexC is <em>my</em> AI.</Fragment>
-    </ContentPageHero>
-
-    <section class="-mt-6">
-        <p class="italic text-base text-[#564a3f]">
-            G<span class="text-stone-500">(ilman)</span> alex<span
-                class="text-stone-500">(ander)</span
-            > C<span class="text-stone-500">(allsen)</span> / GalexC
-        </p>
-
-        <section class="grid gap-3.5 pt-6">
-            <div class="flex items-center justify-between gap-4">
-                <div>
-                    <p class="eyebrow">Q&A starters</p>
-                </div>
-                <div class="flex items-center justify-end gap-3">
-                    <button
-                        class="cursor-pointer bg-transparent p-0 font-mono text-[0.68rem] tracking-[0.12em] text-[#7a6d60] uppercase transition-colors duration-180 ease-out hover:text-[#154a7a] focus-visible:text-[#154a7a] focus-visible:outline-none"
-                        type="button"
-                        data-q-and-a-expand-all
-                    >
-                        Expand
-                    </button>
-                    <button
-                        class="cursor-pointer bg-transparent p-0 font-mono text-[0.68rem] tracking-[0.12em] text-[#7a6d60] uppercase transition-colors duration-180 ease-out hover:text-[#154a7a] focus-visible:text-[#154a7a] focus-visible:outline-none"
-                        type="button"
-                        data-q-and-a-collapse-all
-                    >
-                        Collapse
-                    </button>
-                </div>
-            </div>
-
-            <dl class="grid gap-0" data-q-and-a-ledger>
-                {
-                    qaItems.map((item, index) => (
-                        <div
-                            class="group border-t border-[rgba(120,113,108,0.14)] py-7"
-                            data-reveal
-                            data-open="false"
-                        >
-                            <dt>
-                                <button
-                                    class="relative w-full cursor-pointer bg-transparent pr-10 text-left focus-visible:outline-none"
-                                    type="button"
-                                    aria-expanded="false"
-                                    aria-controls={`what-is-galexc-answer-${index}`}
-                                    data-reveal-trigger
-                                >
-                                    <span
-                                        class="block text-[clamp(1.9rem,3.2vw,2.45rem)] leading-none text-[#2b241d] transition-colors duration-[220ms] ease-out group-hover:text-[#154a7a]"
-                                        style="font-family: 'Cormorant Garamond', serif;"
-                                    >
-                                        {item.question}
-                                    </span>
-                                    <span
-                                        class="pointer-events-none absolute right-1.5 top-1/2 block h-4 w-4 -translate-y-1/2 rotate-135 border-t-[1.5px] border-r-[1.5px] border-[#6f6255] transition-[transform,border-color] duration-[420ms,320ms] ease-[cubic-bezier(0.22,1,0.36,1),ease] group-data-[open=true]:translate-y-[-38%] group-data-[open=true]:-rotate-45 group-data-[open=true]:border-[#154a7a]"
-                                        aria-hidden="true"
-                                    />
-                                </button>
-                            </dt>
-                            <dd
-                                id={`what-is-galexc-answer-${index}`}
-                                class="-translate-y-1.5 opacity-0 transition-[height,opacity,transform] duration-[560ms,500ms,560ms] ease-[cubic-bezier(0.22,1,0.36,1),ease,cubic-bezier(0.22,1,0.36,1)]"
-                                data-reveal-panel
-                                hidden
-                            >
-                                <div class="max-w-2xl pt-3 text-base leading-[1.8] text-[#5a4e43]">
-                                    {item.answer}
-                                </div>
-                            </dd>
-                        </div>
-                    ))
-                }
-            </dl>
-        </section>
-    </section>
-
-    <section class="grid gap-8 border-t border-stone-400/16 pt-7">
-        <header class="grid max-w-[46rem] gap-2.5">
-            <p class="eyebrow">Professional-Grade Personal AI</p>
-            <p class="m-0 text-[0.93rem] leading-relaxed text-[#7a6d60] italic">
-                On a practical level...
-            </p>
-        </header>
-
+    <section class="grid gap-8">
         <figure
             class="relative grid justify-items-center gap-5 overflow-hidden rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.5),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] px-6 py-10 text-center shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.62)] md:px-10 md:py-14"
         >
@@ -155,9 +27,9 @@ const qaItems: Array<{ question: string; answer: string }> = [
                 In one line
             </p>
 
-            <blockquote class="m-0">
+            <blockquote class="m-0 w-full">
                 <p
-                    class="m-0 max-w-[14ch] text-[clamp(2.2rem,3.8vw,3rem)] leading-none text-[#2b241d] [text-wrap:balance]"
+                    class="m-0 text-[clamp(2.2rem,3.8vw,3rem)] leading-none text-[#2b241d] [text-wrap:balance]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
                     GalexC is Professional-Grade Personal AI
@@ -174,11 +46,6 @@ const qaItems: Array<{ question: string; answer: string }> = [
                 class="flex max-w-[46rem] items-end justify-between gap-3 border-b border-stone-400/12 pb-2.5"
             >
                 <p class="eyebrow">Objectives</p>
-                <span
-                    class="font-['IBM_Plex_Mono',monospace] text-[0.62rem] tracking-[0.18em] text-[#a39689] uppercase"
-                >
-                    {String(objectives.length).padStart(2, '0')} in total
-                </span>
             </div>
 
             <ol class="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
@@ -232,7 +99,7 @@ const qaItems: Array<{ question: string; answer: string }> = [
                     01 / Posture
                 </span>
                 <p
-                    class="m-0 text-[clamp(2rem,4vw,3rem)] leading-none text-[#2b241d]"
+                    class="m-0 text-[clamp(1.6rem,3.2vw,2.4rem)] leading-none whitespace-nowrap text-[#2b241d]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
                     Personal first.
@@ -247,7 +114,7 @@ const qaItems: Array<{ question: string; answer: string }> = [
                     02 / Standard
                 </span>
                 <p
-                    class="m-0 text-[clamp(2rem,4vw,3rem)] leading-none text-[#2b241d]"
+                    class="m-0 text-[clamp(1.6rem,3.2vw,2.4rem)] leading-none whitespace-nowrap text-[#2b241d]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
                     Professional grade.
@@ -255,52 +122,4 @@ const qaItems: Array<{ question: string; answer: string }> = [
             </div>
         </div>
     </section>
-
-    <DisclosureScript />
-
-    <script is:inline>
-        (() => {
-            const ledger = document.querySelector('[data-q-and-a-ledger]');
-            const expandAllButton = document.querySelector(
-                '[data-q-and-a-expand-all]',
-            );
-            const collapseAllButton = document.querySelector(
-                '[data-q-and-a-collapse-all]',
-            );
-            if (
-                !(ledger instanceof HTMLElement) ||
-                !(expandAllButton instanceof HTMLButtonElement) ||
-                !(collapseAllButton instanceof HTMLButtonElement)
-            ) {
-                return;
-            }
-
-            const getItems = () =>
-                Array.from(ledger.querySelectorAll('[data-reveal]')).filter(
-                    (item) => item instanceof HTMLElement,
-                );
-
-            const setAll = (open) => {
-                for (const item of getItems()) {
-                    const trigger = item.querySelector('[data-reveal-trigger]');
-                    const isOpen = item.getAttribute('data-open') === 'true';
-                    if (
-                        !(trigger instanceof HTMLButtonElement) ||
-                        isOpen === open
-                    ) {
-                        continue;
-                    }
-                    trigger.click();
-                }
-            };
-
-            expandAllButton.addEventListener('click', () => {
-                setAll(true);
-            });
-
-            collapseAllButton.addEventListener('click', () => {
-                setAll(false);
-            });
-        })();
-    </script>
 </div>

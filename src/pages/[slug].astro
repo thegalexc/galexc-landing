@@ -2,6 +2,7 @@
 import ArchitectureOverviewPage from '../components/content-pages/ArchitectureOverviewPage.astro';
 import ComparisonLandscapePage from '../components/content-pages/ComparisonLandscapePage.astro';
 import ContentPageFooterNav from '../components/content-pages/ContentPageFooterNav.astro';
+import FaqsPage from '../components/content-pages/FaqsPage.astro';
 import InspirationPage from '../components/content-pages/InspirationPage.astro';
 import OperatorModelPage from '../components/content-pages/OperatorModelPage.astro';
 import PublicSiteNav from '../components/PublicSiteNav.astro';
@@ -29,6 +30,7 @@ const adjacent = getAdjacentContent(page.slug);
 
 const pageComponents = {
     'what-is-galexc': WhatIsGalexCPage,
+    faqs: FaqsPage,
     inspiration: InspirationPage,
     'architecture-overview': ArchitectureOverviewPage,
     'operator-model': OperatorModelPage,

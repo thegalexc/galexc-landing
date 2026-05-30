@@ -51,6 +51,24 @@ export const navGroups: NavGroup[] = [
                 ],
             },
             {
+                slug: 'faqs',
+                label: 'FAQs',
+                blurb: 'Frequently asked questions about GalexC, who it is for, and how to get started.',
+                eyebrow: 'Foundations',
+                summary:
+                    'A running list of the questions people most often ask about GalexC, from origin and intent to access, audience, and tech-stack posture.',
+                sections: [
+                    {
+                        title: 'Origin and intent',
+                        body: 'Where the name comes from, who this is built for, and why it exists at all.',
+                    },
+                    {
+                        title: 'Practical access',
+                        body: 'How to get hands on it, what the starter pack actually is, and what to expect from the stack.',
+                    },
+                ],
+            },
+            {
                 slug: 'comparison-landscape',
                 label: 'Comparisons',
                 blurb: 'A framework for comparing GalexC with Hermes, Claude Code, OpenClaw, and adjacent agentic systems.',
