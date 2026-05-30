@@ -111,54 +111,11 @@ export const navGroups: NavGroup[] = [
                     },
                 ],
             },
-        ],
-    },
-    {
-        id: 'principles',
-        title: 'Principles',
-        intro: 'The taste and interaction doctrine behind the product.',
-        items: [
-            {
-                slug: 'design-philosophy',
-                label: 'Design philosophy',
-                blurb: 'Why the surface should feel more like an authored publication than a standard app shell.',
-                eyebrow: 'Principles',
-                summary:
-                    'The current lander already hints at the right direction: a warm editorial canvas, restrained accents, and quiet motion. The expanded site should preserve that authored feeling even as the information architecture gets richer.',
-                sections: [
-                    {
-                        title: 'Editorial over dashboard',
-                        body: 'Navigation should feel like a table of contents, chapter index, or marginal note. It should not feel like a SaaS pricing site with a menu bolted on top.',
-                    },
-                    {
-                        title: 'Room for thought',
-                        body: 'Generous spacing is not decorative here. It is part of the product stance. The page should suggest reflection and confidence rather than urgency.',
-                    },
-                ],
-            },
-            {
-                slug: 'interaction-notes',
-                label: 'Interaction notes',
-                blurb: 'Motion, disclosure, and rhythm choices that make the system feel calm rather than app-like.',
-                eyebrow: 'Principles',
-                summary:
-                    'The reveal pattern is one of the strongest existing design cues. Expanding, unfolding, and disclosing are better verbs for GalexC than sliding, stacking, or snapping.',
-                sections: [
-                    {
-                        title: 'Reveal as language',
-                        body: 'A disclosure system works well because it matches the idea of opening a notebook or archive. It also scales naturally to grouped navigation and optional detail.',
-                    },
-                    {
-                        title: 'Restraint',
-                        body: 'The motion system should remain subtle. A page that is meant to convey trust and authorship should never feel over-animated.',
-                    },
-                ],
-            },
             {
                 slug: 'inspiration',
                 label: 'Inspiration',
                 blurb: 'The foundational inspiration behind GalexC, from access to tools to access to agency.',
-                eyebrow: 'Principles',
+                eyebrow: 'System',
                 summary:
                     'GalexC should help a person think and operate with more continuity. This page captures the underlying inspiration: not replacing judgment, but building an AI environment that respects constraints, keeps context intact, and rewards deliberate use.',
                 sections: [
