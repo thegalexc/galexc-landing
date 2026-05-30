@@ -2,32 +2,32 @@
 import ArchitectureSeamDiagram from '../graphics/ArchitectureSeamDiagram.astro';
 import ContentPageHero from './ContentPageHero.astro';
 
-const facts = ['Start from a seed', 'Own the fork', 'Replace with intent'];
+const facts = ['Seed first', 'Own the fork', 'Change with intent'];
 
 const layers = [
     {
         title: 'Seed system',
-        body: 'GalexC begins with a working base, currently galexc-starter-pack and likely soon galexc-seed. It gives you a coherent operating idea and a live environment on day one rather than asking you to assemble every primitive yourself.',
+        body: 'GalexC begins with a working base, currently galexc-starter-pack and likely soon galexc-seed. The point is to start from a coherent operating model that already works, not to assemble every primitive from scratch before you can learn anything useful.',
         tags: ['coherent base', 'working day one', 'teachable'],
     },
     {
         title: 'Interaction surfaces',
-        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious interface between the operator and the system.',
+        body: 'Durable sessions, tasks, async dispatch, scheduled work, workstation Pi, and intercom create the first serious interface between the operator and the system. This is where the architecture stops being abstract and becomes a usable practice.',
         tags: ['live shaping', 'workflow control', 'reviewable'],
     },
     {
         title: 'Supporting services',
-        body: 'Storage, search, routing, notifications, and background services keep context intact and make long-running work observable instead of opaque.',
+        body: 'Storage, search, routing, notifications, and background services keep context intact and make long-running work observable instead of opaque. They exist so useful work does not collapse back into chat history and forgotten tabs.',
         tags: ['continuity', 'visibility', 'durable memory'],
     },
     {
         title: 'Replaceable internals',
-        body: 'Postgres, Python services, schedulers, and other implementation choices are defaults, not dogma. The system is meant to tolerate real substitution.',
+        body: 'Postgres, Python services, schedulers, and other implementation choices are defaults, not dogma. They matter because they work, not because they are sacred.',
         tags: ['replaceable', 'not sacred', 'operator choice'],
     },
     {
         title: 'Personal environment',
-        body: 'After the fork, the stack should stop feeling borrowed. It becomes your own professional-grade personal AI environment, shaped around your standards and cadence.',
+        body: 'After the fork, the stack should stop feeling borrowed. It becomes your own professional-grade personal AI environment, shaped around your standards, your workflows, and your cadence.',
         tags: ['your cadence', 'long-term ownership', 'compounding leverage'],
     },
 ];
@@ -135,7 +135,7 @@ const trustItems = [
     <ContentPageHero
         eyebrow="System"
         title="Architecture overview"
-        lede="GalexC starts from a seed system that already knows how to route work, preserve context, run background execution, and return outputs through review. Today that seed is galexc-starter-pack and likely soon galexc-seed. The important point is not the exact stack. The important point is that you begin with a coherent operating model, then take full ownership and reshape the system around your own needs."
+        lede="GalexC starts from a seed system that already knows how to route work, preserve context, run background execution, and return outputs through review. Today that seed is galexc-starter-pack and likely soon galexc-seed. The important point is not the exact stack. The important point is that you begin with a coherent operating model, learn it by using it, and then reshape it around your own needs."
     >
         <ul
             slot="aside"
