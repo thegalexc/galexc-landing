@@ -107,7 +107,7 @@ export const navGroups: NavGroup[] = [
                     },
                     {
                         title: 'Owned evolution',
-                        body: 'After you fork it, the system is yours. GalexC is not meant to be maintained like traditional software where everyone waits on a central vendor to bless each change. The seed includes patterns for upkeep, like weekly version checks, cleanup sweeps for expertise files, and other maintenance loops that your own AI can help carry forward. You can also tap into my learnings and features through Parley if you want, but that is optional by design. The architecture is supposed to support real ownership, including the freedom to ignore pieces that do not fit.',
+                        body: 'After you fork it, the system is yours. GalexC is not meant to be maintained like traditional software where everyone waits on a central vendor to bless each change. The seed includes patterns for upkeep, like weekly version checks, cleanup sweeps for expertise files, and other maintenance loops that your own AI can help carry forward. You can also tap into my learnings and features through Parle if you want, but that is optional by design. The architecture is supposed to support real ownership, including the freedom to ignore pieces that do not fit.',
                     },
                 ],
             },
@@ -125,7 +125,7 @@ export const navGroups: NavGroup[] = [
                     },
                     {
                         title: 'Your cadence, not mine',
-                        body: "Once the system is yours, the goal is not to keep matching Gilman's preferred setup forever. The goal is to arrive at a professional-grade personal AI that reflects your own preferences, constraints, and standards. Maybe you rely heavily on scheduled sweeps and background jobs. Maybe you keep things more manual. Maybe you use Parley to inherit ideas and capabilities. Maybe you ignore it entirely. That flexibility is central. The operator model only works if the system can become meaningfully personal without losing rigor.",
+                        body: "Once the system is yours, the goal is not to keep matching Gilman's preferred setup forever. The goal is to arrive at a professional-grade personal AI that reflects your own preferences, constraints, and standards. Maybe you rely heavily on scheduled sweeps and background jobs. Maybe you keep things more manual. Maybe you use Parle to inherit ideas and capabilities. Maybe you ignore it entirely. That flexibility is central. The operator model only works if the system can become meaningfully personal without losing rigor.",
                     },
                 ],
             },
