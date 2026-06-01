@@ -54,7 +54,7 @@ Prefer file-scoped Prettier runs over repo-wide formatting when making targeted 
 - D1 binding `DB`
 - KV binding `RATE_LIMIT`
 - encrypted secrets in `secrets/github.env` and `secrets/github-preview.env`
-- Forgejo secret `SOPS_AGE_KEY` for CI decryption
+- CI secret `SOPS_AGE_KEY` for decryption
 
 Runtime env expected by the app:
 
@@ -91,7 +91,7 @@ To verify local decryption works:
 just env-check secrets/github.env
 ```
 
-CI decrypts these files with the Forgejo secret `SOPS_AGE_KEY` and uploads worker runtime secrets from the decrypted values during deploy.
+CI decrypts these files with the `SOPS_AGE_KEY` secret and uploads worker runtime secrets from the decrypted values during deploy.
 
 ## Database
 
@@ -107,9 +107,20 @@ pnpm exec wrangler d1 migrations apply DB --remote
 
 ## Deploy
 
-Push to Forgejo.
+Push to GitHub.
 
+- GitHub Actions are the canonical deploy path on push.
+- Forgejo deploy workflows are left as manual-only `workflow_dispatch` fallbacks.
 - `main` deploys the single production Worker `galexc-landing` with custom domains for `galexc.net` and `www.galexc.net`.
 - `feat/*` and `agent/*` branches upload preview versions onto that same Worker instead of creating separate preview Workers.
 - Preview versions get preview URLs on `workers.dev`, including a stable branch alias when available.
 - Preview deployments run with `PREVIEW_MODE=true`, disable public submissions and admin/auth routes, and are safe for design and content review without touching production flows.
+
+For GitHub-hosted deploys, configure these repository secrets:
+
+- `SOPS_AGE_KEY`
+
+The main landing deploy reads Cloudflare credentials from the encrypted SOPS env files. The extra GitHub secrets below are only needed for the PostHog proxy workflow:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
