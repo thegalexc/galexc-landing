@@ -1,0 +1,261 @@
+---
+import ContentPageHero from './ContentPageHero.astro';
+
+const ceilingCards = [
+    {
+        label: 'Capacity',
+        reality:
+            'ChatGPT stores roughly 1,200 words of memory. Claude caps auto-loaded memory at 200 lines. Useful, yes. But these are post-it notes, not a professional knowledge base.',
+    },
+    {
+        label: 'Depth',
+        reality:
+            'They know your name and your language preference. They do not know why your team made the architectural decision it made last quarter, or how your deploy process actually works.',
+    },
+    {
+        label: 'Staleness',
+        reality:
+            'Memory that worked last month becomes confidently wrong when your circumstances change. Even leading memory frameworks acknowledge this as unsolved at scale.',
+    },
+    {
+        label: 'Portability',
+        reality:
+            'Your memories belong to the platform. When users demanded exports in early 2026, the data they got was practically unusable anywhere else. The more you invest, the harder it is to leave.',
+    },
+];
+---
+
+<div class="grid gap-10 md:gap-12">
+    <ContentPageHero eyebrow="The problem">
+        <Fragment slot="title">AI that isn't yours.</Fragment>
+    </ContentPageHero>
+
+    <!-- Opening: the personal frustration -->
+    <section class="max-w-[46rem]">
+        <div class="grid gap-5 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                You use AI every day. It helps you write, think, debug, and
+                move faster. It is genuinely useful. But at the end of a long
+                day of working alongside the most powerful technology you have
+                ever touched -- it does not know you any better than it did
+                yesterday.
+            </p>
+            <p class="m-0">
+                It does not know your codebase, your business, your team, or
+                the way you think. It cannot, because it was built to serve
+                everyone. And an AI that serves everyone cannot go deep for
+                anyone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Beat 1: The personalization ceiling -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+    >
+        <div class="grid max-w-[44rem] gap-2.5">
+            <p class="eyebrow">The ceiling</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                Memory is not understanding.
+            </h2>
+            <p class="m-0 text-[#5b4f43] leading-relaxed max-w-[46rem]">
+                The platforms are getting better at remembering you. ChatGPT
+                has memory and projects. Claude synthesizes context across
+                conversations. Third-party tools like Mem0 add persistence to
+                almost any model. This is real progress. But there is a ceiling,
+                and it is lower than it looks.
+            </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+            {
+                ceilingCards.map((item) => (
+                    <article class="grid gap-2 rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.44)] p-5">
+                        <h3 class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
+                            {item.label}
+                        </h3>
+                        <p class="m-0 text-[#4f4438] leading-relaxed">
+                            {item.reality}
+                        </p>
+                    </article>
+                ))
+            }
+        </div>
+        <aside
+            class="grid max-w-[46rem] gap-2 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5 mt-2"
+        >
+            <p class="m-0 text-base leading-[1.8] text-[#564a3f]">
+                The difference between "recalls a fact about you" and "deeply
+                understands your work" is not a feature gap. It is an
+                architecture gap. These platforms were built to serve millions
+                of people well. They were not built to go
+                deep for one person. And that is exactly what a professional
+                needs.
+            </p>
+        </aside>
+    </section>
+
+    <!-- Beat 2: The depth you're missing -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">The gap</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                Think about what your AI has never seen.
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                Five years of notes. Your email archive. Your draft documents,
+                your internal wikis, your Slack threads. The decisions your team
+                made last quarter and the reasoning behind them. The patterns in
+                how you actually work -- not what you told a chat window once,
+                but the full texture of your professional life.
+            </p>
+            <p class="m-0">
+                A professional-grade AI should know these things. It should
+                understand the context behind your questions, not just the
+                questions themselves. It should build on last month's work
+                instead of starting fresh. It should get meaningfully better the
+                more you use it -- not just at recalling facts, but at
+                understanding what matters to you and why.
+            </p>
+            <p class="m-0">
+                Power users of today's AI consistently describe the experience
+                the same way: "meeting a stranger who has read a few notes
+                about you." The recall is there. The understanding is not. And
+                for serious professional work, the understanding is what counts.
+            </p>
+        </div>
+    </section>
+
+    <!-- Beat 3: Ownership and trust -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">The tradeoff you shouldn't have to make</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                The deeper you go, the more ownership matters.
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                The more personal your AI becomes -- the more it knows about
+                your work, your decisions, your domain -- the more it matters
+                who controls that knowledge. Today, the answer is: not you.
+            </p>
+            <p class="m-0">
+                Your memories live on someone else's servers. Your context is
+                governed by someone else's retention policies. If you pay for a
+                consumer tier, your conversations may train their next model by
+                default. Enterprise agreements offer real protections, but they
+                are policies you negotiate, not properties of the system you
+                own. And every month you invest in one platform makes the next
+                one harder to reach.
+            </p>
+            <p class="m-0">
+                For a personal AI that actually works at a professional grade --
+                one that holds your institutional knowledge, your decision
+                history, your domain expertise -- "trust us" is not a good
+                enough answer. You need architecture that makes the question
+                irrelevant. Your data, on your infrastructure, under your
+                control. Not because the providers are bad actors. Because for
+                work that matters, ownership is not optional.
+            </p>
+        </div>
+    </section>
+
+    <!-- The landscape -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">The landscape</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                There are tools that promise this. Most of them are not it.
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                The open-source AI space is moving fast. Agent runtimes like
+                OpenClaw and self-improving harnesses like Hermes are genuinely
+                impressive -- open, model-agnostic, and capable. Frameworks like
+                Letta bring real stateful agent infrastructure. These tools are
+                worth knowing about.
+            </p>
+            <p class="m-0">
+                But a runtime is not a system. A harness is not an environment.
+                And an agent that can execute tasks is not the same thing as a
+                professional-grade AI that holds durable state, runs background
+                work, gives you structured review surfaces, and connects
+                securely to other nodes when you are ready for that.
+            </p>
+            <p class="m-0">
+                Most of these tools give you a powerful engine and leave you to
+                build the car. You wire up the database, the notifications, the
+                search, the UI, the coordination layer. Some users enjoy that
+                assembly. But for a professional who needs a system that works
+                on day one and compounds from there, assembly is not the point.
+                The point is the work.
+            </p>
+        </div>
+    </section>
+
+    <!-- The turn -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">The alternative</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                What if your AI was actually yours?
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                Not a runtime you configure. A system you own. An opinionated
+                seed -- durable state, async execution, review surfaces,
+                notifications, search -- that works on day one and is designed
+                to be forked, reshaped, and made entirely yours.
+            </p>
+            <p class="m-0">
+                Your knowledge base, your history, your patterns -- with no
+                ceiling on how deep the understanding can go. Not 1,200 words
+                of memory. The whole picture.
+            </p>
+            <p class="m-0">
+                Model agnostic. Use the best frontier model when the task
+                demands it. Run local when nothing should leave the building.
+                Switch providers without losing anything. The privacy is not a
+                policy you negotiate -- it is how the system works.
+            </p>
+            <p class="m-0">
+                Transparent at every layer. No black boxes, no telemetry you
+                did not opt into, no hosted backend you cannot inspect. Every
+                piece of state, every decision, every interaction -- yours to
+                read, yours to understand, yours to change.
+            </p>
+            <p class="m-0">
+                Professional-grade. Built for serious work by someone doing
+                serious work. And when you are ready, your node connects to
+                other nodes -- your team, your org, your collaborators --
+                through a secure channel that keeps what is personal personal
+                and what is shared shared.
+            </p>
+            <p class="m-0">
+                That is what GalexC is.
+            </p>
+        </div>
+    </section>
+</div>

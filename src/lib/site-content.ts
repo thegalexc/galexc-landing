@@ -33,6 +33,28 @@ export const navGroups: NavGroup[] = [
         intro: 'The frame for what GalexC is trying to be.',
         items: [
             {
+                slug: 'the-problem',
+                label: 'The problem',
+                blurb: 'The AI you use today is everyone else\'s. It cannot personalize deeply, it does not compound for you, and your expertise leaks into someone else\'s product.',
+                eyebrow: 'Foundations',
+                summary:
+                    'Shared AI resets every session, optimizes for the average user, and turns your domain knowledge into training data for everyone. GalexC exists because AI should compound for you, not despite you.',
+                sections: [
+                    {
+                        title: 'The daily reset',
+                        body: 'Shared AI cannot truly personalize. It forgets your context, your preferences, your domain -- every session starts from zero.',
+                    },
+                    {
+                        title: 'The invisible cost',
+                        body: 'Every prompt you send to a hosted service feeds your expertise into a shared model. You pay in dollars and in data.',
+                    },
+                    {
+                        title: 'The rental trap',
+                        body: 'AI that does not compound for you is a rental. Six months of use and it still does not know your name.',
+                    },
+                ],
+            },
+            {
                 slug: 'what-is-galexc',
                 label: 'What is GalexC?',
                 blurb: 'A personal AI environment designed to feel durable, operator-friendly, and deeply owned.',

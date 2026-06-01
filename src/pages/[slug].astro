@@ -6,6 +6,7 @@ import FaqsPage from '../components/content-pages/FaqsPage.astro';
 import InspirationPage from '../components/content-pages/InspirationPage.astro';
 import OperatorModelPage from '../components/content-pages/OperatorModelPage.astro';
 import PublicSiteNav from '../components/PublicSiteNav.astro';
+import TheProblemPage from '../components/content-pages/TheProblemPage.astro';
 import WhatIsGalexCPage from '../components/content-pages/WhatIsGalexCPage.astro';
 import Layout from '../layouts/Layout.astro';
 import {
@@ -29,6 +30,7 @@ const { page } = Astro.props as { page: NavItem };
 const adjacent = getAdjacentContent(page.slug);
 
 const pageComponents = {
+    'the-problem': TheProblemPage,
     'what-is-galexc': WhatIsGalexCPage,
     faqs: FaqsPage,
     inspiration: InspirationPage,
