@@ -1,14 +1,118 @@
 ---
+import ContentPageHero from './ContentPageHero.astro';
+
+const capabilities = [
+    {
+        label: 'Durable state',
+        what: 'Your AI holds context across sessions, across days, across months. Nothing dissolves into chat history. What it learns, it keeps.',
+    },
+    {
+        label: 'Background execution',
+        what: 'Work runs while you sleep. Async jobs, scheduled tasks, bounded agents -- they execute, write state, and wait for your review.',
+    },
+    {
+        label: 'Review surfaces',
+        what: 'Nothing ships without your eyes on it. A dedicated interface for reviewing what your AI did, approving what matters, and catching what does not.',
+    },
+    {
+        label: 'Search and retrieval',
+        what: 'Everything you feed the system becomes retrievable. Your docs, your notes, your history -- indexed and queryable, not buried in scrollback.',
+    },
+    {
+        label: 'Model agnostic',
+        what: 'Use frontier models when you need the best reasoning. Run local when nothing should leave the building. Switch providers without losing a thing.',
+    },
+    {
+        label: 'Secure by architecture',
+        what: 'Privacy is not a policy toggle. Your data lives on your infrastructure, governed by your rules. There is no hosted backend you cannot inspect.',
+    },
+];
+
 const objectives = [
-    "Build an AI system around one person's actual needs.",
-    'Use AI deeply without giving up ownership.',
-    'Start from a seed that can become fully your own.',
-    'Do serious work in a way that still feels playful and satisfying.',
+    'Build an AI system around one person\'s actual needs -- not the average of a million users.',
+    'Use AI at depth without giving up ownership of your data, your context, or your infrastructure.',
+    'Start from a working system that you fork and make entirely your own.',
+    'Do serious, professional-grade work in a way that still feels playful and deeply satisfying.',
 ];
 ---
 
-<div class="grid gap-10">
-    <section class="grid gap-8">
+<div class="grid gap-10 md:gap-12">
+    <ContentPageHero eyebrow="GalexC">
+        <Fragment slot="title">Your AI. For real this time.</Fragment>
+    </ContentPageHero>
+
+    <!-- Opening: validate, don't explain -->
+    <section class="max-w-[46rem]">
+        <div class="grid gap-5 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                You have already tried the tools. Some of them are genuinely
+                good. But you have noticed that no single tool -- no matter
+                how capable -- adds up to a system that deeply knows your
+                work, holds your context over time, and compounds for you the
+                way a professional environment should.
+            </p>
+            <p class="m-0">
+                GalexC exists because we noticed the same thing. It is a
+                complete, working AI environment built for technical
+                professionals who expect their tools to go as deep as their
+                work demands.
+            </p>
+        </div>
+    </section>
+
+    <!-- Objectives: the meat, immediately -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+    >
+        <div class="grid gap-2.5 max-w-[44rem]">
+            <p class="eyebrow">Objectives</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                What GalexC is trying to be.
+            </h2>
+        </div>
+        <ol class="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
+            {
+                objectives.map((objective, index) => (
+                    <li class="group relative grid gap-3 rounded-2xl border border-stone-400/14 bg-white/40 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-[rgba(21,74,122,0.2)] hover:shadow-[0_14px_30px_rgba(43,36,29,0.06),inset_0_1px_0_rgba(255,255,255,0.6)]">
+                        <header class="flex items-baseline justify-between gap-2">
+                            <span class="font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
+                                {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span
+                                aria-hidden="true"
+                                class="block h-px w-10 bg-[rgba(120,113,108,0.22)] transition-colors duration-300 group-hover:bg-[rgba(21,74,122,0.32)]"
+                            />
+                        </header>
+                        <p class="m-0 leading-relaxed text-[#4f4438]">
+                            {objective}
+                        </p>
+                    </li>
+                ))
+            }
+        </ol>
+
+        <aside
+            class="grid max-w-[46rem] gap-2 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
+        >
+            <p
+                class="m-0 font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.18em] text-[#154a7a] uppercase"
+            >
+                Why bother
+            </p>
+            <p class="m-0 text-base leading-[1.8] text-[#564a3f]">
+                If GalexC achieves its objectives, it could make room for better
+                work, better decisions, and a better way of moving through the
+                digital world. If it never becomes more than what it is today, a
+                personal project that has been genuinely, deeply fun to build, I
+                count this as a success.
+            </p>
+        </aside>
+    </section>
+
+    <!-- The one-liner: punctuation after objectives -->
+    <section>
         <figure
             class="relative grid justify-items-center gap-5 overflow-hidden rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.5),rgba(251,247,241,0.52)),repeating-linear-gradient(180deg,rgba(120,113,108,0.038)_0,rgba(120,113,108,0.038)_1px,transparent_1px,transparent_33px)] px-6 py-10 text-center shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.62)] md:px-10 md:py-14"
         >
@@ -32,7 +136,7 @@ const objectives = [
                     class="m-0 text-[clamp(2.2rem,3.8vw,3rem)] leading-none text-[#2b241d] [text-wrap:balance]"
                     style="font-family: 'Cormorant Garamond', serif;"
                 >
-                    GalexC is Professional-Grade Personal AI
+                    Professional-grade personal AI.
                 </p>
             </blockquote>
 
@@ -40,53 +144,76 @@ const objectives = [
                 aria-hidden="true"
                 class="block h-px w-32 bg-[rgba(21,74,122,0.3)]"></span>
         </figure>
+    </section>
 
-        <div class="grid gap-4 border-t border-stone-400/14 pt-6">
-            <div
-                class="flex max-w-[46rem] items-end justify-between gap-3 border-b border-stone-400/12 pb-2.5"
+    <!-- What it actually does: just enough to believe -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+    >
+        <div class="grid max-w-[44rem] gap-2.5">
+            <p class="eyebrow">What you get</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
             >
-                <p class="eyebrow">Objectives</p>
-            </div>
-
-            <ol class="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
-                {
-                    objectives.map((objective, index) => (
-                        <li class="group relative grid gap-3 rounded-2xl border border-stone-400/14 bg-white/40 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-[rgba(21,74,122,0.2)] hover:shadow-[0_14px_30px_rgba(43,36,29,0.06),inset_0_1px_0_rgba(255,255,255,0.6)]">
-                            <header class="flex items-baseline justify-between gap-2">
-                                <span class="font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
-                                    {String(index + 1).padStart(2, '0')}
-                                </span>
-                                <span
-                                    aria-hidden="true"
-                                    class="block h-px w-10 bg-[rgba(120,113,108,0.22)] transition-colors duration-300 group-hover:bg-[rgba(21,74,122,0.32)]"
-                                />
-                            </header>
-                            <p class="m-0 leading-relaxed text-[#4f4438]">
-                                {objective}
-                            </p>
-                        </li>
-                    ))
-                }
-            </ol>
+                A system, not a feature.
+            </h2>
+            <p class="m-0 text-[#5b4f43] leading-relaxed max-w-[46rem]">
+                GalexC is not one capability. It is the wiring between many
+                capabilities -- designed so that they compound for you over
+                time.
+            </p>
         </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {
+                capabilities.map((item) => (
+                    <article class="grid gap-2 rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.44)] p-5">
+                        <h3 class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
+                            {item.label}
+                        </h3>
+                        <p class="m-0 text-[#4f4438] leading-relaxed">
+                            {item.what}
+                        </p>
+                    </article>
+                ))
+            }
+        </div>
+    </section>
 
-        <aside
-            class="grid max-w-[46rem] gap-2 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5"
-        >
-            <p
-                class="m-0 font-['IBM_Plex_Mono',monospace] text-[0.6rem] tracking-[0.18em] text-[#154a7a] uppercase"
+    <!-- The seed: how you get it -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">The seed</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
             >
-                Why bother
+                You do not sign up. You fork it.
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                GalexC ships as a seed -- an opinionated, working system that
+                you take ownership of from day one. It is not a SaaS you
+                subscribe to. It is not a platform that holds your data. You
+                fork it, you run it on your infrastructure, and you shape it
+                around your work.
             </p>
-            <p class="m-0 text-base leading-[1.8] text-[#564a3f]">
-                If GalexC achieves its objectives, it could make room for better
-                work, better decisions, and a better way of moving through the
-                digital world. If it never becomes more than what it is today, a
-                personal project that has been genuinely, deeply fun to build, I
-                count this as a success.
+            <p class="m-0">
+                The seed is opinionated because it was built by someone doing
+                real work with it every day. But the opinions are a starting
+                point, not a constraint. Swap the database. Change the
+                scheduling model. Rebuild services in your language of choice.
+                Prefer a different agent harness? Use it -- GalexC is the
+                system around the harness, not the harness itself. The
+                architecture is designed for deliberate divergence -- you start
+                from something that works and make it yours.
             </p>
-        </aside>
+        </div>
+    </section>
 
+    <!-- The posture: keep Gilman's split -->
+    <section class="border-t border-t-[rgba(120,113,108,0.14)] pt-6">
         <div
             class="grid grid-cols-1 overflow-hidden rounded-[1.35rem_0.95rem_1.15rem_0.92rem] border border-stone-400/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.46),rgba(251,247,241,0.42))] shadow-[0_10px_28px_rgba(43,36,29,0.04),inset_0_1px_0_rgba(255,255,255,0.6)] sm:grid-cols-2"
         >
@@ -120,6 +247,59 @@ const objectives = [
                     Professional grade.
                 </p>
             </div>
+        </div>
+    </section>
+
+    <!-- Network tease -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">What comes next</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                Your node connects.
+            </h2>
+        </div>
+        <p class="m-0 text-lg leading-[1.8] text-[#4f4438]">
+            GalexC starts as your personal AI. But it does not have to stay
+            solo. When you are ready, your node connects to other nodes --
+            your team, your org, your collaborators -- through a secure
+            channel that keeps what is personal personal and what is shared
+            shared. Your AI becomes part of something larger without losing
+            what makes it yours.
+        </p>
+    </section>
+
+    <!-- The gate -->
+    <section
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
+    >
+        <div class="grid gap-2.5">
+            <p class="eyebrow">Access</p>
+            <h2
+                class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
+            >
+                Invite only.
+            </h2>
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
+                GalexC is not generally available. It is currently offered on
+                an individual, case-by-case basis to technical professionals
+                who are serious about owning their AI infrastructure. If this
+                resonates with the way you think about your work, request
+                access.
+            </p>
+        </div>
+        <div class="mt-2">
+            <a
+                class="inline-block rounded-2xl border border-[rgba(21,74,122,0.22)] bg-[rgba(21,74,122,0.06)] px-6 py-3 font-[IBM_Plex_Mono,monospace] text-[0.72rem] tracking-[0.16em] text-[#154a7a] uppercase no-underline transition-[background,border-color,transform] duration-200 ease-out hover:-translate-y-px hover:border-[rgba(21,74,122,0.35)] hover:bg-[rgba(21,74,122,0.1)]"
+                href="/?waitlist=open"
+            >
+                Request access
+            </a>
         </div>
     </section>
 </div>

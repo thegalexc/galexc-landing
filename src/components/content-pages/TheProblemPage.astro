@@ -1,28 +1,5 @@
 ---
 import ContentPageHero from './ContentPageHero.astro';
-
-const ceilingCards = [
-    {
-        label: 'Capacity',
-        reality:
-            'ChatGPT stores roughly 1,200 words of memory. Claude caps auto-loaded memory at 200 lines. Useful, yes. But these are post-it notes, not a professional knowledge base.',
-    },
-    {
-        label: 'Depth',
-        reality:
-            'They know your name and your language preference. They do not know why your team made the architectural decision it made last quarter, or how your deploy process actually works.',
-    },
-    {
-        label: 'Staleness',
-        reality:
-            'Memory that worked last month becomes confidently wrong when your circumstances change. Even leading memory frameworks acknowledge this as unsolved at scale.',
-    },
-    {
-        label: 'Portability',
-        reality:
-            'Your memories belong to the platform. When users demanded exports in early 2026, the data they got was practically unusable anywhere else. The more you invest, the harder it is to leave.',
-    },
-];
 ---
 
 <div class="grid gap-10 md:gap-12">
@@ -49,51 +26,37 @@ const ceilingCards = [
         </div>
     </section>
 
-    <!-- Beat 1: The personalization ceiling -->
+    <!-- Beat 1: The personalization ceiling (compressed) -->
     <section
-        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6"
+        class="grid gap-5 border-t border-t-[rgba(120,113,108,0.14)] pt-6 max-w-[46rem]"
     >
-        <div class="grid max-w-[44rem] gap-2.5">
+        <div class="grid gap-2.5">
             <p class="eyebrow">The ceiling</p>
             <h2
                 class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
             >
                 Memory is not understanding.
             </h2>
-            <p class="m-0 text-[#5b4f43] leading-relaxed max-w-[46rem]">
+        </div>
+        <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
+            <p class="m-0">
                 The platforms are getting better at remembering you. ChatGPT
                 has memory and projects. Claude synthesizes context across
                 conversations. Third-party tools like Mem0 add persistence to
-                almost any model. This is real progress. But there is a ceiling,
-                and it is lower than it looks.
+                almost any model. This is real progress -- and the memory
+                problem is solvable. But today, your memories belong to the
+                platform. When users demanded exports in early 2026, the data
+                they got was practically unusable anywhere else. The more you
+                invest, the harder it is to leave.
             </p>
-        </div>
-        <div class="grid gap-4 md:grid-cols-2">
-            {
-                ceilingCards.map((item) => (
-                    <article class="grid gap-2 rounded-[1.2rem] border border-[rgba(120,113,108,0.14)] bg-[rgba(255,252,247,0.44)] p-5">
-                        <h3 class="m-0 font-[IBM_Plex_Mono,monospace] text-[0.68rem] tracking-[0.18em] text-[#7a6d60] uppercase">
-                            {item.label}
-                        </h3>
-                        <p class="m-0 text-[#4f4438] leading-relaxed">
-                            {item.reality}
-                        </p>
-                    </article>
-                ))
-            }
-        </div>
-        <aside
-            class="grid max-w-[46rem] gap-2 border-l-2 border-l-[rgba(21,74,122,0.18)] pl-5 mt-2"
-        >
-            <p class="m-0 text-base leading-[1.8] text-[#564a3f]">
+            <p class="m-0">
                 The difference between "recalls a fact about you" and "deeply
                 understands your work" is not a feature gap. It is an
                 architecture gap. These platforms were built to serve millions
-                of people well. They were not built to go
-                deep for one person. And that is exactly what a professional
-                needs.
+                of people well. They were not built to go deep for one person.
+                And that is exactly what a professional needs.
             </p>
-        </aside>
+        </div>
     </section>
 
     <!-- Beat 2: The depth you're missing -->
@@ -181,7 +144,7 @@ const ceilingCards = [
             <h2
                 class="m-0 font-[Cormorant_Garamond,serif] text-[clamp(1.9rem,3vw,2.55rem)] leading-[0.98] text-[#2b241d]"
             >
-                There are tools that promise this. Most of them are not it.
+                There are good tools out there. They solve part of it.
             </h2>
         </div>
         <div class="grid gap-4 text-lg leading-[1.8] text-[#4f4438]">
@@ -190,22 +153,18 @@ const ceilingCards = [
                 OpenClaw and self-improving harnesses like Hermes are genuinely
                 impressive -- open, model-agnostic, and capable. Frameworks like
                 Letta bring real stateful agent infrastructure. These tools are
-                worth knowing about.
+                worth knowing about. And GalexC can work alongside them -- if
+                one of those harnesses is what you prefer, you can use it
+                instead of or in addition to what the seed ships with.
             </p>
             <p class="m-0">
-                But a runtime is not a system. A harness is not an environment.
-                And an agent that can execute tasks is not the same thing as a
-                professional-grade AI that holds durable state, runs background
-                work, gives you structured review surfaces, and connects
-                securely to other nodes when you are ready for that.
-            </p>
-            <p class="m-0">
-                Most of these tools give you a powerful engine and leave you to
-                build the car. You wire up the database, the notifications, the
-                search, the UI, the coordination layer. Some users enjoy that
-                assembly. But for a professional who needs a system that works
-                on day one and compounds from there, assembly is not the point.
-                The point is the work.
+                But individually, they are engines -- not cars. A runtime does
+                not give you durable state, review surfaces, background
+                execution, search, notifications, and secure coordination in
+                one working system. You wire that up yourself. Some people
+                enjoy that assembly. But for a professional who needs a system
+                that works on day one and compounds from there, assembly is not
+                the point. The point is the work.
             </p>
         </div>
     </section>
